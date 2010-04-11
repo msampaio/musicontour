@@ -25,3 +25,12 @@ def contours_count(contour, n):
     contour_type = list(set(tuples))
     counted_contours = [[x, tuples.count(x)] for x in contour_type]
     return sorted(counted_contours, key=lambda x: x[1], reverse=True)
+
+
+def kern_file_process(kern_file, voice='*Isoprn'):
+    command_1 = 'extract -i '
+    command_2 = ' | sed \'s/[12468.JL;]//g\''
+    command_3 = ' | freq | rid -GLId | egrep -v \"=|r\" | uniq'
+    space = ' '
+    command = command_1 + voice + space + kern_file + command_2 + command_3
+    return(getoutput(command))
