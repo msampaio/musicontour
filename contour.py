@@ -10,11 +10,11 @@ def contour_class(contour_list):
 
 
 def absolute_subsets(contour, n):
-    return [contour[i:i+n] for i in range((len(contour) - n))]
+    return [contour[i:i + n] for i in range((len(contour) - n))]
 
 
 def contour_subsets(contour, n):
-    return [contour_class(contour[i:n+i])
+    return [contour_class(contour[i:n + i])
             for i in range((len(contour) - n))]
 
 
@@ -25,4 +25,3 @@ def contours_count(contour, n):
     contour_type = list(set(tuples))
     counted_contours = [[x, tuples.count(x)] for x in contour_type]
     return sorted(counted_contours, key=lambda x: x[1], reverse=True)
-
