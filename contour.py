@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
+from commands import getoutput
 
 
 def contour_class(contour_list):
