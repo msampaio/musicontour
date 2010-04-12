@@ -6,7 +6,8 @@ import subprocess
 
 
 def merge(seq):
-    '''Merge Sequences.'''
+    """Merge Sequences."""
+
     merged = []
     for s in seq:
         for x in s:
@@ -15,25 +16,29 @@ def merge(seq):
 
 
 def contour_class(contour_list):
-    '''Returns the contour class of a given contour.'''
+    """Returns the contour class of a given contour."""
+
     sorted_contour = sorted(list(set(contour_list)))
     return [sorted_contour.index(x) for x in contour_list]
 
 
 def absolute_subsets(contour, n):
-    '''Returns adjacent n-elements subsets of a given contour.'''
+    """Returns adjacent n-elements subsets of a given contour."""
+
     return [contour[i:i + n] for i in range((len(contour) - (n - 1)))]
 
 
 def contour_subsets(contour, n):
-    '''Returns adjacent n-elements subsets of the contour class of a
-    given contour.'''
+    """Returns adjacent n-elements subsets of the contour class of a
+    given contour."""
+
     return [contour_class(contour[i:n + i])
             for i in range((len(contour) - (n - 1)))]
 
 
 def item_count(data):
-    '''Counts items in a list of lists'''
+    """Counts items in a list of lists"""
+
     sorted_subsets = sorted(data)
     tuples = [tuple(x) for x in sorted_subsets]
     contour_type = list(set(tuples))
@@ -42,7 +47,8 @@ def item_count(data):
 
 
 def contours_count(contour, n):
-    '''Counts contour subset classes with n elements.'''
+    """Counts contour subset classes with n elements."""
+
     sorted_subsets = sorted(contour_subsets(contour, n))
     tuples = [tuple(x) for x in sorted_subsets]
     contour_type = list(set(tuples))
@@ -51,7 +57,8 @@ def contours_count(contour, n):
 
 
 def kern_file_process(path, basename, voice='*Ibass'):
-    '''Outputs frequency values.'''
+    """Outputs frequency values."""
+
     cm1 = subprocess.Popen('extractx -i \'%s\' \"%s\"' % (voice,
                                                           path + basename + ".krn"),
                            stdout=subprocess.PIPE, shell=True)
@@ -88,13 +95,15 @@ def kern_file_process(path, basename, voice='*Ibass'):
 
 
 def freq_process(filename):
-    '''Outputs frequency in a list.'''
+    """Outputs frequency in a list."""
+
     lines = [float(l) for l in file(filename)]
     return lines
 
 
 def contour_class_file(path, file_name):
-    '''Outputs contours classes from a frequency file.'''
+    """Outputs contours classes from a frequency file."""
+
     complete_file = path + file_name
     frequency = freq_process(complete_file)
     contour_classes = contour_class(frequency)
@@ -102,15 +111,17 @@ def contour_class_file(path, file_name):
 
 
 def frequency_file_contour_count(path, file_name, contour_size):
-    '''Outputs counted contours in a frequency file.'''
+    """Outputs counted contours in a frequency file."""
+
     contour_classes = contour_class_file(path, file_name)[1]
     contour_counted = contours_count(contour_classes, contour_size)
     return file_name, contour_size, contour_counted
 
 
 def percent(list):
-    '''Outputs percentuals from a list like [[(1, 0), 10],
-    [(0, 1), 11]]'''
+    """Outputs percentuals from a list like [[(1, 0), 10],
+    [(0, 1), 11]]"""
+
     sigma = sum(x[1] for x in list)
     percent = [[n[0], "%.2f" % (float(n[1]) * 100 / sigma)]
                for n in list]
@@ -118,8 +129,9 @@ def percent(list):
 
 
 def count_contours_list_of_files(path, list_of_files, n):
-    '''Count contour types in a list of frequency files in a same
-    directory.'''
+    """Count contour types in a list of frequency files in a same
+    directory."""
+
     a = [contour_subsets(contour_class_file(path, file_name)[1], n)
          for file_name in list_of_files]
     b = merge(a)
@@ -128,6 +140,7 @@ def count_contours_list_of_files(path, list_of_files, n):
 
 
 def lists_printing(list):
-    '''Prints a list of two items lists.'''
+    """Prints a list of two items lists."""
+
     for n in list:
         print("%s - %s %%" % (n[0], n[1]))
