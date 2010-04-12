@@ -16,10 +16,13 @@ for k in $(ls $kern_dir)
 do
     n=${k%.krn}
     extractx -i '*Isoprn' $kern_dir/$k | \
-        sed 's/[12468.JLX;]//g' | \
+        sed 's/[12468.JLX;_]//g' | \
+        sed 's/\[//g' | \
+        sed 's/\]//g' | \
         freq | \
         rid -GLId | \
         egrep -v "=|r" | \
+        sed 's/k//g' | \
         uniq \
         > $freq_dir/$n.freq
 done
