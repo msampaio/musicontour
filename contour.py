@@ -6,15 +6,19 @@ import subprocess
 
 
 def contour_class(contour_list):
+    '''Returns the contour class of a given contour.'''
     sorted_contour = sorted(list(set(contour_list)))
     return [sorted_contour.index(x) for x in contour_list]
 
 
 def absolute_subsets(contour, n):
+    '''Returns adjacent n-elements subsets of a given contour.'''
     return [contour[i:i + n] for i in range((len(contour) - (n - 1)))]
 
 
 def contour_subsets(contour, n):
+    '''Returns adjacent n-elements subsets of the contour class of a
+    given contour.'''
     return [contour_class(contour[i:n + i])
             for i in range((len(contour) - (n - 1)))]
 
