@@ -1,0 +1,38 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[scaled]{beramono}
+\renewcommand*\familydefault{\ttdefault}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[a4paper,left=1cm,right=1cm,top=1cm,bottom=2cm]{geometry}
+
+\lstset{
+  language=Python,
+  extendedchars=false,
+  float,
+  showstringspaces=false,
+  %formfeed=\newpage,
+  tabsize=4,
+  commentstyle=\itshape,
+  basicstyle=\ttfamily,
+  %moredelim=[is][\underbar]{|}{|},
+  moredelim=[il][\large\textbf]{\#\# },
+  %morekeywords={lambda,defstructure,define-simple-class,iter,switch}
+}
+
+\newcommand{\code}[1]{
+  \textbf{\Large#1}\hrulefill\\
+  %\newpage
+}
+
+\begin{document}
+
+\lstinputlisting{../contour.py}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
