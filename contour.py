@@ -36,7 +36,7 @@ def kern_file_process(filename, voice='*Isoprn'):
     sed = subprocess.Popen('sed \'s/[12468.JL;]//g\'',
                            stdin=extract.stdout,
                            stdout=subprocess.PIPE, shell=True)
-    frequency = subprocess.Popen('midi', stdin=sed.stdout,
+    frequency = subprocess.Popen('freq', stdin=sed.stdout,
                                  stdout=subprocess.PIPE, shell=True)
     rid = subprocess.Popen('rid -GLId', stdin=frequency.stdout,
                                  stdout=subprocess.PIPE, shell=True)
