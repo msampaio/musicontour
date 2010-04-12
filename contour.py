@@ -51,3 +51,12 @@ def freq_process(filename):
     '''Outputs frequency in a list.'''
     lines = [float(l) for l in file(filename)]
     return lines
+
+
+def frequency_file_contour_count(path, file_name, contour_size):
+    '''Outputs counted contours in a frequency file.'''
+    complete_file = path + file_name
+    frequency = freq_process(complete_file)
+    contour_classes = contour_class(frequency)
+    contour_counted = contours_count(contour_classes, contour_size)
+    return file_name, contour_size, contour_counted
