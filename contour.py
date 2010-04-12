@@ -50,7 +50,6 @@ def contours_count(contour, n):
     return sorted(counted_contours, key=lambda x: x[1], reverse=True)
 
 
-
 def kern_file_process(path, basename, voice='*Ibass'):
     '''Outputs frequency values.'''
     cm1 = subprocess.Popen('extractx -i \'%s\' \"%s\"' % (voice,
@@ -78,7 +77,9 @@ def kern_file_process(path, basename, voice='*Ibass'):
                            stdout=subprocess.PIPE, shell=True)
     cm12 = subprocess.Popen('uniq', stdin=cm11.stdout,
                            stdout=subprocess.PIPE, shell=True)
-    cmd = cm12
+    cm13 = subprocess.Popen('sed \'/^$/d\'', stdin=cm12.stdout,
+                           stdout=subprocess.PIPE, shell=True)
+    cmd = cm13
     subprocess.Popen('mkdir -p /tmp/freq', shell=True)
     with open("/tmp/freq/" + basename + '.freq', "w") as g:
         print(cmd.stdout.read(), file=g)
