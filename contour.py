@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-from commands import getoutput
+import subprocess
 
 
 def contour_class(contour_list):
@@ -28,10 +28,20 @@ def contours_count(contour, n):
     return sorted(counted_contours, key=lambda x: x[1], reverse=True)
 
 
-def kern_file_process(kern_file, voice='*Isoprn'):
-    command_1 = 'extract -i '
-    command_2 = ' | sed \'s/[12468.JL;]//g\''
-    command_3 = ' | freq | rid -GLId | egrep -v \"=|r\" | uniq'
-    space = ' '
-    command = command_1 + voice + space + kern_file + command_2 + command_3
-    return(getoutput(command))
+def kern_file_process(filename, voice='*Isoprn'):
+    '''Outputs frequency values.'''
+    extract = subprocess.Popen('extractx -i %s %s'
+                               % (voice, filename),
+                               stdout=subprocess.PIPE, shell=True)
+    sed = subprocess.Popen('sed \'s/[12468.JL;]//g\'',
+                           stdin=extract.stdout,
+                           stdout=subprocess.PIPE, shell=True)
+    frequency = subprocess.Popen('midi', stdin=sed.stdout,
+                                 stdout=subprocess.PIPE, shell=True)
+    rid = subprocess.Popen('rid -GLId', stdin=frequency.stdout,
+                                 stdout=subprocess.PIPE, shell=True)
+    egrep = subprocess.Popen('egrep -v \"=|r\"', stdin=rid.stdout,
+                                 stdout=subprocess.PIPE, shell=True)
+    uniq = subprocess.Popen('uniq', stdin=egrep.stdout,
+                                 stdout=subprocess.PIPE, shell=True)
+    print(uniq.stdout.read())
