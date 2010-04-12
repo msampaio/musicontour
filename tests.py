@@ -100,8 +100,14 @@ path = "/tmp/freq/"
 
 saida = c.frequency_file_contour_count(path, "371.freq", 2)
 
-print(saida)
+# print(saida)
 
 chorals = [c.frequency_file_contour_count(path, f, 2) for f in files]
 
-print(chorals)
+# print(chorals)
+
+tf = "371.freq"
+n = 4
+z = c.count_contours_list_of_files(path, files, 3)
+
+print(c.percent(z))
