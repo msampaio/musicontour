@@ -107,3 +107,9 @@ def count_contours_list_of_files(path, list_of_files, n):
     b = merge(a)
     result = item_count(b)
     return result
+
+
+def lists_printing(list):
+    '''Prints a list of two items lists.'''
+    for n in list:
+        print("%s - %s %%" % (n[0], n[1]))
