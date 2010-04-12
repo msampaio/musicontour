@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from contour import contour_class
-from contour import contours_count
-from contour import kern_file_process
+import contour as c
 
 ### data
 ## soprano, choral 002
@@ -16,10 +14,10 @@ contour = [440.00, 493.88, 392.00, 369.99, 329.63, 493.88, 554.37,
 493.88, 440.00]
 
 
-contour_cc = contour_class(contour)
+contour_cc = c.contour_class(contour)
 
 
-print(contours_count(contour_cc, 4))
+print(c.contours_count(contour_cc, 4))
 
 
-print(kern_file_process('/tmp/teste-python/002.krn'))
+c.kern_file_process('/tmp/teste-python/002.krn')
