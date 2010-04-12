@@ -50,23 +50,34 @@ def contours_count(contour, n):
     return sorted(counted_contours, key=lambda x: x[1], reverse=True)
 
 
-def kern_file_process(filename, voice='*Isoprn'):
+def kern_file_process(filename, voice='*Ibass'):
     '''Outputs frequency values.'''
-    extract = subprocess.Popen('extractx -i %s %s'
-                               % (voice, filename),
-                               stdout=subprocess.PIPE, shell=True)
-    sed = subprocess.Popen('sed \'s/[12468.JL;]//g\'',
-                           stdin=extract.stdout,
+    cm1 = subprocess.Popen('extractx -i \'%s\' \"%s\"' % (voice, filename),
                            stdout=subprocess.PIPE, shell=True)
-    frequency = subprocess.Popen('freq', stdin=sed.stdout,
-                                 stdout=subprocess.PIPE, shell=True)
-    rid = subprocess.Popen('rid -GLId', stdin=frequency.stdout,
-                                 stdout=subprocess.PIPE, shell=True)
-    egrep = subprocess.Popen('egrep -v \"=|r\"', stdin=rid.stdout,
-                                 stdout=subprocess.PIPE, shell=True)
-    uniq = subprocess.Popen('uniq', stdin=egrep.stdout,
-                                 stdout=subprocess.PIPE, shell=True)
-    print(uniq.stdout.read())
+    cm2 = subprocess.Popen('ditto', stdin=cm1.stdout,
+                           stdout=subprocess.PIPE, shell=True)
+    cm3 = subprocess.Popen('sed \'s/^\[//g\'', stdin=cm2.stdout,
+                           stdout=subprocess.PIPE, shell=True)
+    cm4 = subprocess.Popen('sed \'s/^[0-9].*\]//g\'', stdin=cm3.stdout,
+                           stdout=subprocess.PIPE, shell=True)
+    cm5 = subprocess.Popen('sed \'s/[LJ;_]//g\'', stdin=cm4.stdout,
+                           stdout=subprocess.PIPE, shell=True)
+    cm6 = subprocess.Popen('sed \'s/^[1248]//g\'', stdin=cm5.stdout,
+                           stdout=subprocess.PIPE, shell=True)
+    cm7 = subprocess.Popen('sed \'s/^\.//g\'', stdin=cm6.stdout,
+                           stdout=subprocess.PIPE, shell=True)
+    cm8 = subprocess.Popen('freq', stdin=cm7.stdout,
+                           stdout=subprocess.PIPE, shell=True)
+    cm9 = subprocess.Popen('sed \'s/^\.//g\'', stdin=cm8.stdout,
+                           stdout=subprocess.PIPE, shell=True)
+    cm10 = subprocess.Popen('rid -GLId', stdin=cm9.stdout,
+                           stdout=subprocess.PIPE, shell=True)
+    cm11 = subprocess.Popen('egrep -v \"=|r\"', stdin=cm10.stdout,
+                           stdout=subprocess.PIPE, shell=True)
+    cm12 = subprocess.Popen('uniq', stdin=cm11.stdout,
+                           stdout=subprocess.PIPE, shell=True)
+    cmd = cm12
+    return(cmd.stdout.read())
 
 
 def freq_process(filename):
@@ -94,7 +105,7 @@ def percent(list):
     '''Outputs percentuals from a list like [[(1, 0), 10],
     [(0, 1), 11]]'''
     sigma = sum(x[1] for x in list)
-    percent = [[n[0], "%.2f" % (float(n[1])* 100 / sigma)]
+    percent = [[n[0], "%.2f" % (float(n[1]) * 100 / sigma)]
                for n in list]
     return percent
 
