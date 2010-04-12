@@ -3,16 +3,12 @@
 
 from __future__ import print_function
 import subprocess
+import itertools
 
+def flatten(seq):
+    """Flatten Sequences."""
 
-def merge(seq):
-    """Merge Sequences."""
-
-    merged = []
-    for s in seq:
-        for x in s:
-            merged.append(x)
-    return merged
+    return [item for sublist in seq for item in sublist]
 
 
 def contour_class(contour_list):
@@ -94,20 +90,17 @@ def kern_file_process(path, basename, voice='*Ibass'):
         print(cmd.stdout.read(), file=g)
 
 
-def freq_process(filename):
+def freq_list(filename):
     """Outputs frequency in a list."""
 
-    lines = [float(l) for l in file(filename)]
-    return lines
+    return [float(l) for l in file(filename)]
 
 
 def contour_class_file(path, file_name):
     """Outputs contours classes from a frequency file."""
 
     complete_file = path + file_name
-    frequency = freq_process(complete_file)
-    contour_classes = contour_class(frequency)
-    return file_name, contour_classes
+    return file_name, contour_class(freq_list(complete_file))
 
 
 def frequency_file_contour_count(path, file_name, contour_size):
@@ -123,20 +116,16 @@ def percent(list):
     [(0, 1), 11]]"""
 
     sigma = sum(x[1] for x in list)
-    percent = [[n[0], "%.2f" % (float(n[1]) * 100 / sigma)]
-               for n in list]
-    return percent
+    return [[n[0], "%.2f" % (float(n[1]) * 100 / sigma)] for n in list]
 
 
 def count_contours_list_of_files(path, list_of_files, n):
     """Count contour types in a list of frequency files in a same
     directory."""
 
-    a = [contour_subsets(contour_class_file(path, file_name)[1], n)
-         for file_name in list_of_files]
-    b = merge(a)
-    result = item_count(b)
-    return result
+    subsets = contour_class_file(path, file_name)[1]
+    a = [contour_subsets(subsets, n) for file_name in list_of_files]
+    return item_count(flatten(a))
 
 
 def lists_printing(list):
