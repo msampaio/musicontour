@@ -45,3 +45,9 @@ def kern_file_process(filename, voice='*Isoprn'):
     uniq = subprocess.Popen('uniq', stdin=egrep.stdout,
                                  stdout=subprocess.PIPE, shell=True)
     print(uniq.stdout.read())
+
+
+def freq_process(filename):
+    '''Outputs frequency in a list.'''
+    lines = [float(l) for l in file(filename)]
+    return lines
