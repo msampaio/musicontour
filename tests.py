@@ -20,7 +20,7 @@ krn_files = [n + '.krn' for n in files]
 
 krn_path = "/home/marcos/repositorios/genos-corpus/music/bach-chorales/kern/"
 
-freq_path = "/tmp/freq-old/"
+freq_path = "/tmp/freq/"
 
 ## extracting spines
 # in one file:
