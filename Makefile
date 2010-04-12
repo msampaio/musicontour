@@ -7,4 +7,4 @@ clean:
 	rm -f *.pyc *~
 
 tests:
-	nosetests
+	nosetests test_*.py
