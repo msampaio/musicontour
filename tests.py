@@ -110,4 +110,4 @@ tf = "371.freq"
 n = 4
 z = c.count_contours_list_of_files(path, files, 3)
 
-print(c.percent(z))
+c.lists_printing(c.percent(z))
