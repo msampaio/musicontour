@@ -26,3 +26,9 @@ def test_contour_subsets():
                                     [2, 1, 0], [1, 0, 2]]
     assert c.contour_subsets([122, 424, 932, 425, 231, 229, 742],
                              7) == [[0, 3, 6, 4, 2, 1, 5]]
+
+
+def test_contours_count():
+    assert c.contours_count([122, 424, 932, 425, 231, 229, 742],
+                            3) == [[(2, 1, 0), 2], [(0, 1, 2), 1],
+                                   [(0, 2, 1), 1], [(1, 0, 2), 1]]
