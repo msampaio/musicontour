@@ -14,15 +14,11 @@ contour = [440.00, 493.88, 392.00, 369.99, 329.63, 493.88, 554.37,
 493.88, 659.26, 587.33, 554.37, 493.88, 440.00, 493.88, 554.37,
 493.88, 440.00]
 
-
 contour_cc = c.contour_class(contour)
-
 
 # print(c.contours_count(contour_cc, 4))
 
-
 # c.kern_file_process('/tmp/teste-python/002.krn')
-
 
 files = ['001.freq', '002.freq', '003.freq', '004.freq', '005.freq',
          '006.freq', '007.freq', '008.freq', '009.freq', '010.freq',
@@ -100,9 +96,16 @@ files = ['001.freq', '002.freq', '003.freq', '004.freq', '005.freq',
          '366.freq', '367.freq', '368.freq', '369.freq', '370.freq',
          '371.freq']
 
+test_file = "/tmp/freq/371.freq"
+path = "/tmp/freq/"
 
-saida = c.contours_count(c.contour_class(c.freq_process("/tmp/freq/371.freq")), 4)
+saida = c.frequency_file_contour_count(path, "371.freq", 2)
 
+# print(saida)
 
-print(saida)
+red_files = ['001.freq', '002.freq', '003.freq', '004.freq', '005.freq',
+             '006.freq', '007.freq', '008.freq', '009.freq', '010.freq']
 
+chorals = [c.frequency_file_contour_count(path, f, 2) for f in red_files]
+
+print(chorals)
