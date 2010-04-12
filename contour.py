@@ -79,6 +79,8 @@ def kern_file_process(path, basename, voice='*Ibass'):
                            stdout=subprocess.PIPE, shell=True)
     cm13 = subprocess.Popen('sed \'/^$/d\'', stdin=cm12.stdout,
                            stdout=subprocess.PIPE, shell=True)
+    cm14 = subprocess.Popen('sed \'s/X$//g\'', stdin=cm13.stdout,
+                           stdout=subprocess.PIPE, shell=True)
     cmd = cm13
     subprocess.Popen('mkdir -p /tmp/freq', shell=True)
     with open("/tmp/freq/" + basename + '.freq', "w") as g:
