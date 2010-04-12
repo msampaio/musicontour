@@ -50,9 +50,11 @@ def contours_count(contour, n):
     return sorted(counted_contours, key=lambda x: x[1], reverse=True)
 
 
-def kern_file_process(filename, voice='*Ibass'):
+
+def kern_file_process(path, basename, voice='*Ibass'):
     '''Outputs frequency values.'''
-    cm1 = subprocess.Popen('extractx -i \'%s\' \"%s\"' % (voice, filename),
+    cm1 = subprocess.Popen('extractx -i \'%s\' \"%s\"' % (voice,
+                                                          path + basename + ".krn"),
                            stdout=subprocess.PIPE, shell=True)
     cm2 = subprocess.Popen('ditto', stdin=cm1.stdout,
                            stdout=subprocess.PIPE, shell=True)
@@ -77,7 +79,9 @@ def kern_file_process(filename, voice='*Ibass'):
     cm12 = subprocess.Popen('uniq', stdin=cm11.stdout,
                            stdout=subprocess.PIPE, shell=True)
     cmd = cm12
-    return(cmd.stdout.read())
+    subprocess.Popen('mkdir -p /tmp/freq', shell=True)
+    with open("/tmp/freq/" + basename + '.freq', "w") as g:
+        print(cmd.stdout.read(), file=g)
 
 
 def freq_process(filename):
