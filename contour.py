@@ -52,6 +52,14 @@ def contours_count(contour, n):
     return sorted(counted_contours, key=lambda x: x[1], reverse=True)
 
 
+def extract_spine(filename, voice):
+    """Extracts a spine from a kern file."""
+
+    spine = subprocess.Popen('extractx -i %s %s' % (voice, filename),
+                             stdout=subprocess.PIPE, shell=True)
+    return spine.stdout.read()
+
+
 def kern_file_process(path, basename, voice='*Ibass'):
     """Outputs frequency values."""
 
