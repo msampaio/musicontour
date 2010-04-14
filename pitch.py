@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import re
 
 notes_regex = re.compile('([a-gA-G])([b#]+)?([0-9]*)')
