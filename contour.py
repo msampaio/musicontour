@@ -4,6 +4,7 @@
 from __future__ import print_function
 import subprocess as sp
 import itertools
+import pitch as p
 
 
 def flatten(seq):
