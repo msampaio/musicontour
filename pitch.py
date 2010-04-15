@@ -25,9 +25,9 @@ def parse_pitch(line):
     >>> [parse_pitch(line) for line in spine.split('\n')]
     ['**pitch', 61,53, 60, '*-']
     """
-    
+
     notes = "C D E F G A B".split()
-    
+
     if line.startswith("**pitch"):
         return "**midi"
     elif (line.startswith("!") or line.startswith("*") or
