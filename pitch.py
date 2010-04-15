@@ -3,7 +3,7 @@
 
 import re
 
-notes_regex = re.compile('([a-gA-G])([b#]+)?([0-9]*)')
+notes_regex = re.compile('([0-9.]+)([a-gA-G])([b#]+)?([0-9]*)')
 
 
 def parse_accidentals(acc):
@@ -33,7 +33,9 @@ def parse_pitch(line):
     elif (line.startswith("!") or line.startswith("*") or
           line.startswith("=") or line.startswith(".")):
         return line
+    elif line == '':
+        return ''
     else:
-        note, acc, oct = notes_regex.match(line).group(1,2,3)
+        dur, note, acc, oct = notes_regex.search(line).group(1, 2, 3, 4)
         accidentals = parse_accidentals(acc) if acc else 0
         return notes.index(note) + accidentals + (12 * (int(oct) + 1))
