@@ -142,3 +142,20 @@ def lists_printing(list):
 
     for n in list:
         print("{0} - {1} %%".format(n[0], n[1]))
+
+
+def filter_int(item):
+    """Tests and outputs int."""
+
+    if isinstance(item, int):
+        return item
+    else:
+        return ''
+
+
+def contour_class_kern(lista):
+    """Outputs contour class from a kern list."""
+
+    lista = contour_class([filter_int(item)
+                           for item in lista if filter_int(item)])
+    return lista
