@@ -61,6 +61,16 @@ def extract_spine(filename, voice):
     return spine.stdout.read()
 
 
+def humdrum_pitch(kern_file, voice):
+    """Outputs **pitch from a kern file."""
+
+    cmd1 = sp.Popen('extractx -i {0} {1}'.format(voice, kern_file),
+                    stdout=sp.PIPE, shell=True)
+    cmd2 = sp.Popen('pitch', stdin=cmd1.stdout,
+                    stdout=sp.PIPE, shell=True)
+    return cmd2.stdout.read()
+
+
 def kern_file_process(path, basename, voice='*Ibass'):
     """Outputs frequency values."""
 
