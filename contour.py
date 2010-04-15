@@ -173,7 +173,7 @@ def contour_class_kern(lista):
 
 def contour_class_one_function(path, krn_file, voice):
     """Outputs contour class in one single function."""
-    
+
     hum_pitch = humdrum_pitch(path + krn_file, voice)
     parsed_kern = [p.parse_pitch(line) for line in hum_pitch.split('\n')]
     contour_class = contour_class_kern(parsed_kern)
