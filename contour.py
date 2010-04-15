@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-import subprocess
+import subprocess as sp
 import itertools
+
 
 def flatten(seq):
     """Flatten Sequences."""
@@ -55,45 +56,45 @@ def contours_count(contour, n):
 def extract_spine(filename, voice):
     """Extracts a spine from a kern file."""
 
-    spine = subprocess.Popen('extractx -i %s %s' % (voice, filename),
-                             stdout=subprocess.PIPE, shell=True)
+    spine = sp.Popen('extractx -i {0} {1}'.format(voice, filename),
+                             stdout=sp.PIPE, shell=True)
     return spine.stdout.read()
 
 
 def kern_file_process(path, basename, voice='*Ibass'):
     """Outputs frequency values."""
 
-    cm1 = subprocess.Popen('extractx -i \'%s\' \"%s\"' % (voice,
-                                                          path + basename + ".krn"),
-                           stdout=subprocess.PIPE, shell=True)
-    cm2 = subprocess.Popen('ditto', stdin=cm1.stdout,
-                           stdout=subprocess.PIPE, shell=True)
-    cm3 = subprocess.Popen('sed \'s/^\[//g\'', stdin=cm2.stdout,
-                           stdout=subprocess.PIPE, shell=True)
-    cm4 = subprocess.Popen('sed \'s/^[0-9].*\]//g\'', stdin=cm3.stdout,
-                           stdout=subprocess.PIPE, shell=True)
-    cm5 = subprocess.Popen('sed \'s/[LJ;_]//g\'', stdin=cm4.stdout,
-                           stdout=subprocess.PIPE, shell=True)
-    cm6 = subprocess.Popen('sed \'s/^[1248]//g\'', stdin=cm5.stdout,
-                           stdout=subprocess.PIPE, shell=True)
-    cm7 = subprocess.Popen('sed \'s/^\.//g\'', stdin=cm6.stdout,
-                           stdout=subprocess.PIPE, shell=True)
-    cm8 = subprocess.Popen('freq', stdin=cm7.stdout,
-                           stdout=subprocess.PIPE, shell=True)
-    cm9 = subprocess.Popen('sed \'s/^\.//g\'', stdin=cm8.stdout,
-                           stdout=subprocess.PIPE, shell=True)
-    cm10 = subprocess.Popen('rid -GLId', stdin=cm9.stdout,
-                           stdout=subprocess.PIPE, shell=True)
-    cm11 = subprocess.Popen('egrep -v \"=|r\"', stdin=cm10.stdout,
-                           stdout=subprocess.PIPE, shell=True)
-    cm12 = subprocess.Popen('uniq', stdin=cm11.stdout,
-                           stdout=subprocess.PIPE, shell=True)
-    cm13 = subprocess.Popen('sed \'/^$/d\'', stdin=cm12.stdout,
-                           stdout=subprocess.PIPE, shell=True)
-    cm14 = subprocess.Popen('sed \'s/X$//g\'', stdin=cm13.stdout,
-                           stdout=subprocess.PIPE, shell=True)
+    cm1 = sp.Popen('extractx -i {0} {1}'.format(voice,
+                                                path + basename + ".krn"),
+                           stdout=sp.PIPE, shell=True)
+    cm2 = sp.Popen('ditto', stdin=cm1.stdout,
+                           stdout=sp.PIPE, shell=True)
+    cm3 = sp.Popen('sed \'s/^\[//g\'', stdin=cm2.stdout,
+                           stdout=sp.PIPE, shell=True)
+    cm4 = sp.Popen('sed \'s/^[0-9].*\]//g\'', stdin=cm3.stdout,
+                           stdout=sp.PIPE, shell=True)
+    cm5 = sp.Popen('sed \'s/[LJ;_]//g\'', stdin=cm4.stdout,
+                           stdout=sp.PIPE, shell=True)
+    cm6 = sp.Popen('sed \'s/^[1248]//g\'', stdin=cm5.stdout,
+                           stdout=sp.PIPE, shell=True)
+    cm7 = sp.Popen('sed \'s/^\.//g\'', stdin=cm6.stdout,
+                           stdout=sp.PIPE, shell=True)
+    cm8 = sp.Popen('freq', stdin=cm7.stdout,
+                           stdout=sp.PIPE, shell=True)
+    cm9 = sp.Popen('sed \'s/^\.//g\'', stdin=cm8.stdout,
+                           stdout=sp.PIPE, shell=True)
+    cm10 = sp.Popen('rid -GLId', stdin=cm9.stdout,
+                           stdout=sp.PIPE, shell=True)
+    cm11 = sp.Popen('egrep -v \"=|r\"', stdin=cm10.stdout,
+                           stdout=sp.PIPE, shell=True)
+    cm12 = sp.Popen('uniq', stdin=cm11.stdout,
+                           stdout=sp.PIPE, shell=True)
+    cm13 = sp.Popen('sed \'/^$/d\'', stdin=cm12.stdout,
+                           stdout=sp.PIPE, shell=True)
+    cm14 = sp.Popen('sed \'s/X$//g\'', stdin=cm13.stdout,
+                           stdout=sp.PIPE, shell=True)
     cmd = cm13
-    subprocess.Popen('mkdir -p /tmp/freq', shell=True)
+    sp.Popen('mkdir -p /tmp/freq', shell=True)
     with open("/tmp/freq/" + basename + '.freq', "w") as g:
         print(cmd.stdout.read(), file=g)
 
@@ -140,4 +141,4 @@ def lists_printing(list):
     """Prints a list of two items lists."""
 
     for n in list:
-        print("%s - %s %%" % (n[0], n[1]))
+        print("{0} - {1} %%".format(n[0], n[1]))
