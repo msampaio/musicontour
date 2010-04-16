@@ -225,5 +225,10 @@ class Contour():
             self.cseg
         return self.cseg
 
+    def remove_adjacent(self):
+        """Removes adjacent elements from a list."""
+
+        return [a for a, b in i.izip(self.cseg, self.cseg[1:]) if a != b]
+
     def __init__(self, c):
         self.cseg = c
