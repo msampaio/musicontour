@@ -20,6 +20,12 @@ def contour_class(contour_list):
     return [sorted_contour.index(x) for x in contour_list]
 
 
+def remove_adjacent(list):
+    """Removes adjacent elements from a list."""
+    
+    return [a for a, b in izip(list, list[1:]) if a != b]
+
+
 def absolute_subsets(contour, n):
     """Returns adjacent n-elements subsets of a given contour."""
 
