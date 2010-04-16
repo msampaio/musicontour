@@ -209,13 +209,13 @@ class Contour():
         """Returns the contour class of a given contour."""
 
         length = len(self.elements)
-        cc = self.contour_class(self.elements)
+        cc = self.contour_class()
         if ((length - 1) - cc[-1]) < cc[0]:
             inv = self.inversion(cc)
         else:
             inv = cc
         if inv[-1] < inv[0]:
-            ret = self.retrograde(inv)
+            ret = self.retrograde()
         else:
             ret = inv
         return ret
