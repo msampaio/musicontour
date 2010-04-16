@@ -5,6 +5,7 @@ from __future__ import print_function
 import subprocess as sp
 import itertools
 import pitch as p
+import itertools as i
 
 
 def flatten(seq):
@@ -23,7 +24,7 @@ def contour_class(contour_list):
 def remove_adjacent(list):
     """Removes adjacent elements from a list."""
     
-    return [a for a, b in izip(list, list[1:]) if a != b]
+    return [a for a, b in i.izip(list, list[1:]) if a != b]
 
 
 def absolute_subsets(contour, n):
