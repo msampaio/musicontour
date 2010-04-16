@@ -194,8 +194,8 @@ class Contour():
 
         maxim = max(self.elements)
         minim = min(self.elements)
-        axis = (maxim - minim)/2
-        return [((axis * 2) - x) for x in self.elements]
+        axis = ((maxim - minim)/2.0 + minim)
+        return [int("%d" % ((axis * 2) - x)) for x in self.elements]
 
 
     def contour_class(self):
@@ -209,16 +209,17 @@ class Contour():
         """Returns the contour class of a given contour."""
 
         length = len(self.elements)
-        cc = self.contour_class()
-        if ((length - 1) - cc[-1]) < cc[0]:
-            inv = self.inversion(cc)
+        self.elements = self.contour_class()
+        if ((length - 1) - self.elements[-1]) < self.elements[0]:
+            self.elements = self.inversion()
         else:
-            inv = cc
-        if inv[-1] < inv[0]:
-            ret = self.retrograde()
+            self.elements
+        if self.elements[-1] < self.elements[0]:
+            self.elements = self.retrograde()
         else:
-            ret = inv
-        return ret
+            self.elements
+        return self.elements
+
 
     def __init__(self, list):
         self.elements = list
