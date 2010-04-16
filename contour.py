@@ -179,3 +179,46 @@ def contour_class_one_function(path, krn_file, voice):
     parsed_kern = [p.parse_pitch(line) for line in hum_pitch.split('\n')]
     contour_class = contour_class_kern(parsed_kern)
     return contour_class
+
+class Contour():
+
+    def retrograde(self):
+        """Returns contour retrograde."""
+        
+        self.elements.reverse()
+        return self.elements
+
+
+    def inversion(self):
+        """Returns contour inversion."""
+
+        maxim = max(self.elements)
+        minim = min(self.elements)
+        axis = (maxim - minim)/2
+        return [((axis * 2) - x) for x in self.elements]
+
+
+    def contour_class(self):
+        """Returns the contour class of a given contour."""
+
+        sorted_contour = sorted(list(set(self.elements)))
+        return [sorted_contour.index(x) for x in self.elements]
+
+
+    def prime_form(self):
+        """Returns the contour class of a given contour."""
+
+        length = len(self.elements)
+        cc = self.contour_class(self.elements)
+        if ((length - 1) - cc[-1]) < cc[0]:
+            inv = self.inversion(cc)
+        else:
+            inv = cc
+        if inv[-1] < inv[0]:
+            ret = self.retrograde(inv)
+        else:
+            ret = inv
+        return ret
+
+    def __init__(self, list):
+        self.elements = list
