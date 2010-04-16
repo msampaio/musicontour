@@ -23,7 +23,7 @@ def contour_class(contour_list):
 
 def remove_adjacent(list):
     """Removes adjacent elements from a list."""
-    
+
     return [a for a, b in i.izip(list, list[1:]) if a != b]
 
 
@@ -187,46 +187,43 @@ def contour_class_one_function(path, krn_file, voice):
     contour_class = contour_class_kern(parsed_kern)
     return contour_class
 
+
 class Contour():
 
     def retrograde(self):
         """Returns contour retrograde."""
-        
-        self.elements.reverse()
-        return self.elements
 
+        self.cseg.reverse()
+        return self.cseg
 
     def inversion(self):
         """Returns contour inversion."""
 
-        maxim = max(self.elements)
-        minim = min(self.elements)
-        axis = ((maxim - minim)/2.0 + minim)
-        return [int("%d" % ((axis * 2) - x)) for x in self.elements]
+        maxim = max(self.cseg)
+        minim = min(self.cseg)
+        axis = ((maxim - minim) / 2.0 + minim)
+        return [int("%d" % ((axis * 2) - x)) for x in self.cseg]
 
+    def translation(self):
+        """Returns the normal form of a given contour."""
 
-    def contour_class(self):
-        """Returns the contour class of a given contour."""
-
-        sorted_contour = sorted(list(set(self.elements)))
-        return [sorted_contour.index(x) for x in self.elements]
-
+        sorted_contour = sorted(list(set(self.cseg)))
+        return [sorted_contour.index(x) for x in self.cseg]
 
     def prime_form(self):
-        """Returns the contour class of a given contour."""
+        """Returns the prime form of a given contour."""
 
-        length = len(self.elements)
-        self.elements = self.contour_class()
-        if ((length - 1) - self.elements[-1]) < self.elements[0]:
-            self.elements = self.inversion()
+        length = len(self.cseg)
+        self.cseg = self.translation()
+        if ((length - 1) - self.cseg[-1]) < self.cseg[0]:
+            self.cseg = self.inversion()
         else:
-            self.elements
-        if self.elements[-1] < self.elements[0]:
-            self.elements = self.retrograde()
+            self.cseg
+        if self.cseg[-1] < self.cseg[0]:
+            self.cseg = self.retrograde()
         else:
-            self.elements
-        return self.elements
+            self.cseg
+        return self.cseg
 
-
-    def __init__(self, list):
-        self.elements = list
+    def __init__(self, c):
+        self.cseg = c
