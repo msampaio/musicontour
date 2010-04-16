@@ -29,8 +29,10 @@ def test_prime_form():
 def test_remove_adjacent():
     n1 = c.Contour([1, 4, 9, 9, 2, 1])
     n2 = c.Contour([0, 1, 1, 2, 3])
-    assert n2.remove_adjacent() == [1, 4, 9, 2, 1]
+    n3 = c.Contour([1, 4, 9, 9, 2, 4])
+    assert n1.remove_adjacent() == [1, 4, 9, 2, 1]
     assert n2.remove_adjacent() == [0, 1, 2, 3]
+    assert n3.remove_adjacent() == [1, 4, 9, 2, 4]
 
 
 def test_contour_class():
