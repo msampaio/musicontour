@@ -31,7 +31,7 @@ def lists_printing(list):
     """Prints a list of two items lists."""
 
     for n in list:
-        print("{0} - {1} %%".format(n[0], n[1]))
+        print("{0} - {1} %".format(n[0], n[1]))
 
 
 def item_count(data):
