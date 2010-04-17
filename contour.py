@@ -56,37 +56,41 @@ class Contour():
 
         return [self.cseg[i:i + n] for i in range((len(self.cseg) - (n - 1)))]
 
-    def contours_count(self, n):
+    def __init__(self, c):
+        self.cseg = c
+
+
+class Contour_subsets():
+
+    def subsets_count(self, n):
         """Counts contour subset classes with n elements."""
 
-        normal_form = self.translation()
-        subsets = Contour(normal_form).contour_subsets(n)
-        tuples = [tuple(x) for x in subsets]
+        tuples = [tuple(x) for x in self.ss]
         contour_type = sorted(list(set(tuples)))
         counted_contours = [[x, tuples.count(x)] for x in contour_type]
         return sorted(counted_contours, key=lambda x: x[1], reverse=True)
 
-    def normal_form_subsets_count(self, n):
-        """Counts contour subset classes with n elements in its normal
-        form."""
+    def normal_form_subsets(self):
+        """Outputs normal form of a list of subsets."""
 
-        normal_form_subsets = [Contour(x).translation()
-                               for x in self.contour_subsets(n)]
-        tuples = [tuple(x) for x in normal_form_subsets]
-        contour_type = sorted(list(set(tuples)))
-        counted_subsets = [[x, tuples.count(x)] for x in contour_type]
-        return sorted(counted_subsets, key=lambda x: x[1], reverse=True)
+        return [Contour(x).translation() for x in self.ss]
+
+    def prime_form_subsets(self):
+        """Outputs normal form of a list of subsets."""
+
+        return [Contour(x).prime_form() for x in self.ss]
+
+    def normal_form_subsets_count(self, n):
+        """Counts subset prime forms with n elements."""
+
+        normal_form = self.normal_form_subsets()
+        return Contour_subsets(normal_form).subsets_count(n)
 
     def prime_form_subsets_count(self, n):
-        """Counts contour subset classes with n elements in its prime
-        form."""
+        """Counts subset prime forms with n elements."""
 
-        normal_form_subsets = [Contour(x).prime_form()
-                               for x in self.contour_subsets(n)]
-        tuples = [tuple(x) for x in normal_form_subsets]
-        contour_type = sorted(list(set(tuples)))
-        counted_subsets = [[x, tuples.count(x)] for x in contour_type]
-        return sorted(counted_subsets, key=lambda x: x[1], reverse=True)
+        prime_form = self.prime_form_subsets()
+        return Contour_subsets(prime_form).subsets_count(n)
 
-    def __init__(self, c):
-        self.cseg = c
+    def __init__(self, subsets):
+        self.ss = subsets
