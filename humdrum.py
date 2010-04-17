@@ -4,6 +4,7 @@
 from __future__ import print_function
 import subprocess as sp
 
+
 def kern_file_process(path, basename, voice='*Ibass'):
     """Outputs frequency values."""
 
