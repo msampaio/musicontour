@@ -231,5 +231,10 @@ class Contour():
         return [a for a, b in i.izip(self.cseg, self.cseg[1:])
                 if a != b] + [self.cseg[-1]]
 
+    def absolute_subsets(self, n):
+        """Returns adjacent n-elements subsets of a given contour."""
+
+        return [self.cseg[i:i + n] for i in range((len(self.cseg) - (n - 1)))]
+
     def __init__(self, c):
         self.cseg = c
