@@ -33,3 +33,10 @@ def test_remove_adjacent():
     assert n1.remove_adjacent() == [1, 4, 9, 2, 1]
     assert n2.remove_adjacent() == [0, 1, 2, 3]
     assert n3.remove_adjacent() == [1, 4, 9, 2, 4]
+
+
+def test_contour_subsets():
+    n = c.Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
+    assert n.contour_subsets(4) == [[2, 8, 12, 9], [8, 12, 9, 5], [12, 9, 5, 7],
+                                    [9, 5, 7, 3], [5, 7, 3, 12], [7, 3, 12, 3],
+                                    [3, 12, 3, 7]]

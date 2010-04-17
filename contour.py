@@ -51,7 +51,7 @@ class Contour():
         return [a for a, b in i.izip(self.cseg, self.cseg[1:])
                 if a != b] + [self.cseg[-1]]
 
-    def absolute_subsets(self, n):
+    def contour_subsets(self, n):
         """Returns adjacent n-elements subsets of a given contour."""
 
         return [self.cseg[i:i + n] for i in range((len(self.cseg) - (n - 1)))]
@@ -60,7 +60,7 @@ class Contour():
         """Counts contour subset classes with n elements."""
 
         normal_form = self.translation()
-        subsets = Contour(normal_form).absolute_subsets(n)
+        subsets = Contour(normal_form).contour_subsets(n)
         tuples = [tuple(x) for x in subsets]
         contour_type = sorted(list(set(tuples)))
         counted_contours = [[x, tuples.count(x)] for x in contour_type]
