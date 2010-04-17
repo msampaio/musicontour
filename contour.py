@@ -2,9 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-import subprocess as sp
-import itertools
-import pitch as p
 import itertools as i
 
 
