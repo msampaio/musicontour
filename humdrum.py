@@ -26,7 +26,7 @@ def parse_pitch(line):
     The **midi spine that this function return has only the value for
     pitch and no duration or event information whatsoever.
 
-    >>> spine = '**pitch\nEb4\nF##3\nC4\n*-'
+    >>> spine = '**pitch\n4Eb4\n8F##3\n8C4\n*-'
     >>> [parse_pitch(line) for line in spine.split('\n')]
     ['**pitch', 61,53, 60, '*-']
     """
