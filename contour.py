@@ -59,7 +59,7 @@ class Contour():
 
 class Contour_subsets():
 
-    def subsets_count(self, n):
+    def subsets_count(self):
         """Counts contour subset classes with n elements."""
 
         tuples = [tuple(x) for x in self.ss]
@@ -77,17 +77,17 @@ class Contour_subsets():
 
         return [Contour(x).prime_form() for x in self.ss]
 
-    def normal_form_subsets_count(self, n):
+    def normal_form_subsets_count(self):
         """Counts subset prime forms with n elements."""
 
         normal_form = self.normal_form_subsets()
-        return Contour_subsets(normal_form).subsets_count(n)
+        return Contour_subsets(normal_form).subsets_count()
 
-    def prime_form_subsets_count(self, n):
+    def prime_form_subsets_count(self):
         """Counts subset prime forms with n elements."""
 
         prime_form = self.prime_form_subsets()
-        return Contour_subsets(prime_form).subsets_count(n)
+        return Contour_subsets(prime_form).subsets_count()
 
     def __init__(self, subsets):
         self.ss = subsets
