@@ -67,7 +67,8 @@ class Contour():
         return sorted(counted_contours, key=lambda x: x[1], reverse=True)
 
     def normal_form_subsets_count(self, n):
-        """Counts contour subset classes with n elements."""
+        """Counts contour subset classes with n elements in its normal
+        form."""
 
         normal_form_subsets = [Contour(x).translation()
                                for x in self.contour_subsets(n)]
@@ -77,7 +78,8 @@ class Contour():
         return sorted(counted_subsets, key=lambda x: x[1], reverse=True)
 
     def prime_form_subsets_count(self, n):
-        """Counts contour subset classes with n elements."""
+        """Counts contour subset classes with n elements in its prime
+        form."""
 
         normal_form_subsets = [Contour(x).prime_form()
                                for x in self.contour_subsets(n)]
