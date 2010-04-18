@@ -182,7 +182,7 @@ def minimum(dur_list):
 def remove_duplicate_tuples(list_of_tuples):
     """Removes tuples that the first item is repeated in adjacent
     tuples. The removed tuple is the second."""
-    
+
     prev = None
     tmp = []
     for a, b in list_of_tuples:
