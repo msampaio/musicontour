@@ -111,6 +111,15 @@ class Contour():
         subsets = self.contour_subsets(n + 1)
         return [Contour([x[0], x[-1]]).com() for x in subsets]
 
+    def com_matrix(self):
+        """Returns Morris (1987) a cseg COM-Matrix."""
+
+        l = len(self.cseg)
+        m = [[a, b] for a in self.cseg
+             for b in self.cseg]
+        n = [m[(i * l):((i + 1) * l)] for i in range(l)]
+        return [[Contour(x).com() for x in n[r]] for r in range(l)]
+
     def __init__(self, c):
         self.cseg = c
 
