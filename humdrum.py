@@ -8,7 +8,7 @@ import utils as u
 
 
 ## regular expression to **pitch notes
-notes_regex = re.compile('([0-9.]+)([a-gA-G]|r)([b#]+)?([0-9]*)')
+notes_regex = re.compile('([0-9.]+)(([a-gA-G][b#]*)|r)([0-9]*)')
 
 
 def parse_accidentals(acc):
@@ -40,9 +40,16 @@ def parse_pitch(line):
           line == ''):
         return line
     else:
-        dur, note, acc, oct = notes_regex.search(line).group(1, 2, 3, 4)
+        dur, note, octv = notes_regex.search(line).group(1, 2, 4)
+        acc = note[1:]
+        note_name = note[:1]
         accidentals = parse_accidentals(acc) if acc else 0
-        return notes.index(note) + accidentals + (12 * (int(oct) + 1))
+
+        if note_name == 'r':
+            return 'r'
+        else:
+            octave = 12 * (int(octv) + 1)
+            return notes.index(note_name) + accidentals + octave
 
 
 class Spine_file():
