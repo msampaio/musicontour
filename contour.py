@@ -92,8 +92,9 @@ class Contour():
         r = Contour(sorted(u.flatten([ma, mi]))).remove_adjacent()
         return [self.cseg[x] for x in r]
 
-    def contour_direction(self):
-        """Returns + or - for two c-pitches."""
+    def com(self):
+        """Returns Morris (1987) comparison [COM(a, b)] for two
+        c-pitches."""
 
         it = iter(self.cseg)
         el1 = it.next()
@@ -109,7 +110,7 @@ class Contour():
         """Returns Morris (1987) int_n."""
 
         subsets = self.contour_subsets(n + 1)
-        return [Contour([x[0], x[-1]]).contour_direction() for x in subsets]
+        return [Contour([x[0], x[-1]]).com() for x in subsets]
 
     def __init__(self, c):
         self.cseg = c
