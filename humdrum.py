@@ -57,14 +57,14 @@ class Spine_file():
     def extract_spine(self):
         """Extracts a spine from a kern file."""
 
-        spine = sp.Popen('extractx -i {0} {1}'.format(self.v, self.f),
+        spine = sp.Popen('extractx -i {0} {1}'.format(self.voice, self.file),
                              stdout=sp.PIPE, shell=True)
         return spine.stdout.read()
 
     def humdrum_pitch(self):
         """Outputs **pitch from a kern file."""
 
-        cmd1 = sp.Popen('extractx -i {0} {1}'.format(self.v, self.f),
+        cmd1 = sp.Popen('extractx -i {0} {1}'.format(self.voice, self.file),
                         stdout=sp.PIPE, shell=True)
         cmd2 = sp.Popen('pitch', stdin=cmd1.stdout,
                         stdout=sp.PIPE, shell=True)

@@ -122,8 +122,8 @@ class Contour():
         n = [m[(i * size):((i + 1) * size)] for i in range(l)]
         return [[Contour(x).comparison() for x in n[r]] for r in range(l)]
 
-    def __init__(self, c):
-        self.cseg = c
+    def __init__(self, cseg):
+        self.cseg = cseg
 
 
 class Contour_subsets():
@@ -131,7 +131,7 @@ class Contour_subsets():
     def subsets_count(self):
         """Counts contour subset classes with n elements."""
 
-        tuples = [tuple(x) for x in self.ss]
+        tuples = [tuple(x) for x in self.subsets]
         contour_type = sorted(list(set(tuples)))
         counted_contours = [[x, tuples.count(x)] for x in contour_type]
         return sorted(counted_contours, key=lambda x: x[1], reverse=True)
@@ -139,12 +139,12 @@ class Contour_subsets():
     def normal_form_subsets(self):
         """Outputs normal form of a list of subsets."""
 
-        return [Contour(x).translation() for x in self.ss]
+        return [Contour(x).translation() for x in self.subsets]
 
     def prime_form_subsets(self):
         """Outputs normal form of a list of subsets."""
 
-        return [Contour(x).prime_form() for x in self.ss]
+        return [Contour(x).prime_form() for x in self.subsets]
 
     def normal_form_subsets_count(self):
         """Counts subset prime forms with n elements."""
@@ -159,7 +159,7 @@ class Contour_subsets():
         return Contour_subsets(prime_form).subsets_count()
 
     def __init__(self, subsets):
-        self.ss = subsets
+        self.subsets = subsets
 
 
 def maximum(dur_list):
