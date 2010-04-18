@@ -54,14 +54,15 @@ class Contour():
 
         return [self.cseg[i:i + n] for i in range((len(self.cseg) - (n - 1)))]
 
-    def local(self):
-        """Returns a tuple with c-pitches and positions."""
+    def cps_position(self):
+        """Returns a tuple with c-pitch and its position for each
+        c-pitch of a cseg done."""
 
         return [(self.cseg[p], p) for p in range(len(self.cseg))]
 
     def __foo(self, fn):
         length = len(self.cseg)
-        pos = self.local()
+        pos = self.cps_position()
         fn_result = fn(pos[i:i + 3])
         result = [fn_result for i in range(length - (3 - 1)) if fn_result]
         result.insert(0, 0)
