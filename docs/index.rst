@@ -3,8 +3,13 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Villa-Lobos Contour Module's documentation!
-======================================================
+Villa-Lobos Contour Module's documentation!
+===========================================
+
+Villa-Lobos Contour Module (VLCM) is a module for `Villa-Lobos
+<http://github.com/kroger/villa-lobos/>`_ computer musicology
+software, developed by Genos_. VLCM has Contour Theories functions
+implemented, like comparison matrix and internal diagonals.
 
 Contents:
 
@@ -18,3 +23,4 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+.. _Genos: http://genos.mus.br
