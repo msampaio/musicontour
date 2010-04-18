@@ -42,6 +42,12 @@ def test_contour_subsets():
                                     [3, 12, 3, 7]]
 
 
+def test_cps_position():
+    n = c.Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
+    assert n.cps_position() == [(2, 0), (8, 1), (12, 2), (9, 3), (5, 4),
+                                (7, 5), (3, 6), (12, 7), (3, 8), (7, 9)]
+
+
 def test_subsets_count():
     n = c.Contour_subsets([[2, 8, 12, 9], [8, 12, 9, 5], [12, 9, 5, 7],
                            [9, 5, 7, 3], [5, 7, 3, 12], [7, 3, 12, 3],
@@ -87,3 +93,17 @@ def test_prime_form_subsets_count():
     assert n.prime_form_subsets_count() == [[(0, 1, 3, 2), 2], [(0, 2, 0, 1), 2],
                                             [(0, 2, 1, 3), 1], [(0, 2, 3, 1), 1],
                                             [(0, 3, 1, 2), 1]]
+
+
+def test_maximum():
+    n1 = [(5, 0), (8, 1), (4, 2)]
+    n2 = [(5, 0), (2, 1), (4, 2)]
+    assert c.maximum(n1) == 1
+    assert c.maximum(n2) == ''
+
+
+def test_minimum():
+    n1 = [(5, 4), (8, 5), (4, 6)]
+    n2 = [(5, 2), (0, 3), (4, 4)]
+    assert c.minimum(n1) == ''
+    assert c.minimum(n2) == 3
