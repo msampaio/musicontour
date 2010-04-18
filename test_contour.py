@@ -107,3 +107,9 @@ def test_minimum():
     n2 = [(5, 2), (0, 3), (4, 4)]
     assert c.minimum(n1) == ''
     assert c.minimum(n2) == 3
+
+
+def test_remove_duplicate_tuples():
+    n = [(5, 0), (4, 1), (4, 2), (9, 3), (7, 4), (9, 5), (5, 6)]
+    assert c.remove_duplicate_tuples(n) == [(5, 0), (4, 1), (9, 3),
+                                            (7, 4), (9, 5), (5, 6)]
