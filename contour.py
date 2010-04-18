@@ -3,6 +3,7 @@
 
 from __future__ import print_function
 import itertools as i
+import utils as u
 
 
 class Contour():
@@ -53,6 +54,44 @@ class Contour():
 
         return [self.cseg[i:i + n] for i in range((len(self.cseg) - (n - 1)))]
 
+    def local(self):
+        """Returns a tuple with c-pitches and positions."""
+
+        return [(self.cseg[p], p) for p in range(len(self.cseg))]
+
+    def maxima(self):
+        """Returns maxima positions in a cseg."""
+
+        length = len(self.cseg)
+        l = self.local()
+        maxima = [maximum(l[i:i + 3])
+                  for i in range(length - (3 - 1))
+                  if maximum(l[i:i + 3])]
+        maxima.insert(0, 0)
+        maxima.append(length - 1)
+        return maxima
+
+    def minima(self):
+        """Returns minima positions in a list."""
+
+        length = len(self.cseg)
+        l = self.local()
+        minima = [minimum(l[i:i + 3])
+                  for i in range(length - (3 - 1))
+                  if minimum(l[i:i + 3])]
+        minima.insert(0, 0)
+        minima.append(length - 1)
+        return minima
+
+    def contour_reduction_algorithm(self):
+        """Returns Morris (1993) contour reduction from a cseg."""
+
+        ma = self.maxima()
+        mi = self.minima()
+        r = u.flatten([ma, mi])
+        r = Contour(sorted(u.flatten([ma, mi]))).remove_adjacent()
+        return [self.cseg[x] for x in r]
+
     def __init__(self, c):
         self.cseg = c
 
@@ -91,3 +130,33 @@ class Contour_subsets():
 
     def __init__(self, subsets):
         self.ss = subsets
+
+
+def maximum(dur_list):
+    """Returns the maximum (Morris, 1993) position of a three
+    c-pitches set. The input data is a list of three tuples. Each
+    tuple has the c-pitch and its position. """
+
+    it = iter(dur_list)
+    el1, p1 = it.next()
+    el2, p2 = it.next()
+    el3, p3 = it.next()
+    if el2 >= el1 and el2 >= el3:
+        return p2
+    else:
+        return ''
+
+
+def minimum(dur_list):
+    """Returns the minimum (Morris, 1993) position of a three
+    c-pitches set. The input data is a list of three tuples. Each
+    tuple has the c-pitch and its position. """
+
+    it = iter(dur_list)
+    el1, p1 = it.next()
+    el2, p2 = it.next()
+    el3, p3 = it.next()
+    if el2 <= el1 and el2 <= el3:
+        return p2
+    else:
+        return ''
