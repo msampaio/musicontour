@@ -92,7 +92,7 @@ class Contour():
         r = Contour(sorted(u.flatten([ma, mi]))).remove_adjacent()
         return [self.cseg[x] for x in r]
 
-    def com(self):
+    def comparison(self):
         """Returns Morris (1987) comparison [COM(a, b)] for two
         c-pitches."""
 
@@ -108,19 +108,19 @@ class Contour():
         else:
             return (delta) / abs(delta)
 
-    def int_n(self, n):
+    def internal_diagonals(self, n):
         """Returns Morris (1987) int_n."""
 
         subsets = self.contour_subsets(n + 1)
-        return [Contour([x[0], x[-1]]).com() for x in subsets]
+        return [Contour([x[0], x[-1]]).comparison() for x in subsets]
 
-    def com_matrix(self):
+    def comparison_matrix(self):
         """Returns Morris (1987) a cseg COM-Matrix."""
 
         size = len(self.cseg)
         m = [[a, b] for a in self.cseg for b in self.cseg]
         n = [m[(i * size):((i + 1) * size)] for i in range(l)]
-        return [[Contour(x).com() for x in n[r]] for r in range(l)]
+        return [[Contour(x).comparison() for x in n[r]] for r in range(l)]
 
     def __init__(self, c):
         self.cseg = c
