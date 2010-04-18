@@ -59,29 +59,24 @@ class Contour():
 
         return [(self.cseg[p], p) for p in range(len(self.cseg))]
 
-    def maxima(self):
-        """Returns maxima positions in a cseg."""
-
+    def __foo(self, fn):
         length = len(self.cseg)
         l = self.local()
-        maxima = [maximum(l[i:i + 3])
-                  for i in range(length - (3 - 1))
-                  if maximum(l[i:i + 3])]
+        fn_result = fn(l[i:i + 3])
+        maxima = [fn_result for i in range(length - (3 - 1)) if fn_result]
         maxima.insert(0, 0)
         maxima.append(length - 1)
         return maxima
+        
+    def maxima(self):
+        """Returns maxima positions in a cseg."""
 
+        __foo(self, maximum)
+        
     def minima(self):
         """Returns minima positions in a list."""
 
-        length = len(self.cseg)
-        l = self.local()
-        minima = [minimum(l[i:i + 3])
-                  for i in range(length - (3 - 1))
-                  if minimum(l[i:i + 3])]
-        minima.insert(0, 0)
-        minima.append(length - 1)
-        return minima
+        __foo(self, minimun)
 
     def contour_reduction_algorithm(self):
         """Returns Morris (1993) contour reduction from a cseg."""
@@ -96,14 +91,17 @@ class Contour():
         """Returns Morris (1987) comparison [COM(a, b)] for two
         c-pitches."""
 
-        it = iter(self.cseg)
-        el1 = it.next()
-        el2 = it.next()
-        if abs(el2 - el1) == 0:
-            r = 0
+        el1, el2 = self.cseg
+        delta = (el2 - el1)
+
+        # opcao 1
+        return 0 if abs(delta) == 0 else (delta) / abs(delta)
+
+        # opcao 2 (remove)
+        if abs(delta) == 0:
+            return 0
         else:
-            r = (el2 - el1) / abs(el2 - el1)
-        return r
+            return (delta) / abs(delta)
 
     def int_n(self, n):
         """Returns Morris (1987) int_n."""
@@ -112,12 +110,15 @@ class Contour():
         return [Contour([x[0], x[-1]]).com() for x in subsets]
 
     def com_matrix(self):
-        """Returns Morris (1987) a cseg COM-Matrix."""
+        """Returns Morris (1987) a cseg COM-Matrix.
 
-        l = len(self.cseg)
-        m = [[a, b] for a in self.cseg
-             for b in self.cseg]
-        n = [m[(i * l):((i + 1) * l)] for i in range(l)]
+
+        O operaaoeauoe aoeu
+        """
+
+        size = len(self.cseg)
+        m = [[a, b] for a in self.cseg for b in self.cseg]
+        n = [m[(i * size):((i + 1) * size)] for i in range(l)]
         return [[Contour(x).com() for x in n[r]] for r in range(l)]
 
     def __init__(self, c):
