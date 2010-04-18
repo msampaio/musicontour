@@ -99,14 +99,7 @@ class Contour():
         el1, el2 = self.cseg
         delta = (el2 - el1)
 
-        # opcao 1
         return 0 if abs(delta) == 0 else (delta) / abs(delta)
-
-        # opcao 2 (remove)
-        if abs(delta) == 0:
-            return 0
-        else:
-            return (delta) / abs(delta)
 
     def internal_diagonals(self, n):
         """Returns Morris (1987) int_n."""
@@ -167,14 +160,8 @@ def maximum(dur_list):
     c-pitches set. The input data is a list of three tuples. Each
     tuple has the c-pitch and its position. """
 
-    it = iter(dur_list)
-    el1, p1 = it.next()
-    el2, p2 = it.next()
-    el3, p3 = it.next()
-    if el2 >= el1 and el2 >= el3:
-        return p2
-    else:
-        return ''
+    (el1, p1), (el2, p2), (el3, p3) = dur_list
+    return p2 if el2 >= el1 and el2 >= el3 else ''
 
 
 def minimum(dur_list):
@@ -182,11 +169,5 @@ def minimum(dur_list):
     c-pitches set. The input data is a list of three tuples. Each
     tuple has the c-pitch and its position. """
 
-    it = iter(dur_list)
-    el1, p1 = it.next()
-    el2, p2 = it.next()
-    el3, p3 = it.next()
-    if el2 <= el1 and el2 <= el3:
-        return p2
-    else:
-        return ''
+    (el1, p1), (el2, p2), (el3, p3) = dur_list
+    return p2 if el2 <= el1 and el2 <= el3 else ''
