@@ -106,7 +106,6 @@ class Contour():
         return r
 
     def int(self, n):
-
         """Returns Morris (1987) int_n."""
 
         subsets = self.contour_subsets(n + 1)
