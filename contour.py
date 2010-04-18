@@ -60,11 +60,15 @@ class Contour():
 
         return [(self.cseg[p], p) for p in range(len(self.cseg))]
 
-    def __foo(self, fn):
+    def max_min(self, fn):
+        """Returns a list with the position of maximum or minimum
+        cpitches of a cseg. Maximum or minimum function is defined in
+        fn argument."""
+
         length = len(self.cseg)
         pos = self.cps_position()
-        fn_result = fn(pos[i:i + 3])
-        result = [fn_result for i in range(length - (3 - 1)) if fn_result]
+
+        result = [fn(pos[i:i + 3]) for i in range(length - (3 - 1)) if fn(pos[i:i + 3])]
         result.insert(0, 0)
         result.append(length - 1)
         return result
@@ -72,12 +76,12 @@ class Contour():
     def maxima(self):
         """Returns maxima positions in a cseg."""
 
-        __foo(self, maximum)
+        self.max_min(maximum)
 
     def minima(self):
         """Returns minima positions in a list."""
 
-        __foo(self, minimun)
+        self.max_min(minimum)
 
     def contour_reduction_algorithm(self):
         """Returns Morris (1993) contour reduction from a cseg."""
