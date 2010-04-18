@@ -4,6 +4,7 @@
 import humdrum as h
 import re
 
+
 def test_parse_accidentals():
     n1 = "#"
     n2 = "b"
