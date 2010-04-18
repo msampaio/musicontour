@@ -92,6 +92,24 @@ class Contour():
         r = Contour(sorted(u.flatten([ma, mi]))).remove_adjacent()
         return [self.cseg[x] for x in r]
 
+    def contour_direction(self):
+        """Returns + or - for two c-pitches."""
+
+        it = iter(self.cseg)
+        el1 = it.next()
+        el2 = it.next()
+        if abs(el2 - el1) == 0:
+            r = 0
+        else:
+            r = (el2 - el1) / abs(el2 - el1)
+        return r
+
+    def int_1(self):
+        """Returns Morris (1987) int_1."""
+
+        subsets = self.contour_subsets(2)
+        return [Contour(x).contour_direction() for x in subsets]
+
     def __init__(self, c):
         self.cseg = c
 
