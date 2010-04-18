@@ -104,11 +104,12 @@ class Contour():
             r = (el2 - el1) / abs(el2 - el1)
         return r
 
-    def int_1(self):
-        """Returns Morris (1987) int_1."""
+    def int(self, n):
 
-        subsets = self.contour_subsets(2)
-        return [Contour(x).contour_direction() for x in subsets]
+        """Returns Morris (1987) int_n."""
+
+        subsets = self.contour_subsets(n + 1)
+        return [Contour([x[0], x[-1]]).contour_direction() for x in subsets]
 
     def __init__(self, c):
         self.cseg = c
