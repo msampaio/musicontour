@@ -105,7 +105,7 @@ class Contour():
             r = (el2 - el1) / abs(el2 - el1)
         return r
 
-    def int(self, n):
+    def int_n(self, n):
         """Returns Morris (1987) int_n."""
 
         subsets = self.contour_subsets(n + 1)
