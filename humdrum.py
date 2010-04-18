@@ -8,7 +8,7 @@ import utils as u
 
 
 ## regular expression to **pitch notes
-notes_regex = re.compile('([0-9.]+)([a-gA-G])([b#]+)?([0-9]*)')
+notes_regex = re.compile('([0-9.]+)([a-gA-G]|r)([b#]+)?([0-9]*)')
 
 
 def parse_accidentals(acc):
@@ -28,18 +28,17 @@ def parse_pitch(line):
 
     >>> spine = '**pitch\n4Eb4\n8F##3\n8C4\n*-'
     >>> [parse_pitch(line) for line in spine.split('\n')]
-    ['**pitch', 61,53, 60, '*-']
+    ['**pitch', 63,55, 60, '*-']
     """
 
-    notes = "C D E F G A B".split()
+    notes = "C . D . E F . G . A . B".split()
 
     if line.startswith("**pitch"):
         return "**midi"
     elif (line.startswith("!") or line.startswith("*") or
-          line.startswith("=") or line.startswith(".")):
+          line.startswith("=") or line.startswith(".") or
+          line == ''):
         return line
-    elif line == '':
-        return ''
     else:
         dur, note, acc, oct = notes_regex.search(line).group(1, 2, 3, 4)
         accidentals = parse_accidentals(acc) if acc else 0

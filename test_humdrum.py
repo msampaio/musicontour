@@ -15,16 +15,10 @@ def test_parse_accidentals():
 
 
 def test_parse_pitch():
-    notes_regex = re.compile('([0-9.]+)([a-gA-G])([b#]+)?([0-9]*)')
-    l1 = "**pitch"
-    l2 = "4Eb4"
-    l3 = "16F##4"
-    l4 = "."
-    l5 = "*-"
-    l6 = "="
-    assert h.parse_pitch(l1) == "**midi"
-    assert h.parse_pitch(l2) == 61
-    assert h.parse_pitch(l3) == 65
-    assert h.parse_pitch(l4) == '.'
-    assert h.parse_pitch(l5) == '*-'
-    assert h.parse_pitch(l6) == '='
+    assert h.parse_pitch("**pitch") == "**midi"
+    assert h.parse_pitch("4C4") == 60
+    assert h.parse_pitch("4Eb4") == 63
+    assert h.parse_pitch("16F##4") == 67
+    assert h.parse_pitch(".") == '.'
+    assert h.parse_pitch("*-") == '*-'
+    assert h.parse_pitch("=") == '='
