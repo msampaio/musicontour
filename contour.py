@@ -63,15 +63,21 @@ class Contour():
     def max_min(self, fn):
         """Returns a list with the position of maximum or minimum
         cpitches of a cseg. Maximum or minimum function is defined in
-        fn argument."""
+        fn argument.
 
-        length = len(self.cseg)
+        'n' stores the number of elements that is evaluated.
+        'r' means result.
+        """
+
+        n = 3
+        cseg_length = len(self.cseg)
         pos = self.cps_position()
+        cseg_range = range(cseg_length - (n - 1))
 
-        result = [fn(pos[i:i + 3]) for i in range(length - (3 - 1)) if fn(pos[i:i + 3])]
-        result.insert(0, 0)
-        result.append(length - 1)
-        return result
+        r = [0]
+        [r.append(fn(pos[i:i + n])) for i in cseg_range if fn(pos[i:i + n])]
+        r.append(cseg_length - 1)
+        return r
 
     def maxima(self):
         """Returns maxima positions in a cseg."""
