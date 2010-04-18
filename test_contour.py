@@ -48,6 +48,16 @@ def test_cps_position():
                                 (7, 5), (3, 6), (12, 7), (3, 8), (7, 9)]
 
 
+def test_maxima():
+    n = c.Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
+    assert n.maxima() == [2, 12, 7, 12, 7]
+
+
+def test_minima():
+    n = c.Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
+    assert n.maxima() == [2, 5, 3, 3, 7]
+
+
 def test_subsets_count():
     n = c.Contour_subsets([[2, 8, 12, 9], [8, 12, 9, 5], [12, 9, 5, 7],
                            [9, 5, 7, 3], [5, 7, 3, 12], [7, 3, 12, 3],
