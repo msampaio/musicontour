@@ -61,18 +61,18 @@ class Contour():
 
     def __foo(self, fn):
         length = len(self.cseg)
-        l = self.local()
-        fn_result = fn(l[i:i + 3])
-        maxima = [fn_result for i in range(length - (3 - 1)) if fn_result]
-        maxima.insert(0, 0)
-        maxima.append(length - 1)
-        return maxima
-        
+        pos = self.local()
+        fn_result = fn(pos[i:i + 3])
+        result = [fn_result for i in range(length - (3 - 1)) if fn_result]
+        result.insert(0, 0)
+        result.append(length - 1)
+        return result
+
     def maxima(self):
         """Returns maxima positions in a cseg."""
 
         __foo(self, maximum)
-        
+
     def minima(self):
         """Returns minima positions in a list."""
 
@@ -110,11 +110,7 @@ class Contour():
         return [Contour([x[0], x[-1]]).com() for x in subsets]
 
     def com_matrix(self):
-        """Returns Morris (1987) a cseg COM-Matrix.
-
-
-        O operaaoeauoe aoeu
-        """
+        """Returns Morris (1987) a cseg COM-Matrix."""
 
         size = len(self.cseg)
         m = [[a, b] for a in self.cseg for b in self.cseg]
