@@ -213,3 +213,23 @@ def test_cseg_similarity():
     c4 = [3, 0, 4, 2, 1]
     assert c.cseg_similarity(c1, c2) == 0
     assert c.cseg_similarity(c3, c4) == 0.8
+
+
+def test_contour_classes_generator_cardinality():
+    assert c.__contour_classes_generator_cardinality(4) == [((4, 1), (0, 1, 2, 3)),
+                                                            ((4, 2), (0, 1, 3, 2)),
+                                                            ((4, 3), (0, 2, 1, 3)),
+                                                            ((4, 4), (0, 2, 3, 1)),
+                                                            ((4, 5), (0, 3, 1, 2)),
+                                                            ((4, 6), (0, 3, 2, 1)),
+                                                            ((4, 7), (1, 0, 3, 2)),
+                                                            ((4, 8), (1, 3, 0, 2))]
+
+
+def test_contour_classes_generator():
+    assert c.contour_classes_generator(4) == [[((2, 1), (0, 1))],
+                                              [((3, 1), (0, 1, 2)), ((3, 2), (0, 2, 1))],
+                                              [((4, 1), (0, 1, 2, 3)), ((4, 2), (0, 1, 3, 2)),
+                                               ((4, 3), (0, 2, 1, 3)), ((4, 4), (0, 2, 3, 1)),
+                                               ((4, 5), (0, 3, 1, 2)), ((4, 6), (0, 3, 2, 1)),
+                                               ((4, 7), (1, 0, 3, 2)), ((4, 8), (1, 3, 0, 2))]]

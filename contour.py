@@ -343,3 +343,37 @@ def cseg_similarity(cseg1, cseg2):
     triangle_pos = sum(d)
     similar_pos = sum([__intern_diagon_sim(cseg1, cseg2, n) for n in d])
     return similar_pos / float(triangle_pos)
+
+
+def __contour_classes_generator_cardinality(cardinality):
+    """Generates contour classes like Marvin and Laprade (1987)
+    software for one cardinality
+
+    Returns ((cardinality, number), contour class).
+
+    'base' stores the c-pitches of a given cardinality.
+
+    'permut' stores all permutations with csegs of a given
+    cardinality.
+
+    '__cc_repeat stores prime forms of permut. It may have
+    duplicates.
+
+    '_cc_no_repeat' stores enumerated sorted contour class without
+    duplicates.
+    """
+
+    base = range(cardinality)
+    permut = i.permutations(base, cardinality)
+    __cc_repeat = [tuple(Contour(x).prime_form()) for x in permut]
+    __cc_no_repeat = enumerate(sorted(list(set(__cc_repeat))))
+    contour_classes = [((cardinality, n + 1), x) for n, x in __cc_no_repeat]
+    return contour_classes
+
+
+def contour_classes_generator(cardinality):
+    """Generates contour classes like Marvin and Laprade (1987)
+    software."""
+
+    card_list = range(2, (cardinality + 1))
+    return [__contour_classes_generator_cardinality(c) for c in card_list]
