@@ -127,6 +127,14 @@ class Contour():
         delta = self.contour_interval()
         return 0 if abs(delta) == 0 else (delta) / abs(delta)
 
+    def contour_interval_succession(self):
+        """Return Friedmann (1985) CIS, a series which indicates the
+        order of Contour Intervals in a given CC (normal form cseg
+        here)."""
+
+        subsets = self.contour_subsets(2)
+        return [Contour([x[0], x[-1]]).contour_interval() for x in subsets]
+
     def internal_diagonals(self, n):
         """Returns Morris (1987) int_n."""
 

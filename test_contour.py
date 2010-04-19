@@ -100,6 +100,11 @@ def test_contour_adjacency_series_vector():
     assert c2.contour_adjacency_series_vector() == [3, 2]
 
 
+def test_contour_interval_succession():
+    n = c.Contour([0, 1, 3, 2])
+    assert n.contour_interval_succession() == [1, 2, -1]
+
+
 def test_subsets_count():
     n = c.Contour_subsets([[2, 8, 12, 9], [8, 12, 9, 5], [12, 9, 5, 7],
                            [9, 5, 7, 3], [5, 7, 3, 12], [7, 3, 12, 3],
