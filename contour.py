@@ -206,7 +206,7 @@ def remove_duplicate_tuples(list_of_tuples):
         if a != prev:
             tmp.append((a, b))
             prev = a
-            return tmp
+    return tmp
 
 
 def __intern_diagon_sim(cseg1, cseg2, n):
