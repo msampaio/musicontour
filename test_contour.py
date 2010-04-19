@@ -58,6 +58,34 @@ def test_minima():
     assert n.maxima() == [2, 5, 3, 3, 7]
 
 
+def test_comparison():
+    n1 = c.Contour([1, 4])
+    n2 = c.Contour([5, 0])
+    assert n1.comparison() == 1
+    assert n2.comparison() == -1
+
+
+def test_internal_diagonals():
+    c1 = c.Contour([0, 2, 3, 1])
+    c2 = c.Contour([1, 0, 4, 3, 2])
+    n1 = 1
+    n2 = 2
+    assert c1.internal_diagonals(n1) == [1, 1, -1]
+    assert c1.internal_diagonals(n2) == [1, -1]
+    assert c2.internal_diagonals(n1) == [-1, 1, -1, -1]
+    assert c2.internal_diagonals(n2) == [1, 1, -1]
+
+
+def test_comparison_matrix():
+    c1 = c.Contour([0, 2, 3, 1])
+    c2 = c.Contour([1, 2, 3, 0, 3, 1])
+    assert c1.comparison_matrix() == [[0, 1, 1, 1], [-1, 0, 1, -1],
+                                      [-1, -1, 0, -1], [-1, 1, 1, 0]]
+    assert c2.comparison_matrix() == [[0, 1, 1, -1, 1, 0], [-1, 0, 1, -1, 1, -1],
+                                      [-1, -1, 0, -1, 0, -1], [1, 1, 1, 0, 1, 1],
+                                      [-1, -1, 0, -1, 0, -1], [0, 1, 1, -1, 1, 0]]
+
+
 def test_subsets_count():
     n = c.Contour_subsets([[2, 8, 12, 9], [8, 12, 9, 5], [12, 9, 5, 7],
                            [9, 5, 7, 3], [5, 7, 3, 12], [7, 3, 12, 3],
