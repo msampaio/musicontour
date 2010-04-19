@@ -123,3 +123,16 @@ def test_remove_duplicate_tuples():
     n = [(5, 0), (4, 1), (4, 2), (9, 3), (7, 4), (9, 5), (5, 6)]
     assert c.remove_duplicate_tuples(n) == [(5, 0), (4, 1), (9, 3),
                                             (7, 4), (9, 5), (5, 6)]
+
+
+def test___intern_diagon_sim():
+    c1 = [0, 3, 2, 1]
+    c2 = [1, 0, 3, 2]
+    n = 1
+    assert c.cseg_similarity(c1, c2, n) == 3
+
+
+def test_cseg_similarity():
+    c1 = [0, 3, 2, 1]
+    c2 = [1, 0, 3, 2]
+    assert c.cseg_similarity(c1, c2) == 0.5
