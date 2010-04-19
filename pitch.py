@@ -16,7 +16,8 @@ def parse_accidentals(acc):
 
 
 def parse_pitch(line):
-    """Parse pitch and duration in a **pitch spine and return a simplified **midi spine.
+    """Parse pitch and duration in a **pitch spine and return a
+    simplified **midi spine.
 
     The **midi spine that this function return has only the value for
     pitch and no duration or event information whatsoever.

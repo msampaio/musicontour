@@ -300,6 +300,7 @@ class Contour():
     def __init__(self, cseg):
         self.cseg = cseg
 
+
 class Contour_subsets():
 
     def subsets_count(self):
