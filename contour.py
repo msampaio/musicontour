@@ -23,7 +23,8 @@ class Contour():
         return [int("%d" % ((axis * 2) - x)) for x in self.cseg]
 
     def translation(self):
-        """Returns the normal form of a given contour."""
+        """Returns the normal form (Marvin 1987) of a given contour.
+        It's the same of Friedmann (1985, 1987) contour class (CC)."""
 
         sorted_contour = sorted(list(set(self.cseg)))
         return [sorted_contour.index(x) for x in self.cseg]
@@ -175,7 +176,9 @@ class Contour():
         return ups, downs
 
     def internal_diagonals(self, n):
-        """Returns Morris (1987) int_n."""
+        """Returns Morris (1987) int_n. The first internal diagonal
+        (int_1) is the same of Friedmann (1985, 1987) contour
+        adjacency series (CC)."""
 
         subsets = self.contour_subsets(n + 1)
         return [Contour([x[0], x[-1]]).comparison() for x in subsets]
