@@ -197,7 +197,7 @@ def __intern_diagon_sim(cseg1, cseg2, n):
     same value in a n-internal diagonal."""
 
     c1, c2 = Contour(cseg1), Contour(cseg2)
-    d1, d2 = c1.internal_diagonals(1), c2.internal_diagonals(1)
+    d1, d2 = c1.internal_diagonals(n), c2.internal_diagonals(n)
     length = len(d1)
     return sum([(1 if d1[i] == d2[i] else 0) for i in range(length)])
 
