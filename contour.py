@@ -135,6 +135,45 @@ class Contour():
         subsets = self.contour_subsets(2)
         return [Contour([x[0], x[-1]]).contour_interval() for x in subsets]
 
+    def contour_interval_array(self):
+        """Return Friedmann (1985) CIA, an ordered series of numbers
+        that indicates the multiplicity of each Contour Interval type
+        in a given CC (normal form cseg here). For cseg [0, 1, 3, 2],
+        there are 2 instances of type +1 CI, 2 type +2 CI, 1. CIA =
+        ([2, 2, 1], [1, 0, 0])
+
+        'up_intervals' and 'down_intervals' store the contour intervals
+        that the method counts.
+
+        'combinations' stores all the elements combinations in cseg.
+
+        The loop appends positive elements in ups_list and negative in
+        downs_list.
+
+        'ups' and 'downs' stores contour intervals counting for all
+        types of positive and negative intervals in the cseg.
+        """
+
+        up_intervals = range(1, len(self.cseg))
+        down_intervals = [(x * -1) for x in up_intervals]
+        combinations = i.combinations(self.cseg, 2)
+        ups_list = []
+        downs_list = []
+
+        for x in combinations:
+            y = Contour(x).contour_interval()
+            if y > 0:
+                ups_list.append(y)
+            elif y < 0:
+                downs_list.append(y)
+            else:
+                pass
+
+        ups = [ups_list.count(x) for x in up_intervals]
+        downs = [downs_list.count(x) for x in down_intervals]
+
+        return ups, downs
+
     def internal_diagonals(self, n):
         """Returns Morris (1987) int_n."""
 
