@@ -281,6 +281,12 @@ class Contour_subsets():
         self.subsets = subsets
 
 
+def ri_identity_test(cseg):
+    """Returns 1 if cseg have identity under retrograde inversion."""
+
+    return 1 if cseg == Contour(Contour(cseg).retrograde()).inversion() else 0
+
+
 def maximum(dur_list):
     """Returns the maximum (Morris, 1993) position of a three
     c-pitches set. The input data is a list of three tuples. Each

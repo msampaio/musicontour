@@ -167,6 +167,13 @@ def test_prime_form_subsets_count():
                                             [(0, 3, 1, 2), 1]]
 
 
+def test_ri_identity_test():
+    n1 = [0, 1, 3, 2]
+    n2 = [1, 0, 3, 2]
+    assert c.ri_identity_test(n1) == 0
+    assert c.ri_identity_test(n2) == 1
+
+
 def test_maximum():
     n1 = [(5, 0), (8, 1), (4, 2)]
     n2 = [(5, 0), (2, 1), (4, 2)]
