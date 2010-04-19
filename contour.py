@@ -208,6 +208,15 @@ class Contour():
 
         return ups, downs
 
+    def contour_class_vector_ii(self):
+        """Return Friedmann (1985) CCVII, a two-digit summation of
+        degrees of ascent and descent expressed in contour interval
+        array. The first digit is the total of frequency of up contour
+        intervals, and the second, of down contour intervals. For
+        example, in CIA([2, 2, 1], [1, 0, 0], CCVII = [5, 1]."""
+
+        return [sum(x) for x in self.contour_interval_array()]
+
     def __init__(self, cseg):
         self.cseg = cseg
 
