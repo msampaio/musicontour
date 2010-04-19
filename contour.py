@@ -89,14 +89,23 @@ class Contour():
 
         return self.max_min(minimum)
 
-    def contour_reduction_algorithm(self):
-        """Returns Morris (1993) contour reduction from a cseg."""
+    def contour_reduction_algorithm_steps(self):
+        """Returns a step from Morris (1993) contour reduction."""
 
-        maxim = self.maxima()
-        minim = self.minima()
-        result = u.flatten([maxim, minim])
-        result = Contour(sorted(u.flatten([maxim, minim]))).remove_adjacent()
-        return [self.cseg[x] for x in result]
+        maxim1 = self.maxima()
+        minim1 = self.minima()
+        step4 = u.flatten([maxim1, minim1])
+        step4 = Contour(sorted(u.flatten([maxim1, minim1]))).remove_adjacent()
+        result = [self.cseg[x] for x in step4]
+        return result
+
+    def contour_reduction_algorithm(self, n):
+        """Returns Morris (1993) contour reduction from a cseg n
+        times."""
+
+        for i in xrange(n):
+            self = Contour(self.contour_reduction_algorithm_steps())
+        return self.cseg
 
     def comparison(self):
         """Returns Morris (1987) comparison [COM(a, b)] for two
