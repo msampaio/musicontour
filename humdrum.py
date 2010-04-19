@@ -77,5 +77,5 @@ class Spine_file():
                 if u.filter_int(parse_pitch(line))]
 
     def __init__(self, file, voice):
-        self.f = file
-        self.v = voice
+        self.file = file
+        self.voice = voice
