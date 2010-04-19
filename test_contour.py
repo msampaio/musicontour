@@ -147,8 +147,7 @@ def test___intern_diagon_sim():
 def test_cseg_similarity():
     c1 = [0, 2, 3, 1]
     c2 = [3, 1, 0, 2]
-    c3 = [2, 0, 1, 3]
-    c4 = [1, 3, 2, 0]
+    c3 = [1, 0, 4, 3, 2]
+    c4 = [3, 0, 4, 2, 1]
     assert c.cseg_similarity(c1, c2) == 0
-    assert c.cseg_similarity(c1, c3) == 1/3
-    assert c.cseg_similarity(c1, c4) == 2/3
+    assert c.cseg_similarity(c3, c4) == 0.8
