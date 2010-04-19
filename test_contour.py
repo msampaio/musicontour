@@ -58,6 +58,13 @@ def test_minima():
     assert n.minima() == [0, 4, 6, 8, 9]
 
 
+def test_contour_interval():
+    n1 = c.Contour([1, 5])
+    n2 = c.Contour([3, 0])
+    assert n1.contour_interval() == 4
+    assert n2.contour_interval() == -3
+
+
 def test_comparison():
     n1 = c.Contour([1, 4])
     n2 = c.Contour([5, 0])

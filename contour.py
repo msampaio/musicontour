@@ -107,13 +107,24 @@ class Contour():
             self = Contour(self.contour_reduction_algorithm_steps())
         return self.cseg
 
-    def comparison(self):
-        """Returns Morris (1987) comparison [COM(a, b)] for two
-        c-pitches."""
+    def contour_interval(self):
+        """Returns Friedmann (1985) CI, the distance between one
+        element in a CC (normal_form cseg here), and a later element
+        as signified by +, - and a number (without + here). For
+        example, in cseg = [0, 2, 1], CI(0, 2) = 2, e CI(2, 1) = -1."""
 
         el1, el2 = self.cseg
-        delta = (el2 - el1)
+        return el2 - el1
 
+    def comparison(self):
+        """Returns Morris (1987) comparison [COM(a, b)] for two
+        c-pitches.
+
+        This method calls contour_interval(), but in contour theory
+        there is no relation between them. This calling reason is only
+        to reduce code."""
+
+        delta = self.contour_interval()
         return 0 if abs(delta) == 0 else (delta) / abs(delta)
 
     def internal_diagonals(self, n):
