@@ -377,3 +377,25 @@ def contour_classes_generator(cardinality):
 
     card_list = range(2, (cardinality + 1))
     return [__contour_classes_generator_cardinality(c) for c in card_list]
+
+
+def print_contour_classes(cardinality):
+    """Prints contour classes like Marvin and Laprade (1987).
+
+    'cc' stores flatten contour classes of all cardinalities until the
+    one given.
+    """
+
+    cc = u.flatten(contour_classes_generator(cardinality))
+    new_cc = []
+    [new_cc.append((a, b, c)) for ((a, b), c) in cc]
+    card = 0
+
+    print("C-space segment-classes [by Marvin and Laprade (1987)]\
+    \n------------------------------------------------------\n\n")
+    for a, b, c in new_cc:
+        if a != card:
+            print("\nC-space segment classes for cseg cardinality {0}\n\
+            \n   Csegclass/Rinv".format(a))
+            card = a
+        print("   {0}-{1}: {2}".format(a, b, c))
