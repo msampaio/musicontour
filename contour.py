@@ -80,12 +80,12 @@ class Contour():
         return r
 
     def maxima(self):
-        """Returns maxima positions in a cseg."""
+        """Returns maxima (Morris, 1993) positions in a cseg."""
 
         return self.max_min(maximum)
 
     def minima(self):
-        """Returns minima positions in a list."""
+        """Returns minima (Morris, 1993) positions in a cseg."""
 
         return self.max_min(minimum)
 
