@@ -82,9 +82,14 @@ class Spine_file():
                         stdout=sp.PIPE, shell=True)
         return cmd3.stdout.read()
 
-    def parse_to_contour_space(self):
+    def parse_extract_to_contour_space(self):
         return [u.filter_int(parse_pitch(line))
                 for line in self.humdrum_pitch().split('\n')
+                if u.filter_int(parse_pitch(line))]
+
+    def parse_yank_to_contour_space(self, option):
+        return [u.filter_int(parse_pitch(line))
+                for line in self.humdrum_yank_pitch(option).split('\n')
                 if u.filter_int(parse_pitch(line))]
 
     def __init__(self, file, voice):
