@@ -208,6 +208,30 @@ class Contour():
 
         return ups, downs
 
+    def contour_class_vector_i(self):
+        """Return Friedmann (1985) CCVI, a two-digit summation of
+        degrees of ascent and descent expressed in contour interval
+        array. The first digit is the total of products of frequency
+        and contour interval types of up contour intervals, and the
+        second, of down contour intervals. For example, in CIA([2, 2,
+        1], [1, 0, 0], CCVI = [(2 * 1) + (2 * 2) + (1 * 3)], [(1 * 1),
+        (2 * 0), (3 * 0)]. So, CCVI = [5, 1].
+
+        'items' stores the contour intervals to be sum.
+
+        'up_list' and 'down_list' stores the up and down contour
+        interval frequency lists.
+
+        'up_sum' and 'down_sum' stores the sum of the product of each
+        contour interval frequency and contour interval value.
+        """
+
+        items = range(1, len(self.cseg))
+        up_list, down_list = self.contour_interval_array()
+        up_sum = sum([(a * b) for a, b in i.izip(up_list, items)])
+        down_sum = sum([(a * b) for a, b in i.izip(down_list, items)])
+        return [up_sum, down_sum]
+
     def contour_class_vector_ii(self):
         """Return Friedmann (1985) CCVII, a two-digit summation of
         degrees of ascent and descent expressed in contour interval

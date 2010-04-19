@@ -110,6 +110,11 @@ def test_contour_interval_array():
     assert n.contour_interval_array() == ([2, 2, 1], [1, 0, 0])
 
 
+def test_contour_class_vector_i():
+    n = c.Contour([0, 1, 3, 2])
+    assert n.contour_class_vector_i() == [9, 1]
+
+
 def test_contour_class_vector_ii():
     n = c.Contour([0, 1, 3, 2])
     assert n.contour_class_vector_ii() == [5, 1]
