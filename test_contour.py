@@ -50,12 +50,12 @@ def test_cps_position():
 
 def test_maxima():
     n = c.Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
-    assert n.maxima() == [2, 12, 7, 12, 7]
+    assert n.maxima() == [0, 2, 5, 7, 9]
 
 
 def test_minima():
     n = c.Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
-    assert n.maxima() == [2, 5, 3, 3, 7]
+    assert n.minima() == [0, 4, 6, 8, 9]
 
 
 def test_comparison():
