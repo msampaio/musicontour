@@ -71,6 +71,17 @@ class Spine_file():
                         stdout=sp.PIPE, shell=True)
         return cmd2.stdout.read()
 
+    def humdrum_yank_pitch(self, option):
+        """Outputs **pitch of a given excerpt by yank of a kern file."""
+
+        cmd1 = sp.Popen('extractx -i {0} {1}'.format(self.voice, self.file),
+                        stdout=sp.PIPE, shell=True)
+        cmd2 = sp.Popen('yank {0}'.format(option), stdin=cmd1.stdout,
+                        stdout=sp.PIPE, shell=True)
+        cmd3 = sp.Popen('pitch', stdin=cmd2.stdout,
+                        stdout=sp.PIPE, shell=True)
+        return cmd3.stdout.read()
+
     def parse_to_contour_space(self):
         return [u.filter_int(parse_pitch(line))
                 for line in self.humdrum_pitch().split('\n')
