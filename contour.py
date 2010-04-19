@@ -92,11 +92,11 @@ class Contour():
     def contour_reduction_algorithm(self):
         """Returns Morris (1993) contour reduction from a cseg."""
 
-        ma = self.maxima()
-        mi = self.minima()
-        r = u.flatten([ma, mi])
-        r = Contour(sorted(u.flatten([ma, mi]))).remove_adjacent()
-        return [self.cseg[x] for x in r]
+        maxim = self.maxima()
+        minim = self.minima()
+        result = u.flatten([maxim, minim])
+        result = Contour(sorted(u.flatten([maxim, minim]))).remove_adjacent()
+        return [self.cseg[x] for x in result]
 
     def comparison(self):
         """Returns Morris (1987) comparison [COM(a, b)] for two
