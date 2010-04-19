@@ -121,6 +121,23 @@ class Contour():
         n = [m[(i * size):((i + 1) * size)] for i in range(size)]
         return [[Contour(x).comparison() for x in n[r]] for r in range(size)]
 
+    def contour_adjacency_series_vector(self):
+        """Returns Friedmann (1985) CASV, a two digit summation of ups
+        and downs of a CAS (internal diagonal n=1 here). For example,
+        [2, 1] means 2 ups and 1 down.
+
+        'internal_diagonal' stores cseg internal diagonal, n = 1.
+
+        'ups' stores the total number of ups
+
+        'downs' stores the total number of downs
+        """
+
+        internal_diagonal = self.internal_diagonals(1)
+        ups = sum([(x if x > 0 else 0) for x in internal_diagonal])
+        downs = sum([(x if x < 0 else 0) for x in internal_diagonal])
+        return [ups, abs(downs)]
+
     def __init__(self, cseg):
         self.cseg = cseg
 

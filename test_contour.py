@@ -86,6 +86,13 @@ def test_comparison_matrix():
                                       [-1, -1, 0, -1, 0, -1], [0, 1, 1, -1, 1, 0]]
 
 
+def test_contour_adjacency_series_vector():
+    c1 = c.Contour([0, 2, 3, 1])
+    c2 = c.Contour([1, 2, 3, 0, 3, 1])
+    assert c1.contour_adjacency_series_vector() == [2, 1]
+    assert c2.contour_adjacency_series_vector() == [3, 2]
+
+
 def test_subsets_count():
     n = c.Contour_subsets([[2, 8, 12, 9], [8, 12, 9, 5], [12, 9, 5, 7],
                            [9, 5, 7, 3], [5, 7, 3, 12], [7, 3, 12, 3],
