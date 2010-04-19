@@ -16,6 +16,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   contour.rst
+
 Indices and tables
 ==================
 
