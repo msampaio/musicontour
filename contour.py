@@ -82,12 +82,12 @@ class Contour():
     def maxima(self):
         """Returns maxima positions in a cseg."""
 
-        self.max_min(maximum)
+        return self.max_min(maximum)
 
     def minima(self):
         """Returns minima positions in a list."""
 
-        self.max_min(minimum)
+        return self.max_min(minimum)
 
     def contour_reduction_algorithm(self):
         """Returns Morris (1993) contour reduction from a cseg."""
@@ -118,8 +118,8 @@ class Contour():
 
         size = len(self.cseg)
         m = [[a, b] for a in self.cseg for b in self.cseg]
-        n = [m[(i * size):((i + 1) * size)] for i in range(l)]
-        return [[Contour(x).comparison() for x in n[r]] for r in range(l)]
+        n = [m[(i * size):((i + 1) * size)] for i in range(size)]
+        return [[Contour(x).comparison() for x in n[r]] for r in range(size)]
 
     def __init__(self, cseg):
         self.cseg = cseg
