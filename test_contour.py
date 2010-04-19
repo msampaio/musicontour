@@ -126,13 +126,29 @@ def test_remove_duplicate_tuples():
 
 
 def test___intern_diagon_sim():
-    c1 = [0, 3, 2, 1]
-    c2 = [1, 0, 3, 2]
-    n = 1
-    assert c.cseg_similarity(c1, c2, n) == 3
+    c1 = [0, 2, 3, 1]
+    c2 = [3, 1, 0, 2]
+    c3 = [2, 0, 1, 3]
+    c4 = [1, 3, 2, 0]
+    n1 = 1
+    n2 = 1
+    n3 = 1
+    assert c.cseg_similarity(c1, c2, n1) == 0
+    assert c.cseg_similarity(c1, c2, n2) == 0
+    assert c.cseg_similarity(c1, c2, n3) == 0
+    assert c.cseg_similarity(c1, c3, n1) == 1
+    assert c.cseg_similarity(c1, c3, n2) == 0
+    assert c.cseg_similarity(c1, c3, n3) == 1
+    assert c.cseg_similarity(c1, c4, n1) == 1
+    assert c.cseg_similarity(c1, c4, n2) == 2
+    assert c.cseg_similarity(c1, c4, n3) == 0
 
 
 def test_cseg_similarity():
-    c1 = [0, 3, 2, 1]
-    c2 = [1, 0, 3, 2]
-    assert c.cseg_similarity(c1, c2) == 0.5
+    c1 = [0, 2, 3, 1]
+    c2 = [3, 1, 0, 2]
+    c3 = [2, 0, 1, 3]
+    c4 = [1, 3, 2, 0]
+    assert c.cseg_similarity(c1, c2) == 0
+    assert c.cseg_similarity(c1, c3) == 1/3
+    assert c.cseg_similarity(c1, c4) == 2/3
