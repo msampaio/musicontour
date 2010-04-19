@@ -6,6 +6,62 @@ import itertools as i
 import utils as u
 
 
+def __contour_classes_generator_cardinality(cardinality):
+    """Generates contour classes like Marvin and Laprade (1987)
+    software for one cardinality
+
+    Returns ((cardinality, number), contour class).
+
+    'base' stores the c-pitches of a given cardinality.
+
+    'permut' stores all permutations with csegs of a given
+    cardinality.
+
+    '__cc_repeat stores prime forms of permut. It may have
+    duplicates.
+
+    '_cc_no_repeat' stores enumerated sorted contour class without
+    duplicates.
+    """
+
+    base = range(cardinality)
+    permut = i.permutations(base, cardinality)
+    __cc_repeat = [tuple(Contour(x).prime_form()) for x in permut]
+    __cc_no_repeat = enumerate(sorted(list(set(__cc_repeat))))
+    contour_classes = [((cardinality, n + 1), x) for n, x in __cc_no_repeat]
+    return contour_classes
+
+
+def contour_classes_generator(cardinality):
+    """Generates contour classes like Marvin and Laprade (1987)
+    software."""
+
+    card_list = range(2, (cardinality + 1))
+    return [__contour_classes_generator_cardinality(c) for c in card_list]
+
+
+def print_contour_classes(cardinality):
+    """Prints contour classes like Marvin and Laprade (1987).
+
+    'cc' stores flatten contour classes of all cardinalities until the
+    one given.
+    """
+
+    cc = u.flatten(contour_classes_generator(cardinality))
+    new_cc = []
+    [new_cc.append((a, b, c)) for ((a, b), c) in cc]
+    card = 0
+
+    print("C-space segment-classes [by Marvin and Laprade (1987)]\
+    \n------------------------------------------------------\n\n")
+    for a, b, c in new_cc:
+        if a != card:
+            print("\nC-space segment classes for cseg cardinality {0}\n\
+            \n   Csegclass/Rinv".format(a))
+            card = a
+        print("   {0}-{1}: {2}".format(a, b, c))
+
+
 class Contour():
 
     def retrograde(self):
@@ -244,7 +300,6 @@ class Contour():
     def __init__(self, cseg):
         self.cseg = cseg
 
-
 class Contour_subsets():
 
     def subsets_count(self):
@@ -349,59 +404,3 @@ def cseg_similarity(cseg1, cseg2):
     triangle_pos = sum(d)
     similar_pos = sum([__intern_diagon_sim(cseg1, cseg2, n) for n in d])
     return similar_pos / float(triangle_pos)
-
-
-def __contour_classes_generator_cardinality(cardinality):
-    """Generates contour classes like Marvin and Laprade (1987)
-    software for one cardinality
-
-    Returns ((cardinality, number), contour class).
-
-    'base' stores the c-pitches of a given cardinality.
-
-    'permut' stores all permutations with csegs of a given
-    cardinality.
-
-    '__cc_repeat stores prime forms of permut. It may have
-    duplicates.
-
-    '_cc_no_repeat' stores enumerated sorted contour class without
-    duplicates.
-    """
-
-    base = range(cardinality)
-    permut = i.permutations(base, cardinality)
-    __cc_repeat = [tuple(Contour(x).prime_form()) for x in permut]
-    __cc_no_repeat = enumerate(sorted(list(set(__cc_repeat))))
-    contour_classes = [((cardinality, n + 1), x) for n, x in __cc_no_repeat]
-    return contour_classes
-
-
-def contour_classes_generator(cardinality):
-    """Generates contour classes like Marvin and Laprade (1987)
-    software."""
-
-    card_list = range(2, (cardinality + 1))
-    return [__contour_classes_generator_cardinality(c) for c in card_list]
-
-
-def print_contour_classes(cardinality):
-    """Prints contour classes like Marvin and Laprade (1987).
-
-    'cc' stores flatten contour classes of all cardinalities until the
-    one given.
-    """
-
-    cc = u.flatten(contour_classes_generator(cardinality))
-    new_cc = []
-    [new_cc.append((a, b, c)) for ((a, b), c) in cc]
-    card = 0
-
-    print("C-space segment-classes [by Marvin and Laprade (1987)]\
-    \n------------------------------------------------------\n\n")
-    for a, b, c in new_cc:
-        if a != card:
-            print("\nC-space segment classes for cseg cardinality {0}\n\
-            \n   Csegclass/Rinv".format(a))
-            card = a
-        print("   {0}-{1}: {2}".format(a, b, c))
