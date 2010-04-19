@@ -136,6 +136,39 @@ class Contour():
         subsets = self.contour_subsets(2)
         return [Contour([x[0], x[-1]]).contour_interval() for x in subsets]
 
+    def internal_diagonals(self, n):
+        """Returns Morris (1987) int_n. The first internal diagonal
+        (int_1) is the same of Friedmann (1985, 1987) contour
+        adjacency series (CC)."""
+
+        subsets = self.contour_subsets(n + 1)
+        return [Contour([x[0], x[-1]]).comparison() for x in subsets]
+
+    def comparison_matrix(self):
+        """Returns Morris (1987) a cseg COM-Matrix."""
+
+        size = len(self.cseg)
+        m = [[a, b] for a in self.cseg for b in self.cseg]
+        n = [m[(i * size):((i + 1) * size)] for i in range(size)]
+        return [[Contour(x).comparison() for x in n[r]] for r in range(size)]
+
+    def contour_adjacency_series_vector(self):
+        """Returns Friedmann (1985) CASV, a two digit summation of ups
+        and downs of a CAS (internal diagonal n=1 here). For example,
+        [2, 1] means 2 ups and 1 down.
+
+        'internal_diagonal' stores cseg internal diagonal, n = 1.
+
+        'ups' stores the total number of ups
+
+        'downs' stores the total number of downs
+        """
+
+        internal_diagonal = self.internal_diagonals(1)
+        ups = sum([(x if x > 0 else 0) for x in internal_diagonal])
+        downs = sum([(x if x < 0 else 0) for x in internal_diagonal])
+        return [ups, abs(downs)]
+
     def contour_interval_array(self):
         """Return Friedmann (1985) CIA, an ordered series of numbers
         that indicates the multiplicity of each Contour Interval type
@@ -174,39 +207,6 @@ class Contour():
         downs = [downs_list.count(x) for x in down_intervals]
 
         return ups, downs
-
-    def internal_diagonals(self, n):
-        """Returns Morris (1987) int_n. The first internal diagonal
-        (int_1) is the same of Friedmann (1985, 1987) contour
-        adjacency series (CC)."""
-
-        subsets = self.contour_subsets(n + 1)
-        return [Contour([x[0], x[-1]]).comparison() for x in subsets]
-
-    def comparison_matrix(self):
-        """Returns Morris (1987) a cseg COM-Matrix."""
-
-        size = len(self.cseg)
-        m = [[a, b] for a in self.cseg for b in self.cseg]
-        n = [m[(i * size):((i + 1) * size)] for i in range(size)]
-        return [[Contour(x).comparison() for x in n[r]] for r in range(size)]
-
-    def contour_adjacency_series_vector(self):
-        """Returns Friedmann (1985) CASV, a two digit summation of ups
-        and downs of a CAS (internal diagonal n=1 here). For example,
-        [2, 1] means 2 ups and 1 down.
-
-        'internal_diagonal' stores cseg internal diagonal, n = 1.
-
-        'ups' stores the total number of ups
-
-        'downs' stores the total number of downs
-        """
-
-        internal_diagonal = self.internal_diagonals(1)
-        ups = sum([(x if x > 0 else 0) for x in internal_diagonal])
-        downs = sum([(x if x < 0 else 0) for x in internal_diagonal])
-        return [ups, abs(downs)]
 
     def __init__(self, cseg):
         self.cseg = cseg
