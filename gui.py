@@ -60,7 +60,7 @@ class App:
     def normal_form(self):
         get = self.entry.get()
         cseg = [int(x) for x in get.split(' ')]
-        p.plot_preview(c.Contour(cseg).translate())
+        p.plot_preview(c.Contour(cseg).translation())
 
     def retrograde(self):
         get = self.entry.get()
