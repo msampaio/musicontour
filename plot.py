@@ -4,6 +4,9 @@
 import pylab as pl
 
 
+program_name = "Villa Lobos Contour Module v.0.1"
+
+
 def plot_preview(cseg):
     """Generates cseg plot.
 
@@ -16,7 +19,7 @@ def plot_preview(cseg):
     pl.grid(color='b', linestyle='-', linewidth=.1)
     pl.axis()
     pl.plot(cseg, linewidth=2, color='b', label='{0}'.format(cseg))
-    pl.title("Villa Lobos Contour Module v.0.1", family='georgia', size='small')
+    pl.title(program_name, family='georgia', size='small')
     pl.legend()
     pl.show()
 
@@ -35,6 +38,6 @@ def multi_plot_preview(cseg_array):
     for cseg, color in cseg_array:
         pl.plot(cseg, linewidth=2, color=color, label='{0}'.format(cseg))
 
-    pl.title("Villa Lobos Contour Module v.0.1", family='georgia', size='small')
+    pl.title(program_name, family='georgia', size='small')
     pl.legend()
     pl.show()
