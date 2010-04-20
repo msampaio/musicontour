@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from Tkinter import Tk, Frame, Button, Entry, LEFT, END
+from Tkinter import Tk, Frame, Button, Entry, Label, LEFT, END
 import plot as p
 import contour as c
 
@@ -10,44 +10,51 @@ class App:
 
     def __init__(self, master):
 
-        frame = Frame(master)
-        frame.pack()
+        frame2 = Frame(master)
+        frame2.pack()
 
-        self.plot = Button(frame, text="Plot", command=self.plot)
+        frame1 = Frame(master)
+        frame1.pack()
+
+        self.plot = Button(frame1, text="Plot", command=self.plot)
         self.plot.pack(side=LEFT)
 
-        self.prime_form = Button(frame, text="Prime form",
+        self.prime_form = Button(frame1, text="Prime form",
                                     command=self.prime_form)
         self.prime_form.pack(side=LEFT)
 
-        self.normal_form = Button(frame, text="Normal form",
+        self.normal_form = Button(frame1, text="Normal form",
                                      command=self.normal_form)
         self.normal_form.pack(side=LEFT)
 
-        self.retrograde = Button(frame, text="Retrograde",
+        self.retrograde = Button(frame1, text="Retrograde",
                                     command=self.retrograde)
         self.retrograde.pack(side=LEFT)
 
-        self.inversion = Button(frame, text="Inversion",
+        self.inversion = Button(frame1, text="Inversion",
                                    command=self.inversion)
         self.inversion.pack(side=LEFT)
 
-        self.ret_inv = Button(frame,
+        self.ret_inv = Button(frame1,
                                  text="Ret_inv",
                                  command=self.ret_inv)
         self.ret_inv.pack(side=LEFT)
 
-        self.rotation = Button(frame, text="Rotation",
+        self.rotation = Button(frame1, text="Rotation",
                                   command=self.rotation)
         self.rotation.pack(side=LEFT)
 
-        self.cseg_entry = Entry(frame)
+        Label(frame2, text='cseg:').pack(side=LEFT, padx=5)
+
+        self.cseg_entry = Entry(frame2)
         self.cseg_entry.pack(side=LEFT)
         self.cseg_entry.delete(0, END)
         self.cseg_entry.insert(0, "0 3 1 2")
         self.cseg_entry.get()
 
-        self.param_entry = Entry(frame)
+        Label(frame2, text='parameter:').pack(side=LEFT, padx=5)
+
+        self.param_entry = Entry(frame2)
         self.param_entry.pack(side=LEFT)
         self.param_entry.delete(0, END)
         self.param_entry.insert(0, "1")
