@@ -16,6 +16,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   install.rst
    contour.rst
 
 Indices and tables
