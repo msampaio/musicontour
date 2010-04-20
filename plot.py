@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import pylab as pl
+from pylab import grid, axis, plot, title, legend, show
 import random
 
 program_name = "Villa Lobos Contour Module v.0.1"
@@ -21,12 +21,12 @@ def plot_preview(cseg):
     >>> plot_preview([5, 3, 4, 1, 2, 0])
     """
 
-    pl.grid(color='b', linestyle='-', linewidth=.1)
-    pl.axis()
-    pl.plot(cseg, linewidth=2, color=random_color(), label='{0}'.format(cseg))
-    pl.title(program_name, family='georgia', size='small')
-    pl.legend()
-    pl.show()
+    grid(color='b', linestyle='-', linewidth=.1)
+    axis()
+    plot(cseg, linewidth=2, color=random_color(), label='{0}'.format(cseg))
+    title(program_name, family='georgia', size='small')
+    legend()
+    show()
 
 
 def multi_plot_preview(cseg_array):
@@ -37,12 +37,12 @@ def multi_plot_preview(cseg_array):
                             [[0, 2, 3], 'green']])
     """
 
-    pl.grid(color='b', linestyle='-', linewidth=.1)
-    pl.axis()
+    grid(color='b', linestyle='-', linewidth=.1)
+    axis()
 
     for cseg, color in cseg_array:
-        pl.plot(cseg, linewidth=2, color=color, label='{0}'.format(cseg))
+        plot(cseg, linewidth=2, color=color, label='{0}'.format(cseg))
 
-    pl.title(program_name, family='georgia', size='small')
-    pl.legend()
-    pl.show()
+    title(program_name, family='georgia', size='small')
+    legend()
+    show()

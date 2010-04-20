@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-import subprocess as sp
+from subprocess import Popen, PIPE
 import re
-import utils as u
+from utils import filter_int
 
 
 ## regular expression to **pitch notes
@@ -58,39 +58,39 @@ class Spine_file():
     def extract_spine(self):
         """Extracts a spine from a kern file."""
 
-        spine = sp.Popen('extractx -i {0} {1}'.format(self.voice, self.file),
-                             stdout=sp.PIPE, shell=True)
+        spine = Popen('extractx -i {0} {1}'.format(self.voice, self.file),
+                             stdout=PIPE, shell=True)
         return spine.stdout.read()
 
     def humdrum_pitch(self):
         """Outputs **pitch from a kern file."""
 
-        cmd1 = sp.Popen('extractx -i {0} {1}'.format(self.voice, self.file),
-                        stdout=sp.PIPE, shell=True)
-        cmd2 = sp.Popen('pitch', stdin=cmd1.stdout,
-                        stdout=sp.PIPE, shell=True)
+        cmd1 = Popen('extractx -i {0} {1}'.format(self.voice, self.file),
+                        stdout=PIPE, shell=True)
+        cmd2 = Popen('pitch', stdin=cmd1.stdout,
+                        stdout=PIPE, shell=True)
         return cmd2.stdout.read()
 
     def humdrum_yank_pitch(self, option):
         """Outputs **pitch of a given excerpt by yank of a kern file."""
 
-        cmd1 = sp.Popen('extractx -i {0} {1}'.format(self.voice, self.file),
-                        stdout=sp.PIPE, shell=True)
-        cmd2 = sp.Popen('yank {0}'.format(option), stdin=cmd1.stdout,
-                        stdout=sp.PIPE, shell=True)
-        cmd3 = sp.Popen('pitch', stdin=cmd2.stdout,
-                        stdout=sp.PIPE, shell=True)
+        cmd1 = Popen('extractx -i {0} {1}'.format(self.voice, self.file),
+                        stdout=PIPE, shell=True)
+        cmd2 = Popen('yank {0}'.format(option), stdin=cmd1.stdout,
+                        stdout=PIPE, shell=True)
+        cmd3 = Popen('pitch', stdin=cmd2.stdout,
+                        stdout=PIPE, shell=True)
         return cmd3.stdout.read()
 
     def parse_extract_to_contour_space(self):
-        return [u.filter_int(parse_pitch(line))
+        return [filter_int(parse_pitch(line))
                 for line in self.humdrum_pitch().split('\n')
-                if u.filter_int(parse_pitch(line))]
+                if filter_int(parse_pitch(line))]
 
     def parse_yank_to_contour_space(self, option):
-        return [u.filter_int(parse_pitch(line))
+        return [filter_int(parse_pitch(line))
                 for line in self.humdrum_yank_pitch(option).split('\n')
-                if u.filter_int(parse_pitch(line))]
+                if filter_int(parse_pitch(line))]
 
     def __init__(self, file, voice):
         self.file = file

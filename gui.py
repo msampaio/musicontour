@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from Tkinter import Tk, Frame, Button, Entry, Label, LEFT, END
-import plot as p
-import contour as c
+from plot import plot_preview
+from contour import Contour
 
 
 class App:
@@ -63,38 +63,38 @@ class App:
     def plot(self):
         get = self.cseg_entry.get()
         cseg = [int(x) for x in get.split(' ')]
-        p.plot_preview(cseg)
+        plot_preview(cseg)
 
     def prime_form(self):
         get = self.cseg_entry.get()
         cseg = [int(x) for x in get.split(' ')]
-        p.plot_preview(c.Contour(cseg).prime_form())
+        plot_preview(Contour(cseg).prime_form())
 
     def normal_form(self):
         get = self.cseg_entry.get()
         cseg = [int(x) for x in get.split(' ')]
-        p.plot_preview(c.Contour(cseg).translation())
+        plot_preview(Contour(cseg).translation())
 
     def retrograde(self):
         get = self.cseg_entry.get()
         cseg = [int(x) for x in get.split(' ')]
-        p.plot_preview(c.Contour(cseg).retrograde())
+        plot_preview(Contour(cseg).retrograde())
 
     def inversion(self):
         get = self.cseg_entry.get()
         cseg = [int(x) for x in get.split(' ')]
-        p.plot_preview(c.Contour(cseg).inversion())
+        plot_preview(Contour(cseg).inversion())
 
     def ret_inv(self):
         get = self.cseg_entry.get()
         cseg = [int(x) for x in get.split(' ')]
-        p.plot_preview(c.Contour(c.Contour(cseg).retrograde()).inversion())
+        plot_preview(Contour(Contour(cseg).retrograde()).inversion())
 
     def rotation(self):
         get = self.cseg_entry.get()
         param_get = int(self.param_entry.get())
         cseg = [int(x) for x in get.split(' ')]
-        p.plot_preview(c.Contour(cseg).rotation(param_get))
+        plot_preview(Contour(cseg).rotation(param_get))
 
 
 root = Tk()
