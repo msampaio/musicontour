@@ -33,9 +33,13 @@ class App:
         self.inversion.pack(side=tk.LEFT)
 
         self.ret_inv = tk.Button(frame,
-                                              text="Ret_inv",
-                                              command=self.ret_inv)
+                                 text="Ret_inv",
+                                 command=self.ret_inv)
         self.ret_inv.pack(side=tk.LEFT)
+
+        self.rotation = tk.Button(frame, text="Rotation",
+                                  command=self.rotation)
+        self.rotation.pack(side=tk.LEFT)
 
         self.entry = tk.Entry(frame)
         self.entry.pack(side=tk.LEFT)
@@ -72,6 +76,11 @@ class App:
         get = self.entry.get()
         cseg = [int(x) for x in get.split(' ')]
         p.plot_preview(c.Contour(c.Contour(cseg).retrograde()).inversion())
+
+    def rotation(self):
+        get = self.entry.get()
+        cseg = [int(x) for x in get.split(' ')]
+        p.plot_preview(c.Contour(cseg).rotation())
 
 
 root = tk.Tk()
