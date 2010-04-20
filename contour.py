@@ -48,8 +48,7 @@ def print_contour_classes(cardinality):
     """
 
     cc = u.flatten(contour_classes_generator(cardinality))
-    new_cc = []
-    [new_cc.append((a, b, c)) for ((a, b), c) in cc]
+    new_cc = [(a, b, c) for ((a, b), c) in cc]
     card = 0
 
     print("C-space segment-classes [by Marvin and Laprade (1987)]\
