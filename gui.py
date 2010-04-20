@@ -12,10 +12,6 @@ class App:
         frame = tk.Frame(master)
         frame.pack()
 
-        self.button = tk.Button(frame, text="Quit", fg="red",
-                                command=frame.quit)
-        self.button.pack(side=tk.LEFT)
-
         self.plot = tk.Button(frame, text="Plot", command=self.plot)
         self.plot.pack(side=tk.LEFT)
 
