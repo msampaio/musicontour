@@ -91,6 +91,7 @@ class App:
 
 
 root = tk.Tk()
+root.title("Villa Lobos Contour Module")
 
 app = App(root)
 
