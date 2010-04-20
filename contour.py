@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-import itertools as i
-import utils as u
+from itertools import permutations, combinations, izip
+from utils import flatten
 
 
 def __contour_classes_generator_cardinality(cardinality):
@@ -25,7 +25,7 @@ def __contour_classes_generator_cardinality(cardinality):
     """
 
     base = range(cardinality)
-    permut = i.permutations(base, cardinality)
+    permut = permutations(base, cardinality)
     __cc_repeat = [tuple(Contour(x).prime_form()) for x in permut]
     __cc_no_repeat = enumerate(sorted(list(set(__cc_repeat))))
     contour_classes = [((cardinality, n + 1), x) for n, x in __cc_no_repeat]
@@ -50,7 +50,7 @@ def print_contour_classes(cardinality):
     print("C-space segment-classes [by Marvin and Laprade (1987)]")
     print("{0}\n".format("-" * 54))
 
-    cc = u.flatten(contour_classes_generator(cardinality))
+    cc = flatten(contour_classes_generator(cardinality))
     card = 0
     for a, b, c in [(a, b, c) for ((a, b), c) in cc]:
         if a != card:
@@ -88,26 +88,29 @@ class Contour():
 
         length = len(self.cseg)
         self.cseg = self.translation()
+
         if ((length - 1) - self.cseg[-1]) < self.cseg[0]:
             self.cseg = self.inversion()
         else:
             self.cseg
+
         if self.cseg[-1] < self.cseg[0]:
             self.cseg = self.retrograde()
         else:
             self.cseg
+
         return self.cseg
 
     def remove_adjacent(self):
         """Removes adjacent elements from a list."""
 
-        return [a for a, b in i.izip(self.cseg, self.cseg[1:])
-                if a != b] + [self.cseg[-1]]
+        groups = izip(self.cseg, self.cseg[1:])
+        return [a for a, b in groups if a != b] + [self.cseg[-1]]
 
     def contour_subsets(self, n):
         """Returns adjacent n-elements subsets of a given contour."""
 
-        return [self.cseg[i:i + n] for i in range((len(self.cseg) - (n - 1)))]
+        return [self.cseg[i:i + n] for i in range(len(self.cseg) - (n - 1))]
 
     def cps_position(self):
         """Returns a tuple with c-pitch and its position for each
@@ -149,10 +152,9 @@ class Contour():
 
         maxim1 = self.maxima()
         minim1 = self.minima()
-        step4 = u.flatten([maxim1, minim1])
-        step4 = Contour(sorted(u.flatten([maxim1, minim1]))).remove_adjacent()
-        result = [self.cseg[x] for x in step4]
-        return result
+        step4 = flatten([maxim1, minim1])
+        step4 = Contour(sorted(flatten([maxim1, minim1]))).remove_adjacent()
+        return [self.cseg[x] for x in step4]
 
     def contour_reduction_algorithm(self, n):
         """Returns Morris (1993) contour reduction from a cseg n
@@ -233,8 +235,6 @@ class Contour():
         'up_intervals' and 'down_intervals' store the contour intervals
         that the method counts.
 
-        'combinations' stores all the elements combinations in cseg.
-
         The loop appends positive elements in ups_list and negative in
         downs_list.
 
@@ -243,19 +243,16 @@ class Contour():
         """
 
         up_intervals = range(1, len(self.cseg))
-        down_intervals = [(x * -1) for x in up_intervals]
-        combinations = i.combinations(self.cseg, 2)
+        down_intervals = [-x for x in up_intervals]
         ups_list = []
         downs_list = []
 
-        for x in combinations:
+        for x in combinations(self.cseg, 2):
             y = Contour(x).contour_interval()
             if y > 0:
                 ups_list.append(y)
             elif y < 0:
                 downs_list.append(y)
-            else:
-                pass
 
         ups = [ups_list.count(x) for x in up_intervals]
         downs = [downs_list.count(x) for x in down_intervals]
@@ -282,8 +279,8 @@ class Contour():
 
         items = range(1, len(self.cseg))
         up_list, down_list = self.contour_interval_array()
-        up_sum = sum([(a * b) for a, b in i.izip(up_list, items)])
-        down_sum = sum([(a * b) for a, b in i.izip(down_list, items)])
+        up_sum = sum([a * b for a, b in izip(up_list, items)])
+        down_sum = sum([a * b for a, b in izip(down_list, items)])
         return [up_sum, down_sum]
 
     def contour_class_vector_ii(self):
