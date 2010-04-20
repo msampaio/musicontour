@@ -9,7 +9,8 @@ program_name = "Villa Lobos Contour Module v.0.1"
 
 def random_color():
     colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
-    return colors[random.randint(0, len(colors) -1 )]
+    return colors[random.randint(0, len(colors) - 1)]
+
 
 def plot_preview(cseg):
     """Generates cseg plot.
