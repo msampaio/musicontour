@@ -4,6 +4,14 @@
 import contour as c
 
 
+def test_rotation():
+    n = c.Contour([1, 4, 9, 9, 2, 1])
+    assert n.rotation() == [4, 9, 9, 2, 1, 1]
+    assert n.rotation(1) == [4, 9, 9, 2, 1, 1]
+    assert n.rotation(2) == [9, 9, 2, 1, 1, 4]
+    assert n.rotation(20) == [9, 9, 2, 1, 1, 4]
+
+
 def test_retrograde():
     n = c.Contour([1, 4, 9, 9, 2, 1])
     assert n.retrograde() == [1, 2, 9, 9, 4, 1]

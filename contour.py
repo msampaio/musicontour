@@ -62,6 +62,20 @@ def print_contour_classes(cardinality):
 
 class Contour():
 
+    def rotation(self, factor=1):
+        """Rotates a cseg around a factor.
+
+        factor is optional. Default factor=1.
+
+        'n' is the module of input factor. It's allowed to use factor
+        numbers greater than cseg size.
+        """
+
+        n = factor % len(self.cseg)
+        subset = self.cseg[n:]
+        subset.extend(self.cseg[0:n])
+        return subset
+
     def retrograde(self):
         """Returns contour retrograde."""
 
