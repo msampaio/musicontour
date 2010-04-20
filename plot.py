@@ -2,10 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import pylab as pl
-
+import random
 
 program_name = "Villa Lobos Contour Module v.0.1"
 
+
+def random_color():
+    colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
+    return colors[random.randint(0, len(colors) -1 )]
 
 def plot_preview(cseg):
     """Generates cseg plot.
@@ -18,7 +22,7 @@ def plot_preview(cseg):
 
     pl.grid(color='b', linestyle='-', linewidth=.1)
     pl.axis()
-    pl.plot(cseg, linewidth=2, color='b', label='{0}'.format(cseg))
+    pl.plot(cseg, linewidth=2, color=random_color(), label='{0}'.format(cseg))
     pl.title(program_name, family='georgia', size='small')
     pl.legend()
     pl.show()
