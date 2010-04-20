@@ -47,17 +47,15 @@ def print_contour_classes(cardinality):
     one given.
     """
 
-    cc = u.flatten(contour_classes_generator(cardinality))
-    new_cc = []
-    [new_cc.append((a, b, c)) for ((a, b), c) in cc]
-    card = 0
+    print("C-space segment-classes [by Marvin and Laprade (1987)]")
+    print("{0}\n".format("-" * 54))
 
-    print("C-space segment-classes [by Marvin and Laprade (1987)]\
-    \n------------------------------------------------------\n\n")
-    for a, b, c in new_cc:
+    cc = u.flatten(contour_classes_generator(cardinality))
+    card = 0
+    for a, b, c in [(a, b, c) for ((a, b), c) in cc]:
         if a != card:
-            print("\nC-space segment classes for cseg cardinality {0}\n\
-            \n   Csegclass/Rinv".format(a))
+            print("\nC-space segment classes for cseg cardinality", a)
+            print("\n   Csegclass/Rinv")
             card = a
         print("   {0}-{1}: {2}".format(a, b, c))
 
