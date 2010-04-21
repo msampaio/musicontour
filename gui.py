@@ -8,6 +8,7 @@ from contour import Contour
 program_name = "Villa Lobos Contour Module"
 version = "0.1"
 
+
 class App:
 
     def __init__(self, master):
@@ -33,7 +34,7 @@ class App:
 
         self.plot = Button(toolbar1, text="Plot", command=self.plot,
                            width=10)
-        
+
         self.plot.pack(side=TOP)
 
         self.prime_form = Button(toolbar2, text="Prime form",

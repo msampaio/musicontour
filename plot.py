@@ -23,7 +23,8 @@ def plot_preview(cseg):
 
     grid(color='b', linestyle='-', linewidth=.1)
     axis()
-    plot(cseg, linewidth=2, marker='d', color=random_color(), label='{0}'.format(cseg))
+    plot(cseg, linewidth=2, marker='d', color=random_color(),
+         label='{0}'.format(cseg))
     title(program_name, family='georgia', size='small')
     legend()
     show()
