@@ -262,3 +262,8 @@ def test_contour_classes_generator():
                             (4, 3, (0, 2, 1, 3)), (4, 4, (0, 2, 3, 1)),
                             (4, 5, (0, 3, 1, 2)), (4, 6, (0, 3, 2, 1)),
                             (4, 7, (1, 0, 3, 2)), (4, 8, (1, 3, 0, 2))]]
+
+
+def test_contour_segment_class():
+    c = Contour([2, 1, 4])
+    assert c.contour_segment_class() == (3, 2, (0, 2, 1))

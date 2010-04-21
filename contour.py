@@ -306,6 +306,19 @@ class Contour():
 
         return [sum(x) for x in self.contour_interval_array()]
 
+    def contour_segment_class(self):
+        """Returns contour segment class of a given cseg.
+
+        Output format is: (cardinality, number, cseg_class), like
+        (3, 1, (0, 1, 2)).
+        """
+
+        prime_form = self.prime_form()
+        cseg_classes = flatten(contour_classes_generator(len(self.cseg)))
+        for (cardinality, number, cseg_class) in cseg_classes:
+            if tuple(prime_form) == cseg_class:
+                return cardinality, number, cseg_class
+
     def __init__(self, cseg):
         self.cseg = cseg
 
