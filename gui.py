@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from Tkinter import Tk, Frame, Button, Entry, Label, TOP, LEFT, END
+from Tkinter import Tk, Frame, Button, Entry, Label, TOP, LEFT, X
 from plot import plot_preview
 from contour import Contour
 
@@ -12,61 +12,65 @@ class App:
 
     def __init__(self, master):
 
-        frame0 = Frame(master)
-        frame0.pack(pady=10)
+        title_frame = Frame(master)
+        title_frame.pack(pady=5)
 
         frame1 = Frame(master)
-        frame1.pack(pady=5)
+        frame1.pack(side=TOP, fill=X)
 
         frame2 = Frame(master)
-        frame2.pack(pady=5)
+        frame2.pack(side=TOP, fill=X)
 
-        frame3 = Frame(master)
-        frame3.pack(pady=5)
+        toolbar1 = Frame(master)
+        toolbar1.pack(side=LEFT, pady=5, fill=X)
 
-        font = 'sans 16 bold'
-        self.initial = Label(frame0, text=program_name, font=font)
+        toolbar2 = Frame(master)
+        toolbar2.pack(side=TOP, pady=5, fill=X)
+
+        font = 'sans 8 bold'
+        self.initial = Label(title_frame, text=program_name, font=font)
         self.initial.pack(side=TOP)
 
-        self.plot = Button(frame2, text="Plot", command=self.plot)
-        self.plot.pack(side=LEFT)
+        self.plot = Button(toolbar1, text="Plot", command=self.plot,
+                           width=10)
+        
+        self.plot.pack(side=TOP)
 
-        self.prime_form = Button(frame2, text="Prime form",
-                                    command=self.prime_form)
-        self.prime_form.pack(side=LEFT)
+        self.prime_form = Button(toolbar2, text="Prime form",
+                                    command=self.prime_form, width=10)
+        self.prime_form.pack(side=TOP)
 
-        self.normal_form = Button(frame2, text="Normal form",
-                                     command=self.normal_form)
-        self.normal_form.pack(side=LEFT)
+        self.normal_form = Button(toolbar2, text="Normal form",
+                                     command=self.normal_form, width=10)
+        self.normal_form.pack(side=TOP)
 
-        self.retrograde = Button(frame2, text="Retrograde",
-                                    command=self.retrograde)
-        self.retrograde.pack(side=LEFT)
+        self.retrograde = Button(toolbar1, text="Retrograde",
+                                    command=self.retrograde, width=10)
+        self.retrograde.pack(side=TOP)
 
-        self.inversion = Button(frame2, text="Inversion",
-                                   command=self.inversion)
-        self.inversion.pack(side=LEFT)
+        self.inversion = Button(toolbar1, text="Inversion",
+                                   command=self.inversion, width=10)
+        self.inversion.pack(side=TOP)
 
-        self.ret_inv = Button(frame2,
-                                 text="Ret_inv",
-                                 command=self.ret_inv)
-        self.ret_inv.pack(side=LEFT)
+        self.ret_inv = Button(toolbar1, text="Ret_inv",
+                                 command=self.ret_inv, width=10)
+        self.ret_inv.pack(side=TOP)
 
-        self.rotation = Button(frame2, text="Rotation",
-                                  command=self.rotation)
-        self.rotation.pack(side=LEFT)
+        self.rotation = Button(toolbar2, text="Rotation",
+                               command=self.rotation, width=10)
+        self.rotation.pack(side=TOP)
 
-        Label(frame1, text='cseg:').pack(side=LEFT, padx=5)
+        Label(frame1, text='cseg:').pack(side=LEFT)
 
         self.cseg_entry = Entry(frame1, width=20)
-        self.cseg_entry.pack(side=LEFT)
+        self.cseg_entry.pack(fill=X)
         self.cseg_entry.insert('end', "0 3 1 2")
         self.cseg_entry.get()
 
-        Label(frame1, text='parameter:').pack(side=LEFT, padx=5)
+        Label(frame2, text='parameter:').pack(side=LEFT)
 
-        self.param_entry = Entry(frame1, width=5)
-        self.param_entry.pack(side=LEFT)
+        self.param_entry = Entry(frame2, width=5)
+        self.param_entry.pack(fill=X)
         self.param_entry.insert("end", "1")
         self.param_entry.get()
 
