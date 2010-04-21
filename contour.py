@@ -10,7 +10,7 @@ def __contour_classes_generator_cardinality(cardinality):
     """Generates contour classes like Marvin and Laprade (1987)
     software for one cardinality
 
-    Returns ((cardinality, number), contour class).
+    Returns (cardinality, number, contour class).
 
     'base' stores the c-pitches of a given cardinality.
 
@@ -28,7 +28,7 @@ def __contour_classes_generator_cardinality(cardinality):
     permut = permutations(base, cardinality)
     __cc_repeat = [tuple(Contour(x).prime_form()) for x in permut]
     __cc_no_repeat = enumerate(sorted(list(set(__cc_repeat))))
-    contour_classes = [((cardinality, n + 1), x) for n, x in __cc_no_repeat]
+    contour_classes = [(cardinality, n + 1, x) for n, x in __cc_no_repeat]
     return contour_classes
 
 
@@ -52,7 +52,7 @@ def print_contour_classes(cardinality):
 
     cc = flatten(contour_classes_generator(cardinality))
     card = 0
-    for a, b, c in [(a, b, c) for ((a, b), c) in cc]:
+    for a, b, c in [(a, b, c) for (a, b, c) in cc]:
         if a != card:
             print("\nC-space segment classes for cseg cardinality", a)
             print("\n   Csegclass/Rinv")
