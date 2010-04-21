@@ -52,7 +52,7 @@ class App:
                                    command=self.inversion, width=10)
         self.inversion.pack(side=TOP)
 
-        self.ret_inv = Button(toolbar1, text="Ret_inv",
+        self.ret_inv = Button(toolbar1, text="Retrograde inv.",
                                  command=self.ret_inv, width=10)
         self.ret_inv.pack(side=TOP)
 
