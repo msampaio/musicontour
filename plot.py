@@ -26,8 +26,9 @@ def plot_preview(cseg):
     cseg_yticks = range((min(cseg)), (max(cseg) + 1))
     cseg_xticks = range(len(cseg))
 
-    fig = figure() 
-    fig.canvas.set_window_title(program_name) 
+    ## These commands don't allow the plotting the same window in GUI
+    # fig = figure() 
+    # fig.canvas.set_window_title(program_name) 
 
     grid(color='b', linestyle='-', linewidth=.1)
     axis()
