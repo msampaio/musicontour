@@ -55,9 +55,9 @@ def print_contour_classes(cardinality):
     for a, b, c in [(a, b, c) for (a, b, c) in cc]:
         if a != card:
             print("\nC-space segment classes for cseg cardinality", a)
-            print("\n   Csegclass/Rinv")
+            print("\n   Csegclass/Rinv  INT_n")
             card = a
-        print("   {0}-{1}: {2}".format(a, b, c))
+        print("   {0}-{1}: {2} - {3}".format(a, b, c, Contour(c).internal_diagonals(1)))
 
 
 class Contour():
