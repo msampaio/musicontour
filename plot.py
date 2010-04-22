@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from pylab import grid, axis, plot, title, legend, show, xticks, yticks, arange
+from pylab import grid, axis, plot, title, legend, show, xticks, yticks, \
+     figure, ylabel, xlabel
 import random
 
 program_name = "Villa Lobos Contour Module v.0.1"
@@ -22,14 +23,21 @@ def plot_preview(cseg):
     """
 
     cseg_yticks = range((min(cseg)), (max(cseg) + 1))
+    cseg_xticks = range(len(cseg))
+
+    fig = figure() 
+    fig.canvas.set_window_title(program_name) 
 
     grid(color='b', linestyle='-', linewidth=.1)
     axis()
-    xticks(arange(len(cseg)))
+
+    xlabel('c-pitch position')
+    ylabel('c-pitch')
+    xticks(cseg_xticks)
     yticks(cseg_yticks)
     plot(cseg, linewidth=2, marker='d', color=random_color(),
          label='{0}'.format(cseg))
-    title(program_name, family='georgia', size='small')
+    title(program_name + " --- Contour plotter", family='georgia', size='small')
     legend()
     show()
 
