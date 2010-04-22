@@ -22,6 +22,9 @@ class App:
         frame2 = Frame(master)
         frame2.pack(side=TOP, fill=X)
 
+        frame3 = Frame(master)
+        frame3.pack(side=TOP, fill=X)
+
         toolbar1 = Frame(master)
         toolbar1.pack(side=LEFT, pady=5, fill=X)
 
@@ -61,6 +64,10 @@ class App:
                                command=self.rotation, width=10)
         self.rotation.pack(side=TOP)
 
+        self.internal = Button(toolbar2, text="Int. Diagonal",
+                               command=self.internal, width=10)
+        self.internal.pack(side=TOP)
+
         Label(frame1, text='cseg:').pack(side=LEFT)
 
         self.cseg_entry = Entry(frame1, width=20)
@@ -74,6 +81,11 @@ class App:
         self.param_entry.pack(fill=X)
         self.param_entry.insert("end", "1")
         self.param_entry.get()
+
+        Label(frame3, text='output:').pack(side=LEFT)
+
+        self.output = Label(frame3, width=12)
+        self.output.pack(side=LEFT, fill=X)
 
     def plot(self):
         get = self.cseg_entry.get()
@@ -110,6 +122,13 @@ class App:
         param_get = int(self.param_entry.get())
         cseg = [int(x) for x in get.split(' ')]
         plot_preview(Contour(cseg).rotation(param_get))
+
+    def internal(self):
+        get = self.cseg_entry.get()
+        cseg = [int(x) for x in get.split(' ')]
+        param_get = int(self.param_entry.get())
+        internal_diagonal = Contour(cseg).internal_diagonals(param_get)
+        self.output.configure(text="{0}".format(internal_diagonal))
 
 
 root = Tk()
