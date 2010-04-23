@@ -3,7 +3,9 @@
 
 from contour import Contour, Contour_subsets, maximum, minimum, \
 ri_identity_test, cseg_similarity, __contour_classes_generator_cardinality, \
-contour_classes_generator, __intern_diagon_sim, remove_duplicate_tuples
+contour_classes_generator, __intern_diagon_sim, remove_duplicate_tuples, \
+double_replace, replace_list_to_plus_minus, list_to_string, \
+internal_diagonal_print
 
 
 def test_contour_classes_generator_cardinality():
@@ -26,6 +28,22 @@ def test_contour_classes_generator():
                             (4, 3, (0, 2, 1, 3)), (4, 4, (0, 2, 3, 1)),
                             (4, 5, (0, 3, 1, 2)), (4, 6, (0, 3, 2, 1)),
                             (4, 7, (1, 0, 3, 2)), (4, 8, (1, 3, 0, 2))]]
+
+
+def test_double_replace():
+    assert double_replace("0 1 -1 1 0") == "0 + - + 0"
+
+
+def test_replace_list_to_plus_minus():
+    assert replace_list_to_plus_minus([0, 1, 1, -1, -1]) == "0 + + - -"
+
+
+def test_list_to_string():
+    assert list_to_string([1, 2, 3]) == "1 2 3"
+
+
+def test_internal_diagonal_print():
+    assert internal_diagonal_print([1, -1, 1]) == "< + - + >"
 
 
 def test_rotation():
@@ -159,6 +177,16 @@ def test_contour_class_vector_ii():
 def test_contour_segment_class():
     c = Contour([2, 1, 4])
     assert c.contour_segment_class() == (3, 2, (0, 2, 1))
+
+
+def test_cseg_visual_printing():
+    assert Contour([2, 1, 4]).cseg_visual_printing() == "< 2 1 4 >"
+
+
+def test_comparison_matrix_printing():
+    c = Contour([2, 1, 0])
+    assert c.comparison_matrix_printing() == "  | 2 1 0\n---------\n2" + \
+           " | 0 - -\n1 | + 0 -\n0 | + + 0\n"
 
 
 def test_subsets_count():
