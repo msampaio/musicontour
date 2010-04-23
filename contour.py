@@ -58,11 +58,11 @@ def print_contour_classes(cardinality):
             print("\n", " ".ljust(1), "Csegclass".ljust(18), "Prime form".ljust(20), "INT(1)")
             card = a
 
-        csegclass = " ".join([str(x) for x in c])
+        csegclass = Contour(c).cseg_visual_printing()
         int_diagonals = Contour(c).internal_diagonals(1)
         str_int_diag = " ".join([str(x).replace("-1", "-").replace("1", "+")
                                  for x in int_diagonals])
-        print(" ".ljust(4),"c {0}-{1}".format(a, b).ljust(16), ("< " + csegclass + " >").ljust(20),
+        print(" ".ljust(4),"c {0}-{1}".format(a, b).ljust(16), csegclass.ljust(20),
               ("< " + str_int_diag + " >").ljust(15))
 
 
@@ -324,6 +324,13 @@ class Contour():
         for (cardinality, number, cseg_class) in cseg_classes:
             if tuple(prime_form) == cseg_class:
                 return cardinality, number, cseg_class
+
+    def cseg_visual_printing (self):
+        """Prints cseg like used in Contour theories:
+        < 1 3 5 4 >
+        """
+
+        return "< " + " ".join([str(x) for x in self.cseg]) + " >"
 
     def __init__(self, cseg):
         self.cseg = cseg
