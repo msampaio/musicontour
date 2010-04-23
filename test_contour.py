@@ -6,6 +6,28 @@ ri_identity_test, cseg_similarity, __contour_classes_generator_cardinality, \
 contour_classes_generator, __intern_diagon_sim, remove_duplicate_tuples
 
 
+def test_contour_classes_generator_cardinality():
+    function = __contour_classes_generator_cardinality
+    assert function(4) == [(4, 1, (0, 1, 2, 3)),
+                           (4, 2, (0, 1, 3, 2)),
+                           (4, 3, (0, 2, 1, 3)),
+                           (4, 4, (0, 2, 3, 1)),
+                           (4, 5, (0, 3, 1, 2)),
+                           (4, 6, (0, 3, 2, 1)),
+                           (4, 7, (1, 0, 3, 2)),
+                           (4, 8, (1, 3, 0, 2))]
+
+
+def test_contour_classes_generator():
+    function = contour_classes_generator
+    assert function(4) == [[(2, 1, (0, 1))],
+                           [(3, 1, (0, 1, 2)), (3, 2, (0, 2, 1))],
+                           [(4, 1, (0, 1, 2, 3)), (4, 2, (0, 1, 3, 2)),
+                            (4, 3, (0, 2, 1, 3)), (4, 4, (0, 2, 3, 1)),
+                            (4, 5, (0, 3, 1, 2)), (4, 6, (0, 3, 2, 1)),
+                            (4, 7, (1, 0, 3, 2)), (4, 8, (1, 3, 0, 2))]]
+
+
 def test_rotation():
     n = Contour([1, 4, 9, 9, 2, 1])
     assert n.rotation() == [4, 9, 9, 2, 1, 1]
@@ -83,6 +105,11 @@ def test_comparison():
     assert n2.comparison() == -1
 
 
+def test_contour_interval_succession():
+    n = Contour([0, 1, 3, 2])
+    assert n.contour_interval_succession() == [1, 2, -1]
+
+
 def test_internal_diagonals():
     c1 = Contour([0, 2, 3, 1])
     c2 = Contour([1, 0, 4, 3, 2])
@@ -114,11 +141,6 @@ def test_contour_adjacency_series_vector():
     assert c2.contour_adjacency_series_vector() == [3, 2]
 
 
-def test_contour_interval_succession():
-    n = Contour([0, 1, 3, 2])
-    assert n.contour_interval_succession() == [1, 2, -1]
-
-
 def test_contour_interval_array():
     n = Contour([0, 1, 3, 2])
     assert n.contour_interval_array() == ([2, 2, 1], [1, 0, 0])
@@ -132,6 +154,11 @@ def test_contour_class_vector_i():
 def test_contour_class_vector_ii():
     n = Contour([0, 1, 3, 2])
     assert n.contour_class_vector_ii() == [5, 1]
+
+
+def test_contour_segment_class():
+    c = Contour([2, 1, 4])
+    assert c.contour_segment_class() == (3, 2, (0, 2, 1))
 
 
 def test_subsets_count():
@@ -240,30 +267,3 @@ def test_cseg_similarity():
     c4 = [3, 0, 4, 2, 1]
     assert cseg_similarity(c1, c2) == 0
     assert cseg_similarity(c3, c4) == 0.8
-
-
-def test_contour_classes_generator_cardinality():
-    function = __contour_classes_generator_cardinality
-    assert function(4) == [(4, 1, (0, 1, 2, 3)),
-                           (4, 2, (0, 1, 3, 2)),
-                           (4, 3, (0, 2, 1, 3)),
-                           (4, 4, (0, 2, 3, 1)),
-                           (4, 5, (0, 3, 1, 2)),
-                           (4, 6, (0, 3, 2, 1)),
-                           (4, 7, (1, 0, 3, 2)),
-                           (4, 8, (1, 3, 0, 2))]
-
-
-def test_contour_classes_generator():
-    function = contour_classes_generator
-    assert function(4) == [[(2, 1, (0, 1))],
-                           [(3, 1, (0, 1, 2)), (3, 2, (0, 2, 1))],
-                           [(4, 1, (0, 1, 2, 3)), (4, 2, (0, 1, 3, 2)),
-                            (4, 3, (0, 2, 1, 3)), (4, 4, (0, 2, 3, 1)),
-                            (4, 5, (0, 3, 1, 2)), (4, 6, (0, 3, 2, 1)),
-                            (4, 7, (1, 0, 3, 2)), (4, 8, (1, 3, 0, 2))]]
-
-
-def test_contour_segment_class():
-    c = Contour([2, 1, 4])
-    assert c.contour_segment_class() == (3, 2, (0, 2, 1))
