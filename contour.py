@@ -55,20 +55,28 @@ def print_contour_classes(cardinality):
     for a, b, c in [(a, b, c) for (a, b, c) in cc]:
         if a != card:
             print("\nC-space segment classes for cseg cardinality", a)
-            print("\n", " ".ljust(1), "Csegclass".ljust(18), "Prime form".ljust(20), "INT(1)")
+            print("\n", " ".ljust(1), "Csegclass".ljust(18),
+                  "Prime form".ljust(20), "INT(1)")
             card = a
 
         csegclass = Contour(c).cseg_visual_printing()
         int_diagonals = Contour(c).internal_diagonals(1)
         str_int_diag = internal_diagonal_print(int_diagonals)
-        print(" ".ljust(4),"c {0}-{1}".format(a, b).ljust(16),
+        print(" ".ljust(4), "c {0}-{1}".format(a, b).ljust(16),
               csegclass.ljust(20), str_int_diag.ljust(15))
+
+
+def double_replace(string):
+    """Replaces -1 by -, and 1 by +. Accepts string as input."""
+
+    return string.replace("-1", "-").replace("1", "+")
 
 
 def replace_list_to_plus_minus(list):
     """Convert a list in a string and replace -1 by -, and 1 by +"""
 
-    return " ".join([str(x).replace("-1", "-").replace("1", "+") for x in list])
+    return " ".join([double_replace(str(x)) for x in list])
+
 
 def list_to_string(list):
     """Convert a list in a string and replace -1 by -, and 1 by +"""
@@ -343,7 +351,7 @@ class Contour():
             if tuple(prime_form) == cseg_class:
                 return cardinality, number, cseg_class
 
-    def cseg_visual_printing (self):
+    def cseg_visual_printing(self):
         """Prints cseg like used in Contour theories:
         < 1 3 5 4 >
         """
@@ -362,11 +370,14 @@ class Contour():
         'str_matrix' stores a list with comparison matrix complete
         lines.
         """
+
+        hline = "{0}".format("-" * ((len(self.cseg) * 2) + 3))
         cseg_printing = list_to_string(self.cseg)
         com_matrix = self.comparison_matrix()
-        str_matrix = [(str(self.cseg[i]) + " | " + replace_list_to_plus_minus(line)) \
+        str_matrix = [(str(self.cseg[i]) + " | " + \
+                       replace_list_to_plus_minus(line)) \
                       for (i, line) in enumerate(com_matrix)]
-        print("  | " + cseg_printing + "\n" + "{0}".format("-" * ((len(self.cseg) * 2) + 3)))
+        print("  | " + cseg_printing + "\n" + hline)
         for x in str_matrix:
             print(x)
 
