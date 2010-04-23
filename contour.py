@@ -350,6 +350,26 @@ class Contour():
 
         return "< " + list_to_string(self.cseg) + " >"
 
+    def comparison_matrix_printing(self):
+        """Prints comparison matrix like used in Contour theories:
+
+        . | 0 2 1
+        ---------
+        0 | 0 + +
+        2 | - 0 +
+        1 | - + 0
+
+        'str_matrix' stores a list with comparison matrix complete
+        lines.
+        """
+        cseg_printing = list_to_string(self.cseg)
+        com_matrix = self.comparison_matrix()
+        str_matrix = [(str(self.cseg[i]) + " | " + replace_list_to_plus_minus(line)) \
+                      for (i, line) in enumerate(com_matrix)]
+        print("  | " + cseg_printing + "\n" + "{0}".format("-" * ((len(self.cseg) * 2) + 3)))
+        for x in str_matrix:
+            print(x)
+
     def __init__(self, cseg):
         self.cseg = cseg
 
