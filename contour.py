@@ -47,17 +47,23 @@ def print_contour_classes(cardinality):
     one given.
     """
 
-    print("C-space segment-classes [by Marvin and Laprade (1987)]")
-    print("{0}\n".format("-" * 54))
+    print("C-space segment-classes [based on Marvin and Laprade (1987)]")
+    print("{0}\n".format("-" * 60))
 
     cc = flatten(contour_classes_generator(cardinality))
     card = 0
     for a, b, c in [(a, b, c) for (a, b, c) in cc]:
         if a != card:
             print("\nC-space segment classes for cseg cardinality", a)
-            print("\n   Csegclass/Rinv  INT_n")
+            print("\n", " ".ljust(1), "Csegclass".ljust(18), "Prime form".ljust(20), "INT(1)")
             card = a
-        print("   {0}-{1}: {2} - {3}".format(a, b, c, Contour(c).internal_diagonals(1)))
+
+        csegclass = " ".join([str(x) for x in c])
+        int_diagonals = Contour(c).internal_diagonals(1)
+        str_int_diag = " ".join([str(x).replace("-1", "-").replace("1", "+")
+                                 for x in int_diagonals])
+        print(" ".ljust(4),"c {0}-{1}".format(a, b).ljust(16), ("< " + csegclass + " >").ljust(20),
+              ("< " + str_int_diag + " >").ljust(15))
 
 
 class Contour():
