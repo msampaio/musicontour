@@ -3,7 +3,7 @@
 
 from Tkinter import Tk, Frame, Button, Entry, Label, TOP, LEFT, X
 from plot import plot_preview
-from contour import Contour
+from contour import internal_diagonal_print, Contour
 
 program_name = "Villa Lobos Contour Module"
 version = "0.1"
@@ -127,8 +127,9 @@ class App:
         get = self.cseg_entry.get()
         cseg = [int(x) for x in get.split(' ')]
         param_get = int(self.param_entry.get())
-        internal_diagonal = Contour(cseg).internal_diagonals(param_get)
-        self.output.configure(text="{0}".format(internal_diagonal))
+        int_diag = Contour(cseg).internal_diagonals(param_get)
+        format_int_diag = internal_diagonal_print(int_diag)
+        self.output.configure(text=format_int_diag)
 
 
 root = Tk()
