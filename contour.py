@@ -79,7 +79,10 @@ def replace_list_to_plus_minus(list):
 
 
 def list_to_string(list):
-    """Convert a list in a string and replace -1 by -, and 1 by +"""
+    """Convert a list in a string.
+
+    Inputs [1, 2, 3] and outputs '1 2 3'
+    """
 
     return " ".join([str(x) for x in list])
 
