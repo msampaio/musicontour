@@ -90,22 +90,33 @@ class App:
     def plot(self):
         get = self.cseg_entry.get()
         cseg = [int(x) for x in get.split(' ')]
+        result = Contour(cseg).cseg_visual_printing()
+        self.output.configure(text=result)
         plot_preview(cseg)
 
     def prime_form(self):
         get = self.cseg_entry.get()
         cseg = [int(x) for x in get.split(' ')]
-        plot_preview(Contour(cseg).prime_form())
+        prime_form = Contour(cseg).prime_form()
+        result = Contour(prime_form).cseg_visual_printing()
+        self.output.configure(text=result)
+        plot_preview(prime_form)
 
     def normal_form(self):
         get = self.cseg_entry.get()
         cseg = [int(x) for x in get.split(' ')]
-        plot_preview(Contour(cseg).translation())
+        normal_form = Contour(cseg).translation()
+        result = Contour(normal_form).cseg_visual_printing()
+        self.output.configure(text=result)
+        plot_preview(normal_form)
 
     def retrograde(self):
         get = self.cseg_entry.get()
         cseg = [int(x) for x in get.split(' ')]
-        plot_preview(Contour(cseg).retrograde())
+        retrograde = Contour(cseg).retrograde()
+        result = Contour(retrograde).cseg_visual_printing()
+        self.output.configure(text=result)
+        plot_preview(retrograde)
 
     def inversion(self):
         get = self.cseg_entry.get()
@@ -115,13 +126,19 @@ class App:
     def ret_inv(self):
         get = self.cseg_entry.get()
         cseg = [int(x) for x in get.split(' ')]
-        plot_preview(Contour(Contour(cseg).retrograde()).inversion())
+        ret_inv = Contour(Contour(cseg).retrograde()).inversion()
+        result = Contour(ret_inv).cseg_visual_printing()
+        self.output.configure(text=result)
+        plot_preview(ret_inv)
 
     def rotation(self):
         get = self.cseg_entry.get()
         param_get = int(self.param_entry.get())
         cseg = [int(x) for x in get.split(' ')]
-        plot_preview(Contour(cseg).rotation(param_get))
+        rotation = Contour(cseg).rotation(param_get)
+        result = Contour(rotation).cseg_visual_printing()
+        self.output.configure(text=result)
+        plot_preview(rotation)
 
     def internal(self):
         get = self.cseg_entry.get()
