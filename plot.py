@@ -3,6 +3,7 @@
 
 from pylab import grid, axis, plot, title, legend, show, xticks, yticks, \
      figure, ylabel, xlabel
+from contour import Contour
 from utils import flatten
 import random
 
@@ -38,7 +39,7 @@ def plot_preview(cseg):
     xticks(cseg_xticks)
     yticks(cseg_yticks)
     plot(cseg, linewidth=2, marker='d', color=random_color(),
-         label='{0}'.format(cseg))
+         label='{0}'.format(Contour(cseg).cseg_visual_printing()))
     title(program_name + " --- Contour plotter", family='georgia', size='small')
     legend()
     show()
@@ -69,7 +70,8 @@ def multi_plot_preview(cseg_array):
     xticks(cseg_xticks)
     yticks(cseg_yticks)
     for cseg, color in cseg_array:
-        plot(cseg, linewidth=2, color=color, label='{0}'.format(cseg))
+        plot(cseg, linewidth=2, color=color,
+             label='{0}'.format(Contour(cseg).cseg_visual_printing()))
 
     title(program_name + " --- Contour plotter", family='georgia', size='small')
     legend()
