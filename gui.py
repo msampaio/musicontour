@@ -113,8 +113,9 @@ class App:
     def prime_form(self):
         get = self.cseg_entry.get()
         cseg = [int(x) for x in get.split(' ')]
-        prime_form = Contour(cseg).prime_form()
-        result = Contour(prime_form).cseg_visual_printing()
+        card, c_class, prime_form = Contour(cseg).contour_segment_class()
+        prime_form_printed = Contour(prime_form).cseg_visual_printing()
+        result = "{0}-{1} {2}".format(card, c_class, prime_form_printed)
         text = "Prime form: "
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
