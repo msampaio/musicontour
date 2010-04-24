@@ -380,9 +380,9 @@ class Contour():
         str_matrix = [(str(self.cseg[i]) + " | " + \
                        replace_list_to_plus_minus(line)) \
                       for (i, line) in enumerate(com_matrix)]
-        print("  | " + cseg_printing + "\n" + hline)
-        for x in str_matrix:
-            print(x)
+        half_matrix_1 = "  | " + cseg_printing + "\n" + hline + "\n"
+        half_matrix_2 = "".join([x + "\n" for x in str_matrix])
+        return half_matrix_1 + half_matrix_2
 
     def __init__(self, cseg):
         self.cseg = cseg
