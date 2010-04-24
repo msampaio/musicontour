@@ -191,8 +191,8 @@ class App:
     def comparison_matrix(self):
         get = self.cseg_entry.get()
         cseg = [int(x) for x in get.split(' ')]
-        com_matrix = Contour(cseg).comparison_matrix()
-        text = "Comparison Matrix: "
+        com_matrix = Contour(cseg).comparison_matrix_printing()
+        text = "Comparison Matrix:\n"
         self.text_output.insert(END, text)
         self.text_output.insert(END, com_matrix)
         self.text_output.insert(END, "\n")
