@@ -121,7 +121,10 @@ class App:
     def inversion(self):
         get = self.cseg_entry.get()
         cseg = [int(x) for x in get.split(' ')]
-        plot_preview(Contour(cseg).inversion())
+        inversion = Contour(cseg).inversion()
+        result = Contour(inversion).cseg_visual_printing()
+        self.output.configure(text=result)
+        plot_preview(inversion)
 
     def ret_inv(self):
         get = self.cseg_entry.get()
