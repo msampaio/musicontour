@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from Tkinter import Tk, Frame, Button, Entry, Label, TOP, LEFT, X
+from Tkinter import Tk, Frame, Button, Entry, Label, Text, TOP, LEFT, X, END
 from plot import plot_preview
 from contour import internal_diagonal_print, Contour
 
@@ -16,6 +16,9 @@ class App:
         title_frame = Frame(master)
         title_frame.pack(pady=5)
 
+        frame0 = Frame(master)
+        frame0.pack(side=TOP, fill=X)
+
         frame1 = Frame(master)
         frame1.pack(side=TOP, fill=X)
 
@@ -29,42 +32,54 @@ class App:
         toolbar1.pack(side=LEFT, pady=5, fill=X)
 
         toolbar2 = Frame(master)
-        toolbar2.pack(side=TOP, pady=5, fill=X)
+        toolbar2.pack(side=LEFT, pady=5, fill=X)
+
+        toolbar3 = Frame(master)
+        toolbar3.pack(side=TOP, pady=5, fill=X)
 
         font = 'sans 8 bold'
         self.initial = Label(title_frame, text=program_name, font=font)
         self.initial.pack(side=TOP)
 
+        ## toolbar1
+
         self.plot = Button(toolbar1, text="Plot", command=self.plot,
                            width=10)
-
         self.plot.pack(side=TOP)
-
-        self.prime_form = Button(toolbar2, text="Prime form",
-                                    command=self.prime_form, width=10)
-        self.prime_form.pack(side=TOP)
-
-        self.normal_form = Button(toolbar2, text="Normal form",
-                                     command=self.normal_form, width=10)
-        self.normal_form.pack(side=TOP)
 
         self.retrograde = Button(toolbar1, text="Retrograde",
                                     command=self.retrograde, width=10)
         self.retrograde.pack(side=TOP)
 
-        self.inversion = Button(toolbar1, text="Inversion",
-                                   command=self.inversion, width=10)
-        self.inversion.pack(side=TOP)
-
-        self.ret_inv = Button(toolbar1, text="Retrograde inv.",
-                                 command=self.ret_inv, width=10)
-        self.ret_inv.pack(side=TOP)
-
-        self.rotation = Button(toolbar2, text="Rotation",
+        self.rotation = Button(toolbar1, text="Rotation",
                                command=self.rotation, width=10)
         self.rotation.pack(side=TOP)
 
-        self.internal = Button(toolbar2, text="Int. Diagonal",
+        ## toolbar2
+
+        self.prime_form = Button(toolbar2, text="Prime form",
+                                    command=self.prime_form, width=10)
+        self.prime_form.pack(side=TOP)
+
+        self.inversion = Button(toolbar2, text="Inversion",
+                                   command=self.inversion, width=10)
+        self.inversion.pack(side=TOP)
+
+        self.comparison_matrix = Button(toolbar2, text="COM Matrix",
+                               command=self.comparison_matrix, width=10)
+        self.comparison_matrix.pack(side=TOP)
+
+        # toolbar3
+
+        self.normal_form = Button(toolbar3, text="Normal form",
+                                     command=self.normal_form, width=10)
+        self.normal_form.pack(side=TOP)
+
+        self.ret_inv = Button(toolbar3, text="Retrograde inv.",
+                                 command=self.ret_inv, width=10)
+        self.ret_inv.pack(side=TOP)
+
+        self.internal = Button(toolbar3, text="Int. Diagonal",
                                command=self.internal, width=10)
         self.internal.pack(side=TOP)
 
@@ -82,16 +97,17 @@ class App:
         self.param_entry.insert("end", "1")
         self.param_entry.get()
 
-        Label(frame3, text='output:').pack(side=LEFT)
-
-        self.output = Label(frame3, width=12)
-        self.output.pack(side=LEFT, fill=X)
+        self.text_output = Text(frame0, width=47, height=10)
+        self.text_output.pack(side=LEFT, fill=X)
 
     def plot(self):
         get = self.cseg_entry.get()
         cseg = [int(x) for x in get.split(' ')]
         result = Contour(cseg).cseg_visual_printing()
-        self.output.configure(text=result)
+        text = "Plot: "
+        self.text_output.insert(END, text)
+        self.text_output.insert(END, result)
+        self.text_output.insert(END, "\n")
         plot_preview(cseg)
 
     def prime_form(self):
@@ -99,7 +115,10 @@ class App:
         cseg = [int(x) for x in get.split(' ')]
         prime_form = Contour(cseg).prime_form()
         result = Contour(prime_form).cseg_visual_printing()
-        self.output.configure(text=result)
+        text = "Prime form: "
+        self.text_output.insert(END, text)
+        self.text_output.insert(END, result)
+        self.text_output.insert(END, "\n")
         plot_preview(prime_form)
 
     def normal_form(self):
@@ -107,7 +126,10 @@ class App:
         cseg = [int(x) for x in get.split(' ')]
         normal_form = Contour(cseg).translation()
         result = Contour(normal_form).cseg_visual_printing()
-        self.output.configure(text=result)
+        text = "Normal form: "
+        self.text_output.insert(END, text)
+        self.text_output.insert(END, result)
+        self.text_output.insert(END, "\n")
         plot_preview(normal_form)
 
     def retrograde(self):
@@ -115,7 +137,10 @@ class App:
         cseg = [int(x) for x in get.split(' ')]
         retrograde = Contour(cseg).retrograde()
         result = Contour(retrograde).cseg_visual_printing()
-        self.output.configure(text=result)
+        text = "Retrograde: "
+        self.text_output.insert(END, text)
+        self.text_output.insert(END, result)
+        self.text_output.insert(END, "\n")
         plot_preview(retrograde)
 
     def inversion(self):
@@ -123,7 +148,10 @@ class App:
         cseg = [int(x) for x in get.split(' ')]
         inversion = Contour(cseg).inversion()
         result = Contour(inversion).cseg_visual_printing()
-        self.output.configure(text=result)
+        text = "Inversion: "
+        self.text_output.insert(END, text)
+        self.text_output.insert(END, result)
+        self.text_output.insert(END, "\n")
         plot_preview(inversion)
 
     def ret_inv(self):
@@ -131,7 +159,10 @@ class App:
         cseg = [int(x) for x in get.split(' ')]
         ret_inv = Contour(Contour(cseg).retrograde()).inversion()
         result = Contour(ret_inv).cseg_visual_printing()
-        self.output.configure(text=result)
+        text = "Ret. Inv.: "
+        self.text_output.insert(END, text)
+        self.text_output.insert(END, result)
+        self.text_output.insert(END, "\n")
         plot_preview(ret_inv)
 
     def rotation(self):
@@ -140,7 +171,10 @@ class App:
         cseg = [int(x) for x in get.split(' ')]
         rotation = Contour(cseg).rotation(param_get)
         result = Contour(rotation).cseg_visual_printing()
-        self.output.configure(text=result)
+        text = "Rotation ({0}): ".format(param_get)
+        self.text_output.insert(END, text)
+        self.text_output.insert(END, result)
+        self.text_output.insert(END, "\n")
         plot_preview(rotation)
 
     def internal(self):
@@ -149,7 +183,19 @@ class App:
         param_get = int(self.param_entry.get())
         int_diag = Contour(cseg).internal_diagonals(param_get)
         format_int_diag = internal_diagonal_print(int_diag)
-        self.output.configure(text=format_int_diag)
+        text = "Internal diagonal ({0}): ".format(param_get)
+        self.text_output.insert(END, text)
+        self.text_output.insert(END, format_int_diag)
+        self.text_output.insert(END, "\n")
+
+    def comparison_matrix(self):
+        get = self.cseg_entry.get()
+        cseg = [int(x) for x in get.split(' ')]
+        com_matrix = Contour(cseg).comparison_matrix()
+        text = "Comparison Matrix: "
+        self.text_output.insert(END, text)
+        self.text_output.insert(END, com_matrix)
+        self.text_output.insert(END, "\n")
 
 
 root = Tk()
