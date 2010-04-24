@@ -97,7 +97,7 @@ class App:
         self.param_entry.insert("end", "1")
         self.param_entry.get()
 
-        self.text_output = Text(frame0, width=47, height=10)
+        self.text_output = Text(frame0, width=47, height=15)
         self.text_output.pack(side=LEFT, fill=X)
 
     def plot(self):
