@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from Tkinter import Tk, Frame, Button, Entry, Label, Text, TOP, LEFT, X, END
+from Tkinter import Tk, Frame, Button, Entry, Label, Text, Scrollbar, \
+     TOP, LEFT, RIGHT, X, Y, END
 from plot import plot_preview
 from contour import internal_diagonal_print, Contour
 
@@ -107,6 +108,11 @@ class App:
 
         self.text_output = Text(frame0, width=47, height=15)
         self.text_output.pack(side=LEFT, fill=X)
+
+        self.text_scroll = Scrollbar(frame0)
+        self.text_scroll.pack(side=RIGHT, fill=Y)
+        self.text_scroll.config(command=self.text_output.yview)
+        self.text_output.config(yscrollcommand=self.text_scroll.set)
 
     def plot(self):
         get = self.cseg_entry.get()
