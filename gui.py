@@ -55,6 +55,10 @@ class App:
                                command=self.rotation, width=10)
         self.rotation.pack(side=TOP)
 
+        self.n_subsets = Button(toolbar1, text="n subsets",
+                               command=self.n_subsets, width=10)
+        self.n_subsets.pack(side=TOP)
+
         ## toolbar2
 
         self.prime_form = Button(toolbar2, text="Prime form",
@@ -68,6 +72,10 @@ class App:
         self.comparison_matrix = Button(toolbar2, text="COM Matrix",
                                command=self.comparison_matrix, width=10)
         self.comparison_matrix.pack(side=TOP)
+
+        self.n_subsets = Button(toolbar2, text="All subsets",
+                               command=self.all_subsets, width=10)
+        self.n_subsets.pack(side=TOP)
 
         # toolbar3
 
@@ -196,6 +204,28 @@ class App:
         text = "Comparison Matrix:\n"
         self.text_output.insert(END, text)
         self.text_output.insert(END, com_matrix)
+        self.text_output.insert(END, "\n")
+
+    def n_subsets(self):
+        get = self.cseg_entry.get()
+        cseg = [int(x) for x in get.split(' ')]
+        param_get = int(self.param_entry.get())
+        csubset = Contour(cseg).contour_subsets(param_get)
+        result = "\n".join([Contour(x).cseg_visual_printing() for x in csubset])
+        plural = "s" if param_get > 1 else ""
+        text = "Contour subsets ({0} element{1}):\n".format(param_get, plural)
+        self.text_output.insert(END, text)
+        self.text_output.insert(END, result)
+        self.text_output.insert(END, "\n")
+
+    def all_subsets(self):
+        get = self.cseg_entry.get()
+        cseg = [int(x) for x in get.split(' ')]
+        csubset = Contour(cseg).contour_all_subsets()
+        result = "\n".join([Contour(x).cseg_visual_printing() for x in csubset])
+        text = "All contour subsets:\n"
+        self.text_output.insert(END, text)
+        self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
 
 
