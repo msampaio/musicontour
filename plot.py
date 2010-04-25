@@ -3,6 +3,8 @@
 
 from pylab import grid, axis, plot, title, legend, show, xticks, yticks, \
      figure, ylabel, xlabel
+from matplotlib.font_manager import FontProperties
+
 from contour import Contour
 from utils import flatten
 import random
@@ -42,7 +44,7 @@ def plot_preview(cseg):
     plot(cseg, linewidth=2, marker='d', color=random_color(),
          label='{0}'.format(Contour(cseg).cseg_visual_printing()))
     title(title_name, family='georgia', size='small')
-    legend()
+    legend(prop=FontProperties(size=12))
     show()
 
 
@@ -76,5 +78,5 @@ def multi_plot_preview(cseg_array):
              label='{0}'.format(Contour(cseg).cseg_visual_printing()))
 
     title(title_name, family='georgia', size='small')
-    legend()
+    legend(prop=FontProperties(size=12))
     show()
