@@ -85,6 +85,21 @@ def test_remove_adjacent():
     assert n3.remove_adjacent() == [1, 4, 9, 2, 4]
 
 
+def test_contour_subsets():
+    n = Contour([2, 8, 12, 9])
+    assert n.contour_subsets(2) == [[2, 8], [2, 9], [2, 12], [8, 9],
+                                    [8, 12], [12, 9]]
+    assert n.contour_subsets(3) == [[2, 8, 9], [2, 8, 12], [2, 12, 9],
+                                    [8, 12, 9]]
+
+
+def test_contour_all_subsets():
+    n = Contour([2, 8, 12, 9])
+    assert n.contour_all_subsets() == [[2, 8], [2, 9], [2, 12], [8, 9],
+                                       [8, 12], [12, 9], [2, 8, 9], [2, 8, 12],
+                                       [2, 12, 9], [8, 12, 9], [2, 8, 12, 9]]
+
+
 def test_contour_subsets_adj():
     n = Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
     assert n.contour_subsets_adj(4) == [[2, 8, 12, 9], [8, 12, 9, 5],

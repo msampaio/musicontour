@@ -156,6 +156,20 @@ class Contour():
         groups = izip(self.cseg, self.cseg[1:])
         return [a for a, b in groups if a != b] + [self.cseg[-1]]
 
+    def contour_subsets(self, n):
+        """Returns adjacent and non-adjacent subsets of a given
+        contour."""
+
+        cseg = self.cseg
+        return sorted([list(x) for x in combinations(cseg, n)])
+
+    def contour_all_subsets(self):
+        """Returns adjacent and non-adjacent subsets of a given
+        contour."""
+
+        sizes = range(2, len(self.cseg) + 1)
+        return flatten([self.contour_subsets(x) for x in sizes])
+
     def contour_subsets_adj(self, n):
         """Returns adjacent n-elements subsets of a given contour."""
 
