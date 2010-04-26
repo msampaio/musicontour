@@ -35,8 +35,8 @@ It's necessary to install these dependencies::
  sudo easy_install pep8
  sudo easy_install pylint
 
-Using
------
+Running
+-------
 
 To run Villa Lobos Contour Module GUI you have to open a terminal,
 change to contour-module directory, and run one of these commands::
