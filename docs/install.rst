@@ -63,11 +63,21 @@ It's necessary to install these dependencies::
 Running
 -------
 
-To run Villa Lobos Contour Module GUI you have to open a terminal,
-change to contour-module directory, and run one of these commands::
+On Linux
+~~~~~~~~
+
+To run Villa Lobos Contour Module GUI in Linux you have to open a
+terminal, change to contour-module directory, and run one of these
+commands::
 
  python gui.py
 
 or::
 
  ./gui.py
+
+On Windows
+~~~~~~~~~~
+
+To run Villa Lobos Contour Module GUI in Windows, double-click gui.py
+file.
