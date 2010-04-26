@@ -3,6 +3,12 @@ Contour Theories
 
 Villa Lobos Contour Module is developed under Contour Theories.
 
+Contour operations
+------------------
+
+The contour operations implemented in VLCM are described in `Contour
+operations <contour-operations.html>`_ section.
+
 Bibliography
 ------------
 
