@@ -9,9 +9,9 @@ Villa-Lobos Contour Module
 Villa-Lobos Contour Module (VLCM) is a module of `Villa-Lobos
 <http://github.com/kroger/villa-lobos/>`_ computer musicology
 software, developed by Genos_. VLCM is a multiplataform `free software
-<about.rst>`_ that plots and processes mathematical operations on
+<about.html>`_ that plots and processes mathematical operations on
 musical contours. VLCM has a few `Contour Theories
-<contour-theories.rst>`_ functions implemented, like prime form,
+<contour-theories.html>`_ functions implemented, like prime form,
 comparison matrix and internal diagonals.
 
 VLCM is designed for Linux, but can also run in Windows and
