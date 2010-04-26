@@ -144,15 +144,13 @@ The Internal diagonals are yanked from the Comparison matrix, from top
 left to bottom right, above the main diagonal. The main diagonal is
 filled by zeros.
 
-For example::
+In this figure, INT_1, INT_2, and INT_3 means internal diagonal 1, 2,
+and 3. 
 
-   | 0 3 1 2
- -----------
- 0 | 0 + + +
- 3 | - 0 - -
- 1 | - + 0 +
- 2 | - + - 0
- 
+.. image:: figs/internal_diagonals.png
+
+For this Comparison matrix, internal diagonals are::
+
  Internal diagonal(1) = < + - + >
  Internal diagonal(2) = < + - >
  Internal diagonal(3) = < + >
