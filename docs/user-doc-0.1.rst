@@ -13,7 +13,7 @@ Plotting a contour and an operation
 If you are not patient to read this documentation, just run VLCM and
 press plot button. The contour segment in `Input text areas`_ will be
 plotted in `Plot frame`_. Press any other button to have `Contour
-operations <contour_operations.html>`_, or change contour segment to
+operations <contour-operations.html>`_, or change contour segment to
 your own choice.
 
 Graphic User Interface (GUI)
@@ -68,7 +68,7 @@ Functions buttons
 .................
 
 Functions buttons comprise all `Contour operations
-<contour_operations.html>`_ available in VLCM. To make an operation
+<contour-operations.html>`_ available in VLCM. To make an operation
 insert the contour and parameter (if necessary) in `Input text
 areas`_, and click the button you choose.
 
