@@ -86,3 +86,6 @@ doctest:
 	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) _build/doctest
 	@echo "Testing of doctests in the sources finished, look at the " \
 	      "results in _build/doctest/output.txt."
+
+sync:
+	rsync -a --progress --delete _build/html/ genos.mus.br:www/villa-lobos/contour-module/
