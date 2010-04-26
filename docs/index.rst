@@ -17,48 +17,15 @@ diagonals.
 VLCM is designed for Linux, but can also run in Windows and
 Macintosh. It's developed in Python.
 
-
-Contour theories
-----------------
-
-.. toctree::
-   :maxdepth: 2
-
-   contour-theories.rst
-
-Install
--------
-
-.. toctree::
-   :maxdepth: 2
-
-   install.rst
-
-
-Documentation
--------------
-
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
+   contour-theories.rst
+   install.rst
    user-doc.rst
-
-Development
------------
-
-.. toctree::
-   :maxdepth: 2
-
    contour.rst
-
-About
------
-
-.. toctree::
-   :maxdepth: 2
-
    about.rst
 
 Indices and tables
