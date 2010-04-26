@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Villa-Lobos Contour Module documentation build configuration file, created by
+# Villa-Lobos Contour Module build configuration file, created by
 # sphinx-quickstart on Sun Apr 18 14:14:51 2010.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -172,7 +172,7 @@ htmlhelp_basename = 'Villa-LobosContourModuledoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'Villa-LobosContourModule.tex', u'Villa-Lobos Contour Module Documentation',
+  ('index', 'Villa-LobosContourModule.tex', u'Villa-Lobos Contour Module',
    u'Marcos di Silva and Pedro Kröger', 'manual'),
 ]
 

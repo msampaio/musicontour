@@ -1,10 +1,10 @@
-.. Villa-Lobos Contour Module documentation master file, created by
+.. Villa-Lobos Contour Module master file, created by
    sphinx-quickstart on Sun Apr 18 14:14:51 2010.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Villa-Lobos Contour Module's documentation!
-===========================================
+Villa-Lobos Contour Module
+==========================
 
 Villa-Lobos Contour Module (VLCM) is a module for `Villa-Lobos
 <http://github.com/kroger/villa-lobos/>`_ computer musicology
