@@ -139,19 +139,19 @@
                 </tool>
             </tools>
         </object>
-        <object class="wxBoxSizer" name="main_container" base="EditBoxSizer">
+        <object class="wxBoxSizer" name="main_sizer" base="EditBoxSizer">
             <orient>wxVERTICAL</orient>
             <object class="sizeritem">
                 <flag>wxEXPAND</flag>
                 <border>0</border>
                 <option>1</option>
-                <object class="wxBoxSizer" name="secondary_container" base="EditBoxSizer">
+                <object class="wxBoxSizer" name="secondary_sizer" base="EditBoxSizer">
                     <orient>wxHORIZONTAL</orient>
                     <object class="sizeritem">
                         <flag>wxEXPAND</flag>
                         <border>0</border>
                         <option>1</option>
-                        <object class="wxBoxSizer" name="tools_container" base="EditBoxSizer">
+                        <object class="wxBoxSizer" name="tools_sizer" base="EditBoxSizer">
                             <orient>wxVERTICAL</orient>
                             <object class="sizeritem">
                                 <flag>wxADJUST_MINSIZE</flag>
@@ -173,7 +173,7 @@
                                 <flag>wxEXPAND</flag>
                                 <border>0</border>
                                 <option>1</option>
-                                <object class="wxBoxSizer" name="buttons_container" base="EditBoxSizer">
+                                <object class="wxBoxSizer" name="buttons_sizer" base="EditBoxSizer">
                                     <orient>wxHORIZONTAL</orient>
                                     <object class="sizeritem">
                                         <flag>wxADJUST_MINSIZE</flag>
