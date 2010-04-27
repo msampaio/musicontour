@@ -6,7 +6,7 @@ Install
 Getting software
 ----------------
 
-Villa Lobos Contour Module source code and user releases tarballs are
+|VLCM| source code and user releases tarballs are
 available.
 
 User releases
@@ -70,7 +70,7 @@ Running
 On Linux
 ~~~~~~~~
 
-To run Villa Lobos Contour Module GUI in Linux you have to open a
+To run |VLCM| GUI in Linux you have to open a
 terminal, change to contour-module directory, and run one of these
 commands::
 
@@ -83,5 +83,7 @@ or::
 On Windows
 ~~~~~~~~~~
 
-To run Villa Lobos Contour Module GUI in Windows, double-click gui.py
+To run |VLCM| GUI in Windows, double-click gui.py
 file.
+
+.. |VLCM| replace:: Villa-Lobos Contour Module

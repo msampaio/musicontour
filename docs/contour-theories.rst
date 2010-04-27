@@ -1,7 +1,7 @@
 Contour Theories
 ================
 
-Villa Lobos Contour Module is developed under Contour Theories.
+|VLCM| is developed under Contour Theories.
 
 Contour operations
 ------------------
@@ -41,3 +41,5 @@ Bibliography
   <http://marcosdisilva.net/pdf/artsbcm2009-1.pdf>`_: a software to
   process musical contours. In Proceedings of the 12th Brazilian
   Symposium on Computer Music, 203-206. Recife, Brazil.
+
+.. |VLCM| replace:: Villa-Lobos Contour Module

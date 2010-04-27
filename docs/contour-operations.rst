@@ -2,7 +2,7 @@ Contour Operations
 ==================
 
 Contour theories provides many contour operations. Eight of them are
-implemented in Villa Lobos Contour Module:
+implemented in |VLCM|:
 
 .. index:: Retrograde
 
@@ -22,8 +22,8 @@ For instance::
 Inversion
 ---------
 
-The cseg horizontal inversion. The cseg is renumbered under Morris
-(1987) inversion formula::
+The cseg horizontal inversion. The cseg is renumbered under `Morris
+(1987) <contour-theories.html>`_ inversion formula::
 
  I(x)n = (n - 1) - x
 
@@ -86,7 +86,7 @@ Prime form
 ----------
 
 The Prime form is calculated by Marvin and Laprade Prime Form
-Algorithm (1987)::
+Algorithm `(1987) <contour-theories.html>`_::
 
  1) Translate, if not consecutive integers 0 to (n - 1):
  2) Invert, if [(n - 1) - last cpitch] < first cpitch
@@ -108,7 +108,7 @@ In this example, A and B have the same prime form::
 
 In GUI, Prime form operation returns also the contour segment class
 number, like in Marvin and Laprade C-space segment-classes table
-(1987).
+`(1987) <contour-theories.html>`_.
 
 For example::
 
@@ -125,8 +125,8 @@ Comparison Matrix
 
 Comparison Matrix (also known as COM-Matrix) returns a matrix with
 comparison between all elements of a contour. The result of a
-comparison is 0, + ou -. The Comparison Matrix is described by Morris
-(1987).
+comparison is 0, + ou -. The Comparison Matrix is described by `Morris
+(1987) <contour-theories.html>`_.
 
 For example, matrix for < 0 3 1 2 >::
 
@@ -180,3 +180,5 @@ For example, for a given contour A, all 3 elements subsets::
 
  A < 0 3 1 2 >
  Subsets(3) =  < 0 1 2 >, < 0 3 1 >, < 0 3 2 >, < 3 1 2 >
+
+.. |VLCM| replace:: Villa-Lobos Contour Module

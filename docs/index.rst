@@ -3,10 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Villa-Lobos Contour Module
-==========================
+|VLCM|
+======
 
-Villa-Lobos Contour Module (VLCM) is a module of `Villa-Lobos
+|VLCM| (VLCM) is a module of `Villa-Lobos
 <http://github.com/kroger/villa-lobos/>`_ computer musicology
 software, developed by Genos_. VLCM is a multiplataform `free software
 <about.html>`_ that plots and processes mathematical operations on
@@ -34,3 +34,4 @@ Indices and tables
 * :ref:`search`
 
 .. _Genos: http://genos.mus.br
+.. |VLCM| replace:: Villa-Lobos Contour Module
