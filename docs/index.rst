@@ -27,7 +27,7 @@ Contents:
    user-doc.rst
    about.rst
 
-Indices and tables
+Indexes and tables
 ==================
 
 * :ref:`genindex`
