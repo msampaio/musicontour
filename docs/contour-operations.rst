@@ -4,6 +4,8 @@ Contour Operations
 Contour theories provides many contour operations. Eight of them are
 implemented in Villa Lobos Contour Module:
 
+.. index:: Retrograde
+
 Retrograde
 ----------
 
@@ -14,6 +16,8 @@ For instance::
  A < 0 1 2 3 >
 
  Retrograde(A) = < 3 2 1 0 >
+
+.. index:: Inversion
 
 Inversion
 ---------
@@ -42,6 +46,8 @@ Thus::
 
  Inversion(A) = <0 2 1 4 3 5>
 
+.. index:: Rotation
+
 Rotation
 --------
 
@@ -55,6 +61,9 @@ For instance::
  Rotation(A, 1) = < 1 2 3 0 >
  Rotation(A, 2) = < 2 3 0 1 >
  Rotation(A, 3) = < 3 0 1 2 >
+
+.. index:: Normal form
+.. index:: Translation
 
 Normal form (translation)
 -------------------------
@@ -70,6 +79,8 @@ For instance::
 
  B = < 3 34 21 55 >
  Translation(B) = < 0 2 1 3 >
+
+.. index:: Prime form
 
 Prime form
 ----------
@@ -106,10 +117,13 @@ For example::
 
 The pair 6-163 means cardinality and Prime form order.
 
+.. index:: Comparison Matrix
+.. index:: COM-Matrix
+
 Comparison Matrix
 -----------------
 
-Comparison Matrix (also known as COM Matrix) returns a matrix with
+Comparison Matrix (also known as COM-Matrix) returns a matrix with
 comparison between all elements of a contour. The result of a
 comparison is 0, + ou -. The Comparison Matrix is described by Morris
 (1987).
@@ -154,6 +168,8 @@ For this Comparison matrix, internal diagonals are::
  Internal diagonal(1) = < + - + >
  Internal diagonal(2) = < + - >
  Internal diagonal(3) = < + >
+
+.. index:: Subsets
 
 Subsets
 -------

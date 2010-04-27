@@ -1,6 +1,8 @@
 Install
 =======
 
+.. index:: Getting VLCM
+
 Getting software
 ----------------
 
@@ -59,6 +61,8 @@ It's necessary to install these dependencies::
  sudo easy_install nose
  sudo easy_install pep8
  sudo easy_install pylint
+
+.. index:: Running VLCM
 
 Running
 -------
