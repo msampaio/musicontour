@@ -25,14 +25,12 @@ Contents:
    contour-theories.rst
    install.rst
    user-doc.rst
-   contour.rst
    about.rst
 
 Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
 
 .. _Genos: http://genos.mus.br
