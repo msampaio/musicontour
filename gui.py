@@ -4,7 +4,7 @@
 from Tkinter import Tk, Frame, Button, Entry, Label, Text, Scrollbar, \
      TOP, LEFT, RIGHT, X, Y, END
 from plot import plot_preview
-from contour import internal_diagonal_print, Contour
+from contour import internal_diagonal_print, Contour, Internal_diagonal
 
 program_name = "Villa Lobos Contour Module"
 version = "0.1"
@@ -91,6 +91,12 @@ class App:
         self.internal = Button(toolbar3, text="Int. Diagonal",
                                command=self.internal, width=10)
         self.internal.pack(side=TOP)
+
+        self.csegs_from_int = Button(toolbar3, text="Csegs from INT",
+                               command=self.csegs_from_int, width=10)
+        self.csegs_from_int.pack(side=TOP)
+
+        #
 
         Label(frame1, text='cseg:').pack(side=LEFT)
 
@@ -230,6 +236,18 @@ class App:
         csubset = Contour(cseg).contour_all_subsets()
         result = "\n".join([Contour(x).cseg_visual_printing() for x in csubset])
         text = "All contour subsets:\n"
+        self.text_output.insert(END, text)
+        self.text_output.insert(END, result)
+        self.text_output.insert(END, "\n")
+
+    def csegs_from_int(self):
+        get = self.cseg_entry.get()
+        int_d = [int(x) for x in get.split(' ')]
+        param_get = int(self.param_entry.get())
+        csegs = Internal_diagonal(int_d).csegs(param_get)
+        result = "\n".join([Contour(x).cseg_visual_printing() for x in csegs])
+        plural = "s" if param_get > 1 else ""
+        text = "Csegs:\n"
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
