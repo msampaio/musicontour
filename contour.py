@@ -506,3 +506,25 @@ def cseg_similarity(cseg1, cseg2):
     triangle_pos = sum(d)
     similar_pos = sum([__intern_diagon_sim(cseg1, cseg2, n) for n in d])
     return similar_pos / float(triangle_pos)
+
+
+class Internal_diagonal():
+
+    def csegs(self, diagonal=1):
+        """Returns all csegs in normal form that have the given
+        internal diagonal.
+
+        >>> Internal_diagonal([-1, 1, 1]).csegs
+        [[1, 0, 2, 3], [2, 0, 1, 3], [3, 0, 1, 2]]
+        """
+
+        size = len(self.internal_diagonal) + diagonal
+        base_contour = range(size)
+        permut = permutations(base_contour)
+        int_d_permut = [[Contour(list(x)).internal_diagonals(diagonal), list(x)] for x in permut]
+        result = []
+        [result.append(y[1]) for y in int_d_permut if y[0] == self.internal_diagonal]
+        return result
+
+    def __init__(self, internal_diagonal):
+        self.internal_diagonal = internal_diagonal

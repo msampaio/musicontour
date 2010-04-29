@@ -5,7 +5,7 @@ from contour import Contour, Contour_subsets, maximum, minimum, \
 ri_identity_test, cseg_similarity, __contour_classes_generator_cardinality, \
 contour_classes_generator, __intern_diagon_sim, remove_duplicate_tuples, \
 double_replace, replace_list_to_plus_minus, list_to_string, \
-internal_diagonal_print
+internal_diagonal_print, Internal_diagonal
 
 
 def test_contour_classes_generator_cardinality():
@@ -310,3 +310,10 @@ def test_cseg_similarity():
     c4 = [3, 0, 4, 2, 1]
     assert cseg_similarity(c1, c2) == 0
     assert cseg_similarity(c3, c4) == 0.8
+
+
+def test_csegs():
+    i1 = Internal_diagonal([-1, 1])
+    i2 = Internal_diagonal([-1, 1, 1])
+    assert i1.csegs() == [[1, 0, 2], [2, 0, 1]]
+    assert i2.csegs() == [[1, 0, 2, 3], [2, 0, 1, 3], [3, 0, 1, 2]]
