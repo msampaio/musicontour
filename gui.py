@@ -98,7 +98,7 @@ class App:
 
         #
 
-        Label(frame1, text='cseg:').pack(side=LEFT)
+        Label(frame1, text='main entry:').pack(side=LEFT)
 
         self.cseg_entry = Entry(frame1, width=20)
         self.cseg_entry.pack(fill=X)
