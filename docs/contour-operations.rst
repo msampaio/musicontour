@@ -212,7 +212,7 @@ The other internal diagonals can be used as input::
 In |VLCM| GUI, the internal diagonal must be given with 1 and -1, and
 internal number must be in parameter entry::
 
- Cseg: -1 1 -1 
+ Main entry: -1 1 -1 
  Parameter: 1
 
 

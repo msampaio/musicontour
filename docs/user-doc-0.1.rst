@@ -59,16 +59,21 @@ area.
 Input text area
 ................
 
-Input text area has two text entries: cseg (contour segment), and
-parameter.
+Input text area has two text entries: main entry (contour segment or
+internal diagonal), and parameter.
 
 Contour segments entry accepts only numbers and spaces. The csegs must
 be entered with just one space between cpitches, like::
 
  5 3 4 1 2 0
 
+Internal diagonals must be entered with 1 and -1, like::
+
+ 1 -1 1
+
 Parameter entry accepts only numbers. This entry is used with
-functions like rotation, and internal diagonal.
+functions rotation, internal diagonal, n-subsets, and Contour segments
+for an internal diagonal.
 
 .. index:: Functions buttons
 
