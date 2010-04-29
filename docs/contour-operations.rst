@@ -181,4 +181,39 @@ For example, for a given contour A, all 3 elements subsets::
  A < 0 3 1 2 >
  Subsets(3) =  < 0 1 2 >, < 0 3 1 >, < 0 3 2 >, < 3 1 2 >
 
+.. index:: Contour segments for an internal diagonal
+
+Contour segments for an internal diagonal
+-----------------------------------------
+
+Returns all possible csegs for a given internal diagonal.
+
+For instance::
+
+ INT(1) = < - + - >
+ Possible csegs:
+ < 1 0 3 2 >
+ < 2 0 3 1 >
+ < 2 1 3 0 >
+ < 3 0 2 1 >
+ < 3 1 2 0 >
+
+The other internal diagonals can be used as input::
+
+ INT(2) = < - + >
+ Csegs:
+ < 1 2 0 3 >
+ < 2 0 1 3 >
+ < 2 1 0 3 >
+ < 3 0 1 2 >
+ < 3 0 2 1 >
+ < 3 1 0 2 >
+
+In |VLCM| GUI, the internal diagonal must be given with 1 and -1, and
+internal number must be in parameter entry::
+
+ Cseg: -1 1 -1 
+ Parameter: 1
+
+
 .. |VLCM| replace:: Villa-Lobos Contour Module
