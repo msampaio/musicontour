@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-
+from subprocess import Popen
 
 def flatten(seq):
     """Flatten Sequences."""
@@ -42,3 +42,10 @@ def item_count(data):
     contour_type = list(set(tuples))
     counted_contours = [[x, tuples.count(x)] for x in contour_type]
     return sorted(counted_contours, key=lambda x: x[1], reverse=True)
+
+
+def abcm2ps(path, abc_filename):
+    filename = abc_filename.split(".abc")[0]
+    abc_file = path + "/" + abc_filename
+    ps_file = path + "/" + filename + ".ps"
+    Popen('abcm2ps -O {0} {1}'.format(ps_file, abc_file), shell=True)
