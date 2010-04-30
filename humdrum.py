@@ -71,6 +71,17 @@ class Spine_file():
                         stdout=PIPE, shell=True)
         return cmd2.stdout.read()
 
+    def humdrum_yank_abc(self, option):
+        """Outputs **pitch of a given excerpt by yank of a kern file."""
+
+        cmd1 = Popen('extractx -i {0} {1}'.format(self.voice, self.file),
+                        stdout=PIPE, shell=True)
+        cmd2 = Popen('yank {0}'.format(option), stdin=cmd1.stdout,
+                        stdout=PIPE, shell=True)
+        Popen('hum2abc > /tmp/vlcm.abc', stdin=cmd2.stdout, stdout=PIPE, shell=True)
+        Popen('abcm2ps -O /tmp/vlcm.ps /tmp/vlcm.abc', shell=True)
+        Popen('gnome-open /tmp/vlcm.ps', shell=True)
+
     def humdrum_yank_pitch(self, option):
         """Outputs **pitch of a given excerpt by yank of a kern file."""
 
