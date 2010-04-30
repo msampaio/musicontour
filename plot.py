@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from pylab import grid, axis, plot, title, legend, show, xticks, yticks, \
-     figure, ylabel, xlabel, axes, pie
+     figure, ylabel, xlabel, axes, pie, imshow, rcParams, subplot
 from matplotlib.font_manager import FontProperties
+from PIL import Image
 
 from contour import Contour
 from utils import flatten
@@ -17,8 +18,8 @@ def random_color():
     return colors[random.randint(0, len(colors) - 1)]
 
 
-def plot_preview(cseg):
-    """Generates cseg plot.
+def aux_plot(cseg):
+    """Returns cseg plot data to plot.
 
     The code is based on
     http://matplotlib.sourceforge.net/examples/pylab_examples/unicode_demo.html
@@ -41,10 +42,22 @@ def plot_preview(cseg):
     ylabel('c-pitch')
     xticks(cseg_xticks)
     yticks(cseg_yticks)
-    plot(cseg, linewidth=2, marker='d', color=random_color(),
+    p = plot(cseg, linewidth=2, marker='d', color=random_color(),
          label='{0}'.format(Contour(cseg).cseg_visual_printing()))
     title(title_name, family='georgia', size='small')
     legend(prop=FontProperties(size=12))
+    return p
+
+
+def plot_preview(cseg):
+    """Generates cseg plot.
+
+    The code is based on
+    http://matplotlib.sourceforge.net/examples/pylab_examples/unicode_demo.html
+
+    >>> plot_preview([5, 3, 4, 1, 2, 0])
+    """
+    aux_plot(cseg)
     show()
 
 
@@ -103,3 +116,12 @@ def cseg_pie_plot(data, plot_title=""):
 
     pie(fracs,  labels=labels, autopct='%1.1f%%', shadow=True)
     show()
+
+def aux_pdf(file):
+    pdf = Image.open(file)
+    dpi = rcParams['figure.dpi']
+    figsize = pdf.size[0]/dpi, pdf.size[1]/dpi
+    figure(figsize=figsize)
+    ax = axes([0,0,1,1], frameon=False)
+    ax.set_axis_off()
+    return imshow(pdf, origin='lower')
