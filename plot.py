@@ -88,6 +88,17 @@ def pie_plot(data, plot_title=""):
     title(plot_title, bbox={'facecolor': '0.8', 'pad': 5})
     sorted_data = sorted(data, key=lambda x: x[1])
     fracs = [x[1] for x in sorted_data]
+    labels = [x[0] for x in sorted_data]
+
+    pie(fracs,  labels=labels, autopct='%1.1f%%', shadow=True)
+    show()
+
+def cseg_pie_plot(data, plot_title=""):
+    ax = axes([0.1, 0.1, 0.8, 0.8])
+    figure(1, figsize=(6, 6))
+    title(plot_title, bbox={'facecolor': '0.8', 'pad': 5})
+    sorted_data = sorted(data, key=lambda x: x[1])
+    fracs = [x[1] for x in sorted_data]
     labels = [Contour(x[0]).cseg_visual_printing() for x in sorted_data]
 
     pie(fracs,  labels=labels, autopct='%1.1f%%', shadow=True)
