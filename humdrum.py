@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-from subprocess import Popen, PIPE
+from subprocess import Popen, PIPE, call
 import re
-from utils import filter_int
+from utils import filter_int, abcm2ps
 
 
 ## regular expression to **pitch notes
@@ -74,13 +74,14 @@ class Spine_file():
     def humdrum_yank_abc(self, option):
         """Outputs **pitch of a given excerpt by yank of a kern file."""
 
+        filename = self.file.split("/")[-1].split(".krn")[0]
+        abc_file = "/tmp/" + filename + ".abc"
+        ps_file = "/tmp/" + filename + ".ps"
         cmd1 = Popen('extractx -i {0} {1}'.format(self.voice, self.file),
                         stdout=PIPE, shell=True)
         cmd2 = Popen('yank {0}'.format(option), stdin=cmd1.stdout,
                         stdout=PIPE, shell=True)
-        Popen('hum2abc > /tmp/vlcm.abc', stdin=cmd2.stdout, stdout=PIPE, shell=True)
-        Popen('abcm2ps -O /tmp/vlcm.ps /tmp/vlcm.abc', shell=True)
-        Popen('gnome-open /tmp/vlcm.ps', shell=True)
+        call('hum2abc > {0}'.format(abc_file), stdin=cmd2.stdout, shell=True)
 
     def humdrum_yank_pitch(self, option):
         """Outputs **pitch of a given excerpt by yank of a kern file."""
