@@ -62,8 +62,7 @@ Input text area
 Input text area has two text entries: main entry (contour segment or
 internal diagonal), and parameter.
 
-Contour segments entry accepts only numbers and spaces. The csegs must
-be entered with just one space between cpitches, like::
+Contour segments entry accepts only numbers and spaces::
 
  5 3 4 1 2 0
 
