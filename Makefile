@@ -7,7 +7,7 @@ SERVER = genos.mus.br:www/villa-lobos/download/
 check:
 	pep8 *.py
 
-clean: clean_dist
+clean: clean-dist
 	rm -f *.pyc *~
 
 tests:
