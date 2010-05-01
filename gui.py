@@ -122,7 +122,7 @@ class App:
 
     def plot(self):
         get = self.cseg_entry.get()
-        cseg = [int(x) for x in get.split(' ')]
+        cseg = [int(x) for x in get.split(' ') if x]
         result = Contour(cseg).cseg_visual_printing()
         text = "Plot: "
         self.text_output.insert(END, text)
@@ -132,7 +132,7 @@ class App:
 
     def prime_form(self):
         get = self.cseg_entry.get()
-        cseg = [int(x) for x in get.split(' ')]
+        cseg = [int(x) for x in get.split(' ') if x]
         card, c_class, prime_form = Contour(cseg).contour_segment_class()
         prime_form_printed = Contour(prime_form).cseg_visual_printing()
         result = "{0}-{1} {2}".format(card, c_class, prime_form_printed)
@@ -144,7 +144,7 @@ class App:
 
     def normal_form(self):
         get = self.cseg_entry.get()
-        cseg = [int(x) for x in get.split(' ')]
+        cseg = [int(x) for x in get.split(' ') if x]
         normal_form = Contour(cseg).translation()
         result = Contour(normal_form).cseg_visual_printing()
         text = "Normal form: "
@@ -155,7 +155,7 @@ class App:
 
     def retrograde(self):
         get = self.cseg_entry.get()
-        cseg = [int(x) for x in get.split(' ')]
+        cseg = [int(x) for x in get.split(' ') if x]
         retrograde = Contour(cseg).retrograde()
         result = Contour(retrograde).cseg_visual_printing()
         text = "Retrograde: "
@@ -166,7 +166,7 @@ class App:
 
     def inversion(self):
         get = self.cseg_entry.get()
-        cseg = [int(x) for x in get.split(' ')]
+        cseg = [int(x) for x in get.split(' ') if x]
         inversion = Contour(cseg).inversion()
         result = Contour(inversion).cseg_visual_printing()
         text = "Inversion: "
@@ -177,7 +177,7 @@ class App:
 
     def ret_inv(self):
         get = self.cseg_entry.get()
-        cseg = [int(x) for x in get.split(' ')]
+        cseg = [int(x) for x in get.split(' ') if x]
         ret_inv = Contour(Contour(cseg).retrograde()).inversion()
         result = Contour(ret_inv).cseg_visual_printing()
         text = "Ret. Inv.: "
@@ -189,7 +189,7 @@ class App:
     def rotation(self):
         get = self.cseg_entry.get()
         param_get = int(self.param_entry.get())
-        cseg = [int(x) for x in get.split(' ')]
+        cseg = [int(x) for x in get.split(' ') if x]
         rotation = Contour(cseg).rotation(param_get)
         result = Contour(rotation).cseg_visual_printing()
         text = "Rotation ({0}): ".format(param_get)
@@ -200,7 +200,7 @@ class App:
 
     def internal(self):
         get = self.cseg_entry.get()
-        cseg = [int(x) for x in get.split(' ')]
+        cseg = [int(x) for x in get.split(' ') if x]
         param_get = int(self.param_entry.get())
         int_diag = Contour(cseg).internal_diagonals(param_get)
         format_int_diag = internal_diagonal_print(int_diag)
@@ -211,7 +211,7 @@ class App:
 
     def comparison_matrix(self):
         get = self.cseg_entry.get()
-        cseg = [int(x) for x in get.split(' ')]
+        cseg = [int(x) for x in get.split(' ') if x]
         com_matrix = Contour(cseg).comparison_matrix_printing()
         text = "Comparison Matrix:\n"
         self.text_output.insert(END, text)
@@ -220,7 +220,7 @@ class App:
 
     def n_subsets(self):
         get = self.cseg_entry.get()
-        cseg = [int(x) for x in get.split(' ')]
+        cseg = [int(x) for x in get.split(' ') if x]
         param_get = int(self.param_entry.get())
         csubset = Contour(cseg).contour_subsets(param_get)
         result = "\n".join([Contour(x).cseg_visual_printing() for x in csubset])
@@ -232,7 +232,7 @@ class App:
 
     def all_subsets(self):
         get = self.cseg_entry.get()
-        cseg = [int(x) for x in get.split(' ')]
+        cseg = [int(x) for x in get.split(' ') if x]
         csubset = Contour(cseg).contour_all_subsets()
         result = "\n".join([Contour(x).cseg_visual_printing() for x in csubset])
         text = "All contour subsets:\n"
@@ -242,7 +242,7 @@ class App:
 
     def csegs_from_int(self):
         get = self.cseg_entry.get()
-        int_d = [int(x) for x in get.split(' ')]
+        int_d = [int(x) for x in get.split(' ') if x]
         param_get = int(self.param_entry.get())
         csegs = Internal_diagonal(int_d).csegs(param_get)
         result = "\n".join([Contour(x).cseg_visual_printing() for x in csegs])
