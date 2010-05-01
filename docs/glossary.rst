@@ -23,14 +23,17 @@ Glossary
         Contour pitch. Each element of a cseg.
 
     contour class
-        . We use Morris definition, instead Friedmann (see Friedmann
-        1987).
+        A class of csegs that shares the same prime form. We use
+        Morris definition, instead Friedmann (see `Friedmann 1987
+        <contour-theories.html>`_).
 
-    contour equivalence
-        .
+    contour equivalence classes
+        Two csegs have equivalent class if they have the same
+        comparison Matrix, or if they are related by identity,
+        translation, retrograde, inversion and retrograde-inversion.
 
     prime form
-        .
+
 
     normal form
         A contour representation in which elements are enumerated in
@@ -68,7 +71,11 @@ Glossary
         type.
 
     contour similarity
-        .
+        A numeric measure for similarity between csegs with the same
+        cardinality. It varies from 0 to 1, representing minimum to
+        maximum similarity.
 
     embed contour
-        .
+        A numeric measure for similarity between csegs with different
+        cardinality. A embed contour has its comparison matrix embed
+        in bigger contour.
