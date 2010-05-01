@@ -12,8 +12,9 @@ available.
 User releases
 ~~~~~~~~~~~~~
 
-The Linux users can download releases tarballs at
-http://genos.mus.br/villa-lobos/download.
+|VLCM| can be downloaded as tarballs or zipfiles at
+http://genos.mus.br/villa-lobos/download. The files have this syntax:
+contour-module-VERSION.zip or contour-module-VERSION.tar.gz
 
 Linux users
 ```````````
