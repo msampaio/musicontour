@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-from subprocess import Popen
+from subprocess import Popen, call
 
 def flatten(seq):
     """Flatten Sequences."""
@@ -48,4 +48,4 @@ def abcm2ps(path, abc_filename):
     filename = abc_filename.split(".abc")[0]
     abc_file = path + "/" + abc_filename
     ps_file = path + "/" + filename + ".ps"
-    Popen('abcm2ps -O {0} {1}'.format(ps_file, abc_file), shell=True)
+    call('abcm2ps -O {0} {1}'.format(ps_file, abc_file), shell=True)
