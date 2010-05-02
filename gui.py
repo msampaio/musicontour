@@ -328,12 +328,17 @@ class App:
         get2 = self.param_entry.get()
         cseg1 = [int(x) for x in get1.split(' ') if x]
         cseg2 = [int(x) for x in get2.split(' ') if x]
-        csim = cseg_similarity(cseg1, cseg2)
-        text1 = "Contour similarity: {0:.2f}\n".format(csim)
-        text2 = "Cseg 1:{0}\nCseg 2:{1}: ".format(cseg1, cseg2)
-        self.text_output.insert(END, text1)
-        self.text_output.insert(END, text2)
-        self.text_output.insert(END, "\n")
+        if len(cseg1) == len(cseg2):
+            csim = cseg_similarity(cseg1, cseg2)
+            text1 = "Contour similarity: {0:.2f}\n".format(csim)
+            text2 = "Cseg 1:{0}\nCseg 2:{1}: ".format(cseg1, cseg2)
+            self.text_output.insert(END, text1)
+            self.text_output.insert(END, text2)
+            self.text_output.insert(END, "\n")
+        else:
+            text3 = "ERROR: Insert csegs with the same cardinality\n"
+            self.text_output.insert(END, text3)
+
 
 root = Tk()
 root.title(program_name + " v." + version)
