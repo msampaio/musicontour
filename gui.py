@@ -130,12 +130,12 @@ class App:
         self.main_entry.insert('end', "0 3 1 2")
         self.main_entry.get()
 
-        Label(frame2, text='parameter:').pack(side=LEFT)
+        Label(frame2, text='second. entry:').pack(side=LEFT)
 
-        self.param_entry = Entry(frame2, width=5)
-        self.param_entry.pack(fill=X)
-        self.param_entry.insert("end", "1")
-        self.param_entry.get()
+        self.secondary_entry = Entry(frame2, width=5)
+        self.secondary_entry.pack(fill=X)
+        self.secondary_entry.insert("end", "1")
+        self.secondary_entry.get()
 
         self.text_output = Text(frame0, width=44, height=15)
         self.text_output.pack(side=LEFT, fill=X)
@@ -213,11 +213,11 @@ class App:
 
     def rotation(self):
         get = self.main_entry.get()
-        param_get = int(self.param_entry.get())
+        second_get = int(self.secondary_entry.get())
         cseg = [int(x) for x in get.split(' ') if x]
-        rotation = Contour(cseg).rotation(param_get)
+        rotation = Contour(cseg).rotation(second_get)
         result = Contour(rotation).cseg_visual_printing()
-        text = "Rotation ({0}): ".format(param_get)
+        text = "Rotation ({0}): ".format(second_get)
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
@@ -226,10 +226,10 @@ class App:
     def internal(self):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
-        param_get = int(self.param_entry.get())
-        int_diag = Contour(cseg).internal_diagonals(param_get)
+        second_get = int(self.secondary_entry.get())
+        int_diag = Contour(cseg).internal_diagonals(second_get)
         format_int_diag = internal_diagonal_print(int_diag)
-        text = "Internal diagonal ({0}): ".format(param_get)
+        text = "Internal diagonal ({0}): ".format(second_get)
         self.text_output.insert(END, text)
         self.text_output.insert(END, format_int_diag)
         self.text_output.insert(END, "\n")
@@ -246,11 +246,11 @@ class App:
     def n_subsets(self):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
-        param_get = int(self.param_entry.get())
-        csubset = Contour(cseg).contour_subsets(param_get)
+        second_get = int(self.secondary_entry.get())
+        csubset = Contour(cseg).contour_subsets(second_get)
         result = "\n".join([Contour(x).cseg_visual_printing() for x in csubset])
-        plural = "s" if param_get > 1 else ""
-        text = "Contour subsets ({0} element{1}):\n".format(param_get, plural)
+        plural = "s" if second_get > 1 else ""
+        text = "Contour subsets ({0} element{1}):\n".format(second_get, plural)
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
@@ -268,10 +268,10 @@ class App:
     def csegs_from_int(self):
         get = self.main_entry.get()
         int_d = [int(x) for x in get.split(' ') if x]
-        param_get = int(self.param_entry.get())
-        csegs = Internal_diagonal(int_d).csegs(param_get)
+        second_get = int(self.secondary_entry.get())
+        csegs = Internal_diagonal(int_d).csegs(second_get)
         result = "\n".join([Contour(x).cseg_visual_printing() for x in csegs])
-        plural = "s" if param_get > 1 else ""
+        plural = "s" if second_get > 1 else ""
         text = "Csegs:\n"
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
@@ -325,7 +325,7 @@ class App:
 
     def csim(self):
         get1 = self.main_entry.get()
-        get2 = self.param_entry.get()
+        get2 = self.secondary_entry.get()
         cseg1 = [int(x) for x in get1.split(' ') if x]
         cseg2 = [int(x) for x in get2.split(' ') if x]
         if len(cseg1) == len(cseg2):
