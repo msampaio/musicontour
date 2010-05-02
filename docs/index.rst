@@ -7,8 +7,8 @@
 ======
 
 |VLCM| (VLCM) is a module of `Villa-Lobos
-<http://github.com/kroger/villa-lobos/>`_ computer musicology
-software, developed by Genos_. VLCM is a multiplataform `free software
+<http://github.com/kroger/villa-lobos/>`_, a program for music
+research, developed by Genos_. VLCM is a multiplataform `free software
 <about.html>`_ that plots and processes mathematical operations on
 musical contours. VLCM has a few `Contour Theories
 <contour-theories.html>`_ functions implemented, like prime form,
