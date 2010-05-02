@@ -60,6 +60,14 @@ class App:
                                command=self.n_subsets, width=10)
         self.n_subsets.pack(side=TOP)
 
+        self.casv = Button(toolbar1, text="CASV",
+                               command=self.casv, width=10)
+        self.casv.pack(side=TOP)
+
+        self.ccvi = Button(toolbar1, text="CCV I",
+                               command=self.ccvi, width=10)
+        self.ccvi.pack(side=TOP)
+
         ## toolbar2
 
         self.prime_form = Button(toolbar2, text="Prime form",
@@ -78,6 +86,14 @@ class App:
                                command=self.all_subsets, width=10)
         self.n_subsets.pack(side=TOP)
 
+        self.cis = Button(toolbar2, text="CIS",
+                               command=self.cis, width=10)
+        self.cis.pack(side=TOP)
+
+        self.ccvii = Button(toolbar2, text="CCV II",
+                               command=self.ccvii, width=10)
+        self.ccvii.pack(side=TOP)
+
         # toolbar3
 
         self.normal_form = Button(toolbar3, text="Normal form",
@@ -95,6 +111,10 @@ class App:
         self.csegs_from_int = Button(toolbar3, text="Csegs from INT",
                                command=self.csegs_from_int, width=10)
         self.csegs_from_int.pack(side=TOP)
+
+        self.cia = Button(toolbar3, text="CIA",
+                               command=self.cia, width=10)
+        self.cia.pack(side=TOP)
 
         #
 
@@ -252,6 +272,51 @@ class App:
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
 
+    def casv(self):
+        get = self.cseg_entry.get()
+        cseg = [int(x) for x in get.split(' ') if x]
+        casv = Contour(cseg).contour_adjacency_series_vector()
+        text = "Contour Adjacency Series Vector:\n"
+        self.text_output.insert(END, text)
+        self.text_output.insert(END, casv)
+        self.text_output.insert(END, "\n")
+
+    def cis(self):
+        get = self.cseg_entry.get()
+        cseg = [int(x) for x in get.split(' ') if x]
+        cis = Contour(cseg).contour_interval_succession()
+        result = Contour(cis).cseg_visual_printing()
+        text = "Contour Interval Succession:\n"
+        self.text_output.insert(END, text)
+        self.text_output.insert(END, result)
+        self.text_output.insert(END, "\n")
+
+    def cia(self):
+        get = self.cseg_entry.get()
+        cseg = [int(x) for x in get.split(' ') if x]
+        cia = list(Contour(cseg).contour_interval_array())
+        text = "Contour Interval Array:\n"
+        self.text_output.insert(END, text)
+        self.text_output.insert(END, cia)
+        self.text_output.insert(END, "\n")
+
+    def ccvi(self):
+        get = self.cseg_entry.get()
+        cseg = [int(x) for x in get.split(' ') if x]
+        ccvi = list(Contour(cseg).contour_class_vector_i())
+        text = "Contour class vector I:\n"
+        self.text_output.insert(END, text)
+        self.text_output.insert(END, ccvi)
+        self.text_output.insert(END, "\n")
+
+    def ccvii(self):
+        get = self.cseg_entry.get()
+        cseg = [int(x) for x in get.split(' ') if x]
+        ccvii = list(Contour(cseg).contour_class_vector_ii())
+        text = "Contour class vector II:\n"
+        self.text_output.insert(END, text)
+        self.text_output.insert(END, ccvii)
+        self.text_output.insert(END, "\n")
 
 root = Tk()
 root.title(program_name + " v." + version)
