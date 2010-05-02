@@ -82,9 +82,9 @@ class App:
                                command=self.comparison_matrix, width=10)
         self.comparison_matrix.pack(side=TOP)
 
-        self.n_subsets = Button(toolbar2, text="All subsets",
+        self.all_subsets = Button(toolbar2, text="All subsets",
                                command=self.all_subsets, width=10)
-        self.n_subsets.pack(side=TOP)
+        self.all_subsets.pack(side=TOP)
 
         self.cis = Button(toolbar2, text="CIS",
                                command=self.cis, width=10)
@@ -120,10 +120,10 @@ class App:
 
         Label(frame1, text='main entry:').pack(side=LEFT)
 
-        self.cseg_entry = Entry(frame1, width=20)
-        self.cseg_entry.pack(fill=X)
-        self.cseg_entry.insert('end', "0 3 1 2")
-        self.cseg_entry.get()
+        self.main_entry = Entry(frame1, width=20)
+        self.main_entry.pack(fill=X)
+        self.main_entry.insert('end', "0 3 1 2")
+        self.main_entry.get()
 
         Label(frame2, text='parameter:').pack(side=LEFT)
 
@@ -141,7 +141,7 @@ class App:
         self.text_output.config(yscrollcommand=self.text_scroll.set)
 
     def plot(self):
-        get = self.cseg_entry.get()
+        get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         result = Contour(cseg).cseg_visual_printing()
         text = "Plot: "
@@ -151,7 +151,7 @@ class App:
         plot_preview(cseg)
 
     def prime_form(self):
-        get = self.cseg_entry.get()
+        get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         card, c_class, prime_form = Contour(cseg).contour_segment_class()
         prime_form_printed = Contour(prime_form).cseg_visual_printing()
@@ -163,7 +163,7 @@ class App:
         plot_preview(prime_form)
 
     def normal_form(self):
-        get = self.cseg_entry.get()
+        get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         normal_form = Contour(cseg).translation()
         result = Contour(normal_form).cseg_visual_printing()
@@ -174,7 +174,7 @@ class App:
         plot_preview(normal_form)
 
     def retrograde(self):
-        get = self.cseg_entry.get()
+        get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         retrograde = Contour(cseg).retrograde()
         result = Contour(retrograde).cseg_visual_printing()
@@ -185,7 +185,7 @@ class App:
         plot_preview(retrograde)
 
     def inversion(self):
-        get = self.cseg_entry.get()
+        get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         inversion = Contour(cseg).inversion()
         result = Contour(inversion).cseg_visual_printing()
@@ -196,7 +196,7 @@ class App:
         plot_preview(inversion)
 
     def ret_inv(self):
-        get = self.cseg_entry.get()
+        get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         ret_inv = Contour(Contour(cseg).retrograde()).inversion()
         result = Contour(ret_inv).cseg_visual_printing()
@@ -207,7 +207,7 @@ class App:
         plot_preview(ret_inv)
 
     def rotation(self):
-        get = self.cseg_entry.get()
+        get = self.main_entry.get()
         param_get = int(self.param_entry.get())
         cseg = [int(x) for x in get.split(' ') if x]
         rotation = Contour(cseg).rotation(param_get)
@@ -219,7 +219,7 @@ class App:
         plot_preview(rotation)
 
     def internal(self):
-        get = self.cseg_entry.get()
+        get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         param_get = int(self.param_entry.get())
         int_diag = Contour(cseg).internal_diagonals(param_get)
@@ -230,7 +230,7 @@ class App:
         self.text_output.insert(END, "\n")
 
     def comparison_matrix(self):
-        get = self.cseg_entry.get()
+        get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         com_matrix = Contour(cseg).comparison_matrix_printing()
         text = "Comparison Matrix:\n"
@@ -239,7 +239,7 @@ class App:
         self.text_output.insert(END, "\n")
 
     def n_subsets(self):
-        get = self.cseg_entry.get()
+        get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         param_get = int(self.param_entry.get())
         csubset = Contour(cseg).contour_subsets(param_get)
@@ -251,7 +251,7 @@ class App:
         self.text_output.insert(END, "\n")
 
     def all_subsets(self):
-        get = self.cseg_entry.get()
+        get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         csubset = Contour(cseg).contour_all_subsets()
         result = "\n".join([Contour(x).cseg_visual_printing() for x in csubset])
@@ -261,7 +261,7 @@ class App:
         self.text_output.insert(END, "\n")
 
     def csegs_from_int(self):
-        get = self.cseg_entry.get()
+        get = self.main_entry.get()
         int_d = [int(x) for x in get.split(' ') if x]
         param_get = int(self.param_entry.get())
         csegs = Internal_diagonal(int_d).csegs(param_get)
@@ -273,7 +273,7 @@ class App:
         self.text_output.insert(END, "\n")
 
     def casv(self):
-        get = self.cseg_entry.get()
+        get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         casv = Contour(cseg).contour_adjacency_series_vector()
         text = "Contour Adjacency Series Vector:\n"
@@ -282,7 +282,7 @@ class App:
         self.text_output.insert(END, "\n")
 
     def cis(self):
-        get = self.cseg_entry.get()
+        get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         cis = Contour(cseg).contour_interval_succession()
         result = Contour(cis).cseg_visual_printing()
@@ -292,7 +292,7 @@ class App:
         self.text_output.insert(END, "\n")
 
     def cia(self):
-        get = self.cseg_entry.get()
+        get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         cia = list(Contour(cseg).contour_interval_array())
         text = "Contour Interval Array:\n"
@@ -301,7 +301,7 @@ class App:
         self.text_output.insert(END, "\n")
 
     def ccvi(self):
-        get = self.cseg_entry.get()
+        get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         ccvi = list(Contour(cseg).contour_class_vector_i())
         text = "Contour class vector I:\n"
@@ -310,7 +310,7 @@ class App:
         self.text_output.insert(END, "\n")
 
     def ccvii(self):
-        get = self.cseg_entry.get()
+        get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         ccvii = list(Contour(cseg).contour_class_vector_ii())
         text = "Contour class vector II:\n"
