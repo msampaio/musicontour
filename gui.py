@@ -4,7 +4,8 @@
 from Tkinter import Tk, Frame, Button, Entry, Label, Text, Scrollbar, \
      TOP, LEFT, RIGHT, X, Y, END
 from plot import plot_preview
-from contour import internal_diagonal_print, Contour, Internal_diagonal
+from contour import internal_diagonal_print, Contour, Internal_diagonal, \
+     cseg_similarity
 
 program_name = "Villa Lobos Contour Module"
 version = "0.1"
@@ -115,6 +116,10 @@ class App:
         self.cia = Button(toolbar3, text="CIA",
                                command=self.cia, width=10)
         self.cia.pack(side=TOP)
+
+        self.csim = Button(toolbar3, text="Contour simil.",
+                               command=self.csim, width=10)
+        self.csim.pack(side=TOP)
 
         #
 
@@ -316,6 +321,18 @@ class App:
         text = "Contour class vector II:\n"
         self.text_output.insert(END, text)
         self.text_output.insert(END, ccvii)
+        self.text_output.insert(END, "\n")
+
+    def csim(self):
+        get1 = self.main_entry.get()
+        get2 = self.param_entry.get()
+        cseg1 = [int(x) for x in get1.split(' ') if x]
+        cseg2 = [int(x) for x in get2.split(' ') if x]
+        csim = cseg_similarity(cseg1, cseg2)
+        text1 = "Contour similarity: {0:.2f}\n".format(csim)
+        text2 = "Cseg 1:{0}\nCseg 2:{1}: ".format(cseg1, cseg2)
+        self.text_output.insert(END, text1)
+        self.text_output.insert(END, text2)
         self.text_output.insert(END, "\n")
 
 root = Tk()
