@@ -151,7 +151,7 @@ comparison function between a and b elements::
  COM(3, 1) = -
  COM(3, 2) = -
 
-Internal diagonal
+Internal Diagonal
 -----------------
 
 The Internal diagonals are yanked from the Comparison matrix, from top
@@ -168,6 +168,9 @@ For this Comparison matrix, internal diagonals are::
  Internal diagonal(1) = < + - + >
  Internal diagonal(2) = < + - >
  Internal diagonal(3) = < + >
+
+Michael Friedmann `(1985) <bibliography.html>`_ named the ups and
+downs of a contour as Contour Adjacency Series.
 
 .. index:: Subsets
 
@@ -215,5 +218,107 @@ internal number must be in parameter entry::
  Main entry: -1 1 -1 
  Parameter: 1
 
+.. index:: Contour Adjacency Series Vector (CASV)
+
+Contour Adjacency Series Vector (CASV)
+--------------------------------------
+
+Two digit summation of ascendent and descendent movements in Contour
+Adjacency Series (Internal diagonal 1) of a contour segment. The first
+digit signifies ups, and second, downs. Also known as CASV.
+
+For instance::
+
+ A < 0 4 1 3 2 5 >
+ Internal diagonal(A, 1): < + - + - + >
+ ups: 3
+ downs: 2
+ Contour Adjacency Series Vector(A): < 3 , 2 >
+
+.. index:: Contour Interval Succession (CIS)
+
+Contour Interval Succession (CIS)
+---------------------------------
+
+A succession of all adjacent contour intervals in a cseg. Also known
+as CIS.
+
+For instance::
+
+ A < 0 4 1 >
+ Contour Interval Succession(A): < +4, -1 >
+
+ B < 0 3 2 4 >
+ Contour Interval Succession(B): < +3, -1, +2 >
+
+.. index:: Contour Interval Array (CIA)
+
+Contour Interval Array (CIA)
+----------------------------
+
+An array with the multiplicity of contour intervals types in a cseg.
+
+For instance::
+
+ A < 0 3 2 4 >
+ Contour Interval Array(A): [[1, 2, 1], [1, 0, 0]]
+
+Cseg A has one ascendent contour interval of type 1 (3 4), two of type
+2 (0 2 and 2 4), one of type 3: (0 3). Cseg A has also one descendent
+contour interval of type -1: (3 2), and zero contour interval of types
+-2 and -3.
+
+.. index:: Contour Class Vector I (CCVI)
+
+Contour Class Vector I (CCVI)
+-----------------------------
+
+Two digit summation of the frequency of ascendent and descendent
+movements. Final result is the sum of number of elements and contour
+interval multiplication.
+
+For instance::
+
+ A < 0 3 2 4 >
+ Contour Interval Array(A): [[1, 2, 1], [1, 0, 0]]
+ Contour Class Vector I(A): [8, 1]
+
+ Contour Class Vector I(A): [(1*1)+(2*2)+(3*1), (1*1)+(2*0)+(3*0)]
+
+.. index:: Contour Class Vector II (CCVII)
+
+Contour Class Vector II (CCVII)
+-----------------------------
+
+Two digit summation of the frequency of ups and downs. Final result is
+the sum of number of elements of a contour interval type.
+
+For instance::
+
+ A < 0 3 2 4 >
+ Contour IInterval Array(A): [[1, 2, 1], [1, 0, 0]]
+ Contour Class Vector II(A): [4, 1]
+
+ Contour Class Vector II(A): [1+2+1, 1+0+0]
+
+.. index:: Contour Similarity
+
+Contour Similarity
+------------------
+
+A numeric measure for similarity between csegs with the same
+cardinality. It varies from 0 to 1, representing minimum to maximum
+similarity. Each specific position of comparison matrix superior
+triangle of one contour segment is compared with the corresponding
+position in the other contour segment. The similarity value is given
+by the quotient between sum of similar content positions and total of
+positions.
+
+.. image:: figs/superior_triangle.png
+
+For instance, these two contour segments, < 0 3 1 2 > and < 0 2 1 3 >
+differ in comparison matrix superior triangle only in one position
+(marked in figure). Five of six positions have the same value in both
+segments. Thus, contour similarity is 5/6, or 0.83.
 
 .. |VLCM| replace:: Villa-Lobos Contour Module
