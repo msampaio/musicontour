@@ -43,7 +43,12 @@ Glossary
 
     internal diagonal
         The diagonals above zero main diagonal in a Comparison
-        Matrix. Equal to Friedmann Contour Adjacency Series (CAS).
+        Matrix.
+
+    contour adjacency series (CAS)
+        The series of ascendent and descendent movements between
+        adjacent elements of a contour. The first internal diagonal
+        returns CAS.
 
     contour adjacency series vector (CASV)
         Two digit summation of ups and downs in Contour Adjacency
