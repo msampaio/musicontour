@@ -121,9 +121,7 @@ class Contour():
         """Returns contour inversion."""
 
         maxim = max(self.cseg)
-        minim = min(self.cseg)
-        axis = ((maxim - minim) / 2.0 + minim)
-        return [int("%d" % ((axis * 2) - x)) for x in self.cseg]
+        return [(maxim - cps) for cps in self.cseg]
 
     def translation(self):
         """Returns the normal form (Marvin 1987) of a given contour.
