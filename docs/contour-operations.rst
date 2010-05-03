@@ -52,8 +52,9 @@ Thus::
 Rotation
 --------
 
-In rotation the :term:`cseg <Cseg>` is split and the primer :term:`cpitches <Cpitch>`
-become the last ones. It accepts a rotation parameter.
+In rotation the :term:`cseg <Cseg>` is split and the primer
+:term:`cpitches <Cpitch>` become the last ones. It accepts a rotation
+parameter.
 
 For instance::
 
@@ -215,10 +216,10 @@ The other internal diagonals can be used as input::
  < 3 1 0 2 >
 
 In |VLCM| GUI, the internal diagonal must be given with 1 and -1, and
-internal number must be in parameter entry::
+internal number must be in secondary entry::
 
  Main entry: -1 1 -1 
- Parameter: 1
+ Second. entry: 1
 
 .. index:: Contour Adjacency Series Vector (CASV)
 
@@ -325,5 +326,11 @@ For instance, these two contour segments, ``< 0 3 1 2 >`` and ``< 0 2
 1 3 >`` differ in comparison matrix superior triangle only in one
 position (marked in figure). Five of six positions have the same value
 in both segments. Thus, contour similarity is 5/6, or 0.83.
+
+In |VLCM| GUI, the contour segments must be input in main and
+secondary entries. For instance::
+
+ Main entry: 0 3 1 2
+ Second. entry: 0 2 1 3
 
 .. |VLCM| replace:: Villa-Lobos Contour Module
