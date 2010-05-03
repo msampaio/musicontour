@@ -25,23 +25,23 @@ Inversion
 The :term:`cseg <Cseg>` horizontal inversion. The cseg is renumbered
 under `Morris (1987) <contour-theories.html>`_ inversion formula::
 
- I(x)n = (n - 1) - x
+ I(x)n = n - x
 
-where n = contour :term:`cardinality <Cardinality>` and x is
-:term:`cpitch <Cpitch>`.
+where n = highest :term:`cpitch <Cpitch>` in cseg, and x is each
+cpitch in cseg.
 
 For instance::
 
  A < 5 3 4 1 2 0 >
 
- n = 6
+ n = 5
 
- I(5)6 = (6 - 1) - 5 = 0
- I(3)6 = (6 - 1) - 3 = 2
- I(4)6 = (6 - 1) - 4 = 1
- I(1)6 = (6 - 1) - 1 = 4
- I(2)6 = (6 - 1) - 2 = 3
- I(0)6 = (6 - 1) - 0 = 5
+ I(5)5 = 5 - 5 = 0
+ I(3)5 = 5 - 3 = 2
+ I(4)5 = 5 - 4 = 1
+ I(1)5 = 5 - 1 = 4
+ I(2)5 = 5 - 2 = 3
+ I(0)5 = 5 - 0 = 5
 
 Thus::
 
