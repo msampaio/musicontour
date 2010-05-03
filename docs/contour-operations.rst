@@ -9,7 +9,7 @@ implemented in |VLCM|:
 Retrograde
 ----------
 
-Reverse cseg.
+Reverse :term:`cseg <Cseg>`.
 
 For instance::
 
@@ -22,12 +22,13 @@ For instance::
 Inversion
 ---------
 
-The cseg horizontal inversion. The cseg is renumbered under `Morris
-(1987) <contour-theories.html>`_ inversion formula::
+The :term:`cseg <Cseg>` horizontal inversion. The cseg is renumbered
+under `Morris (1987) <contour-theories.html>`_ inversion formula::
 
  I(x)n = (n - 1) - x
 
-where n = contour cardinality and x is cpitch.
+where n = contour :term:`cardinality <Cardinality>` and x is
+:term:`cpitch <Cpitch>`.
 
 For instance::
 
@@ -51,8 +52,8 @@ Thus::
 Rotation
 --------
 
-In rotation the cseg is split and the primer cpitches become the
-last ones. It accepts a rotation parameter.
+In rotation the :term:`cseg <Cseg>` is split and the primer :term:`cpitches <Cpitch>`
+become the last ones. It accepts a rotation parameter.
 
 For instance::
 
@@ -69,8 +70,9 @@ Normal form (translation)
 -------------------------
 
 A contour is in its Normal form when reenumerated in integers from 0
-to lower cpitch to (n - 1) to highest cpitch, where n is the contour
-cardinality. Normal form is accomplished by translation operation.
+to lower cpitch to ``(n - 1)`` to highest cpitch, where n is the
+contour cardinality. Normal form is accomplished by translation
+operation.
 
 For instance::
 
@@ -128,7 +130,7 @@ comparison between all elements of a contour. The result of a
 comparison is 0, + ou -. The Comparison Matrix is described by `Morris
 (1987) <contour-theories.html>`_.
 
-For example, matrix for < 0 3 1 2 >::
+For example, matrix for ``< 0 3 1 2 >``::
 
    | 0 3 1 2
  -----------
@@ -138,7 +140,7 @@ For example, matrix for < 0 3 1 2 >::
  2 | - + - 0
 
 In this example, in the first line, all cpitches of cseg are compared
-with first column element, 0. So, assuming that COM(a, b) is the
+with first column element, 0. So, assuming that ``COM(a, b)`` is the
 comparison function between a and b elements::
 
  COM(0, 0) = 0
@@ -154,7 +156,7 @@ comparison function between a and b elements::
 Internal Diagonal
 -----------------
 
-The Internal diagonals are yanked from the Comparison matrix, from top
+The Internal diagonals are yanked from the Comparison Matrix, from top
 left to bottom right, above the main diagonal. The main diagonal is
 filled by zeros.
 
@@ -177,7 +179,7 @@ downs of a contour as Contour Adjacency Series.
 Subsets
 -------
 
-Returns subsets from a contour with a given cardinality.
+Returns subsets from a contour with a given :term:`cardinality <Cardinality>`.
 
 For example, for a given contour A, all 3 elements subsets::
 
@@ -240,8 +242,9 @@ For instance::
 Contour Interval Succession (CIS)
 ---------------------------------
 
-A succession of all adjacent contour intervals in a cseg. Also known
-as CIS.
+A succession of all adjacent 
+:term:`contour intervals <Contour Interval (CI)>` in a cseg. Also
+known as CIS.
 
 For instance::
 
@@ -256,7 +259,8 @@ For instance::
 Contour Interval Array (CIA)
 ----------------------------
 
-An array with the multiplicity of contour intervals types in a cseg.
+An array with the multiplicity of
+:term:`contour intervals <Contour Interval (CI)>` types in a cseg.
 
 For instance::
 
@@ -291,7 +295,8 @@ Contour Class Vector II (CCVII)
 -----------------------------
 
 Two digit summation of the frequency of ups and downs. Final result is
-the sum of number of elements of a contour interval type.
+the sum of number of elements of a
+:term:`contour interval <Contour Interval (CI)>` type.
 
 For instance::
 
@@ -307,18 +312,18 @@ Contour Similarity
 ------------------
 
 A numeric measure for similarity between csegs with the same
-cardinality. It varies from 0 to 1, representing minimum to maximum
-similarity. Each specific position of comparison matrix superior
-triangle of one contour segment is compared with the corresponding
-position in the other contour segment. The similarity value is given
-by the quotient between sum of similar content positions and total of
-positions.
+:term:`cardinality <Cardinality>`. It varies from 0 to 1, representing
+minimum to maximum similarity. Each specific position of comparison
+matrix superior triangle of one contour segment is compared with the
+corresponding position in the other contour segment. The similarity
+value is given by the quotient between sum of similar content
+positions and total of positions.
 
 .. image:: figs/superior_triangle.png
 
-For instance, these two contour segments, < 0 3 1 2 > and < 0 2 1 3 >
-differ in comparison matrix superior triangle only in one position
-(marked in figure). Five of six positions have the same value in both
-segments. Thus, contour similarity is 5/6, or 0.83.
+For instance, these two contour segments, ``< 0 3 1 2 >`` and ``< 0 2
+1 3 >`` differ in comparison matrix superior triangle only in one
+position (marked in figure). Five of six positions have the same value
+in both segments. Thus, contour similarity is 5/6, or 0.83.
 
 .. |VLCM| replace:: Villa-Lobos Contour Module
