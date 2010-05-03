@@ -22,11 +22,11 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   contour-theories.rst
-   contour-operations.rst
+   about.rst
    install.rst
    user-doc.rst
-   about.rst
+   contour-theories.rst
+   contour-operations.rst
    glossary.rst
 
 Indexes and tables
