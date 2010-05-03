@@ -1,16 +1,15 @@
 Contour Theories
 ================
 
-|VLCM| is developed under Contour Theories.
-
-Contour operations
-------------------
-
-The contour operations implemented in VLCM are described in `Contour
-operations <contour-operations.html>`_ section.
+|VLCM| is developed based on Contour Theories. These theories provides
+contour operations, and some of them are implemented in VLCM. They are
+described in `Contour operations <contour-operations.html>`_ section.
 
 Bibliography
 ------------
+
+The operations implemented in |VLCM| are described in this basic
+Contour Theories bibliography.
 
 * Friedmann, Michael L. 1985. A Methodology for the Discussion of
   Contour: its Application to Schoenberg's Music. Journal of Music
