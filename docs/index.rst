@@ -23,9 +23,11 @@ Contents:
    :maxdepth: 2
 
    contour-theories.rst
+   contour-operations.rst
    install.rst
    user-doc.rst
    about.rst
+   glossary.rst
 
 Indexes and tables
 ==================
