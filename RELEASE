@@ -1,0 +1,26 @@
+# -*- org -*-
+
+Release Notes
+
+* Villa-Lobos Contour Module, release 0.1, May 4th 2010
+
+This is the first release and has these features:
+
+** Contour theories operations implemented:
+*** Retrograde
+*** Inversion
+*** Rotation
+*** Normal form (translation)
+*** Prime form
+*** Comparison Matrix
+*** Internal Diagonal
+*** Subsets
+*** Contour segments for an internal diagonal
+*** Contour Adjacency Series Vector (CASV)
+*** Contour Interval Succession (CIS)
+*** Contour Interval Array (CIA)
+*** Contour Class Vector I (CCVI)
+*** Contour Class Vector II (CCVII)
+*** Contour Similarity
+** Tk GUI
+** Plotter
