@@ -26,8 +26,8 @@ Linux users must install also this dependency::
 Windows users
 `````````````
 
-Windows users must install `Python 2.6
-<http://www.python.org/download/windows/>`_, `Numpy
+Windows users must install manually all dependencies for |VLCM|:
+`Python 2.6 <http://www.python.org/download/windows/>`_, `Numpy
 <http://sourceforge.net/projects/numpy/>`_ and `Matplotlib
 <http://matplotlib.sourceforge.net/>`_.
 

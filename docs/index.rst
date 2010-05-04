@@ -14,8 +14,8 @@ musical contours. VLCM has a few `Contour Theories
 <contour-theories.html>`_ functions implemented, like prime form,
 comparison matrix and internal diagonals.
 
-VLCM is designed for Linux, but can also run in Windows and
-Macintosh. It's developed in Python.
+VLCM is designed for Linux, but also runs in Windows. It's developed
+in Python.
 
 Contents:
 
