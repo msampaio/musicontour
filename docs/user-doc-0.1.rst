@@ -59,8 +59,9 @@ area.
 Input text area
 ................
 
-Input text area has two text entries: main entry (contour segment or
-internal diagonal), and parameter.
+Input text area has two text entries: main entry (for contour segment or
+internal diagonal), and second entry (for parameter or a secondary
+contour segment).
 
 Contour segments entry accepts only numbers and spaces::
 
@@ -81,8 +82,8 @@ Functions buttons
 
 Functions buttons comprise all `Contour operations
 <contour-operations.html>`_ available in VLCM. To make an operation
-insert the contour and parameter (if necessary) in `Input text
-areas`_, and click the button you choose.
+insert the contour and parameter (if necessary) in `Input text area`_,
+and click the button you choose.
 
 The Plot button generates the given contour plotting.
 
