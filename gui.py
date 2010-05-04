@@ -7,7 +7,7 @@ from plot import plot_preview
 from contour import internal_diagonal_print, Contour, Internal_diagonal, \
      cseg_similarity
 
-program_name = "Villa Lobos Contour Module"
+program_name = "Villa-Lobos Contour Module"
 version = "0.1"
 
 

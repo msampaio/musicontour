@@ -1,7 +1,7 @@
 About
 =====
 
-|VLCM| (VLCM) is part of Villa Lobos, developed by
+|VLCM| (VLCM) is part of Villa-Lobos, developed by
 Genos_. VLCM is developed by `Marcos di Silva
 <http://marcosdisilva.net>`_ and `Pedro Kröger
 <http://pedrokroger.net/>`_.

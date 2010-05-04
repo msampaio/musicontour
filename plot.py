@@ -11,7 +11,7 @@ from contour import Contour
 from utils import flatten
 import random
 
-program_name = "Villa Lobos Contour Module v.0.1"
+program_name = "Villa-Lobos Contour Module v.0.1"
 
 
 def random_color():
