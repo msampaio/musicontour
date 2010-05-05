@@ -103,8 +103,9 @@ def pie_plot(data, plot_title=""):
     sorted_data = sorted(data, key=lambda x: x[1])
     fracs = [x[1] for x in sorted_data]
     labels = [x[0] for x in sorted_data]
+    colors = ['b', 'g', 'r', 'c', 'm', 'y', 'w']
 
-    pie(fracs,  labels=labels, autopct='%1.1f%%', shadow=True)
+    pie(fracs, colors=colors, labels=labels, autopct='%1.1f%%', shadow=True)
     show()
 
 
