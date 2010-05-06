@@ -21,7 +21,7 @@ Linux users
 
 Linux users must install also this dependency::
 
- sudo apt-get install python-matplotlib
+ sudo apt-get install python-tk python-matplotlib
 
 Windows users
 `````````````
