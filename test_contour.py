@@ -61,7 +61,7 @@ def test_retrograde():
 
 def test_inversion():
     n = Contour([1, 4, 9, 9, 2, 1])
-    assert n.inversion() == [9, 6, 1, 1, 8, 9]
+    assert n.inversion() == [8, 5, 0, 0, 7, 8]
 
 
 def test_translation():
