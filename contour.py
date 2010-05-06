@@ -524,5 +524,54 @@ class Internal_diagonal():
         [result.append(y[1]) for y in int_d_permut if y[0] == self.internal_diagonal]
         return result
 
+    def rotation(self, factor=1):
+        """Rotates an internal diagonal around a factor.
+
+        factor is optional. Default factor=1.
+
+        'n' is the module of input factor. It's allowed to use factor
+        numbers greater than internal diagonal size.
+        """
+
+        n = factor % len(self.internal_diagonal)
+        subset = self.internal_diagonal[n:]
+        subset.extend(self.internal_diagonal[0:n])
+        return subset
+
+    def retrograde(self):
+        """Returns internal diagonal retrograde."""
+
+        self.internal_diagonal.reverse()
+        return self.internal_diagonal
+
+    def inversion(self):
+        """Returns Internal diagonal inversion.
+
+        >>> Internal_diagonal([-1, 1, 1]).inversion
+        [1, -1, -1]
+        """
+
+        return [(x * -1) for x in self.internal_diagonal]
+
+    def subsets(self, n):
+        """Returns adjacent and non-adjacent subsets of a given
+        contour."""
+
+        int_d = self.internal_diagonal
+        return sorted([list(x) for x in combinations(int_d, n)])
+
+    def all_subsets(self):
+        """Returns adjacent and non-adjacent subsets of a given
+        contour."""
+
+        sizes = range(2, len(self.internal_diagonal) + 1)
+        return flatten([self.subsets(x) for x in sizes])
+
+    def subsets_adj(self, n):
+        """Returns adjacent n-elements subsets of a given contour."""
+
+        int_d = self.internal_diagonal
+        return [int_d[i:i + n] for i in range(len(int_d) - (n - 1))]
+
     def __init__(self, internal_diagonal):
         self.internal_diagonal = internal_diagonal
