@@ -247,7 +247,7 @@ class App:
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         second_get = int(self.secondary_entry.get())
-        csubset = Contour(cseg).contour_subsets(second_get)
+        csubset = Contour(cseg).subsets(second_get)
         result = "\n".join([Contour(x).cseg_visual_printing() for x in csubset])
         plural = "s" if second_get > 1 else ""
         text = "Contour subsets ({0} element{1}):\n".format(second_get, plural)
@@ -258,7 +258,7 @@ class App:
     def all_subsets(self):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
-        csubset = Contour(cseg).contour_all_subsets()
+        csubset = Contour(cseg).all_subsets()
         result = "\n".join([Contour(x).cseg_visual_printing() for x in csubset])
         text = "All contour subsets:\n"
         self.text_output.insert(END, text)

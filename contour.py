@@ -154,21 +154,21 @@ class Contour():
         groups = izip(self.cseg, self.cseg[1:])
         return [a for a, b in groups if a != b] + [self.cseg[-1]]
 
-    def contour_subsets(self, n):
+    def subsets(self, n):
         """Returns adjacent and non-adjacent subsets of a given
         contour."""
 
         cseg = self.cseg
         return sorted([list(x) for x in combinations(cseg, n)])
 
-    def contour_all_subsets(self):
+    def all_subsets(self):
         """Returns adjacent and non-adjacent subsets of a given
         contour."""
 
         sizes = range(2, len(self.cseg) + 1)
-        return flatten([self.contour_subsets(x) for x in sizes])
+        return flatten([self.subsets(x) for x in sizes])
 
-    def contour_subsets_adj(self, n):
+    def subsets_adj(self, n):
         """Returns adjacent n-elements subsets of a given contour."""
 
         return [self.cseg[i:i + n] for i in range(len(self.cseg) - (n - 1))]
@@ -250,7 +250,7 @@ class Contour():
         order of Contour Intervals in a given CC (normal form cseg
         here)."""
 
-        subsets = self.contour_subsets_adj(2)
+        subsets = self.subsets_adj(2)
         return [Contour([x[0], x[-1]]).contour_interval() for x in subsets]
 
     def internal_diagonals(self, n):
@@ -258,7 +258,7 @@ class Contour():
         (int_1) is the same of Friedmann (1985, 1987) contour
         adjacency series (CC)."""
 
-        subsets = self.contour_subsets_adj(n + 1)
+        subsets = self.subsets_adj(n + 1)
         return [Contour([x[0], x[-1]]).comparison() for x in subsets]
 
     def comparison_matrix(self):

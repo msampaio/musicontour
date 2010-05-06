@@ -85,27 +85,24 @@ def test_remove_adjacent():
     assert n3.remove_adjacent() == [1, 4, 9, 2, 4]
 
 
-def test_contour_subsets():
+def test_Contour_subsets():
     n = Contour([2, 8, 12, 9])
-    assert n.contour_subsets(2) == [[2, 8], [2, 9], [2, 12], [8, 9],
-                                    [8, 12], [12, 9]]
-    assert n.contour_subsets(3) == [[2, 8, 9], [2, 8, 12], [2, 12, 9],
-                                    [8, 12, 9]]
+    assert n.subsets(2) == [[2, 8], [2, 9], [2, 12], [8, 9], [8, 12], [12, 9]]
+    assert n.subsets(3) == [[2, 8, 9], [2, 8, 12], [2, 12, 9], [8, 12, 9]]
 
 
-def test_contour_all_subsets():
+def test_Contour_all_subsets():
     n = Contour([2, 8, 12, 9])
-    assert n.contour_all_subsets() == [[2, 8], [2, 9], [2, 12], [8, 9],
-                                       [8, 12], [12, 9], [2, 8, 9], [2, 8, 12],
-                                       [2, 12, 9], [8, 12, 9], [2, 8, 12, 9]]
+    assert n.all_subsets() == [[2, 8], [2, 9], [2, 12], [8, 9], [8, 12],
+                               [12, 9], [2, 8, 9], [2, 8, 12], [2, 12, 9],
+                               [8, 12, 9], [2, 8, 12, 9]]
 
 
-def test_contour_subsets_adj():
+def test_Contour_subsets_adj():
     n = Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
-    assert n.contour_subsets_adj(4) == [[2, 8, 12, 9], [8, 12, 9, 5],
-                                    [12, 9, 5, 7], [9, 5, 7, 3],
-                                    [5, 7, 3, 12], [7, 3, 12, 3],
-                                    [3, 12, 3, 7]]
+    assert n.subsets_adj(4) == [[2, 8, 12, 9], [8, 12, 9, 5], [12, 9, 5, 7],
+                                [9, 5, 7, 3], [5, 7, 3, 12], [7, 3, 12, 3],
+                                [3, 12, 3, 7]]
 
 
 def test_cps_position():
