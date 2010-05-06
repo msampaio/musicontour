@@ -1,6 +1,8 @@
 User documentation - Release 0.1
 ================================
 
+Released in May 4th, 2010.
+
 Installing and Running
 ----------------------
 
