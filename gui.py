@@ -40,7 +40,7 @@ class App:
         toolbar2.pack(side=LEFT, pady=5, fill=X)
 
         toolbar3 = Frame(master)
-        toolbar3.pack(side=TOP, pady=5, fill=X)
+        toolbar3.pack(side=LEFT, pady=5, fill=X)
 
         font = 'sans 8 bold'
         self.initial = Label(title_frame, text=program_name + " v." + version, font=font)
