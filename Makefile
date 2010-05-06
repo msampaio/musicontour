@@ -1,6 +1,6 @@
 PYTHON_FILES = $(wildcard *.py)
 DIST_FILES = gui.py contour.py plot.py utils.py COPYING README RELEASE
-VERSION = 0.1
+VERSION = 0.2
 DIR = contour-module-$(VERSION)
 SERVER = genos.mus.br:www/villa-lobos/download/
 
