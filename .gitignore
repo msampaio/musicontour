@@ -4,3 +4,4 @@ docs/_build/
 contour-module-*
 *.tar.gz
 *.zip
+lab/*
