@@ -287,14 +287,19 @@ class App:
     def csegs_from_int(self):
         get = self.main_entry.get()
         int_d = replace_plus_minus_to_list(get)
-        second_get = int(self.secondary_entry.get())
-        csegs = Internal_diagonal(int_d).csegs(second_get)
-        result = "\n".join([Contour(x).str_print() for x in csegs])
-        plural = "s" if second_get > 1 else ""
-        text = "Csegs:\n"
-        self.text_output.insert(END, text)
-        self.text_output.insert(END, result)
-        self.text_output.insert(END, "\n")
+        if sorted(int_d)[-1] > 1:
+            text = "ERROR: Insert Internal diagonal in main entry:\n- + -\n"
+            self.text_output.insert(END, text)
+        else:
+            second_get = int(self.secondary_entry.get())
+            csegs = Internal_diagonal(int_d).csegs(second_get)
+            print(int_d)
+            result = "\n".join([Contour(x).str_print() for x in csegs])
+            plural = "s" if second_get > 1 else ""
+            text = "Csegs:\n"
+            self.text_output.insert(END, text)
+            self.text_output.insert(END, result)
+            self.text_output.insert(END, "\n")
 
     def casv(self):
         get = self.main_entry.get()
