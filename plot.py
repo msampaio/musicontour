@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from pylab import grid, axis, plot, title, legend, show, xticks, yticks, \
-     figure, ylabel, xlabel, axes, pie, imshow, rcParams, subplot
+     figure, ylabel, xlabel, axes, pie, imshow, rcParams, subplot, clf
 from matplotlib.font_manager import FontProperties
 from matplotlib.ticker import NullLocator
 from PIL import Image, ImageChops
@@ -60,6 +60,12 @@ def plot_preview(cseg):
     """
     aux_plot(cseg)
     show()
+
+
+def clear_plot():
+    """Clear plot image."""
+
+    clf()
 
 
 def multi_plot_preview(cseg_array):

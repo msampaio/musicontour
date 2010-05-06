@@ -3,7 +3,7 @@
 
 from Tkinter import Tk, Frame, Button, Entry, Label, Text, Scrollbar, \
      TOP, LEFT, RIGHT, X, Y, END
-from plot import plot_preview
+from plot import plot_preview, clear_plot
 from contour import Contour, Internal_diagonal, cseg_similarity, \
      replace_plus_minus_to_list
 
@@ -48,9 +48,13 @@ class App:
 
         ## toolbar0
 
-        self.clear = Button(toolbar0, text="Clear Output",
-                               command=self.clear, width=10)
-        self.clear.pack(side=TOP)
+        self.clear_output = Button(toolbar0, text="Clear Output",
+                               command=self.clear_output, width=10)
+        self.clear_output.pack(side=TOP)
+
+        self.clear_plot = Button(toolbar0, text="Clear Plot",
+                               command=self.clear_plot, width=10)
+        self.clear_plot.pack(side=TOP)
 
         ## toolbar1
 
@@ -354,8 +358,11 @@ class App:
             text3 = "ERROR: Insert csegs with the same cardinality\n"
             self.text_output.insert(END, text3)
 
-    def clear(self):
+    def clear_output(self):
         self.text_output.delete(0.0, END)
+
+    def clear_plot(self):
+        clear_plot()
 
 root = Tk()
 root.title(program_name)
