@@ -4,8 +4,8 @@
 from Tkinter import Tk, Frame, Button, Entry, Label, Text, Scrollbar, \
      TOP, LEFT, RIGHT, X, Y, END
 from plot import plot_preview
-from contour import Contour, Internal_diagonal, \
-     cseg_similarity
+from contour import Contour, Internal_diagonal, cseg_similarity, \
+     replace_plus_minus_to_list
 
 program_name = "Villa-Lobos Contour Module"
 version = "0.1"
@@ -273,7 +273,7 @@ class App:
 
     def csegs_from_int(self):
         get = self.main_entry.get()
-        int_d = [int(x) for x in get.split(' ') if x]
+        int_d = replace_plus_minus_to_list(get)
         second_get = int(self.secondary_entry.get())
         csegs = Internal_diagonal(int_d).csegs(second_get)
         result = "\n".join([Contour(x).str_print() for x in csegs])
