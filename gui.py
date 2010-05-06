@@ -161,16 +161,18 @@ class App:
     def plot(self):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
+        plot_color = 'k'
         result = Contour(cseg).str_print()
         text = "Plot: "
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
-        plot_preview(cseg)
+        plot_preview(cseg, plot_color)
 
     def prime_form(self):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
+        plot_color = 'b'
         # Returns csegclass only if cseg has not repeated elements
         if len(set(cseg)) == len(cseg):
             card, c_class, prime_form = Contour(cseg).contour_segment_class()
@@ -184,63 +186,70 @@ class App:
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
-        plot_preview(prime_form)
+        plot_preview(prime_form, plot_color)
 
     def normal_form(self):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
+        plot_color = 'g'
         normal_form = Contour(cseg).translation()
         result = Contour(normal_form).str_print()
         text = "Normal form: "
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
-        plot_preview(normal_form)
+        plot_preview(normal_form, plot_color)
 
     def retrograde(self):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
+        plot_color = 'm'
         retrograde = Contour(cseg).retrograde()
         result = Contour(retrograde).str_print()
         text = "Retrograde: "
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
-        plot_preview(retrograde)
+        plot_preview(retrograde, plot_color)
 
     def inversion(self):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
+        plot_color = 'r'
         inversion = Contour(cseg).inversion()
         result = Contour(inversion).str_print()
         text = "Inversion: "
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
-        plot_preview(inversion)
+        plot_preview(inversion, plot_color)
 
     def ret_inv(self):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
+        plot_color = 'c'
         ret_inv = Contour(Contour(cseg).retrograde()).inversion()
         result = Contour(ret_inv).str_print()
         text = "Ret. Inv.: "
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
-        plot_preview(ret_inv)
+        plot_preview(ret_inv, plot_color)
 
     def rotation(self):
         get = self.main_entry.get()
         second_get = int(self.secondary_entry.get())
         cseg = [int(x) for x in get.split(' ') if x]
+        size = len(get)
+        # returns a color for each rotation factor
+        plot_color = str((second_get / float(size) * .8) + .1)
         rotation = Contour(cseg).rotation(second_get)
         result = Contour(rotation).str_print()
         text = "Rotation ({0}): ".format(second_get)
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
-        plot_preview(rotation)
+        plot_preview(rotation, plot_color)
 
     def internal(self):
         get = self.main_entry.get()
