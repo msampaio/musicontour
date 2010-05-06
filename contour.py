@@ -575,3 +575,18 @@ class Internal_diagonal():
 
     def __init__(self, internal_diagonal):
         self.internal_diagonal = internal_diagonal
+
+
+class Comparison_matrix():
+
+    def inversion(self):
+        """Returns the inversion of a Comparison Matrix:
+
+        >>> Comparison_matrix([[0, 1, 1], [-1, 0, -1], [-1, 1, 0]]).inversion()
+        [[0, -1, -1], [1, 0, 1], [1, -1, 0]]
+        """
+
+        return [[(el * -1) for el in line] for line in self.comparison_matrix]
+
+    def __init__(self, comparison_matrix):
+        self.comparison_matrix = comparison_matrix
