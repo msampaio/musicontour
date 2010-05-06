@@ -140,7 +140,7 @@ class App:
 
         self.main_entry = Entry(frame1, width=20)
         self.main_entry.pack(fill=X)
-        self.main_entry.insert('end', "0 3 1 2")
+        self.main_entry.insert('end', "2 6 3 7 9 1")
         self.main_entry.get()
 
         Label(frame2, text='second. entry:').pack(side=LEFT)
