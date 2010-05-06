@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+
 # -*- coding: utf-8 -*-
 
 from contour import Contour, Contour_subsets, maximum, minimum, \
@@ -187,8 +187,8 @@ def test_contour_segment_class():
     assert c.contour_segment_class() == (3, 2, (0, 2, 1))
 
 
-def test_cseg_visual_printing():
-    assert Contour([2, 1, 4]).cseg_visual_printing() == "< 2 1 4 >"
+def test_str_print():
+    assert Contour([2, 1, 4]).str_print() == "< 2 1 4 >"
 
 
 def test_comparison_matrix_printing():

@@ -148,7 +148,7 @@ class App:
     def plot(self):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
-        result = Contour(cseg).cseg_visual_printing()
+        result = Contour(cseg).str_print()
         text = "Plot: "
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
@@ -161,11 +161,11 @@ class App:
         # Returns csegclass only if cseg has not repeated elements
         if len(set(cseg)) == len(cseg):
             card, c_class, prime_form = Contour(cseg).contour_segment_class()
-            prime_form_printed = Contour(prime_form).cseg_visual_printing()
+            prime_form_printed = Contour(prime_form).str_print()
             result = "{0}-{1} {2}".format(card, c_class, prime_form_printed)
         else:
             prime_form = Contour(cseg).prime_form()
-            prime_form_printed = Contour(prime_form).cseg_visual_printing()
+            prime_form_printed = Contour(prime_form).str_print()
             result = "{0}".format(prime_form_printed)
         text = "Prime form: "
         self.text_output.insert(END, text)
@@ -177,7 +177,7 @@ class App:
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         normal_form = Contour(cseg).translation()
-        result = Contour(normal_form).cseg_visual_printing()
+        result = Contour(normal_form).str_print()
         text = "Normal form: "
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
@@ -188,7 +188,7 @@ class App:
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         retrograde = Contour(cseg).retrograde()
-        result = Contour(retrograde).cseg_visual_printing()
+        result = Contour(retrograde).str_print()
         text = "Retrograde: "
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
@@ -199,7 +199,7 @@ class App:
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         inversion = Contour(cseg).inversion()
-        result = Contour(inversion).cseg_visual_printing()
+        result = Contour(inversion).str_print()
         text = "Inversion: "
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
@@ -210,7 +210,7 @@ class App:
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         ret_inv = Contour(Contour(cseg).retrograde()).inversion()
-        result = Contour(ret_inv).cseg_visual_printing()
+        result = Contour(ret_inv).str_print()
         text = "Ret. Inv.: "
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
@@ -222,7 +222,7 @@ class App:
         second_get = int(self.secondary_entry.get())
         cseg = [int(x) for x in get.split(' ') if x]
         rotation = Contour(cseg).rotation(second_get)
-        result = Contour(rotation).cseg_visual_printing()
+        result = Contour(rotation).str_print()
         text = "Rotation ({0}): ".format(second_get)
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
@@ -254,7 +254,7 @@ class App:
         cseg = [int(x) for x in get.split(' ') if x]
         second_get = int(self.secondary_entry.get())
         csubset = Contour(cseg).subsets(second_get)
-        result = "\n".join([Contour(x).cseg_visual_printing() for x in csubset])
+        result = "\n".join([Contour(x).str_print() for x in csubset])
         plural = "s" if second_get > 1 else ""
         text = "Contour subsets ({0} element{1}):\n".format(second_get, plural)
         self.text_output.insert(END, text)
@@ -265,7 +265,7 @@ class App:
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         csubset = Contour(cseg).all_subsets()
-        result = "\n".join([Contour(x).cseg_visual_printing() for x in csubset])
+        result = "\n".join([Contour(x).str_print() for x in csubset])
         text = "All contour subsets:\n"
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
@@ -276,7 +276,7 @@ class App:
         int_d = [int(x) for x in get.split(' ') if x]
         second_get = int(self.secondary_entry.get())
         csegs = Internal_diagonal(int_d).csegs(second_get)
-        result = "\n".join([Contour(x).cseg_visual_printing() for x in csegs])
+        result = "\n".join([Contour(x).str_print() for x in csegs])
         plural = "s" if second_get > 1 else ""
         text = "Csegs:\n"
         self.text_output.insert(END, text)
@@ -296,7 +296,7 @@ class App:
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         cis = Contour(cseg).contour_interval_succession()
-        result = Contour(cis).cseg_visual_printing()
+        result = Contour(cis).str_print()
         text = "Contour Interval Succession:\n"
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)

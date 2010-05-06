@@ -44,7 +44,7 @@ def aux_plot(cseg):
     xticks(cseg_xticks)
     yticks(cseg_yticks)
     p = plot(cseg, linewidth=2, marker='d', color=random_color(),
-         label='{0}'.format(Contour(cseg).cseg_visual_printing()))
+         label='{0}'.format(Contour(cseg).str_print()))
     title(title_name, family='georgia', size='small')
     legend(prop=FontProperties(size=12))
     return p
@@ -89,7 +89,7 @@ def multi_plot_preview(cseg_array):
     yticks(cseg_yticks)
     for cseg, color in cseg_array:
         plot(cseg, linewidth=2, color=color,
-             label='{0}'.format(Contour(cseg).cseg_visual_printing()))
+             label='{0}'.format(Contour(cseg).str_print()))
 
     title(title_name, family='georgia', size='small')
     legend(prop=FontProperties(size=12))
@@ -115,7 +115,7 @@ def cseg_pie_plot(data, plot_title=""):
     title(plot_title, bbox={'facecolor': '0.8', 'pad': 5})
     sorted_data = sorted(data, key=lambda x: x[1])
     fracs = [x[1] for x in sorted_data]
-    labels = [Contour(x[0]).cseg_visual_printing() for x in sorted_data]
+    labels = [Contour(x[0]).str_print() for x in sorted_data]
 
     pie(fracs,  labels=labels, autopct='%1.1f%%', shadow=True)
     show()
