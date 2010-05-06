@@ -4,7 +4,7 @@
 from Tkinter import Tk, Frame, Button, Entry, Label, Text, Scrollbar, \
      TOP, LEFT, RIGHT, X, Y, END
 from plot import plot_preview
-from contour import internal_diagonal_print, Contour, Internal_diagonal, \
+from contour import Contour, Internal_diagonal, \
      cseg_similarity
 
 program_name = "Villa-Lobos Contour Module"
@@ -234,7 +234,7 @@ class App:
         cseg = [int(x) for x in get.split(' ') if x]
         second_get = int(self.secondary_entry.get())
         int_diag = Contour(cseg).internal_diagonals(second_get)
-        format_int_diag = internal_diagonal_print(int_diag)
+        format_int_diag = Internal_diagonal(int_diag).str_print()
         text = "Internal diagonal ({0}): ".format(second_get)
         self.text_output.insert(END, text)
         self.text_output.insert(END, format_int_diag)

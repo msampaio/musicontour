@@ -5,7 +5,7 @@ from contour import Contour, Contour_subsets, maximum, minimum, \
 ri_identity_test, cseg_similarity, __contour_classes_generator_cardinality, \
 contour_classes_generator, __intern_diagon_sim, remove_duplicate_tuples, \
 double_replace, replace_list_to_plus_minus, list_to_string, \
-internal_diagonal_print, Internal_diagonal, Comparison_matrix
+Internal_diagonal, Comparison_matrix
 
 
 def test_contour_classes_generator_cardinality():
@@ -40,10 +40,6 @@ def test_replace_list_to_plus_minus():
 
 def test_list_to_string():
     assert list_to_string([1, 2, 3]) == "1 2 3"
-
-
-def test_internal_diagonal_print():
-    assert internal_diagonal_print([1, -1, 1]) == "< + - + >"
 
 
 def test_rotation():
@@ -368,6 +364,11 @@ def test_Int_subsets_adj():
     n = Internal_diagonal([1, 1, 0, -1, -1, 1])
     assert n.subsets_adj(2) == [[1, 1], [1, 0], [0, -1], [-1, -1], [-1, 1]]
     assert n.subsets_adj(3) == [[1, 1, 0], [1, 0, -1], [0, -1, -1], [-1, -1, 1]]
+
+
+def test_Int_str_print():
+    i = Internal_diagonal([1, -1, 1])
+    assert i.str_print() == "< + - + >"
 
 
 def test_Com_matrix_inversion():

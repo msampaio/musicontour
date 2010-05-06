@@ -61,7 +61,7 @@ def print_contour_classes(cardinality):
 
         csegclass = Contour(c).cseg_visual_printing()
         int_diagonals = Contour(c).internal_diagonals(1)
-        str_int_diag = internal_diagonal_print(int_diagonals)
+        str_int_diag = Internal_diagonals(int_diagonals).str_print()
         print(" ".ljust(4), "c {0}-{1}".format(a, b).ljust(16),
               csegclass.ljust(20), str_int_diag.ljust(15))
 
@@ -85,14 +85,6 @@ def list_to_string(list):
     """
 
     return " ".join([str(x) for x in list])
-
-
-def internal_diagonal_print(internal_diagonal):
-    """Prints internal diagonal like used in Contour theories:
-    < + - + >
-    """
-
-    return "< " + replace_list_to_plus_minus(internal_diagonal) + " >"
 
 
 class Contour():
@@ -572,6 +564,13 @@ class Internal_diagonal():
 
         int_d = self.internal_diagonal
         return [int_d[i:i + n] for i in range(len(int_d) - (n - 1))]
+
+    def str_print(self):
+        """Prints internal diagonal like used in Contour theories:
+        < + - + >
+        """
+
+        return "< " + replace_list_to_plus_minus(self.internal_diagonal) + " >"
 
     def __init__(self, internal_diagonal):
         self.internal_diagonal = internal_diagonal
