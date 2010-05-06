@@ -11,7 +11,7 @@ clean: clean-dist
 	rm -f *.pyc *~
 
 tests:
-	nosetests test_*.py
+	py.test test_*.py
 
 dist: tar zip
 

@@ -59,7 +59,7 @@ to clone the repository::
 It's necessary to install these dependencies::
 
  sudo apt-get install python-setuptools python-matplotlib
- sudo easy_install nose
+ sudo apt-get install python-codespeak-lib
  sudo easy_install pep8
  sudo easy_install pylint
 
