@@ -30,6 +30,9 @@ class App:
         frame3 = Frame(master)
         frame3.pack(side=TOP, fill=X)
 
+        toolbar0 = Frame(master)
+        toolbar0.pack(side=TOP, fill=X)
+
         toolbar1 = Frame(master)
         toolbar1.pack(side=LEFT, pady=5, fill=X)
 
@@ -42,6 +45,12 @@ class App:
         font = 'sans 8 bold'
         self.initial = Label(title_frame, text=program_name + " v." + version, font=font)
         self.initial.pack(side=TOP)
+
+        ## toolbar0
+
+        self.clear = Button(toolbar0, text="Clear Output",
+                               command=self.clear, width=10)
+        self.clear.pack(side=TOP)
 
         ## toolbar1
 
@@ -345,6 +354,8 @@ class App:
             text3 = "ERROR: Insert csegs with the same cardinality\n"
             self.text_output.insert(END, text3)
 
+    def clear(self):
+        self.text_output.delete(0.0, END)
 
 root = Tk()
 root.title(program_name)
