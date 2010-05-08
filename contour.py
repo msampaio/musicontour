@@ -273,7 +273,9 @@ class Contour():
         size = len(self.cseg)
         m = [[a, b] for a in self.cseg for b in self.cseg]
         n = [m[(i * size):((i + 1) * size)] for i in range(size)]
-        return [[Contour(x).comparison() for x in n[r]] for r in range(size)]
+        line = [self.cseg]
+        [line.append([Contour(x).comparison() for x in n[r]]) for r in range(size)]
+        return line
 
     def contour_adjacency_series_vector(self):
         """Returns Friedmann (1985) CASV, a two digit summation of ups
@@ -378,29 +380,6 @@ class Contour():
         """
 
         return "< " + list_to_string(self.cseg) + " >"
-
-    def comparison_matrix_printing(self):
-        """Prints comparison matrix like used in Contour theories:
-
-        . | 0 2 1
-        ---------
-        0 | 0 + +
-        2 | - 0 +
-        1 | - + 0
-
-        'str_matrix' stores a list with comparison matrix complete
-        lines.
-        """
-
-        hline = "{0}".format("-" * ((len(self.cseg) * 2) + 3))
-        cseg_printing = list_to_string(self.cseg)
-        com_matrix = self.comparison_matrix()
-        str_matrix = [(str(self.cseg[i]) + " | " + \
-                       replace_list_to_plus_minus(line)) \
-                      for (i, line) in enumerate(com_matrix)]
-        half_matrix_1 = "  | " + cseg_printing + "\n" + hline + "\n"
-        half_matrix_2 = "".join([x + "\n" for x in str_matrix])
-        return half_matrix_1 + half_matrix_2
 
     def __init__(self, cseg):
         self.cseg = cseg
@@ -599,7 +578,31 @@ class Comparison_matrix():
         [[0, -1, -1], [1, 0, 1], [1, -1, 0]]
         """
 
-        return [[(el * -1) for el in line] for line in self.comparison_matrix]
+        lines = [Contour(self.comparison_matrix[0]).inversion()]
+        [lines.append([(el * -1) for el in item]) for item in self.comparison_matrix[1:]]
+        return lines
+
+    def str_print(self):
+        """Prints comparison matrix like used in Contour theories:
+
+        . | 0 2 1
+        ---------
+        0 | 0 + +
+        2 | - 0 +
+        1 | - + 0
+
+        """
+
+        cseg = self.comparison_matrix[0]
+        hline = "{0}".format("-" * ((len(cseg) * 2) + 3))
+        cseg_str = list_to_string(cseg)
+        com_matrix = self.comparison_matrix[1:]
+        com_matrix_str = [(str(cseg[i]) + " | " + \
+                           replace_list_to_plus_minus(line)) \
+                          for (i, line) in enumerate(com_matrix)]
+        half_matrix_1 = "  | " + cseg_str + "\n" + hline + "\n"
+        half_matrix_2 = "".join([x + "\n" for x in com_matrix_str])
+        return half_matrix_1 + half_matrix_2
 
     def __init__(self, comparison_matrix):
         self.comparison_matrix = comparison_matrix

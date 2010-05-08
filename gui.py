@@ -5,7 +5,7 @@ from Tkinter import Tk, Frame, Button, Entry, Label, Text, Scrollbar, \
      TOP, LEFT, RIGHT, X, Y, END
 from plot import plot_preview, clear_plot
 from contour import Contour, Internal_diagonal, cseg_similarity, \
-     replace_plus_minus_to_list
+     replace_plus_minus_to_list, Comparison_matrix
 
 program_name = "Villa-Lobos Contour Module"
 version = "0.1"
@@ -265,10 +265,11 @@ class App:
     def comparison_matrix(self):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
-        com_matrix = Contour(cseg).comparison_matrix_printing()
+        com_matrix = Contour(cseg).comparison_matrix()
+        com_matrix_str = Comparison_matrix(com_matrix).str_print()
         text = "Comparison Matrix:\n"
         self.text_output.insert(END, text)
-        self.text_output.insert(END, com_matrix)
+        self.text_output.insert(END, com_matrix_str)
         self.text_output.insert(END, "\n")
 
     def n_subsets(self):

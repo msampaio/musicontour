@@ -150,9 +150,10 @@ def test_internal_diagonals():
 def test_comparison_matrix():
     c1 = Contour([0, 2, 3, 1])
     c2 = Contour([1, 2, 3, 0, 3, 1])
-    assert c1.comparison_matrix() == [[0, 1, 1, 1], [-1, 0, 1, -1],
-                                      [-1, -1, 0, -1], [-1, 1, 1, 0]]
-    assert c2.comparison_matrix() == [[0, 1, 1, -1, 1, 0],
+    assert c1.comparison_matrix() == [[0, 2, 3, 1], [0, 1, 1, 1],
+                                      [-1, 0, 1, -1], [-1, -1, 0, -1],
+                                      [-1, 1, 1, 0]]
+    assert c2.comparison_matrix() == [[1, 2, 3, 0, 3, 1], [0, 1, 1, -1, 1, 0],
                                       [-1, 0, 1, -1, 1, -1],
                                       [-1, -1, 0, -1, 0, -1],
                                       [1, 1, 1, 0, 1, 1],
@@ -189,12 +190,6 @@ def test_contour_segment_class():
 
 def test_str_print():
     assert Contour([2, 1, 4]).str_print() == "< 2 1 4 >"
-
-
-def test_comparison_matrix_printing():
-    c = Contour([2, 1, 0])
-    assert c.comparison_matrix_printing() == "  | 2 1 0\n---------\n2" + \
-           " | 0 - -\n1 | + 0 -\n0 | + + 0\n"
 
 
 def test_subsets_count():
@@ -372,5 +367,11 @@ def test_Int_str_print():
 
 
 def test_Com_matrix_inversion():
-    cm = Comparison_matrix([[0, 1, 1], [-1, 0, -1], [-1, 1, 0]])
-    assert cm.inversion() == [[0, -1, -1], [1, 0, 1], [1, -1, 0]]
+    cm = Comparison_matrix([[0, 1, 2], [0, 1, 1], [-1, 0, -1], [-1, 1, 0]])
+    assert cm.inversion() == [[2, 1, 0], [0, -1, -1], [1, 0, 1], [1, -1, 0]]
+
+
+def test_Com_str_print():
+    cm = Comparison_matrix([[0, 1, 2], [0, 1, 1], [-1, 0, -1], [-1, 1, 0]])
+    assert cm.str_print() == "  | 0 1 2\n---------\n" + \
+           "0 | 0 + +\n1 | - 0 -\n2 | - + 0\n"
