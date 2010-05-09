@@ -43,11 +43,23 @@ def test_list_to_string():
     assert list_to_string([1, 2, 3]) == "1 2 3"
 
 
-def test_rotation():
+def test_rotation_1():
     n = Contour([1, 4, 9, 9, 2, 1])
     assert n.rotation() == [4, 9, 9, 2, 1, 1]
+
+
+def test_rotation_2():
+    n = Contour([1, 4, 9, 9, 2, 1])
     assert n.rotation(1) == [4, 9, 9, 2, 1, 1]
+
+
+def test_rotation_3():
+    n = Contour([1, 4, 9, 9, 2, 1])
     assert n.rotation(2) == [9, 9, 2, 1, 1, 4]
+
+
+def test_rotation_4():
+    n = Contour([1, 4, 9, 9, 2, 1])
     assert n.rotation(20) == [9, 9, 2, 1, 1, 4]
 
 
@@ -66,25 +78,38 @@ def test_translation():
     assert n.translation() == [0, 2, 3, 3, 1, 0]
 
 
-def test_prime_form():
-    n1 = Contour([1, 4, 9, 2])
-    n2 = Contour([5, 7, 9, 1])
-    assert n1.prime_form() == [0, 2, 3, 1]
-    assert n2.prime_form() == [0, 3, 2, 1]
+def test_prime_form_1():
+    n = Contour([1, 4, 9, 2])
+    assert n.prime_form() == [0, 2, 3, 1]
 
 
-def test_remove_adjacent():
-    n1 = Contour([1, 4, 9, 9, 2, 1])
-    n2 = Contour([0, 1, 1, 2, 3])
-    n3 = Contour([1, 4, 9, 9, 2, 4])
-    assert n1.remove_adjacent() == [1, 4, 9, 2, 1]
-    assert n2.remove_adjacent() == [0, 1, 2, 3]
-    assert n3.remove_adjacent() == [1, 4, 9, 2, 4]
+def test_prime_form_1():
+    n = Contour([5, 7, 9, 1])
+    assert n.prime_form() == [0, 3, 2, 1]
 
 
-def test_Contour_subsets():
+def test_remove_adjacent_1():
+    n = Contour([1, 4, 9, 9, 2, 1])
+    assert n.remove_adjacent() == [1, 4, 9, 2, 1]
+
+
+def test_remove_adjacent_2():
+    n = Contour([0, 1, 1, 2, 3])
+    assert n.remove_adjacent() == [0, 1, 2, 3]
+
+
+def test_remove_adjacent_3():
+    n = Contour([1, 4, 9, 9, 2, 4])
+    assert n.remove_adjacent() == [1, 4, 9, 2, 4]
+
+
+def test_Contour_subsets_1():
     n = Contour([2, 8, 12, 9])
     assert n.subsets(2) == [[2, 8], [2, 9], [2, 12], [8, 9], [8, 12], [12, 9]]
+
+
+def test_Contour_subsets_2():
+    n = Contour([2, 8, 12, 9])
     assert n.subsets(3) == [[2, 8, 9], [2, 8, 12], [2, 12, 9], [8, 12, 9]]
 
 
@@ -118,18 +143,24 @@ def test_minima():
     assert n.minima() == [0, 4, 6, 8, 9]
 
 
-def test_contour_interval():
-    n1 = Contour([1, 5])
-    n2 = Contour([3, 0])
-    assert n1.contour_interval() == 4
-    assert n2.contour_interval() == -3
+def test_contour_interval_1():
+    n = Contour([1, 5])
+    assert n.contour_interval() == 4
 
 
-def test_comparison():
-    n1 = Contour([1, 4])
-    n2 = Contour([5, 0])
-    assert n1.comparison() == 1
-    assert n2.comparison() == -1
+def test_contour_interval_2():
+    n = Contour([3, 0])
+    assert n.contour_interval() == -3
+
+
+def test_comparison_1():
+    n = Contour([1, 4])
+    assert n.comparison() == 1
+
+
+def test_comparison_2():
+    n = Contour([5, 0])
+    assert n.comparison() == -1
 
 
 def test_contour_interval_succession():
@@ -137,24 +168,40 @@ def test_contour_interval_succession():
     assert n.contour_interval_succession() == [1, 2, -1]
 
 
-def test_internal_diagonals():
-    c1 = Contour([0, 2, 3, 1])
-    c2 = Contour([1, 0, 4, 3, 2])
-    n1 = 1
-    n2 = 2
-    assert c1.internal_diagonals(n1) == [1, 1, -1]
-    assert c1.internal_diagonals(n2) == [1, -1]
-    assert c2.internal_diagonals(n1) == [-1, 1, -1, -1]
-    assert c2.internal_diagonals(n2) == [1, 1, -1]
+def test_internal_diagonals_1():
+    c = Contour([0, 2, 3, 1])
+    n = 1
+    assert c.internal_diagonals(n) == [1, 1, -1]
 
 
-def test_comparison_matrix():
-    c1 = Contour([0, 2, 3, 1])
-    c2 = Contour([1, 2, 3, 0, 3, 1])
-    assert c1.comparison_matrix() == [[0, 2, 3, 1], [0, 1, 1, 1],
+def test_internal_diagonals_2():
+    c = Contour([0, 2, 3, 1])
+    n = 2
+    assert c.internal_diagonals(n) == [1, -1]
+
+
+def test_internal_diagonals_3():
+    c = Contour([1, 0, 4, 3, 2])
+    n = 1
+    assert c.internal_diagonals(n) == [-1, 1, -1, -1]
+
+
+def test_internal_diagonals_4():
+    c = Contour([1, 0, 4, 3, 2])
+    n = 2
+    assert c.internal_diagonals(n) == [1, 1, -1]
+
+
+def test_comparison_matrix_1():
+    c = Contour([0, 2, 3, 1])
+    assert c.comparison_matrix() == [[0, 2, 3, 1], [0, 1, 1, 1],
                                       [-1, 0, 1, -1], [-1, -1, 0, -1],
                                       [-1, 1, 1, 0]]
-    assert c2.comparison_matrix() == [[1, 2, 3, 0, 3, 1], [0, 1, 1, -1, 1, 0],
+
+
+def test_comparison_matrix_2():
+    c = Contour([1, 2, 3, 0, 3, 1])
+    assert c.comparison_matrix() == [[1, 2, 3, 0, 3, 1], [0, 1, 1, -1, 1, 0],
                                       [-1, 0, 1, -1, 1, -1],
                                       [-1, -1, 0, -1, 0, -1],
                                       [1, 1, 1, 0, 1, 1],
@@ -162,11 +209,14 @@ def test_comparison_matrix():
                                       [0, 1, 1, -1, 1, 0]]
 
 
-def test_contour_adjacency_series_vector():
-    c1 = Contour([0, 2, 3, 1])
-    c2 = Contour([1, 2, 3, 0, 3, 1])
-    assert c1.contour_adjacency_series_vector() == [2, 1]
-    assert c2.contour_adjacency_series_vector() == [3, 2]
+def test_contour_adjacency_series_vector_1():
+    c = Contour([0, 2, 3, 1])
+    assert c.contour_adjacency_series_vector() == [2, 1]
+
+
+def test_contour_adjacency_series_vector_2():
+    c = Contour([1, 2, 3, 0, 3, 1])
+    assert c.contour_adjacency_series_vector() == [3, 2]
 
 
 def test_contour_interval_array():
@@ -246,25 +296,34 @@ def test_prime_form_subsets_count():
                                             [(0, 3, 1, 2), 1]]
 
 
+def test_ri_identity_test_1():
+    n = [0, 1, 3, 2]
+    assert ri_identity_test(n) == 0
+
+
 def test_ri_identity_test():
-    n1 = [0, 1, 3, 2]
-    n2 = [1, 0, 3, 2]
-    assert ri_identity_test(n1) == 0
-    assert ri_identity_test(n2) == 1
+    n = [1, 0, 3, 2]
+    assert ri_identity_test(n) == 1
 
 
-def test_maximum():
-    n1 = [(5, 0), (8, 1), (4, 2)]
-    n2 = [(5, 0), (2, 1), (4, 2)]
-    assert maximum(n1) == 1
-    assert maximum(n2) == ''
+def test_maximum_1():
+    n = [(5, 0), (8, 1), (4, 2)]
+    assert maximum(n) == 1
 
 
-def test_minimum():
-    n1 = [(5, 4), (8, 5), (4, 6)]
-    n2 = [(5, 2), (0, 3), (4, 4)]
-    assert minimum(n1) == ''
-    assert minimum(n2) == 3
+def test_maximum_2():
+    n = [(5, 0), (2, 1), (4, 2)]
+    assert maximum(n) == ''
+
+
+def test_minimum_1():
+    n = [(5, 4), (8, 5), (4, 6)]
+    assert minimum(n) == ''
+
+
+def test_minimum_2():
+    n = [(5, 2), (0, 3), (4, 4)]
+    assert minimum(n) == 3
 
 
 def test_remove_duplicate_tuples():
@@ -273,61 +332,130 @@ def test_remove_duplicate_tuples():
                                           (7, 4), (9, 5), (5, 6)]
 
 
-def test___intern_diagon_sim():
+def test___intern_diagon_sim_1():
     c1 = [0, 2, 3, 1]
     c2 = [3, 1, 0, 2]
+    n1 = 1
+    assert __intern_diagon_sim(c1, c2, n1) == 0
+
+
+def test___intern_diagon_sim_2():
+    c1 = [0, 2, 3, 1]
+    c2 = [3, 1, 0, 2]
+    n2 = 2
+    assert __intern_diagon_sim(c1, c2, n2) == 0
+
+
+def test___intern_diagon_sim_3():
+    c1 = [0, 2, 3, 1]
+    c2 = [3, 1, 0, 2]
+    n3 = 3
+    assert __intern_diagon_sim(c1, c2, n3) == 0
+
+
+def test___intern_diagon_sim_4():
+    c1 = [0, 2, 3, 1]
     c3 = [2, 0, 1, 3]
+    n1 = 1
+    assert __intern_diagon_sim(c1, c3, n1) == 1
+
+
+def test___intern_diagon_sim_5():
+    c1 = [0, 2, 3, 1]
+    c3 = [2, 0, 1, 3]
+    n2 = 2
+    assert __intern_diagon_sim(c1, c3, n2) == 0
+
+
+def test___intern_diagon_sim_6():
+    c1 = [0, 2, 3, 1]
+    c3 = [2, 0, 1, 3]
+    n3 = 3
+    assert __intern_diagon_sim(c1, c3, n3) == 1
+
+
+def test___intern_diagon_sim_7():
+    c1 = [0, 2, 3, 1]
     c4 = [1, 3, 2, 0]
     n1 = 1
-    n2 = 2
-    n3 = 3
-    assert __intern_diagon_sim(c1, c2, n1) == 0
-    assert __intern_diagon_sim(c1, c2, n2) == 0
-    assert __intern_diagon_sim(c1, c2, n3) == 0
-    assert __intern_diagon_sim(c1, c3, n1) == 1
-    assert __intern_diagon_sim(c1, c3, n2) == 0
-    assert __intern_diagon_sim(c1, c3, n3) == 1
     assert __intern_diagon_sim(c1, c4, n1) == 2
+
+
+def test___intern_diagon_sim_8():
+    c1 = [0, 2, 3, 1]
+    c4 = [1, 3, 2, 0]
+    n2 = 2
     assert __intern_diagon_sim(c1, c4, n2) == 2
+
+
+def test___intern_diagon_sim_9():
+    c1 = [0, 2, 3, 1]
+    c4 = [1, 3, 2, 0]
+    n3 = 3
     assert __intern_diagon_sim(c1, c4, n3) == 0
 
 
-def test_cseg_similarity():
+def test_cseg_similarity_1():
     c1 = [0, 2, 3, 1]
     c2 = [3, 1, 0, 2]
+    assert cseg_similarity(c1, c2) == 0
+
+
+def test_cseg_similarity_2():
     c3 = [1, 0, 4, 3, 2]
     c4 = [3, 0, 4, 2, 1]
-    assert cseg_similarity(c1, c2) == 0
     assert cseg_similarity(c3, c4) == 0.8
 
 
-def test_csegs():
-    i1 = Internal_diagonal([-1, 1])
-    i2 = Internal_diagonal([-1, 1, 1])
-    assert i1.csegs() == [[1, 0, 2], [2, 0, 1]]
-    assert i2.csegs() == [[1, 0, 2, 3], [2, 0, 1, 3], [3, 0, 1, 2]]
+def test_csegs_1():
+    i = Internal_diagonal([-1, 1])
+    assert i.csegs() == [[1, 0, 2], [2, 0, 1]]
 
 
-def test_inversion_Int():
-    i1 = Internal_diagonal([-1, 1])
-    i2 = Internal_diagonal([-1, 1, 1])
-    assert i1.inversion() == [1, -1]
-    assert i2.inversion() == [1, -1, -1]
+def test_csegs_2():
+    i = Internal_diagonal([-1, 1, 1])
+    assert i.csegs() == [[1, 0, 2, 3], [2, 0, 1, 3], [3, 0, 1, 2]]
 
 
-def test_rotation_Int():
+def test_inversion_Int_1():
+    i = Internal_diagonal([-1, 1])
+    assert i.inversion() == [1, -1]
+
+
+def test_inversion_Int_2():
+    i = Internal_diagonal([-1, 1, 1])
+    assert i.inversion() == [1, -1, -1]
+
+
+def test_rotation_Int_1():
     n = Internal_diagonal([1, 1, 0, -1, -1, 1])
     assert n.rotation() == [1, 0, -1, -1, 1, 1]
+
+
+def test_rotation_Int_2():
+    n = Internal_diagonal([1, 1, 0, -1, -1, 1])
     assert n.rotation(1) == [1, 0, -1, -1, 1, 1]
+
+
+def test_rotation_Int_3():
+    n = Internal_diagonal([1, 1, 0, -1, -1, 1])
     assert n.rotation(2) == [0, -1, -1, 1, 1, 1]
+
+
+def test_rotation_Int_4():
+    n = Internal_diagonal([1, 1, 0, -1, -1, 1])
     assert n.rotation(20) == [0, -1, -1, 1, 1, 1]
 
 
-def test_Int_subsets():
+def test_Int_subsets_1():
     n = Internal_diagonal([1, 1, 0, -1, -1, 1])
     assert n.subsets(2) == [[-1, -1], [-1, 1], [-1, 1], [0, -1], [0, -1],
                             [0, 1], [1, -1], [1, -1], [1, -1], [1, -1],
                             [1, 0], [1, 0], [1, 1], [1, 1], [1, 1]]
+
+
+def test_Int_subsets_2():
+    n = Internal_diagonal([1, 1, 0, -1, -1, 1])
     assert n.subsets(3) == [[-1, -1, 1], [0, -1, -1], [0, -1, 1], [0, -1, 1],
                             [1, -1, -1], [1, -1, -1], [1, -1, 1], [1, -1, 1],
                             [1, -1, 1], [1, -1, 1], [1, 0, -1], [1, 0, -1],
@@ -356,9 +484,13 @@ def test_Int_all_subsets():
                                [1, 1, 0, -1, -1, 1]]
 
 
-def test_Int_subsets_adj():
+def test_Int_subsets_adj_1():
     n = Internal_diagonal([1, 1, 0, -1, -1, 1])
     assert n.subsets_adj(2) == [[1, 1], [1, 0], [0, -1], [-1, -1], [-1, 1]]
+
+
+def test_Int_subsets_adj_2():
+    n = Internal_diagonal([1, 1, 0, -1, -1, 1])
     assert n.subsets_adj(3) == [[1, 1, 0], [1, 0, -1], [0, -1, -1], [-1, -1, 1]]
 
 

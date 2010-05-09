@@ -6,22 +6,47 @@ Spine_file)
 import re
 
 
-def test_parse_accidentals():
-    n1 = "#"
-    n2 = "b"
-    assert parse_accidentals(n1) == 1
-    assert parse_accidentals(n2) == -1
-    assert parse_accidentals(n1 + n1) == 2
-    assert parse_accidentals(n2 + n2) == -2
+def test_parse_accidentals_1():
+    assert parse_accidentals("#") == 1
 
 
-def test_parse_pitch():
+def test_parse_accidentals_2():
+    assert parse_accidentals("b") == -1
+
+
+def test_parse_accidentals_3():
+    assert parse_accidentals("##") == 2
+
+
+def test_parse_accidentals_4():
+    assert parse_accidentals("bb") == -2
+
+
+def test_parse_pitch_1():
     assert parse_pitch("**pitch") == "**midi"
+
+
+def test_parse_pitch_1():
     assert parse_pitch("4C4") == 60
+
+
+def test_parse_pitch_1():
     assert parse_pitch("4Eb4") == 63
+
+
+def test_parse_pitch_1():
     assert parse_pitch("16F##4") == 67
+
+
+def test_parse_pitch_1():
     assert parse_pitch(".") == '.'
+
+
+def test_parse_pitch_1():
     assert parse_pitch("*-") == '*-'
+
+
+def test_parse_pitch_1():
     assert parse_pitch("=") == '='
 
 
