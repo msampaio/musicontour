@@ -3,9 +3,9 @@
 
 from Tkinter import Tk, Frame, Button, Entry, Label, Text, Scrollbar, \
      TOP, LEFT, RIGHT, X, Y, END
-from plot import plot_preview, clear_plot
-from contour import Contour, Internal_diagonal, cseg_similarity, \
+from contour_module.contour import Contour, Internal_diagonal, cseg_similarity, \
      replace_plus_minus_to_list, Comparison_matrix
+from contour_module.plot import plot_preview, clear_plot
 
 program_name = "Villa-Lobos Contour Module"
 version = "0.1"

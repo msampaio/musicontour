@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from humdrum import parse_accidentals, parse_pitch, Spine_file
+# import ..contour_module.humdrum
+from ..contour_module.humdrum import parse_accidentals, parse_pitch, Spine_file
 import re
 
 

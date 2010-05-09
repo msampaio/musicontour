@@ -3,15 +3,24 @@ DIST_FILES = gui.py contour.py plot.py utils.py COPYING README RELEASE
 VERSION = 0.2
 DIR = contour-module-$(VERSION)
 SERVER = genos.mus.br:www/villa-lobos/download/
+SRC_DIR = contour_module
+TEST_DIR = tests
+GUI_DIR = gui
 
 check:
-	pep8 *.py
+	pep8 *.py $(SRC_DIR)/*.py $(TEST_DIR)/*.py
 
 clean: clean-dist
 	rm -f *.pyc *~
+	rm -f $(SRC_DIR)/*~
+	rm -f $(SRC_DIR)/*.pyc
+	rm -f $(TEST_DIR)/*~
+	rm -f $(TEST_DIR)/*.pyc
+	rm -f $(GUI_DIR)/*~
+	rm -f $(GUI_DIR)/*.pyc
 
-tests:
-	py.test test_*.py
+regression_tests:
+	py.test tests
 
 dist: tar zip
 

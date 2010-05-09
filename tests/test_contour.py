@@ -1,11 +1,12 @@
-
 # -*- coding: utf-8 -*-
 
-from contour import Contour, Contour_subsets, maximum, minimum, \
-ri_identity_test, cseg_similarity, __contour_classes_generator_cardinality, \
-contour_classes_generator, __intern_diagon_sim, remove_duplicate_tuples, \
-double_replace, replace_list_to_plus_minus, list_to_string, \
-Internal_diagonal, Comparison_matrix
+from ..contour_module.contour import Contour, Contour_subsets, \
+     Internal_diagonal, Comparison_matrix, maximum, minimum, \
+     ri_identity_test, cseg_similarity, \
+     __contour_classes_generator_cardinality, \
+     contour_classes_generator, __intern_diagon_sim, \
+     remove_duplicate_tuples, double_replace, \
+     replace_list_to_plus_minus, list_to_string
 
 
 def test_contour_classes_generator_cardinality():
