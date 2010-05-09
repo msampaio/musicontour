@@ -1,11 +1,11 @@
 PYTHON_FILES = $(wildcard *.py)
-DIST_FILES = gui.py contour.py plot.py utils.py COPYING README RELEASE
 VERSION = 0.2
 DIR = contour-module-$(VERSION)
 SERVER = genos.mus.br:www/villa-lobos/download/
 SRC_DIR = contour_module
 TEST_DIR = tests
 GUI_DIR = gui
+DIST_FILES = gui_tk.py $(SRC_DIR) COPYING README RELEASE
 
 check:
 	pep8 *.py $(SRC_DIR)/*.py $(TEST_DIR)/*.py
@@ -32,7 +32,7 @@ tar: join
 
 join: clean-dist
 	@mkdir $(DIR)
-	cp $(DIST_FILES) $(DIR)
+	cp -r $(DIST_FILES) $(DIR)
 	ls $(DIR)
 
 clean-dist:
