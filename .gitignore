@@ -1,7 +1,10 @@
 *~
 *.pyc
-docs/_build/
+doc/_build/
 contour-module-*
 *.tar.gz
 *.zip
 lab/*
+print/*.aux
+print/*.log
+print/*.pdf
