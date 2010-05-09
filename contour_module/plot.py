@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from pylab import grid, axis, plot, title, legend, show, xticks, yticks, \
-     figure, ylabel, xlabel, axes, pie, imshow, rcParams, subplot, clf
+from pylab import (grid, axis, plot, title, legend, show, xticks,
+     yticks, figure, ylabel, xlabel, axes, pie, imshow, rcParams,
+     subplot, clf)
 from matplotlib.font_manager import FontProperties
 from matplotlib.ticker import NullLocator
-from PIL import Image, ImageChops
+from PIL import (Image, ImageChops)
 
 from contour import Contour
 from utils import flatten

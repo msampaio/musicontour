@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-from subprocess import Popen, call
+from subprocess import (Popen, call)
 
 
 def flatten(seq):

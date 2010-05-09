@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-from subprocess import Popen, PIPE, call
+from subprocess import (Popen, PIPE, call)
 import re
-from utils import filter_int, abcm2ps
+from utils import (filter_int, abcm2ps)
 
 
 ## regular expression to **pitch notes
