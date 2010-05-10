@@ -159,6 +159,32 @@ class App:
         self.text_scroll.config(command=self.text_output.yview)
         self.text_output.config(yscrollcommand=self.text_scroll.set)
 
+        ## key bindings:
+
+        self.main_entry.bind("<Escape>", self.clear_plot)
+        self.main_entry.bind("<Control-Escape>", self.clear_output)
+        self.main_entry.bind("<Alt-Escape>", self.clear_main)
+
+        self.main_entry.bind("<Return>", self.plot)
+        self.main_entry.bind("<p>", self.prime_form)
+        self.main_entry.bind("<n>", self.normal_form)
+        self.main_entry.bind("<r>", self.retrograde)
+        self.main_entry.bind("<R>", self.rotation)
+        self.main_entry.bind("<i>", self.inversion)
+        self.main_entry.bind("<I>", self.ret_inv)
+
+        self.main_entry.bind("<M>", self.comparison_matrix)
+        self.main_entry.bind("<d>", self.internal)
+        self.main_entry.bind("<s>", self.n_subsets)
+        self.main_entry.bind("<S>", self.all_subsets)
+        self.main_entry.bind("<c>", self.csegs_from_int)
+        self.main_entry.bind("<C>", self.csim)
+
+        self.main_entry.bind("<a>", self.casv)
+        self.main_entry.bind("<x>", self.cia)
+        self.main_entry.bind("<v>", self.ccvi)
+        self.main_entry.bind("<V>", self.ccvii)
+
 
     def plot(self, event=None):
         get = self.main_entry.get()
