@@ -170,7 +170,7 @@ class App:
         cseg = [int(x) for x in get.split(' ') if x]
         plot_color = 'k'
         result = Contour(cseg).str_print()
-        text = "Plot: "
+        text = "Original: "
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
