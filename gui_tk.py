@@ -380,6 +380,13 @@ class App:
     def clear_plot(self):
         clear_plot()
 
+    def clear_main(self):
+        self.main_entry.delete(0, END)
+
+    def clear_secondary(self):
+        self.secondary_entry.delete(0.0, END)
+
+
 root = Tk()
 root.title(program_name)
 
