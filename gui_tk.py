@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from Tkinter import (Tk, Frame, Button, Entry, Label, Text, Scrollbar,
-     TOP, LEFT, RIGHT, X, Y, END)
+                     END, FALSE, N, S)
 from contour_module.contour import (Contour, Internal_diagonal,
      cseg_similarity, replace_plus_minus_to_list, Comparison_matrix)
 from contour_module.plot import (plot_preview, clear_plot)
@@ -26,14 +26,14 @@ class App:
         self.text_output.config(yscrollcommand=self.text_scroll.set)
 
         self.main_label = Label(master, text='main entry:')
-        self.main_entry = Entry(master, width=20)
+        self.main_entry = Entry(master, width=13)
         self.main_entry.focus()
         self.main_entry.insert('end', "2 6 3 7 9 1")
         self.main_entry.get()
 
         self.secondary_label = Label(master, text='second. entry:')
 
-        self.secondary_entry = Entry(master, width=5)
+        self.secondary_entry = Entry(master, width=13)
         self.secondary_entry.insert("end", "1")
         self.secondary_entry.get()
 
@@ -43,6 +43,10 @@ class App:
                                      command=self.clear_output, width=10)
         self.b_clear_plot = Button(master, text="Clear Plot",
                                command=self.clear_plot, width=10)
+        self.b_clear_main = Button(master, text="Clear Main",
+                               command=self.clear_main, width=10)
+        self.b_clear_secondary = Button(master, text="Clear Second.",
+                               command=self.clear_secondary, width=10)
         self.b_plot = Button(master, text="Plot", command=self.plot,
                            width=10)
         self.b_normal_form = Button(master, text="Normal form",
@@ -105,23 +109,30 @@ class App:
         self.main_entry.bind("<v>", self.ccvi)
         self.main_entry.bind("<V>", self.ccvii)
 
-        ## disposition
+        master.columnconfigure(0, weight=15)
+        master.columnconfigure(1, weight=15)
+        master.columnconfigure(2, weight=15)
+        master.columnconfigure(3, weight=15)
+
+        ## displacement
         ## row 0
         self.initial.grid(row=0, column=0, columnspan=5)
 
         ## row 1
         self.text_output.grid(row=1, column=0, columnspan=4)
-        self.text_scroll.grid(row=1, column=5)
+        self.text_scroll.grid(row=1, column=4, sticky=N+S)
 
         ## row 2
         self.main_label.grid(row=2, column=0)
         self.main_entry.grid(row=2, column=1)
-        self.secondary_label.grid(row=2, column=3)
-        self.secondary_entry.grid(row=2, column=4)
+        self.secondary_label.grid(row=2, column=2)
+        self.secondary_entry.grid(row=2, column=3)
 
         ## row 3
-        self.b_clear_output.grid(row=3, column=0, columnspan=2)
-        self.b_clear_plot.grid(row=3, column=3, columnspan=2)
+        self.b_clear_output.grid(row=3, column=0)
+        self.b_clear_plot.grid(row=3, column=1)
+        self.b_clear_main.grid(row=3, column=2)
+        self.b_clear_secondary.grid(row=3, column=3)
 
         ##row 4
         self.b_plot.grid(row=4, column=0)
@@ -383,6 +394,8 @@ class App:
 
 root = Tk()
 root.title(program_name)
+root.geometry('450x580+0+0')
+root.resizable(FALSE,FALSE)
 
 app = App(root)
 
