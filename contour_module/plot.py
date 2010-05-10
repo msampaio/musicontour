@@ -20,7 +20,7 @@ def random_color():
     return colors[random.randint(0, len(colors) - 1)]
 
 
-def aux_plot(cseg, plot_color):
+def aux_plot(cseg, plot_color, custom_legend=""):
     """Returns cseg plot data to plot.
 
     The code is based on
@@ -45,13 +45,13 @@ def aux_plot(cseg, plot_color):
     xticks(cseg_xticks)
     yticks(cseg_yticks)
     p = plot(cseg, linewidth=2, marker='d', color=plot_color,
-         label='{0}'.format(Contour(cseg).str_print()))
+         label='{0} {1}'.format(Contour(cseg).str_print(), custom_legend))
     title(title_name, family='georgia', size='small')
-    legend(prop=FontProperties(size=12))
+    legend(prop=FontProperties(size=10))
     return p
 
 
-def plot_preview(cseg, plot_color):
+def plot_preview(cseg, plot_color, legend=""):
     """Generates cseg plot.
 
     The code is based on
@@ -60,7 +60,7 @@ def plot_preview(cseg, plot_color):
     >>> plot_preview([5, 3, 4, 1, 2, 0])
     """
 
-    aux_plot(cseg, plot_color)
+    aux_plot(cseg, plot_color, legend)
     show()
 
 

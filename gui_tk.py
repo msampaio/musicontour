@@ -167,7 +167,7 @@ class App:
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
-        plot_preview(cseg, plot_color)
+        plot_preview(cseg, plot_color, "Original")
 
     def prime_form(self):
         get = self.main_entry.get()
@@ -186,7 +186,7 @@ class App:
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
-        plot_preview(prime_form, plot_color)
+        plot_preview(prime_form, plot_color, "Prime form")
 
     def normal_form(self):
         get = self.main_entry.get()
@@ -198,7 +198,7 @@ class App:
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
-        plot_preview(normal_form, plot_color)
+        plot_preview(normal_form, plot_color, "Normal form")
 
     def retrograde(self):
         get = self.main_entry.get()
@@ -210,7 +210,7 @@ class App:
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
-        plot_preview(retrograde, plot_color)
+        plot_preview(retrograde, plot_color, "Retrograde")
 
     def inversion(self):
         get = self.main_entry.get()
@@ -222,7 +222,7 @@ class App:
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
-        plot_preview(inversion, plot_color)
+        plot_preview(inversion, plot_color, "Inversion")
 
     def ret_inv(self):
         get = self.main_entry.get()
@@ -234,7 +234,7 @@ class App:
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
-        plot_preview(ret_inv, plot_color)
+        plot_preview(ret_inv, plot_color, "Ret.inv.")
 
     def rotation(self):
         get = self.main_entry.get()
@@ -249,7 +249,7 @@ class App:
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
-        plot_preview(rotation, plot_color)
+        plot_preview(rotation, plot_color, "Rotation({0})".format(second_get))
 
     def internal(self):
         get = self.main_entry.get()
