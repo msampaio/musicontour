@@ -109,10 +109,10 @@ class App:
         self.main_entry.bind("<v>", self.ccvi)
         self.main_entry.bind("<V>", self.ccvii)
 
-        master.columnconfigure(0, weight=15)
-        master.columnconfigure(1, weight=15)
-        master.columnconfigure(2, weight=15)
-        master.columnconfigure(3, weight=15)
+        master.columnconfigure(0, weight=1)
+        master.columnconfigure(1, weight=1)
+        master.columnconfigure(2, weight=1)
+        master.columnconfigure(3, weight=1)
 
         ## displacement
         ## row 0
