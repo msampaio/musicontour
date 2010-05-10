@@ -15,152 +15,127 @@ class App:
 
     def __init__(self, master):
 
-        title_frame = Frame(master)
-        title_frame.pack(pady=5)
-
-        frame0 = Frame(master)
-        frame0.pack(side=TOP, fill=X)
-
-        frame1 = Frame(master)
-        frame1.pack(side=TOP, fill=X)
-
-        frame2 = Frame(master)
-        frame2.pack(side=TOP, fill=X)
-
-        frame3 = Frame(master)
-        frame3.pack(side=TOP, fill=X)
-
-        toolbar0 = Frame(master)
-        toolbar0.pack(side=TOP, fill=X)
-
-        toolbar1 = Frame(master)
-        toolbar1.pack(side=LEFT, pady=5, fill=X)
-
-        toolbar2 = Frame(master)
-        toolbar2.pack(side=LEFT, pady=5, fill=X)
-
-        toolbar3 = Frame(master)
-        toolbar3.pack(side=LEFT, pady=5, fill=X)
-
+        ## row 0
         font = 'sans 8 bold'
-        self.initial = Label(title_frame, text=program_name + " v." + version, font=font)
-        self.initial.pack(side=TOP)
+        self.initial = Label(master, text=program_name + " v." + version, font=font)
+        self.initial.grid(row=0, column=0, columnspan=5)
 
-        ## toolbar0
+        ## row 1
+        self.text_output = Text(master)
+        self.text_output.grid(row=1, column=0, columnspan=4)
 
-        self.b_clear_output = Button(toolbar0, text="Clear Output",
-                               command=self.clear_output, width=10)
-        self.b_clear_output.pack(side=TOP)
-
-        self.b_clear_plot = Button(toolbar0, text="Clear Plot",
-                               command=self.clear_plot, width=10)
-        self.b_clear_plot.pack(side=TOP)
-
-        ## toolbar1
-
-        self.b_plot = Button(toolbar1, text="Plot", command=self.plot,
-                           width=10)
-        self.b_plot.pack(side=TOP)
-
-        self.b_retrograde = Button(toolbar1, text="Retrograde",
-                                    command=self.retrograde, width=10)
-        self.b_retrograde.pack(side=TOP)
-
-        self.b_rotation = Button(toolbar1, text="Rotation",
-                               command=self.rotation, width=10)
-        self.b_rotation.pack(side=TOP)
-
-        self.b_n_subsets = Button(toolbar1, text="n subsets",
-                               command=self.n_subsets, width=10)
-        self.b_n_subsets.pack(side=TOP)
-
-        self.b_casv = Button(toolbar1, text="CASV",
-                               command=self.casv, width=10)
-        self.b_casv.pack(side=TOP)
-
-        self.b_ccvi = Button(toolbar1, text="CCV I",
-                               command=self.ccvi, width=10)
-        self.b_ccvi.pack(side=TOP)
-
-        ## toolbar2
-
-        self.b_prime_form = Button(toolbar2, text="Prime form",
-                                    command=self.prime_form, width=10)
-        self.b_prime_form.pack(side=TOP)
-
-        self.b_inversion = Button(toolbar2, text="Inversion",
-                                   command=self.inversion, width=10)
-        self.b_inversion.pack(side=TOP)
-
-        self.b_comparison_matrix = Button(toolbar2, text="COM Matrix",
-                               command=self.comparison_matrix, width=10)
-        self.b_comparison_matrix.pack(side=TOP)
-
-        self.b_all_subsets = Button(toolbar2, text="All subsets",
-                               command=self.all_subsets, width=10)
-        self.b_all_subsets.pack(side=TOP)
-
-        self.b_cis = Button(toolbar2, text="CIS",
-                               command=self.cis, width=10)
-        self.b_cis.pack(side=TOP)
-
-        self.b_ccvii = Button(toolbar2, text="CCV II",
-                               command=self.ccvii, width=10)
-        self.b_ccvii.pack(side=TOP)
-
-        # toolbar3
-
-        self.b_normal_form = Button(toolbar3, text="Normal form",
-                                     command=self.normal_form, width=10)
-        self.b_normal_form.pack(side=TOP)
-
-        self.b_ret_inv = Button(toolbar3, text="Retrograde inv.",
-                                 command=self.ret_inv, width=10)
-        self.b_ret_inv.pack(side=TOP)
-
-        self.b_internal = Button(toolbar3, text="Int. Diagonal",
-                               command=self.internal, width=10)
-        self.b_internal.pack(side=TOP)
-
-        self.b_csegs_from_int = Button(toolbar3, text="Csegs from INT",
-                               command=self.csegs_from_int, width=10)
-        self.b_csegs_from_int.pack(side=TOP)
-
-        self.b_cia = Button(toolbar3, text="CIA",
-                               command=self.cia, width=10)
-        self.b_cia.pack(side=TOP)
-
-        self.b_csim = Button(toolbar3, text="Contour simil.",
-                               command=self.csim, width=10)
-        self.b_csim.pack(side=TOP)
-
-        #
-
-        Label(frame1, text='main entry:').pack(side=LEFT)
-
-        self.main_entry = Entry(frame1, width=20)
-        self.main_entry.focus()
-        self.main_entry.pack(fill=X)
-        self.main_entry.insert('end', "2 6 3 7 9 1")
-        self.main_entry.get()
-
-        Label(frame2, text='second. entry:').pack(side=LEFT)
-
-        self.secondary_entry = Entry(frame2, width=5)
-        self.secondary_entry.pack(fill=X)
-        self.secondary_entry.insert("end", "1")
-        self.secondary_entry.get()
-
-        self.text_output = Text(frame0, width=44, height=15)
-        self.text_output.pack(side=LEFT, fill=X)
-
-        self.text_scroll = Scrollbar(frame0)
-        self.text_scroll.pack(side=RIGHT, fill=Y)
+        self.text_scroll = Scrollbar(master)
+        self.text_scroll.grid(row=1, column=5)
         self.text_scroll.config(command=self.text_output.yview)
         self.text_output.config(yscrollcommand=self.text_scroll.set)
 
-        ## key bindings:
+        ## row 2
+        Label(master, text='main entry:').grid(row=2, column=0)
 
+        self.main_entry = Entry(master, width=20)
+        self.main_entry.focus()
+        self.main_entry.grid(row=2, column=1)
+        self.main_entry.insert('end', "2 6 3 7 9 1")
+        self.main_entry.get()
+
+        Label(master, text='second. entry:').grid(row=2, column=3)
+
+        self.secondary_entry = Entry(master, width=5)
+        self.secondary_entry.grid(row=2, column=4)
+        self.secondary_entry.insert("end", "1")
+        self.secondary_entry.get()
+
+        ## buttons
+        ## row 3
+
+        self.b_clear_output = Button(master, text="Clear Output",
+                               command=self.clear_output, width=10)
+        self.b_clear_output.grid(row=3, column=0, columnspan=2)
+
+        self.b_clear_plot = Button(master, text="Clear Plot",
+                               command=self.clear_plot, width=10)
+        self.b_clear_plot.grid(row=3, column=3, columnspan=2)
+
+        ##row 4
+        self.b_plot = Button(master, text="Plot", command=self.plot,
+                           width=10)
+        self.b_plot.grid(row=4, column=0)
+
+        self.b_normal_form = Button(master, text="Normal form",
+                                     command=self.normal_form, width=10)
+        self.b_normal_form.grid(row=4, column=1)
+
+        self.b_prime_form = Button(master, text="Prime form",
+                                    command=self.prime_form, width=10)
+        self.b_prime_form.grid(row=4, column=2)
+
+        self.b_inversion = Button(master, text="Inversion",
+                                   command=self.inversion, width=10)
+        self.b_inversion.grid(row=4, column=3)
+
+        ## row 5
+
+        self.b_rotation = Button(master, text="Rotation",
+                               command=self.rotation, width=10)
+        self.b_rotation.grid(row=5, column=0)
+
+        self.b_retrograde = Button(master, text="Retrograde",
+                                    command=self.retrograde, width=10)
+        self.b_retrograde.grid(row=5, column=1)
+
+        self.b_ret_inv = Button(master, text="Retrograde inv.",
+                                 command=self.ret_inv, width=10)
+        self.b_ret_inv.grid(row=5, column=2)
+
+        self.b_comparison_matrix = Button(master, text="COM Matrix",
+                               command=self.comparison_matrix, width=10)
+        self.b_comparison_matrix.grid(row=5, column=3)
+
+        ## row 6
+
+        self.b_n_subsets = Button(master, text="n subsets",
+                               command=self.n_subsets, width=10)
+        self.b_n_subsets.grid(row=6, column=0)
+
+        self.b_all_subsets = Button(master, text="All subsets",
+                               command=self.all_subsets, width=10)
+        self.b_all_subsets.grid(row=6, column=1)
+
+        self.b_internal = Button(master, text="Int. Diagonal",
+                               command=self.internal, width=10)
+        self.b_internal.grid(row=6, column=2)
+
+        self.b_csegs_from_int = Button(master, text="Csegs from INT",
+                               command=self.csegs_from_int, width=10)
+        self.b_csegs_from_int.grid(row=6, column=3)
+
+        ## row7
+        self.b_casv = Button(master, text="CASV",
+                               command=self.casv, width=10)
+        self.b_casv.grid(row=7, column=0)
+
+        self.b_cis = Button(master, text="CIS",
+                               command=self.cis, width=10)
+        self.b_cis.grid(row=7, column=1)
+
+        self.b_ccvi = Button(master, text="CCV I",
+                               command=self.ccvi, width=10)
+        self.b_ccvi.grid(row=7, column=2)
+
+        self.b_ccvii = Button(master, text="CCV II",
+                               command=self.ccvii, width=10)
+        self.b_ccvii.grid(row=7, column=3)
+
+        ## row 8
+        self.b_cia = Button(master, text="CIA",
+                               command=self.cia, width=10)
+        self.b_cia.grid(row=8, column=0)
+
+        self.b_csim = Button(master, text="Contour simil.",
+                               command=self.csim, width=10)
+        self.b_csim.grid(row=8, column=1)
+
+        ## key bindings:
         self.main_entry.bind("<Escape>", self.clear_plot)
         self.main_entry.bind("<Control-Escape>", self.clear_output)
         self.main_entry.bind("<Alt-Escape>", self.clear_main)
