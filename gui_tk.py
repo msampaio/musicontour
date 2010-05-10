@@ -48,91 +48,91 @@ class App:
 
         ## toolbar0
 
-        self.clear_output = Button(toolbar0, text="Clear Output",
+        self.b_clear_output = Button(toolbar0, text="Clear Output",
                                command=self.clear_output, width=10)
-        self.clear_output.pack(side=TOP)
+        self.b_clear_output.pack(side=TOP)
 
-        self.clear_plot = Button(toolbar0, text="Clear Plot",
+        self.b_clear_plot = Button(toolbar0, text="Clear Plot",
                                command=self.clear_plot, width=10)
-        self.clear_plot.pack(side=TOP)
+        self.b_clear_plot.pack(side=TOP)
 
         ## toolbar1
 
-        self.plot = Button(toolbar1, text="Plot", command=self.plot,
+        self.b_plot = Button(toolbar1, text="Plot", command=self.plot,
                            width=10)
-        self.plot.pack(side=TOP)
+        self.b_plot.pack(side=TOP)
 
-        self.retrograde = Button(toolbar1, text="Retrograde",
+        self.b_retrograde = Button(toolbar1, text="Retrograde",
                                     command=self.retrograde, width=10)
-        self.retrograde.pack(side=TOP)
+        self.b_retrograde.pack(side=TOP)
 
-        self.rotation = Button(toolbar1, text="Rotation",
+        self.b_rotation = Button(toolbar1, text="Rotation",
                                command=self.rotation, width=10)
-        self.rotation.pack(side=TOP)
+        self.b_rotation.pack(side=TOP)
 
-        self.n_subsets = Button(toolbar1, text="n subsets",
+        self.b_n_subsets = Button(toolbar1, text="n subsets",
                                command=self.n_subsets, width=10)
-        self.n_subsets.pack(side=TOP)
+        self.b_n_subsets.pack(side=TOP)
 
-        self.casv = Button(toolbar1, text="CASV",
+        self.b_casv = Button(toolbar1, text="CASV",
                                command=self.casv, width=10)
-        self.casv.pack(side=TOP)
+        self.b_casv.pack(side=TOP)
 
-        self.ccvi = Button(toolbar1, text="CCV I",
+        self.b_ccvi = Button(toolbar1, text="CCV I",
                                command=self.ccvi, width=10)
-        self.ccvi.pack(side=TOP)
+        self.b_ccvi.pack(side=TOP)
 
         ## toolbar2
 
-        self.prime_form = Button(toolbar2, text="Prime form",
+        self.b_prime_form = Button(toolbar2, text="Prime form",
                                     command=self.prime_form, width=10)
-        self.prime_form.pack(side=TOP)
+        self.b_prime_form.pack(side=TOP)
 
-        self.inversion = Button(toolbar2, text="Inversion",
+        self.b_inversion = Button(toolbar2, text="Inversion",
                                    command=self.inversion, width=10)
-        self.inversion.pack(side=TOP)
+        self.b_inversion.pack(side=TOP)
 
-        self.comparison_matrix = Button(toolbar2, text="COM Matrix",
+        self.b_comparison_matrix = Button(toolbar2, text="COM Matrix",
                                command=self.comparison_matrix, width=10)
-        self.comparison_matrix.pack(side=TOP)
+        self.b_comparison_matrix.pack(side=TOP)
 
-        self.all_subsets = Button(toolbar2, text="All subsets",
+        self.b_all_subsets = Button(toolbar2, text="All subsets",
                                command=self.all_subsets, width=10)
-        self.all_subsets.pack(side=TOP)
+        self.b_all_subsets.pack(side=TOP)
 
-        self.cis = Button(toolbar2, text="CIS",
+        self.b_cis = Button(toolbar2, text="CIS",
                                command=self.cis, width=10)
-        self.cis.pack(side=TOP)
+        self.b_cis.pack(side=TOP)
 
-        self.ccvii = Button(toolbar2, text="CCV II",
+        self.b_ccvii = Button(toolbar2, text="CCV II",
                                command=self.ccvii, width=10)
-        self.ccvii.pack(side=TOP)
+        self.b_ccvii.pack(side=TOP)
 
         # toolbar3
 
-        self.normal_form = Button(toolbar3, text="Normal form",
+        self.b_normal_form = Button(toolbar3, text="Normal form",
                                      command=self.normal_form, width=10)
-        self.normal_form.pack(side=TOP)
+        self.b_normal_form.pack(side=TOP)
 
-        self.ret_inv = Button(toolbar3, text="Retrograde inv.",
+        self.b_ret_inv = Button(toolbar3, text="Retrograde inv.",
                                  command=self.ret_inv, width=10)
-        self.ret_inv.pack(side=TOP)
+        self.b_ret_inv.pack(side=TOP)
 
-        self.internal = Button(toolbar3, text="Int. Diagonal",
+        self.b_internal = Button(toolbar3, text="Int. Diagonal",
                                command=self.internal, width=10)
-        self.internal.pack(side=TOP)
+        self.b_internal.pack(side=TOP)
 
-        self.csegs_from_int = Button(toolbar3, text="Csegs from INT",
+        self.b_csegs_from_int = Button(toolbar3, text="Csegs from INT",
                                command=self.csegs_from_int, width=10)
-        self.csegs_from_int.pack(side=TOP)
+        self.b_csegs_from_int.pack(side=TOP)
 
-        self.cia = Button(toolbar3, text="CIA",
+        self.b_cia = Button(toolbar3, text="CIA",
                                command=self.cia, width=10)
-        self.cia.pack(side=TOP)
+        self.b_cia.pack(side=TOP)
 
-        self.csim = Button(toolbar3, text="Contour simil.",
+        self.b_csim = Button(toolbar3, text="Contour simil.",
                                command=self.csim, width=10)
-        self.csim.pack(side=TOP)
+        self.b_csim.pack(side=TOP)
 
         #
 
@@ -143,12 +143,6 @@ class App:
         self.main_entry.pack(fill=X)
         self.main_entry.insert('end', "2 6 3 7 9 1")
         self.main_entry.get()
-
-        ## key bindings
-        self.main_entry.bind("<Escape>", self.clear_main)
-        self.main_entry.bind("<Control-Escape>", self.clear_plot)
-        self.main_entry.bind("<Alt-Escape>", self.clear_output)
-        self.main_entry.bind("<Return>", self.plot)
 
         Label(frame2, text='second. entry:').pack(side=LEFT)
 
@@ -164,6 +158,7 @@ class App:
         self.text_scroll.pack(side=RIGHT, fill=Y)
         self.text_scroll.config(command=self.text_output.yview)
         self.text_output.config(yscrollcommand=self.text_scroll.set)
+
 
     def plot(self, event=None):
         get = self.main_entry.get()
