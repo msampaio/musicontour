@@ -139,6 +139,7 @@ class App:
         Label(frame1, text='main entry:').pack(side=LEFT)
 
         self.main_entry = Entry(frame1, width=20)
+        self.main_entry.focus()
         self.main_entry.pack(fill=X)
         self.main_entry.insert('end', "2 6 3 7 9 1")
         self.main_entry.get()
