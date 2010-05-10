@@ -15,125 +15,70 @@ class App:
 
     def __init__(self, master):
 
-        ## row 0
+        ### widgets
+
         font = 'sans 8 bold'
         self.initial = Label(master, text=program_name + " v." + version, font=font)
-        self.initial.grid(row=0, column=0, columnspan=5)
 
-        ## row 1
         self.text_output = Text(master)
-        self.text_output.grid(row=1, column=0, columnspan=4)
-
         self.text_scroll = Scrollbar(master)
-        self.text_scroll.grid(row=1, column=5)
         self.text_scroll.config(command=self.text_output.yview)
         self.text_output.config(yscrollcommand=self.text_scroll.set)
 
-        ## row 2
-        Label(master, text='main entry:').grid(row=2, column=0)
-
+        self.main_label = Label(master, text='main entry:')
         self.main_entry = Entry(master, width=20)
         self.main_entry.focus()
-        self.main_entry.grid(row=2, column=1)
         self.main_entry.insert('end', "2 6 3 7 9 1")
         self.main_entry.get()
 
-        Label(master, text='second. entry:').grid(row=2, column=3)
+        self.secondary_label = Label(master, text='second. entry:')
 
         self.secondary_entry = Entry(master, width=5)
-        self.secondary_entry.grid(row=2, column=4)
         self.secondary_entry.insert("end", "1")
         self.secondary_entry.get()
 
         ## buttons
-        ## row 3
 
         self.b_clear_output = Button(master, text="Clear Output",
-                               command=self.clear_output, width=10)
-        self.b_clear_output.grid(row=3, column=0, columnspan=2)
-
+                                     command=self.clear_output, width=10)
         self.b_clear_plot = Button(master, text="Clear Plot",
                                command=self.clear_plot, width=10)
-        self.b_clear_plot.grid(row=3, column=3, columnspan=2)
-
-        ##row 4
         self.b_plot = Button(master, text="Plot", command=self.plot,
                            width=10)
-        self.b_plot.grid(row=4, column=0)
-
         self.b_normal_form = Button(master, text="Normal form",
                                      command=self.normal_form, width=10)
-        self.b_normal_form.grid(row=4, column=1)
-
         self.b_prime_form = Button(master, text="Prime form",
                                     command=self.prime_form, width=10)
-        self.b_prime_form.grid(row=4, column=2)
-
         self.b_inversion = Button(master, text="Inversion",
                                    command=self.inversion, width=10)
-        self.b_inversion.grid(row=4, column=3)
-
-        ## row 5
-
         self.b_rotation = Button(master, text="Rotation",
                                command=self.rotation, width=10)
-        self.b_rotation.grid(row=5, column=0)
-
         self.b_retrograde = Button(master, text="Retrograde",
                                     command=self.retrograde, width=10)
-        self.b_retrograde.grid(row=5, column=1)
-
         self.b_ret_inv = Button(master, text="Retrograde inv.",
                                  command=self.ret_inv, width=10)
-        self.b_ret_inv.grid(row=5, column=2)
-
         self.b_comparison_matrix = Button(master, text="COM Matrix",
                                command=self.comparison_matrix, width=10)
-        self.b_comparison_matrix.grid(row=5, column=3)
-
-        ## row 6
-
         self.b_n_subsets = Button(master, text="n subsets",
                                command=self.n_subsets, width=10)
-        self.b_n_subsets.grid(row=6, column=0)
-
         self.b_all_subsets = Button(master, text="All subsets",
                                command=self.all_subsets, width=10)
-        self.b_all_subsets.grid(row=6, column=1)
-
         self.b_internal = Button(master, text="Int. Diagonal",
                                command=self.internal, width=10)
-        self.b_internal.grid(row=6, column=2)
-
         self.b_csegs_from_int = Button(master, text="Csegs from INT",
                                command=self.csegs_from_int, width=10)
-        self.b_csegs_from_int.grid(row=6, column=3)
-
-        ## row7
         self.b_casv = Button(master, text="CASV",
                                command=self.casv, width=10)
-        self.b_casv.grid(row=7, column=0)
-
         self.b_cis = Button(master, text="CIS",
                                command=self.cis, width=10)
-        self.b_cis.grid(row=7, column=1)
-
         self.b_ccvi = Button(master, text="CCV I",
                                command=self.ccvi, width=10)
-        self.b_ccvi.grid(row=7, column=2)
-
         self.b_ccvii = Button(master, text="CCV II",
                                command=self.ccvii, width=10)
-        self.b_ccvii.grid(row=7, column=3)
-
-        ## row 8
         self.b_cia = Button(master, text="CIA",
                                command=self.cia, width=10)
-        self.b_cia.grid(row=8, column=0)
-
         self.b_csim = Button(master, text="Contour simil.",
                                command=self.csim, width=10)
-        self.b_csim.grid(row=8, column=1)
 
         ## key bindings:
         self.main_entry.bind("<Escape>", self.clear_plot)
@@ -160,6 +105,53 @@ class App:
         self.main_entry.bind("<v>", self.ccvi)
         self.main_entry.bind("<V>", self.ccvii)
 
+        ## disposition
+        ## row 0
+        self.initial.grid(row=0, column=0, columnspan=5)
+
+        ## row 1
+        self.text_output.grid(row=1, column=0, columnspan=4)
+        self.text_scroll.grid(row=1, column=5)
+
+        ## row 2
+        self.main_label.grid(row=2, column=0)
+        self.main_entry.grid(row=2, column=1)
+        self.secondary_label.grid(row=2, column=3)
+        self.secondary_entry.grid(row=2, column=4)
+
+        ## row 3
+        self.b_clear_output.grid(row=3, column=0, columnspan=2)
+        self.b_clear_plot.grid(row=3, column=3, columnspan=2)
+
+        ##row 4
+        self.b_plot.grid(row=4, column=0)
+        self.b_normal_form.grid(row=4, column=1)
+        self.b_prime_form.grid(row=4, column=2)
+        self.b_inversion.grid(row=4, column=3)
+
+        ## row 5
+        self.b_rotation.grid(row=5, column=0)
+        self.b_retrograde.grid(row=5, column=1)
+        self.b_ret_inv.grid(row=5, column=2)
+        self.b_comparison_matrix.grid(row=5, column=3)
+
+        ## row 6
+        self.b_n_subsets.grid(row=6, column=0)
+        self.b_all_subsets.grid(row=6, column=1)
+        self.b_internal.grid(row=6, column=2)
+        self.b_csegs_from_int.grid(row=6, column=3)
+
+        ## row7
+        self.b_casv.grid(row=7, column=0)
+        self.b_cis.grid(row=7, column=1)
+        self.b_ccvi.grid(row=7, column=2)
+        self.b_ccvii.grid(row=7, column=3)
+
+        ## row 8
+        self.b_cia.grid(row=8, column=0)
+        self.b_csim.grid(row=8, column=1)
+
+    ## functions
 
     def plot(self, event=None):
         get = self.main_entry.get()
