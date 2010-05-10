@@ -144,6 +144,12 @@ class App:
         self.main_entry.insert('end', "2 6 3 7 9 1")
         self.main_entry.get()
 
+        ## key bindings
+        self.main_entry.bind("<Escape>", self.clear_main)
+        self.main_entry.bind("<Control-Escape>", self.clear_plot)
+        self.main_entry.bind("<Alt-Escape>", self.clear_output)
+        self.main_entry.bind("<Return>", self.plot)
+
         Label(frame2, text='second. entry:').pack(side=LEFT)
 
         self.secondary_entry = Entry(frame2, width=5)
@@ -159,7 +165,7 @@ class App:
         self.text_scroll.config(command=self.text_output.yview)
         self.text_output.config(yscrollcommand=self.text_scroll.set)
 
-    def plot(self):
+    def plot(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         plot_color = 'k'
@@ -170,7 +176,7 @@ class App:
         self.text_output.insert(END, "\n")
         plot_preview(cseg, plot_color, "Original")
 
-    def prime_form(self):
+    def prime_form(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         plot_color = 'b'
@@ -189,7 +195,7 @@ class App:
         self.text_output.insert(END, "\n")
         plot_preview(prime_form, plot_color, "Prime form")
 
-    def normal_form(self):
+    def normal_form(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         plot_color = 'g'
@@ -201,7 +207,7 @@ class App:
         self.text_output.insert(END, "\n")
         plot_preview(normal_form, plot_color, "Normal form")
 
-    def retrograde(self):
+    def retrograde(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         plot_color = 'm'
@@ -213,7 +219,7 @@ class App:
         self.text_output.insert(END, "\n")
         plot_preview(retrograde, plot_color, "Retrograde")
 
-    def inversion(self):
+    def inversion(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         plot_color = 'r'
@@ -225,7 +231,7 @@ class App:
         self.text_output.insert(END, "\n")
         plot_preview(inversion, plot_color, "Inversion")
 
-    def ret_inv(self):
+    def ret_inv(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         plot_color = 'c'
@@ -237,7 +243,7 @@ class App:
         self.text_output.insert(END, "\n")
         plot_preview(ret_inv, plot_color, "Ret.inv.")
 
-    def rotation(self):
+    def rotation(self, event=None):
         get = self.main_entry.get()
         second_get = int(self.secondary_entry.get())
         cseg = [int(x) for x in get.split(' ') if x]
@@ -252,7 +258,7 @@ class App:
         self.text_output.insert(END, "\n")
         plot_preview(rotation, plot_color, "Rotation({0})".format(second_get))
 
-    def internal(self):
+    def internal(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         second_get = int(self.secondary_entry.get())
@@ -263,7 +269,7 @@ class App:
         self.text_output.insert(END, format_int_diag)
         self.text_output.insert(END, "\n")
 
-    def comparison_matrix(self):
+    def comparison_matrix(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         com_matrix = Contour(cseg).comparison_matrix()
@@ -273,7 +279,7 @@ class App:
         self.text_output.insert(END, com_matrix_str)
         self.text_output.insert(END, "\n")
 
-    def n_subsets(self):
+    def n_subsets(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         second_get = int(self.secondary_entry.get())
@@ -285,7 +291,7 @@ class App:
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
 
-    def all_subsets(self):
+    def all_subsets(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         csubset = Contour(cseg).all_subsets()
@@ -295,7 +301,7 @@ class App:
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
 
-    def csegs_from_int(self):
+    def csegs_from_int(self, event=None):
         get = self.main_entry.get()
         int_d = replace_plus_minus_to_list(get)
         if sorted(int_d)[-1] > 1:
@@ -312,7 +318,7 @@ class App:
             self.text_output.insert(END, result)
             self.text_output.insert(END, "\n")
 
-    def casv(self):
+    def casv(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         casv = Contour(cseg).contour_adjacency_series_vector()
@@ -321,7 +327,7 @@ class App:
         self.text_output.insert(END, casv)
         self.text_output.insert(END, "\n")
 
-    def cis(self):
+    def cis(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         cis = Contour(cseg).contour_interval_succession()
@@ -331,7 +337,7 @@ class App:
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
 
-    def cia(self):
+    def cia(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         cia = list(Contour(cseg).contour_interval_array())
@@ -340,7 +346,7 @@ class App:
         self.text_output.insert(END, cia)
         self.text_output.insert(END, "\n")
 
-    def ccvi(self):
+    def ccvi(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         ccvi = list(Contour(cseg).contour_class_vector_i())
@@ -349,7 +355,7 @@ class App:
         self.text_output.insert(END, ccvi)
         self.text_output.insert(END, "\n")
 
-    def ccvii(self):
+    def ccvii(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         ccvii = list(Contour(cseg).contour_class_vector_ii())
@@ -358,7 +364,7 @@ class App:
         self.text_output.insert(END, ccvii)
         self.text_output.insert(END, "\n")
 
-    def csim(self):
+    def csim(self, event=None):
         get1 = self.main_entry.get()
         get2 = self.secondary_entry.get()
         cseg1 = [int(x) for x in get1.split(' ') if x]
@@ -374,16 +380,16 @@ class App:
             text3 = "ERROR: Insert csegs with the same cardinality\n"
             self.text_output.insert(END, text3)
 
-    def clear_output(self):
+    def clear_output(self, event=None):
         self.text_output.delete(0.0, END)
 
-    def clear_plot(self):
+    def clear_plot(self, event=None):
         clear_plot()
 
-    def clear_main(self):
+    def clear_main(self, event=None):
         self.main_entry.delete(0, END)
 
-    def clear_secondary(self):
+    def clear_secondary(self, event=None):
         self.secondary_entry.delete(0.0, END)
 
 
