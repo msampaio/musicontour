@@ -389,7 +389,7 @@ class App:
         self.main_entry.delete(0, END)
 
     def clear_secondary(self, event=None):
-        self.secondary_entry.delete(0.0, END)
+        self.secondary_entry.delete(0, END)
 
 
 root = Tk()
