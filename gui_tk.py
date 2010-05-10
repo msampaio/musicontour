@@ -8,7 +8,7 @@ from contour_module.contour import (Contour, Internal_diagonal,
 from contour_module.plot import (plot_preview, clear_plot)
 
 program_name = "Villa-Lobos Contour Module"
-version = "0.1"
+version = "0.2"
 
 
 class App:
