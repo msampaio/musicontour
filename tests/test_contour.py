@@ -142,6 +142,12 @@ def test_Contour_all_subsets():
                                [8, 12, 9], [2, 8, 12, 9]]
 
 
+def test_Contour_all_subsets_prime():
+    n = Contour([2, 8, 12])
+    assert n.all_subsets_prime() == [[[0, 1], [2, 8], [2, 12], [8, 12]],
+                                     [[0, 1, 2], [2, 8, 12]]]
+
+
 def test_Contour_subsets_adj():
     n = Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
     assert n.subsets_adj(4) == [[2, 8, 12, 9], [8, 12, 9, 5], [12, 9, 5, 7],

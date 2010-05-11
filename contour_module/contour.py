@@ -208,6 +208,13 @@ class Contour():
         sizes = range(2, len(self.cseg) + 1)
         return flatten([self.subsets(x) for x in sizes])
 
+    def all_subsets_prime(self):
+        """Returns all adjacent and non-adjacent subsets of a given
+        contour grouped by their prime forms."""
+
+        sizes = range(2, len(self.cseg) + 1)
+        return flatten([self.subsets_prime(x) for x in sizes])
+
     def subsets_adj(self, n):
         """Returns adjacent n-elements subsets of a given contour."""
 
