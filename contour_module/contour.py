@@ -167,6 +167,29 @@ class Contour():
         cseg = self.cseg
         return sorted([list(x) for x in combinations(cseg, n)])
 
+    def subsets_prime(self, n):
+        """Returns adjacent and non-adjacent subsets of a given
+        contour grouped by their prime forms.
+
+        Output has a list of csegs with same prime form. The first
+        cseg of each list is the prime form.
+
+        >>> Contour([0, 3, 1, 4, 2]).subsets_prime()
+        [[[1, 3, 0, 2], [3, 1, 4, 2]], [[0, 2, 3, 1], [0, 3, 4, 2]],
+        [[0, 1, 3, 2], [0, 1, 4, 2]], [[0, 3, 1, 2], [0, 3, 1, 2]],
+        [[0, 2, 1, 3], [0, 3, 1, 4]]]
+        """
+
+        subsets = self.subsets(n)
+        pairs = [[tuple(x), tuple(Contour(x).prime_form())] for x in subsets]
+        prime_forms = list(set([x[1] for x in pairs]))
+        result = []
+        for prime in prime_forms:
+            pf = [list(prime)]
+            [pf.append(list(pair[0])) for pair in pairs if pair[1] == prime]
+            result.append(pf)
+        return result
+
     def all_subsets(self):
         """Returns adjacent and non-adjacent subsets of a given
         contour."""
