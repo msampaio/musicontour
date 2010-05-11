@@ -4,7 +4,8 @@
 from Tkinter import (Tk, Frame, Button, Entry, Label, Text, Scrollbar,
                      END, FALSE, N, S)
 from contour_module.contour import (Contour, Internal_diagonal,
-     cseg_similarity, replace_plus_minus_to_list, Comparison_matrix)
+     cseg_similarity, replace_plus_minus_to_list, Comparison_matrix,
+     print_subsets_prime)
 from contour_module.plot import (plot_preview, clear_plot)
 
 program_name = "Villa-Lobos Contour Module"
@@ -282,21 +283,25 @@ class App:
     def n_subsets(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
+        cseg_print = Contour(cseg).str_print()
         second_get = int(self.secondary_entry.get())
-        csubset = Contour(cseg).subsets(second_get)
-        result = "\n".join([Contour(x).str_print() for x in csubset])
+        csubset = Contour(cseg).subsets_prime(second_get)
+        result = print_subsets_prime(csubset)
         plural = "s" if second_get > 1 else ""
-        text = "Contour subsets ({0} element{1}):\n".format(second_get, plural)
-        self.text_output.insert(END, text)
+        text1 = "Original: {0}\n".format(cseg_print)
+        text2 = "Contour subsets ({0} element{1}):\n".format(second_get, plural)
+        self.text_output.insert(END, text1)
+        self.text_output.insert(END, text2)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
 
     def all_subsets(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
-        csubset = Contour(cseg).all_subsets()
-        result = "\n".join([Contour(x).str_print() for x in csubset])
-        text = "All contour subsets:\n"
+        cseg_print = Contour(cseg).str_print()
+        csubset = Contour(cseg).all_subsets_prime()
+        result = print_subsets_prime(csubset)
+        text = "Original: {0}\nAll contour subsets:\n".format(cseg_print)
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
