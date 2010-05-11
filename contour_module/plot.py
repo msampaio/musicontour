@@ -233,11 +233,11 @@ def aux_pdf(file):
     return im
 
 
-def plot_cseg_and_pdf(cseg, file):
+def plot_cseg_and_pdf(cseg, file, plot_color="k"):
     subplot(212)
     aux_pdf(file)
 
     subplot(211)
-    aux_plot(cseg)
+    aux_plot(cseg, plot_color)
 
     show()
