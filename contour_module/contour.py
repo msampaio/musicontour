@@ -265,10 +265,9 @@ class Contour():
         c = self.cseg[2]
 
         if (b >= a and b <= c) or (b <= a and b >= c):
-            r = [a, c]
+            return [a, c]
         else:
-            r = self.cseg
-        return r
+            return self.cseg
 
     def contour_reduction_algorithm_steps(self):
         """Returns a step from Morris (1993) contour reduction."""
