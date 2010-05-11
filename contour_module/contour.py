@@ -73,7 +73,8 @@ def print_subsets_prime(list):
     """
 
     raw = [[Contour(cseg).str_print() for cseg in el] for el in list]
-    r = ["Prime form {0}\n{1:10}".format(x[0], "\n".join(x[1:])) for x in raw]
+    r = ["Prime form {0} ({1})\n{2:10}".format(x[0], (len(x) - 1),
+                                        "\n".join(x[1:])) for x in raw]
     return "\n\n".join(r)
 
 
