@@ -256,6 +256,20 @@ class Contour():
 
         return self.max_min(minimum)
 
+    def prune(self):
+        """Prunes cpitches according to Morris Contour Reduction
+        Algorithm (1993)."""
+
+        a = self.cseg[0]
+        b = self.cseg[1]
+        c = self.cseg[2]
+
+        if (b >= a and b <= c) or (b <= a and b >= c):
+            r = [a, c]
+        else:
+            r = self.cseg
+        return r
+
     def contour_reduction_algorithm_steps(self):
         """Returns a step from Morris (1993) contour reduction."""
 

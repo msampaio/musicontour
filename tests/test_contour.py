@@ -171,6 +171,22 @@ def test_minima():
     assert n.minima() == [0, 4, 6, 8, 9]
 
 
+def test_prune_1():
+    assert Contour([0, 1, 2]).prune() == [0, 2]
+
+
+def test_prune_2():
+    assert Contour([2, 1, 0]).prune() == [2, 0]
+
+
+def test_prune_3():
+    assert Contour([0, 2, 1]).prune() == [0, 2, 1]
+
+
+def test_prune_4():
+    assert Contour([1, 0, 2]).prune() == [1, 0, 2]
+
+
 def test_contour_interval_1():
     n = Contour([1, 5])
     assert n.contour_interval() == 4
