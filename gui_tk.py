@@ -122,7 +122,7 @@ class App:
 
         ## row 1
         self.text_output.grid(row=1, column=0, columnspan=4)
-        self.text_scroll.grid(row=1, column=4, sticky=N+S)
+        self.text_scroll.grid(row=1, column=4, sticky=N + S)
 
         ## row 2
         self.main_label.grid(row=2, column=0)
@@ -401,7 +401,7 @@ class App:
 root = Tk()
 root.title(program_name)
 root.geometry('450x580+0+0')
-root.resizable(FALSE,FALSE)
+root.resizable(FALSE, FALSE)
 
 app = App(root)
 
