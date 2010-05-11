@@ -66,6 +66,17 @@ def print_contour_classes(cardinality):
               csegclass.ljust(20), str_int_diag.ljust(15))
 
 
+def print_subsets_prime(list):
+    """Returns a string with subsets grouped by their primes.
+
+    Input data must be the output of Contour.subsets_prime.
+    """
+
+    raw = [[Contour(cseg).str_print() for cseg in el] for el in list]
+    r = ["Prime form {0}\n{1:10}".format(x[0], "\n".join(x[1:])) for x in raw]
+    return "\n\n".join(r)
+
+
 def double_replace(string):
     """Replaces -1 by -, and 1 by +. Accepts string as input."""
 
