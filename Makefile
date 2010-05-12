@@ -8,7 +8,7 @@ GUI_DIR = gui
 DIST_FILES = gui_tk.py $(SRC_DIR) COPYING README RELEASE
 
 check:
-	pep8 *.py $(SRC_DIR)/*.py $(TEST_DIR)/*.py
+	pep8 *.py $(SRC_DIR)/*.py $(TEST_DIR)/*.py $(GUI_DIR)/*.py
 
 clean: clean-dist
 	rm -f *.pyc *~
