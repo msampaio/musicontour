@@ -84,6 +84,8 @@ class App:
                                command=self.cia, width=10)
         self.b_csim = Button(master, text="Contour simil.",
                                command=self.csim, width=10)
+        self.b_contour_reduction = Button(master, text="Contour red.",
+                               command=self.contour_reduction, width=10)
 
         ## key bindings:
         for x in [self.main_entry, master, self.secondary_entry]:
@@ -110,6 +112,8 @@ class App:
             x.bind("<x>", self.cia)
             x.bind("<v>", self.ccvi)
             x.bind("<V>", self.ccvii)
+
+            x.bind("<e>", self.contour_reduction)
 
         master.columnconfigure(0, weight=1)
         master.columnconfigure(1, weight=1)
@@ -163,6 +167,7 @@ class App:
         ## row 8
         self.b_cia.grid(row=8, column=0)
         self.b_csim.grid(row=8, column=1)
+        self.b_contour_reduction.grid(row=8, column=2)
 
     ## functions
 
@@ -278,6 +283,20 @@ class App:
         text = "Comparison Matrix:\n"
         self.text_output.insert(END, text)
         self.text_output.insert(END, com_matrix_str)
+        self.text_output.insert(END, "\n")
+
+    def contour_reduction(self, event=None):
+        get = self.main_entry.get()
+        cseg = [int(x) for x in get.split(' ') if x]
+        contour = Contour(cseg)
+        [reduced_c, depth] = contour.contour_reduction_algorithm()
+        reduced_c_print = Contour(reduced_c).str_print()
+        text1 = "Morris Contour Reduction\n"
+        text2 = "Original:{0}\n".format(contour.str_print())
+        result = "Reduction: {0}\nDepth: {1}".format(reduced_c_print, depth)
+        self.text_output.insert(END, text1)
+        self.text_output.insert(END, text2)
+        self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
 
     def n_subsets(self, event=None):
