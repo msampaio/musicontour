@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from contour_module.plot import *
 from Tkinter import (Tk, Frame, Button, Entry, Label, Text, Scrollbar,
                      END, FALSE, N, S)
 

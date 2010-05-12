@@ -2,5 +2,4 @@
 # -*- coding: utf-8 -*-
 
 from gui.gui_tk import gui
-
-gui
+gui()
