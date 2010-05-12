@@ -1,5 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from gui.gui_tk import gui
+from gui.tk import gui
 gui()

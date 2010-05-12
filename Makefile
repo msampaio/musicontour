@@ -5,7 +5,7 @@ SERVER = genos.mus.br:www/villa-lobos/download/
 SRC_DIR = contour_module
 TEST_DIR = tests
 GUI_DIR = gui
-DIST_FILES = gui_tk.py $(SRC_DIR) COPYING README RELEASE
+DIST_FILES = $(GUI_DIR) $(SRC_DIR) COPYING README RELEASE
 
 check:
 	pep8 *.py $(SRC_DIR)/*.py $(TEST_DIR)/*.py $(GUI_DIR)/*.py
