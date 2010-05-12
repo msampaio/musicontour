@@ -113,6 +113,37 @@ def list_to_string(list):
     return " ".join([str(x) for x in list])
 
 
+def max_min(list_of_tuples, fn):
+    """Returns a list with the position of maximum or minimum
+    cpitches of a cseg. Maximum or minimum function is defined in
+    fn argument.
+
+    'n' stores the number of elements that is evaluated.
+    'r' means result.
+    """
+
+    n = 3
+    list_range = range(len(list_of_tuples) - n + 1)
+    m_list = [list_of_tuples[0]]
+
+    [m_list.append(fn(list_of_tuples[i:i + n])) for i in list_range]
+    m_list.append(list_of_tuples[-1])
+
+    return [x for x in m_list if x]
+
+
+def maxima(list_of_tuples):
+    """Returns maxima (Morris, 1993) positions in a cseg."""
+
+    return max_min(list_of_tuples, maximum)
+
+
+def minima(list_of_tuples):
+    """Returns minima (Morris, 1993) positions in a cseg."""
+
+    return max_min(list_of_tuples, minimum)
+
+
 class Contour():
 
     def rotation(self, factor=1):
@@ -227,35 +258,6 @@ class Contour():
 
         return [(self.cseg[p], p) for p in range(len(self.cseg))]
 
-    def max_min(self, fn):
-        """Returns a list with the position of maximum or minimum
-        cpitches of a cseg. Maximum or minimum function is defined in
-        fn argument.
-
-        'n' stores the number of elements that is evaluated.
-        'r' means result.
-        """
-
-        n = 3
-        cseg_length = len(self.cseg)
-        pos = self.cps_position()
-        cseg_range = range(cseg_length - (n - 1))
-
-        r = [0]
-        [r.append(fn(pos[i:i + n])) for i in cseg_range if fn(pos[i:i + n])]
-        r.append(cseg_length - 1)
-        return r
-
-    def maxima(self):
-        """Returns maxima (Morris, 1993) positions in a cseg."""
-
-        return self.max_min(maximum)
-
-    def minima(self):
-        """Returns minima (Morris, 1993) positions in a cseg."""
-
-        return self.max_min(minimum)
-
     def prune(self):
         """Prunes cpitches according to Morris Contour Reduction
         Algorithm (1993)."""
@@ -269,22 +271,31 @@ class Contour():
         else:
             return self.cseg
 
-    def contour_reduction_algorithm_steps(self):
-        """Returns a step from Morris (1993) contour reduction."""
+    def contour_reduction_algorithm(self):
+        """Returns Morris (1993) contour reduction from a cseg."""
 
-        maxim1 = self.maxima()
-        minim1 = self.minima()
-        step4 = flatten([maxim1, minim1])
-        step4 = Contour(sorted(flatten([maxim1, minim1]))).remove_adjacent()
-        return [self.cseg[x] for x in step4]
+        cseg_dur = self.cps_position()
 
-    def contour_reduction_algorithm(self, n):
-        """Returns Morris (1993) contour reduction from a cseg n
-        times."""
+        max_tmp = [0, cseg_dur]
+        min_tmp = [0, cseg_dur]
 
-        for i in xrange(n):
-            self = Contour(self.contour_reduction_algorithm_steps())
-        return self.cseg
+        n = 0
+        m = 0
+        while (max_tmp[-1] != max_tmp[-2]):
+            n = n + 1
+            max_tmp.append(maxima(remove_duplicate_tuples(max_tmp[-1])))
+
+        while (min_tmp[-1] != min_tmp[-2]):
+            m = m + 1
+            min_tmp.append(minima(remove_duplicate_tuples(min_tmp[-1])))
+
+        max_tmp = max_tmp[-1]
+        min_tmp = min_tmp[-1]
+
+        times = max([n, m])
+        max_min = sorted(flatten([max_tmp, min_tmp]), key=lambda x: x[1])
+        c = Contour([x for (x, y) in remove_duplicate_tuples(max_min)])
+        return [c.prime_form(), times]
 
     def contour_interval(self):
         """Returns Friedmann (1985) CI, the distance between one
@@ -488,7 +499,7 @@ def maximum(dur_list):
     tuple has the c-pitch and its position. """
 
     (el1, p1), (el2, p2), (el3, p3) = dur_list
-    return p2 if el2 >= el1 and el2 >= el3 else ''
+    return (el2, p2) if el2 >= el1 and el2 >= el3 else ''
 
 
 def minimum(dur_list):
@@ -497,7 +508,7 @@ def minimum(dur_list):
     tuple has the c-pitch and its position. """
 
     (el1, p1), (el2, p2), (el3, p3) = dur_list
-    return p2 if el2 <= el1 and el2 <= el3 else ''
+    return (el2, p2) if el2 <= el1 and el2 <= el3 else ''
 
 
 def remove_duplicate_tuples(list_of_tuples):
