@@ -414,11 +414,12 @@ class App:
         self.secondary_entry.delete(0, END)
 
 
-root = Tk()
-root.title(program_name)
-root.geometry('450x580+0+0')
-root.resizable(FALSE, FALSE)
+def gui():
+    root = Tk()
+    root.title(program_name)
+    root.geometry('450x580+0+0')
+    root.resizable(FALSE, FALSE)
 
-app = App(root)
+    app = App(root)
 
-root.mainloop()
+    root.mainloop()
