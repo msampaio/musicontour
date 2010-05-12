@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from contour.contour import (Contour, Internal_diagonal,
+                             cseg_similarity,
+                             replace_plus_minus_to_list,
+                             Comparison_matrix,
+                             print_subsets_prime)
 from contour.plot import *
 from Tkinter import (Tk, Frame, Button, Entry, Label, Text, Scrollbar,
                      END, FALSE, N, S)
