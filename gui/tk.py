@@ -306,25 +306,37 @@ class App:
         cseg = [int(x) for x in get.split(' ') if x]
         cseg_print = Contour(cseg).str_print()
         second_get = int(self.secondary_entry.get())
-        csubset = Contour(cseg).subsets_prime(second_get)
-        result = print_subsets_grouped(csubset, "prime")
+        csubset_normal = Contour(cseg).subsets_normal(second_get)
+        normal_grouped = print_subsets_grouped(csubset_normal, "normal")
+        csubset_prime = Contour(cseg).subsets_prime(second_get)
+        prime_grouped = print_subsets_grouped(csubset_prime, "prime")
         plural = "s" if second_get > 1 else ""
         text1 = "Original: {0}\n".format(cseg_print)
-        text2 = "Contour subsets ({0} element{1}):\n".format(second_get, plural)
+        text2 = "Contour subsets ({0} element{1}):".format(second_get, plural)
+        separator = "\n" + ("-" * 10) + "\n"
         self.text_output.insert(END, text1)
         self.text_output.insert(END, text2)
-        self.text_output.insert(END, result)
+        self.text_output.insert(END, separator)
+        self.text_output.insert(END, normal_grouped)
+        self.text_output.insert(END, separator)
+        self.text_output.insert(END, prime_grouped)
         self.text_output.insert(END, "\n")
 
     def all_subsets(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         cseg_print = Contour(cseg).str_print()
-        csubset = Contour(cseg).all_subsets_prime()
-        result = print_subsets_grouped(csubset, "prime")
-        text = "Original: {0}\nAll contour subsets:\n".format(cseg_print)
+        csubset_normal = Contour(cseg).all_subsets_normal()
+        normal_grouped = print_subsets_grouped(csubset_normal, "normal")
+        csubset_prime = Contour(cseg).all_subsets_prime()
+        prime_grouped = print_subsets_grouped(csubset_prime, "prime")
+        text = "Original: {0}\nAll contour subsets:".format(cseg_print)
+        separator = "\n" + ("-" * 10) + "\n"
         self.text_output.insert(END, text)
-        self.text_output.insert(END, result)
+        self.text_output.insert(END, separator)
+        self.text_output.insert(END, normal_grouped)
+        self.text_output.insert(END, separator)
+        self.text_output.insert(END, prime_grouped)
         self.text_output.insert(END, "\n")
 
     def csegs_from_int(self, event=None):
