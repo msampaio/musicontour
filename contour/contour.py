@@ -646,6 +646,19 @@ def cseg_similarity(cseg1, cseg2):
     return similar_pos / float(triangle_pos)
 
 
+def cseg_similarity_compare(cseg1, cseg2):
+    """Returns Cseg Embed if cseg have different cardinality, and Cseg
+    Similarity, if csegs have the same similarity.
+
+    Output example: [\"cseg embed\", 1]
+    """
+
+    if len(cseg1) != len(cseg2):
+        return ["cseg embed", contour_embed(cseg1, cseg2)]
+    else:
+        return ["cseg similarity", cseg_similarity(cseg1, cseg2)]
+
+
 class Internal_diagonal():
 
     def csegs(self, diagonal=1):

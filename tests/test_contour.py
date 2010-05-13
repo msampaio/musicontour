@@ -7,7 +7,7 @@ from ..contour.contour import (Contour, Contour_subsets,
     contour_classes_generator, __intern_diagon_sim,
     remove_duplicate_tuples, print_subsets_grouped, double_replace,
     replace_list_to_plus_minus, list_to_string, subsets_embed_total_number,
-    subsets_embed_number, contour_embed)
+    subsets_embed_number, contour_embed, cseg_similarity_compare)
 
 
 def test_contour_classes_generator_cardinality():
@@ -82,6 +82,17 @@ def test_contour_embed_1():
     b = [0, 1, 2]
     assert contour_embed(a, b) == 0.5
 
+
+def test_contour_similarity_compare_1():
+    a = [0, 2, 1, 3]
+    b = [0, 1, 2]
+    assert cseg_similarity_compare(a, b) == ["cseg embed", 0.5]
+
+
+def test_contour_similarity_compare_2():
+    a = [0, 2, 1, 3]
+    b = [0, 1, 2, 4]
+    assert cseg_similarity_compare(a, b) == ["cseg similarity", 5/6.0]
 
 def test_rotation_1():
     n = Contour([1, 4, 9, 9, 2, 1])
