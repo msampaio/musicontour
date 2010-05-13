@@ -2,7 +2,7 @@
 
 from ..contour.contour import (Contour, Contour_subsets,
     Internal_diagonal, Comparison_matrix, maximum, minimum,
-    ri_identity_test, cseg_similarity,
+    maxima, minima, ri_identity_test, cseg_similarity,
     __contour_classes_generator_cardinality,
     contour_classes_generator, __intern_diagon_sim,
     remove_duplicate_tuples, print_subsets_grouped, double_replace,
@@ -191,13 +191,13 @@ def test_cps_position():
 
 
 def test_maxima():
-    n = Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
-    assert n.maxima() == [0, 2, 5, 7, 9]
+    n = [(0, 0), (1, 1), (3, 2), (2, 3), (4, 4)]
+    assert maxima(n) == [(0, 0), (3, 2), (4, 4)]
 
 
 def test_minima():
-    n = Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
-    assert n.minima() == [0, 4, 6, 8, 9]
+    n = [(0, 0), (1, 1), (3, 2), (2, 3), (4, 4)]
+    assert minima(n) == [(0, 0), (2, 3), (4, 4)]
 
 
 def test_prune_1():
@@ -381,7 +381,7 @@ def test_ri_identity_test():
 
 def test_maximum_1():
     n = [(5, 0), (8, 1), (4, 2)]
-    assert maximum(n) == 1
+    assert maximum(n) == (8, 1)
 
 
 def test_maximum_2():
@@ -396,7 +396,7 @@ def test_minimum_1():
 
 def test_minimum_2():
     n = [(5, 2), (0, 3), (4, 4)]
-    assert minimum(n) == 3
+    assert minimum(n) == (0, 3)
 
 
 def test_remove_duplicate_tuples():
