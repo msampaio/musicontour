@@ -299,19 +299,6 @@ class Contour():
 
         return [(self.cseg[p], p) for p in range(len(self.cseg))]
 
-    def prune(self):
-        """Prunes cpitches according to Morris Contour Reduction
-        Algorithm (1993)."""
-
-        a = self.cseg[0]
-        b = self.cseg[1]
-        c = self.cseg[2]
-
-        if (b >= a and b <= c) or (b <= a and b >= c):
-            return [a, c]
-        else:
-            return self.cseg
-
     def contour_reduction_algorithm(self):
         """Returns Morris (1993) contour reduction from a cseg."""
 
