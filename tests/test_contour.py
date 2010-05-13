@@ -82,13 +82,13 @@ def test_rotation_1():
     assert n.rotation() == [4, 9, 9, 2, 1, 1]
 
 
-def test_subsets_number_1():
+def test_subsets_embed_number_1():
     a = [0, 2, 1, 3]
     b = [0, 1, 2]
     assert subsets_embed_number(a, b) == 2
 
 
-def test_subsets_number_2():
+def test_subsets_embed_number_2():
     a = [0, 2, 1, 3]
     b = [0, 1, 2]
     assert subsets_embed_number(b, a) == None
