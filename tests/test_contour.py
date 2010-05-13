@@ -135,6 +135,15 @@ def test_Contour_subsets_prime():
                                   [[0, 2, 1, 3], [0, 3, 1, 4]]]
 
 
+def test_Contour_subsets_normal():
+    n = Contour([0, 3, 1, 4, 2])
+    assert n.subsets_normal(4) == [[[0, 2, 3, 1], [0, 3, 4, 2]],
+                                   [[0, 1, 3, 2], [0, 1, 4, 2]],
+                                   [[2, 0, 3, 1], [3, 1, 4, 2]],
+                                   [[0, 3, 1, 2], [0, 3, 1, 2]],
+                                   [[0, 2, 1, 3], [0, 3, 1, 4]]]
+
+
 def test_Contour_all_subsets():
     n = Contour([2, 8, 12, 9])
     assert n.all_subsets() == [[2, 8], [2, 9], [2, 12], [8, 9], [8, 12],
@@ -146,6 +155,13 @@ def test_Contour_all_subsets_prime():
     n = Contour([2, 8, 12])
     assert n.all_subsets_prime() == [[[0, 1], [2, 8], [2, 12], [8, 12]],
                                      [[0, 1, 2], [2, 8, 12]]]
+
+
+def test_Contour_all_subsets_normal():
+    n = Contour([2, 8, 7])
+    assert n.all_subsets_normal() == [[[0, 1], [2, 7], [2, 8]],
+                                      [[1, 0], [8, 7]],
+                                      [[0, 2, 1], [2, 8, 7]]]
 
 
 def test_Contour_subsets_adj():

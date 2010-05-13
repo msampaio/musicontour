@@ -210,6 +210,29 @@ class Contour():
         cseg = self.cseg
         return sorted([list(x) for x in combinations(cseg, n)])
 
+    def subsets_normal(self, n):
+        """Returns adjacent and non-adjacent subsets of a given
+        contour grouped by their normal forms.
+
+        Output has a list of csegs with same prime form. The first
+        cseg of each list is the normal form.
+
+        >>> Contour([0, 3, 1, 4, 2]).subsets_normal()
+        [[[0, 2, 3, 1], [0, 3, 4, 2]], [[0, 1, 3, 2], [0, 1, 4, 2]],
+        [[2, 0, 3, 1], [3, 1, 4, 2]], [[0, 3, 1, 2], [0, 3, 1, 2]],
+        [[0, 2, 1, 3], [0, 3, 1, 4]]]
+        """
+
+        subsets = self.subsets(n)
+        pairs = [[tuple(x), tuple(Contour(x).translation())] for x in subsets]
+        normal_forms = list(set([x[1] for x in pairs]))
+        result = []
+        for normal in normal_forms:
+            nf = [list(normal)]
+            [nf.append(list(pair[0])) for pair in pairs if pair[1] == normal]
+            result.append(nf)
+        return result
+
     def subsets_prime(self, n):
         """Returns adjacent and non-adjacent subsets of a given
         contour grouped by their prime forms.
@@ -246,6 +269,13 @@ class Contour():
 
         sizes = range(2, len(self.cseg) + 1)
         return flatten([self.subsets_prime(x) for x in sizes])
+
+    def all_subsets_normal(self):
+        """Returns all adjacent and non-adjacent subsets of a given
+        contour grouped by their normal forms."""
+
+        sizes = range(2, len(self.cseg) + 1)
+        return flatten([self.subsets_normal(x) for x in sizes])
 
     def subsets_adj(self, n):
         """Returns adjacent n-elements subsets of a given contour."""
