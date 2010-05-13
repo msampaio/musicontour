@@ -355,12 +355,12 @@ def test_prime_form_subsets_count():
 
 def test_ri_identity_test_1():
     n = [0, 1, 3, 2]
-    assert ri_identity_test(n) == 0
+    assert ri_identity_test(n) == False
 
 
 def test_ri_identity_test():
     n = [1, 0, 3, 2]
-    assert ri_identity_test(n) == 1
+    assert ri_identity_test(n) == True
 
 
 def test_maximum_1():

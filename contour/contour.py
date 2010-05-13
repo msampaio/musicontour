@@ -516,9 +516,11 @@ class Contour_subsets():
 
 
 def ri_identity_test(cseg):
-    """Returns 1 if cseg have identity under retrograde inversion."""
+    """Returns True if cseg have identity under retrograde inversion."""
 
-    return 1 if cseg == Contour(Contour(cseg).retrograde()).inversion() else 0
+    i = Contour(cseg).inversion()
+    ri = Contour(i).retrograde()
+    return cseg == ri
 
 
 def maximum(dur_list):
