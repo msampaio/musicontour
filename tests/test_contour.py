@@ -86,13 +86,13 @@ def test_contour_embed_1():
 def test_contour_similarity_compare_1():
     a = [0, 2, 1, 3]
     b = [0, 1, 2]
-    assert cseg_similarity_compare(a, b) == ["cseg embed", 0.5]
+    assert cseg_similarity_compare(a, b) == ["Cseg embed", 0.5]
 
 
 def test_contour_similarity_compare_2():
     a = [0, 2, 1, 3]
     b = [0, 1, 2, 4]
-    assert cseg_similarity_compare(a, b) == ["cseg similarity", 5 / 6.0]
+    assert cseg_similarity_compare(a, b) == ["Cseg similarity", 5 / 6.0]
 
 
 def test_rotation_1():
