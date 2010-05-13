@@ -84,8 +84,8 @@ class App:
                                command=self.ccvii, width=10)
         self.b_cia = Button(master, text="CIA",
                                command=self.cia, width=10)
-        self.b_csim = Button(master, text="Contour simil.",
-                               command=self.csim, width=10)
+        self.b_contour_compare = Button(master, text="Contour simil.",
+                               command=self.contour_compare, width=10)
         self.b_contour_reduction = Button(master, text="Contour red.",
                                command=self.contour_reduction, width=10)
 
@@ -108,7 +108,7 @@ class App:
             x.bind("<s>", self.n_subsets)
             x.bind("<S>", self.all_subsets)
             x.bind("<c>", self.csegs_from_int)
-            x.bind("<C>", self.csim)
+            x.bind("<C>", self.contour_compare)
 
             x.bind("<a>", self.casv)
             x.bind("<x>", self.cia)
@@ -168,7 +168,7 @@ class App:
 
         ## row 8
         self.b_cia.grid(row=8, column=0)
-        self.b_csim.grid(row=8, column=1)
+        self.b_contour_compare.grid(row=8, column=1)
         self.b_contour_reduction.grid(row=8, column=2)
 
     ## functions
@@ -408,7 +408,7 @@ class App:
         self.text_output.insert(END, ccvii)
         self.text_output.insert(END, "\n")
 
-    def csim(self, event=None):
+    def contour_compare(self, event=None):
         get1 = self.main_entry.get()
         get2 = self.secondary_entry.get()
         cseg1 = [int(x) for x in get1.split(' ') if x]
