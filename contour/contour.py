@@ -155,54 +155,6 @@ def minima(list_of_tuples):
     return max_min(list_of_tuples, minimum)
 
 
-def subsets_embed_total_number(cseg_size, csubseg_size):
-    """Returns the number of subsets with csubseg_size in a set with
-    cseg_size. Marvin and Laprade (1987, p. 237)."""
-
-    try:
-        cseg_size >= csubseg_size == True
-        a = factorial(cseg_size)
-        b = factorial(csubseg_size)
-        c = factorial(cseg_size - csubseg_size)
-        return a / (b * c)
-    except ValueError:
-        print("Cseg_size must be greater than csubseg_size")
-
-
-def subsets_embed_number(cseg, csubseg):
-    """Returns the number of time the normal form of a csubseg appears
-    in cseg subsets. Marvin and Laprade (1987)."""
-
-    if len(cseg) > len(csubseg):
-        normal_subsets = defaultdict(int)
-        for lista in Contour(cseg).subsets_normal(len(csubseg)):
-            normal_subsets[tuple(lista[0])] = len(lista) - 1
-        return normal_subsets[tuple(csubseg)]
-    else:
-        print("Cseg must be greater than csubseg.")
-
-
-def contour_embed(cseg1, cseg2):
-    """Returns similarity between contours with different
-    cardinalities. 1 for greater similarity. Marvin and Laprade
-    (1987)."""
-
-    if cseg1 > cseg2:
-        cseg = cseg1
-        csubseg = cseg2
-    else:
-        cseg = cseg2
-        csubseg = cseg1
-
-    n_csubseg = Contour(csubseg).translation()
-    cseg_size = len(cseg)
-    csubseg_size = len(csubseg)
-
-    embed_times = subsets_embed_number(cseg, n_csubseg)
-    total_subsets = subsets_embed_total_number(cseg_size, csubseg_size)
-    return 1.0 * embed_times / total_subsets
-
-
 class Contour():
 
     def rotation(self, factor=1):
@@ -644,6 +596,54 @@ def cseg_similarity(cseg1, cseg2):
     triangle_pos = sum(d)
     similar_pos = sum([__intern_diagon_sim(cseg1, cseg2, n) for n in d])
     return similar_pos / float(triangle_pos)
+
+
+def subsets_embed_total_number(cseg_size, csubseg_size):
+    """Returns the number of subsets with csubseg_size in a set with
+    cseg_size. Marvin and Laprade (1987, p. 237)."""
+
+    try:
+        cseg_size >= csubseg_size == True
+        a = factorial(cseg_size)
+        b = factorial(csubseg_size)
+        c = factorial(cseg_size - csubseg_size)
+        return a / (b * c)
+    except ValueError:
+        print("Cseg_size must be greater than csubseg_size")
+
+
+def subsets_embed_number(cseg, csubseg):
+    """Returns the number of time the normal form of a csubseg appears
+    in cseg subsets. Marvin and Laprade (1987)."""
+
+    if len(cseg) > len(csubseg):
+        normal_subsets = defaultdict(int)
+        for lista in Contour(cseg).subsets_normal(len(csubseg)):
+            normal_subsets[tuple(lista[0])] = len(lista) - 1
+        return normal_subsets[tuple(csubseg)]
+    else:
+        print("Cseg must be greater than csubseg.")
+
+
+def contour_embed(cseg1, cseg2):
+    """Returns similarity between contours with different
+    cardinalities. 1 for greater similarity. Marvin and Laprade
+    (1987)."""
+
+    if cseg1 > cseg2:
+        cseg = cseg1
+        csubseg = cseg2
+    else:
+        cseg = cseg2
+        csubseg = cseg1
+
+    n_csubseg = Contour(csubseg).translation()
+    cseg_size = len(cseg)
+    csubseg_size = len(csubseg)
+
+    embed_times = subsets_embed_number(cseg, n_csubseg)
+    total_subsets = subsets_embed_total_number(cseg_size, csubseg_size)
+    return 1.0 * embed_times / total_subsets
 
 
 def cseg_similarity_compare(cseg1, cseg2):

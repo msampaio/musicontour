@@ -57,44 +57,6 @@ def test_list_to_string():
     assert list_to_string([1, 2, 3]) == "1 2 3"
 
 
-def test_subsets_embed_total_number_1():
-    assert subsets_embed_total_number(3, 2) == 3
-
-
-def test_subsets_embed_total_number_2():
-    assert subsets_embed_total_number(4, 2) == 6
-
-
-def test_subsets_embed_total_number_3():
-    assert subsets_embed_total_number(5, 3) == 10
-
-
-def test_subsets_embed_total_number_4():
-    assert subsets_embed_total_number(3, 3) == 1
-
-
-def test_subsets_embed_total_number_4():
-    assert subsets_embed_total_number(2, 3) == None
-
-
-def test_contour_embed_1():
-    a = [0, 2, 1, 3]
-    b = [0, 1, 2]
-    assert contour_embed(a, b) == 0.5
-
-
-def test_contour_similarity_compare_1():
-    a = [0, 2, 1, 3]
-    b = [0, 1, 2]
-    assert cseg_similarity_compare(a, b) == ["Cseg embed", 0.5]
-
-
-def test_contour_similarity_compare_2():
-    a = [0, 2, 1, 3]
-    b = [0, 1, 2, 4]
-    assert cseg_similarity_compare(a, b) == ["Cseg similarity", 5 / 6.0]
-
-
 def test_rotation_1():
     n = Contour([1, 4, 9, 9, 2, 1])
     assert n.rotation() == [4, 9, 9, 2, 1, 1]
@@ -516,6 +478,44 @@ def test_cseg_similarity_2():
     c3 = [1, 0, 4, 3, 2]
     c4 = [3, 0, 4, 2, 1]
     assert cseg_similarity(c3, c4) == 0.8
+
+
+def test_subsets_embed_total_number_1():
+    assert subsets_embed_total_number(3, 2) == 3
+
+
+def test_subsets_embed_total_number_2():
+    assert subsets_embed_total_number(4, 2) == 6
+
+
+def test_subsets_embed_total_number_3():
+    assert subsets_embed_total_number(5, 3) == 10
+
+
+def test_subsets_embed_total_number_4():
+    assert subsets_embed_total_number(3, 3) == 1
+
+
+def test_subsets_embed_total_number_4():
+    assert subsets_embed_total_number(2, 3) == None
+
+
+def test_contour_embed_1():
+    a = [0, 2, 1, 3]
+    b = [0, 1, 2]
+    assert contour_embed(a, b) == 0.5
+
+
+def test_contour_similarity_compare_1():
+    a = [0, 2, 1, 3]
+    b = [0, 1, 2]
+    assert cseg_similarity_compare(a, b) == ["Cseg embed", 0.5]
+
+
+def test_contour_similarity_compare_2():
+    a = [0, 2, 1, 3]
+    b = [0, 1, 2, 4]
+    assert cseg_similarity_compare(a, b) == ["Cseg similarity", 5 / 6.0]
 
 
 def test_csegs_1():
