@@ -12,24 +12,28 @@ from ..contour.contour import (Contour, Contour_subsets,
 
 def test_contour_classes_generator_cardinality():
     function = __contour_classes_generator_cardinality
-    assert function(4) == [(4, 1, (0, 1, 2, 3)),
-                           (4, 2, (0, 1, 3, 2)),
-                           (4, 3, (0, 2, 1, 3)),
-                           (4, 4, (0, 2, 3, 1)),
-                           (4, 5, (0, 3, 1, 2)),
-                           (4, 6, (0, 3, 2, 1)),
-                           (4, 7, (1, 0, 3, 2)),
-                           (4, 8, (1, 3, 0, 2))]
+    assert function(4) == [(4, 1, (0, 1, 2, 3), True),
+                           (4, 2, (0, 1, 3, 2), False),
+                           (4, 3, (0, 2, 1, 3), True),
+                           (4, 4, (0, 2, 3, 1), False),
+                           (4, 5, (0, 3, 1, 2), False),
+                           (4, 6, (0, 3, 2, 1), False),
+                           (4, 7, (1, 0, 3, 2), True),
+                           (4, 8, (1, 3, 0, 2), True)]
 
 
 def test_contour_classes_generator():
     function = contour_classes_generator
-    assert function(4) == [[(2, 1, (0, 1))],
-                           [(3, 1, (0, 1, 2)), (3, 2, (0, 2, 1))],
-                           [(4, 1, (0, 1, 2, 3)), (4, 2, (0, 1, 3, 2)),
-                            (4, 3, (0, 2, 1, 3)), (4, 4, (0, 2, 3, 1)),
-                            (4, 5, (0, 3, 1, 2)), (4, 6, (0, 3, 2, 1)),
-                            (4, 7, (1, 0, 3, 2)), (4, 8, (1, 3, 0, 2))]]
+    assert function(4) == [[(2, 1, (0, 1), True)],
+                           [(3, 1, (0, 1, 2), True), (3, 2, (0, 2, 1), False)],
+                           [(4, 1, (0, 1, 2, 3), True),
+                            (4, 2, (0, 1, 3, 2), False),
+                            (4, 3, (0, 2, 1, 3), True),
+                            (4, 4, (0, 2, 3, 1), False),
+                            (4, 5, (0, 3, 1, 2), False),
+                            (4, 6, (0, 3, 2, 1), False),
+                            (4, 7, (1, 0, 3, 2), True),
+                            (4, 8, (1, 3, 0, 2), True)]]
 
 
 def test_print_subsets_grouped():
@@ -291,9 +295,14 @@ def test_contour_class_vector_ii():
     assert n.contour_class_vector_ii() == [5, 1]
 
 
-def test_contour_segment_class():
+def test_contour_segment_class_1():
     c = Contour([2, 1, 4])
-    assert c.contour_segment_class() == (3, 2, (0, 2, 1))
+    assert c.contour_segment_class() == (3, 2, (0, 2, 1), False)
+
+
+def test_contour_segment_class_2():
+    c = Contour([3, 1, 0])
+    assert c.contour_segment_class() == (3, 1, (0, 1, 2), True)
 
 
 def test_str_print():

@@ -30,7 +30,8 @@ def __contour_classes_generator_cardinality(cardinality):
     permut = permutations(base, cardinality)
     __cc_repeat = [tuple(Contour(x).prime_form()) for x in permut]
     __cc_no_repeat = enumerate(sorted(list(set(__cc_repeat))))
-    contour_classes = [(cardinality, n + 1, x) for n, x in __cc_no_repeat]
+    contour_classes = [(cardinality, n + 1, x, ri_identity_test(list(x)))
+                       for n, x in __cc_no_repeat]
     return contour_classes
 
 
@@ -50,21 +51,26 @@ def print_contour_classes(cardinality):
     """
 
     print("C-space segment-classes [based on Marvin and Laprade (1987)]")
-    print("{0}\n".format("-" * 60))
+    print("{0}".format("-" * 60))
+    print("* indicates identity under retrograde inversion.")
+    print("{0}\n".format("=" * 60))
 
     cc = flatten(contour_classes_generator(cardinality))
     card = 0
-    for a, b, c in [(a, b, c) for (a, b, c) in cc]:
+    for a, b, c, d in [[a, b, c, d] for (a, b, c, d) in cc]:
         if a != card:
             print("\nC-space segment classes for cseg cardinality", a)
             print("\n", " ".ljust(1), "Csegclass".ljust(18),
                   "Prime form".ljust(20), "INT(1)")
             card = a
-
+        if d == True:
+            ri = "*"
+        else:
+            ri = " "
         csegclass = Contour(c).str_print()
         int_diagonals = Contour(c).internal_diagonals(1)
-        str_int_diag = Internal_diagonals(int_diagonals).str_print()
-        print(" ".ljust(4), "c {0}-{1}".format(a, b).ljust(16),
+        str_int_diag = Internal_diagonal(int_diagonals).str_print()
+        print(" ".ljust(4), "c {0}-{1}{2}".format(a, b, ri).ljust(16),
               csegclass.ljust(20), str_int_diag.ljust(15))
 
 
@@ -458,15 +464,15 @@ class Contour():
     def contour_segment_class(self):
         """Returns contour segment class of a given cseg.
 
-        Output format is: (cardinality, number, cseg_class), like
-        (3, 1, (0, 1, 2)).
+        Output format is: (cardinality, number, cseg_class, identity
+        under retrograde inversion), like (3, 1, (0, 1, 2), True).
         """
 
         prime_form = self.prime_form()
         cseg_classes = flatten(contour_classes_generator(len(self.cseg)))
-        for (cardinality, number, cseg_class) in cseg_classes:
+        for (cardinality, number, cseg_class, ri_identity) in cseg_classes:
             if tuple(prime_form) == cseg_class:
-                return cardinality, number, cseg_class
+                return cardinality, number, cseg_class, ri_identity
 
     def str_print(self):
         """Prints cseg like used in Contour theories:
@@ -763,3 +769,5 @@ class Comparison_matrix():
 
     def __init__(self, comparison_matrix):
         self.comparison_matrix = comparison_matrix
+
+# print(print_contour_classes(4))

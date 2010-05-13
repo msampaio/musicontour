@@ -190,9 +190,13 @@ class App:
         plot_color = 'b'
         # Returns csegclass only if cseg has not repeated elements
         if len(set(cseg)) == len(cseg):
-            card, c_class, prime_form = Contour(cseg).contour_segment_class()
+            card, c_class, prime_form, ri = Contour(cseg).contour_segment_class()
             prime_form_printed = Contour(prime_form).str_print()
-            result = "{0}-{1} {2}".format(card, c_class, prime_form_printed)
+            if ri == True:
+                ri = "*"
+            else:
+                ri = ""
+            result = "{0}-{1}{2} {3}".format(card, c_class, ri, prime_form_printed)
         else:
             prime_form = Contour(cseg).prime_form()
             prime_form_printed = Contour(prime_form).str_print()
