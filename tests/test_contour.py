@@ -92,7 +92,8 @@ def test_contour_similarity_compare_1():
 def test_contour_similarity_compare_2():
     a = [0, 2, 1, 3]
     b = [0, 1, 2, 4]
-    assert cseg_similarity_compare(a, b) == ["cseg similarity", 5/6.0]
+    assert cseg_similarity_compare(a, b) == ["cseg similarity", 5 / 6.0]
+
 
 def test_rotation_1():
     n = Contour([1, 4, 9, 9, 2, 1])
