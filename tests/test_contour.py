@@ -42,7 +42,8 @@ def test_print_subsets_grouped():
          [[0, 1, 3, 2], [0, 1, 4, 2]],
          [[0, 3, 1, 2], [0, 3, 1, 2]],
          [[0, 2, 1, 3], [0, 3, 1, 4]]]
-    assert print_subsets_grouped(n, "prime") == "Prime form < 1 3 0 2 > (1)\n" + \
+    assert print_subsets_grouped(n, "prime") == \
+           "Prime form < 1 3 0 2 > (1)\n" + \
            "< 3 1 4 2 >\n\nPrime form < 0 2 3 1 > (1)\n< 0 3 4 2 >\n\n" + \
            "Prime form < 0 1 3 2 > (1)\n< 0 1 4 2 >\n\n" + \
            "Prime form < 0 3 1 2 > (1)\n< 0 3 1 2 >\n\n" + \

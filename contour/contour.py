@@ -371,10 +371,11 @@ class Contour():
         """Returns Morris (1987) a cseg COM-Matrix."""
 
         size = len(self.cseg)
+        r_size = range(size)
         m = [[a, b] for a in self.cseg for b in self.cseg]
         n = [m[(i * size):((i + 1) * size)] for i in range(size)]
         line = [self.cseg]
-        [line.append([Contour(x).comparison() for x in n[r]]) for r in range(size)]
+        [line.append([Contour(x).comparison() for x in n[r]]) for r in r_size]
         return line
 
     def contour_adjacency_series_vector(self):

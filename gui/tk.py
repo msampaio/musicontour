@@ -10,7 +10,7 @@ from contour.plot import *
 from Tkinter import (Tk, Frame, Button, Entry, Label, Text, Scrollbar,
                      END, FALSE, N, S)
 
-program_name = "Villa-Lobos Contour Module"
+sw_name = "Villa-Lobos Contour Module"
 version = "0.2"
 
 
@@ -21,7 +21,7 @@ class App:
         ### widgets
 
         font = 'sans 8 bold'
-        self.initial = Label(master, text=program_name + " v." + version, font=font)
+        self.initial = Label(master, text=sw_name + " v." + version, font=font)
 
         self.text_output = Text(master)
         self.text_scroll = Scrollbar(master)
@@ -190,22 +190,22 @@ class App:
         plot_color = 'b'
         # Returns csegclass only if cseg has not repeated elements
         if len(set(cseg)) == len(cseg):
-            card, c_class, prime_form, ri = Contour(cseg).contour_segment_class()
-            prime_form_printed = Contour(prime_form).str_print()
+            card, c_class, pr_form, ri = Contour(cseg).contour_segment_class()
+            pr_form_vis = Contour(pr_form).str_print()
             if ri == True:
                 ri = "*"
             else:
                 ri = ""
-            result = "{0}-{1}{2} {3}".format(card, c_class, ri, prime_form_printed)
+            result = "{0}-{1}{2} {3}".format(card, c_class, ri, pr_form_vis)
         else:
-            prime_form = Contour(cseg).prime_form()
-            prime_form_printed = Contour(prime_form).str_print()
-            result = "{0}".format(prime_form_printed)
+            pr_form = Contour(cseg).pr_form()
+            pr_form_vis = Contour(pr_form).str_print()
+            result = "{0}".format(pr_form_vis)
         text = "Prime form: "
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
-        plot_preview(prime_form, plot_color, "Prime form")
+        plot_preview(pr_form, plot_color, "Prime form")
 
     def normal_form(self, event=None):
         get = self.main_entry.get()
@@ -315,17 +315,17 @@ class App:
         csubset_prime = Contour(cseg).subsets_prime(second_get)
         prime_grouped = print_subsets_grouped(csubset_prime, "prime")
         plural = "s" if second_get > 1 else ""
-        text1 = "Original: {0}\n".format(cseg_print)
-        text2 = "Contour subsets ({0} element{1}):\n".format(second_get, plural)
+        txt1 = "Original: {0}\n".format(cseg_print)
+        txt2 = "Contour subsets ({0} element{1}):\n".format(second_get, plural)
         sep1 = ("-" * 22) + "\n"
         sep2 = ("=" * 22) + "\n"
-        text3 = sep2 + "Grouped by normal form\n" + sep1
-        text4 = "\n" + sep2 + "Grouped by prime form\n" + sep1
-        self.text_output.insert(END, text1)
-        self.text_output.insert(END, text2)
-        self.text_output.insert(END, text3)
+        txt3 = sep2 + "Grouped by normal form\n" + sep1
+        txt4 = "\n" + sep2 + "Grouped by prime form\n" + sep1
+        self.text_output.insert(END, txt1)
+        self.text_output.insert(END, txt2)
+        self.text_output.insert(END, txt3)
         self.text_output.insert(END, normal_grouped)
-        self.text_output.insert(END, text4)
+        self.text_output.insert(END, txt4)
         self.text_output.insert(END, prime_grouped)
         self.text_output.insert(END, "\n")
 
@@ -441,7 +441,7 @@ class App:
 
 def gui():
     root = Tk()
-    root.title(program_name)
+    root.title(sw_name)
     root.geometry('450x580+0+0')
     root.resizable(FALSE, FALSE)
 
