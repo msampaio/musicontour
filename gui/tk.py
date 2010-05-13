@@ -312,13 +312,16 @@ class App:
         prime_grouped = print_subsets_grouped(csubset_prime, "prime")
         plural = "s" if second_get > 1 else ""
         text1 = "Original: {0}\n".format(cseg_print)
-        text2 = "Contour subsets ({0} element{1}):".format(second_get, plural)
-        separator = "\n" + ("-" * 10) + "\n"
+        text2 = "Contour subsets ({0} element{1}):\n".format(second_get, plural)
+        sep1 = ("-" * 22) + "\n"
+        sep2 = ("=" * 22) + "\n"
+        text3 = sep2 + "Grouped by normal form\n" + sep1
+        text4 = "\n" + sep2 + "Grouped by prime form\n" + sep1
         self.text_output.insert(END, text1)
         self.text_output.insert(END, text2)
-        self.text_output.insert(END, separator)
+        self.text_output.insert(END, text3)
         self.text_output.insert(END, normal_grouped)
-        self.text_output.insert(END, separator)
+        self.text_output.insert(END, text4)
         self.text_output.insert(END, prime_grouped)
         self.text_output.insert(END, "\n")
 
@@ -330,12 +333,15 @@ class App:
         normal_grouped = print_subsets_grouped(csubset_normal, "normal")
         csubset_prime = Contour(cseg).all_subsets_prime()
         prime_grouped = print_subsets_grouped(csubset_prime, "prime")
-        text = "Original: {0}\nAll contour subsets:".format(cseg_print)
-        separator = "\n" + ("-" * 10) + "\n"
-        self.text_output.insert(END, text)
-        self.text_output.insert(END, separator)
+        text1 = "Original: {0}\nAll contour subsets:\n".format(cseg_print)
+        sep1 = ("-" * 22) + "\n"
+        sep2 = ("=" * 22) + "\n"
+        text2 = sep2 + "Grouped by normal form\n" + sep1
+        text3 = "\n" + sep2 + "Grouped by prime form\n" + sep1
+        self.text_output.insert(END, text1)
+        self.text_output.insert(END, text2)
         self.text_output.insert(END, normal_grouped)
-        self.text_output.insert(END, separator)
+        self.text_output.insert(END, text3)
         self.text_output.insert(END, prime_grouped)
         self.text_output.insert(END, "\n")
 
