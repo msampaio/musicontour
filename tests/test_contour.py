@@ -7,7 +7,7 @@ from ..contour.contour import (Contour, Contour_subsets,
     contour_classes_generator, __intern_diagon_sim,
     remove_duplicate_tuples, print_subsets_grouped, double_replace,
     replace_list_to_plus_minus, list_to_string, subsets_embed_total_number,
-    subsets_embed_number)
+    subsets_embed_number, contour_embed)
 
 
 def test_contour_classes_generator_cardinality():
@@ -75,6 +75,12 @@ def test_subsets_embed_total_number_4():
 
 def test_subsets_embed_total_number_4():
     assert subsets_embed_total_number(2, 3) == None
+
+
+def test_contour_embed_1():
+    a = [0, 2, 1, 3]
+    b = [0, 1, 2]
+    assert contour_embed(a, b) == 0.5
 
 
 def test_rotation_1():

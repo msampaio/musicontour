@@ -182,6 +182,27 @@ def subsets_embed_number(cseg, csubseg):
         print("Cseg must be greater than csubseg.")
 
 
+def contour_embed(cseg1, cseg2):
+    """Returns similarity between contours with different
+    cardinalities. 1 for greater similarity. Marvin and Laprade
+    (1987)."""
+
+    if cseg1 > cseg2:
+        cseg = cseg1
+        csubseg = cseg2
+    else:
+        cseg = cseg2
+        csubseg = cseg1
+
+    n_csubseg = Contour(csubseg).translation()
+    cseg_size = len(cseg)
+    csubseg_size = len(csubseg)
+
+    embed_times = subsets_embed_number(cseg, n_csubseg)
+    total_subsets = subsets_embed_total_number(cseg_size, csubseg_size)
+    return 1.0 * embed_times / total_subsets
+
+
 class Contour():
 
     def rotation(self, factor=1):
