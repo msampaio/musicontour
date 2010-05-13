@@ -654,9 +654,9 @@ def cseg_similarity_compare(cseg1, cseg2):
     """
 
     if len(cseg1) != len(cseg2):
-        return ["cseg embed", contour_embed(cseg1, cseg2)]
+        return ["Cseg embed", contour_embed(cseg1, cseg2)]
     else:
-        return ["cseg similarity", cseg_similarity(cseg1, cseg2)]
+        return ["Cseg similarity", cseg_similarity(cseg1, cseg2)]
 
 
 class Internal_diagonal():

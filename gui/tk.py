@@ -413,9 +413,11 @@ class App:
         get2 = self.secondary_entry.get()
         cseg1 = [int(x) for x in get1.split(' ') if x]
         cseg2 = [int(x) for x in get2.split(' ') if x]
+        cseg1_p = Contour(cseg1).str_print()
+        cseg2_p = Contour(cseg2).str_print()
         [operation, result] = cseg_similarity_compare(cseg1, cseg2)
         text1 = "{0}: {1:.2f}\n".format(operation, result)
-        text2 = "Cseg 1:{0}\nCseg 2:{1}: ".format(cseg1, cseg2)
+        text2 = "Cseg 1: {0}\nCseg 2: {1}".format(cseg1_p, cseg2_p)
         self.text_output.insert(END, text1)
         self.text_output.insert(END, text2)
         self.text_output.insert(END, "\n")
