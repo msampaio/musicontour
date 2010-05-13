@@ -770,5 +770,3 @@ class Comparison_matrix():
 
     def __init__(self, comparison_matrix):
         self.comparison_matrix = comparison_matrix
-
-# print(print_contour_classes(4))
