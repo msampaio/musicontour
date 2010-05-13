@@ -155,7 +155,7 @@ def minima(list_of_tuples):
     return max_min(list_of_tuples, minimum)
 
 
-def subsets_number(cseg_size, csubseg_size):
+def subsets_embed_total_number(cseg_size, csubseg_size):
     """Returns the number of subsets with csubseg_size in a set with
     cseg_size. Marvin and Laprade (1987, p. 237)."""
 
