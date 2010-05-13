@@ -66,14 +66,23 @@ def print_contour_classes(cardinality):
               csegclass.ljust(20), str_int_diag.ljust(15))
 
 
-def print_subsets_prime(list):
-    """Returns a string with subsets grouped by their primes.
+def print_subsets_grouped(list, group_type):
+    """Returns a string with subsets grouped by their group type.
 
-    Input data must be the output of Contour.subsets_prime.
+    If the group type is normal form, input list must be the
+    Contour.subsets_normal output. If the group type is prime form,
+    input list must be the Contour.subsets_prime output.
+
+    >>> print_subsets_grouped([[[1, 3, 0, 2], [3, 1, 4, 2]],
+                                [[0, 2, 3, 1], [0, 3, 4, 2]]], \"prime\")
+
+    \"Prime form < 1 3 0 2 > (1)\n< 3 1 4 2 >\n\" + \
+    \"\nPrime form < 0 2 3 1 > (1)\n< 0 3 4 2 >\"
     """
 
     raw = [[Contour(cseg).str_print() for cseg in el] for el in list]
-    r = ["Prime form {0} ({1})\n{2:10}".format(x[0], (len(x) - 1),
+    text = "{0} form".format(group_type).capitalize()
+    r = ["{0} {1} ({2})\n{3:10}".format(text, x[0], (len(x) - 1),
                                         "\n".join(x[1:])) for x in raw]
     return "\n\n".join(r)
 

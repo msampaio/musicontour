@@ -5,7 +5,7 @@ from contour.contour import (Contour, Internal_diagonal,
                              cseg_similarity,
                              replace_plus_minus_to_list,
                              Comparison_matrix,
-                             print_subsets_prime)
+                             print_subsets_grouped)
 from contour.plot import *
 from Tkinter import (Tk, Frame, Button, Entry, Label, Text, Scrollbar,
                      END, FALSE, N, S)
@@ -307,7 +307,7 @@ class App:
         cseg_print = Contour(cseg).str_print()
         second_get = int(self.secondary_entry.get())
         csubset = Contour(cseg).subsets_prime(second_get)
-        result = print_subsets_prime(csubset)
+        result = print_subsets_grouped(csubset, "prime")
         plural = "s" if second_get > 1 else ""
         text1 = "Original: {0}\n".format(cseg_print)
         text2 = "Contour subsets ({0} element{1}):\n".format(second_get, plural)
@@ -321,7 +321,7 @@ class App:
         cseg = [int(x) for x in get.split(' ') if x]
         cseg_print = Contour(cseg).str_print()
         csubset = Contour(cseg).all_subsets_prime()
-        result = print_subsets_prime(csubset)
+        result = print_subsets_grouped(csubset, "prime")
         text = "Original: {0}\nAll contour subsets:\n".format(cseg_print)
         self.text_output.insert(END, text)
         self.text_output.insert(END, result)

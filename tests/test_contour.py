@@ -5,7 +5,7 @@ from ..contour.contour import (Contour, Contour_subsets,
      ri_identity_test, cseg_similarity,
      __contour_classes_generator_cardinality,
      contour_classes_generator, __intern_diagon_sim,
-     remove_duplicate_tuples, print_subsets_prime, double_replace,
+     remove_duplicate_tuples, print_subsets_grouped, double_replace,
      replace_list_to_plus_minus, list_to_string)
 
 
@@ -31,13 +31,13 @@ def test_contour_classes_generator():
                             (4, 7, (1, 0, 3, 2)), (4, 8, (1, 3, 0, 2))]]
 
 
-def test_print_subsets_prime():
+def test_print_subsets_grouped():
     n = [[[1, 3, 0, 2], [3, 1, 4, 2]],
          [[0, 2, 3, 1], [0, 3, 4, 2]],
          [[0, 1, 3, 2], [0, 1, 4, 2]],
          [[0, 3, 1, 2], [0, 3, 1, 2]],
          [[0, 2, 1, 3], [0, 3, 1, 4]]]
-    assert print_subsets_prime(n) == "Prime form < 1 3 0 2 > (1)\n" + \
+    assert print_subsets_grouped(n, "prime") == "Prime form < 1 3 0 2 > (1)\n" + \
            "< 3 1 4 2 >\n\nPrime form < 0 2 3 1 > (1)\n< 0 3 4 2 >\n\n" + \
            "Prime form < 0 1 3 2 > (1)\n< 0 1 4 2 >\n\n" + \
            "Prime form < 0 3 1 2 > (1)\n< 0 3 1 2 >\n\n" + \
