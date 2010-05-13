@@ -4,6 +4,7 @@
 from __future__ import print_function
 from itertools import (permutations, combinations, izip)
 from math import factorial
+from collections import defaultdict
 from utils import flatten
 
 
@@ -166,6 +167,19 @@ def subsets_number(cseg_size, csubseg_size):
         return a / (b * c)
     except ValueError:
         print("Cseg_size must be greater than csubseg_size")
+
+
+def subsets_embed_number(cseg, csubseg):
+    """Returns the number of time the normal form of a csubseg appears
+    in cseg subsets. Marvin and Laprade (1987)."""
+
+    if len(cseg) > len(csubseg):
+        normal_subsets = defaultdict(int)
+        for lista in Contour(cseg).subsets_normal(len(csubseg)):
+            normal_subsets[tuple(lista[0])] = len(lista) - 1
+        return normal_subsets[tuple(csubseg)]
+    else:
+        print("Cseg must be greater than csubseg.")
 
 
 class Contour():

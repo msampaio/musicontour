@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from ..contour.contour import (Contour, Contour_subsets,
-     Internal_diagonal, Comparison_matrix, maximum, minimum,
-     ri_identity_test, cseg_similarity,
-     __contour_classes_generator_cardinality,
-     contour_classes_generator, __intern_diagon_sim,
-     remove_duplicate_tuples, print_subsets_grouped, double_replace,
-     replace_list_to_plus_minus, list_to_string, subsets_number)
+    Internal_diagonal, Comparison_matrix, maximum, minimum,
+    ri_identity_test, cseg_similarity,
+    __contour_classes_generator_cardinality,
+    contour_classes_generator, __intern_diagon_sim,
+    remove_duplicate_tuples, print_subsets_grouped, double_replace,
+    replace_list_to_plus_minus, list_to_string, subsets_number,
+    subsets_embed_number)
 
 
 def test_contour_classes_generator_cardinality():
@@ -79,6 +80,18 @@ def test_subsets_number_4():
 def test_rotation_1():
     n = Contour([1, 4, 9, 9, 2, 1])
     assert n.rotation() == [4, 9, 9, 2, 1, 1]
+
+
+def test_subsets_number_1():
+    a = [0, 2, 1, 3]
+    b = [0, 1, 2]
+    assert subsets_embed_number(a, b) == 2
+
+
+def test_subsets_number_2():
+    a = [0, 2, 1, 3]
+    b = [0, 1, 2]
+    assert subsets_embed_number(b, a) == None
 
 
 def test_rotation_2():
