@@ -430,15 +430,7 @@ class App:
         self.text_output.insert(END, "\n")
 
     def segment_classes(self, event=None):
-        get2 = self.secondary_entry.get()
-        try:
-            cardinality = int(get2)
-            if cardinality <= 7:
-                result = print_contour_classes(cardinality)
-            else:
-                result = "ERROR: Insert a cardinality less or equal than 7.\n"
-        except ValueError:
-            result = "ERROR: Insert a number in secondary entry.\n"
+        result = print_contour_classes(7)
         self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
 
