@@ -6,7 +6,7 @@ from ..contour.contour import (Contour, Contour_subsets,
      __contour_classes_generator_cardinality,
      contour_classes_generator, __intern_diagon_sim,
      remove_duplicate_tuples, print_subsets_grouped, double_replace,
-     replace_list_to_plus_minus, list_to_string)
+     replace_list_to_plus_minus, list_to_string, subsets_number)
 
 
 def test_contour_classes_generator_cardinality():
@@ -54,6 +54,26 @@ def test_replace_list_to_plus_minus():
 
 def test_list_to_string():
     assert list_to_string([1, 2, 3]) == "1 2 3"
+
+
+def test_subsets_number_1():
+    assert subsets_number(3, 2) == 3
+
+
+def test_subsets_number_2():
+    assert subsets_number(4, 2) == 6
+
+
+def test_subsets_number_3():
+    assert subsets_number(5, 3) == 10
+
+
+def test_subsets_number_4():
+    assert subsets_number(3, 3) == 1
+
+
+def test_subsets_number_4():
+    assert subsets_number(2, 3) == None
 
 
 def test_rotation_1():

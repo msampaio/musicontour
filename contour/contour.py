@@ -3,6 +3,7 @@
 
 from __future__ import print_function
 from itertools import (permutations, combinations, izip)
+from math import factorial
 from utils import flatten
 
 
@@ -151,6 +152,20 @@ def minima(list_of_tuples):
     """Returns minima (Morris, 1993) positions in a cseg."""
 
     return max_min(list_of_tuples, minimum)
+
+
+def subsets_number(cseg_size, csubseg_size):
+    """Returns the number of subsets with csubseg_size in a set with
+    cseg_size. Marvin and Laprade (1987, p. 237)."""
+
+    try:
+        cseg_size >= csubseg_size == True
+        a = factorial(cseg_size)
+        b = factorial(csubseg_size)
+        c = factorial(cseg_size - csubseg_size)
+        return a / (b * c)
+    except ValueError:
+        print("Cseg_size must be greater than csubseg_size")
 
 
 class Contour():
