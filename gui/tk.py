@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from contour.contour import (Contour, Internal_diagonal,
-                             cseg_similarity,
+                             cseg_similarity_compare,
                              replace_plus_minus_to_list,
                              Comparison_matrix,
                              print_subsets_grouped)
@@ -413,16 +413,12 @@ class App:
         get2 = self.secondary_entry.get()
         cseg1 = [int(x) for x in get1.split(' ') if x]
         cseg2 = [int(x) for x in get2.split(' ') if x]
-        if len(cseg1) == len(cseg2):
-            csim = cseg_similarity(cseg1, cseg2)
-            text1 = "Contour similarity: {0:.2f}\n".format(csim)
-            text2 = "Cseg 1:{0}\nCseg 2:{1}: ".format(cseg1, cseg2)
-            self.text_output.insert(END, text1)
-            self.text_output.insert(END, text2)
-            self.text_output.insert(END, "\n")
-        else:
-            text3 = "ERROR: Insert csegs with the same cardinality\n"
-            self.text_output.insert(END, text3)
+        [operation, result] = cseg_similarity_compare(cseg1, cseg2)
+        text1 = "{0}: {1:.2f}\n".format(operation, result)
+        text2 = "Cseg 1:{0}\nCseg 2:{1}: ".format(cseg1, cseg2)
+        self.text_output.insert(END, text1)
+        self.text_output.insert(END, text2)
+        self.text_output.insert(END, "\n")
 
     def clear_output(self, event=None):
         self.text_output.delete(0.0, END)
