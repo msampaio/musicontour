@@ -5,7 +5,7 @@ from contour.contour import (Contour, Internal_diagonal,
                              cseg_similarity_compare,
                              replace_plus_minus_to_list,
                              Comparison_matrix,
-                             print_subsets_grouped)
+                             print_subsets_grouped, print_contour_classes)
 from contour.plot import *
 from Tkinter import (Tk, Frame, Button, Entry, Label, Text, Scrollbar,
                      END, FALSE, N, S)
@@ -88,6 +88,8 @@ class App:
                                command=self.contour_compare, width=10)
         self.b_contour_reduction = Button(master, text="Contour red.",
                                command=self.contour_reduction, width=10)
+        self.b_segment_classes = Button(master, text="Cseg classes",
+                               command=self.segment_classes, width=10)
 
         ## key bindings:
         for x in [self.main_entry, master, self.secondary_entry]:
@@ -170,6 +172,7 @@ class App:
         self.b_cia.grid(row=8, column=0)
         self.b_contour_compare.grid(row=8, column=1)
         self.b_contour_reduction.grid(row=8, column=2)
+        self.b_segment_classes.grid(row=8, column=3)
 
     ## functions
 
@@ -424,6 +427,19 @@ class App:
         text2 = "Cseg 1: {0}\nCseg 2: {1}".format(cseg1_p, cseg2_p)
         self.text_output.insert(END, text1)
         self.text_output.insert(END, text2)
+        self.text_output.insert(END, "\n")
+
+    def segment_classes(self, event=None):
+        get2 = self.secondary_entry.get()
+        try:
+            cardinality = int(get2)
+            if cardinality <= 7:
+                result = print_contour_classes(cardinality)
+            else:
+                result = "ERROR: Insert a cardinality less or equal than 7.\n"
+        except ValueError:
+            result = "ERROR: Insert a number in secondary entry.\n"
+        self.text_output.insert(END, result)
         self.text_output.insert(END, "\n")
 
     def clear_output(self, event=None):
