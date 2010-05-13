@@ -28,8 +28,9 @@ Windows users
 
 Windows users must install manually all dependencies for |VLCM|:
 `Python 2.6 <http://www.python.org/download/windows/>`_, `Numpy
-<http://sourceforge.net/projects/numpy/>`_ and `Matplotlib
-<http://matplotlib.sourceforge.net/>`_.
+<http://sourceforge.net/projects/numpy/>`_, `Matplotlib
+<http://matplotlib.sourceforge.net/>`_ and `PIL
+<http://www.pythonware.com/products/pil/>`_.
 
 Maybe after install it's necessary to associate gui.py filetype to
 Python2.6. In the example, in the picture, Python is in::
