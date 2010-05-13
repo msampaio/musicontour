@@ -50,18 +50,21 @@ def print_contour_classes(cardinality):
     one given.
     """
 
-    print("C-space segment-classes [based on Marvin and Laprade (1987)]")
-    print("{0}".format("-" * 60))
-    print("* indicates identity under retrograde inversion.")
-    print("{0}\n".format("=" * 60))
+    header = "C-space segment-classes [based on Marvin and Laprade (1987)]" + \
+             "\n{0}".format("-" * 60) + \
+             "\n* indicates identity under retrograde inversion.\n" + \
+             "{0}\n".format("=" * 60)
+
+    sec_txt = "\nC-space segment classes for cseg cardinality "
+    sections = []
 
     cc = flatten(contour_classes_generator(cardinality))
     card = 0
     for a, b, c, d in [[a, b, c, d] for (a, b, c, d) in cc]:
         if a != card:
-            print("\nC-space segment classes for cseg cardinality", a)
-            print("\n", " ".ljust(1), "Csegclass".ljust(18),
-                  "Prime form".ljust(20), "INT(1)")
+            sections.append(sec_txt + "{0}\n".format(a))
+            sections.append("\n" + " ".ljust(1) + "Csegclass".ljust(18) + \
+                  "Prime form".ljust(20) + "INT(1)\n")
             card = a
         if d == True:
             ri = "*"
@@ -70,8 +73,10 @@ def print_contour_classes(cardinality):
         csegclass = Contour(c).str_print()
         int_diagonals = Contour(c).internal_diagonals(1)
         str_int_diag = Internal_diagonal(int_diagonals).str_print()
-        print(" ".ljust(4), "c {0}-{1}{2}".format(a, b, ri).ljust(16),
-              csegclass.ljust(20), str_int_diag.ljust(15))
+        sections.append(" ".ljust(4) + \
+                        "c {0}-{1}{2}".format(a, b, ri).ljust(16) + \
+                        csegclass.ljust(20) + str_int_diag.ljust(15) + "\n")
+    return header + "".join(sections)
 
 
 def print_subsets_grouped(list, group_type):
