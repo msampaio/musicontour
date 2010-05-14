@@ -8,6 +8,7 @@ from ..contour.contour import (Contour, Contour_subsets,
     remove_duplicate_tuples, print_subsets_grouped, double_replace,
     replace_list_to_plus_minus, list_to_string, subsets_embed_total_number,
     subsets_embed_number, contour_embed, cseg_similarity_compare)
+import py
 
 
 def test_contour_classes_generator_cardinality():
@@ -37,18 +38,17 @@ def test_contour_classes_generator():
 
 
 def test_print_subsets_grouped():
-    n = [[[1, 3, 0, 2], [3, 1, 4, 2]],
-         [[0, 2, 3, 1], [0, 3, 4, 2]],
-         [[0, 1, 3, 2], [0, 1, 4, 2]],
-         [[0, 3, 1, 2], [0, 3, 1, 2]],
-         [[0, 2, 1, 3], [0, 3, 1, 4]]]
+    n = {(0, 1, 3, 2): [[0, 1, 4, 2]],
+         (0, 2, 1, 3): [[0, 3, 1, 4]],
+         (0, 2, 3, 1): [[0, 3, 4, 2]],
+         (0, 3, 1, 2): [[0, 3, 1, 2]],
+         (1, 3, 0, 2): [[3, 1, 4, 2]]}
     assert print_subsets_grouped(n, "prime") == \
-           "Prime form < 1 3 0 2 > (1)\n" + \
-           "< 3 1 4 2 >\n\nPrime form < 0 2 3 1 > (1)\n< 0 3 4 2 >\n\n" + \
-           "Prime form < 0 1 3 2 > (1)\n< 0 1 4 2 >\n\n" + \
-           "Prime form < 0 3 1 2 > (1)\n< 0 3 1 2 >\n\n" + \
-           "Prime form < 0 2 1 3 > (1)\n< 0 3 1 4 >"
-
+           'Prime form < 0 1 3 2 > (1)\n< 0 1 4 2 >\n' + \
+           'Prime form < 0 2 1 3 > (1)\n< 0 3 1 4 >\n' + \
+           'Prime form < 0 2 3 1 > (1)\n< 0 3 4 2 >\n' + \
+           'Prime form < 0 3 1 2 > (1)\n< 0 3 1 2 >\n' + \
+           'Prime form < 1 3 0 2 > (1)\n< 3 1 4 2 >'
 
 def test_double_replace():
     assert double_replace("0 1 -1 1 0") == "0 + - + 0"
@@ -76,7 +76,7 @@ def test_subsets_embed_number_1():
 def test_subsets_embed_number_2():
     a = [0, 2, 1, 3]
     b = [0, 1, 2]
-    assert subsets_embed_number(b, a) == None
+    py.test.raises(KeyError, "subsets_embed_number(b, a)")
 
 
 def test_rotation_2():
@@ -146,20 +146,20 @@ def test_Contour_subsets_2():
 
 def test_Contour_subsets_prime():
     n = Contour([0, 3, 1, 4, 2])
-    assert n.subsets_prime(4) == [[[1, 3, 0, 2], [3, 1, 4, 2]],
-                                  [[0, 2, 3, 1], [0, 3, 4, 2]],
-                                  [[0, 1, 3, 2], [0, 1, 4, 2]],
-                                  [[0, 3, 1, 2], [0, 3, 1, 2]],
-                                  [[0, 2, 1, 3], [0, 3, 1, 4]]]
+    assert n.subsets_prime(4) == {(0, 1, 3, 2): [[0, 1, 4, 2]],
+                                  (0, 2, 1, 3): [[0, 3, 1, 4]],
+                                  (0, 2, 3, 1): [[0, 3, 4, 2]],
+                                  (0, 3, 1, 2): [[0, 3, 1, 2]],
+                                  (1, 3, 0, 2): [[3, 1, 4, 2]]}
 
 
 def test_Contour_subsets_normal():
     n = Contour([0, 3, 1, 4, 2])
-    assert n.subsets_normal(4) == [[[0, 2, 3, 1], [0, 3, 4, 2]],
-                                   [[0, 1, 3, 2], [0, 1, 4, 2]],
-                                   [[2, 0, 3, 1], [3, 1, 4, 2]],
-                                   [[0, 3, 1, 2], [0, 3, 1, 2]],
-                                   [[0, 2, 1, 3], [0, 3, 1, 4]]]
+    assert n.subsets_normal(4) == {(0, 1, 3, 2): [[0, 1, 4, 2]],
+                                   (0, 2, 1, 3): [[0, 3, 1, 4]],
+                                   (0, 2, 3, 1): [[0, 3, 4, 2]],
+                                   (0, 3, 1, 2): [[0, 3, 1, 2]],
+                                   (2, 0, 3, 1): [[3, 1, 4, 2]]}
 
 
 def test_Contour_all_subsets():
@@ -171,15 +171,15 @@ def test_Contour_all_subsets():
 
 def test_Contour_all_subsets_prime():
     n = Contour([2, 8, 12])
-    assert n.all_subsets_prime() == [[[0, 1], [2, 8], [2, 12], [8, 12]],
-                                     [[0, 1, 2], [2, 8, 12]]]
+    assert n.all_subsets_prime() == {(0, 1): [[2, 8], [2, 12], [8, 12]],
+                                     (0, 1, 2): [[2, 8, 12]]}
 
 
 def test_Contour_all_subsets_normal():
     n = Contour([2, 8, 7])
-    assert n.all_subsets_normal() == [[[0, 1], [2, 7], [2, 8]],
-                                      [[1, 0], [8, 7]],
-                                      [[0, 2, 1], [2, 8, 7]]]
+    assert n.all_subsets_normal() == {(0, 1): [[2, 7], [2, 8]],
+                                      (0, 2, 1): [[2, 8, 7]],
+                                      (1, 0): [[8, 7]]}
 
 
 def test_Contour_subsets_adj():

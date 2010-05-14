@@ -79,7 +79,7 @@ def print_contour_classes(cardinality):
     return header + "".join(sections)
 
 
-def print_subsets_grouped(list, group_type):
+def print_subsets_grouped(dictionary, group_type):
     """Returns a string with subsets grouped by their group type.
 
     If the group type is normal form, input list must be the
@@ -93,11 +93,18 @@ def print_subsets_grouped(list, group_type):
     \"\nPrime form < 0 2 3 1 > (1)\n< 0 3 4 2 >\"
     """
 
-    raw = [[Contour(cseg).str_print() for cseg in el] for el in list]
     text = "{0} form".format(group_type).capitalize()
-    r = ["{0} {1} ({2})\n{3:10}".format(text, x[0], (len(x) - 1),
-                                        "\n".join(x[1:])) for x in raw]
-    return "\n\n".join(r)
+    dic = dictionary
+
+    r = []
+    keys = [[len(i), i] for i in dic.keys()]
+    keys.sort()
+    keys = [x[1] for x in keys]
+    for key in keys:
+        r.append("{0} {1} ({2})".format(text, Contour(list(key)).str_print(),
+                                        len(dic[key])))
+        r.append("\n".join([Contour(x).str_print() for x in dic[key]]))
+    return "\n".join(r)
 
 
 def double_replace(string):
@@ -236,47 +243,59 @@ class Contour():
         """Returns adjacent and non-adjacent subsets of a given
         contour grouped by their normal forms.
 
-        Output has a list of csegs with same prime form. The first
-        cseg of each list is the normal form.
+        Output is a dictionary where the key is the normal form, and
+        the attribute is csubsets list.
 
         >>> Contour([0, 3, 1, 4, 2]).subsets_normal()
-        [[[0, 2, 3, 1], [0, 3, 4, 2]], [[0, 1, 3, 2], [0, 1, 4, 2]],
-        [[2, 0, 3, 1], [3, 1, 4, 2]], [[0, 3, 1, 2], [0, 3, 1, 2]],
-        [[0, 2, 1, 3], [0, 3, 1, 4]]]
+        {(0, 1, 3, 2): [[0, 1, 4, 2]],
+        (0, 2, 1, 3): [[0, 3, 1, 4]],
+        (0, 2, 3, 1): [[0, 3, 4, 2]],
+        (0, 3, 1, 2): [[0, 3, 1, 2]],
+        (2, 0, 3, 1): [[3, 1, 4, 2]]}
         """
 
         subsets = self.subsets(n)
-        pairs = [[tuple(x), tuple(Contour(x).translation())] for x in subsets]
-        normal_forms = list(set([x[1] for x in pairs]))
-        result = []
-        for normal in normal_forms:
-            nf = [list(normal)]
-            [nf.append(list(pair[0])) for pair in pairs if pair[1] == normal]
-            result.append(nf)
-        return result
+        dic = {}
+
+        for x in subsets:
+            processed = tuple(Contour(x).translation())
+            if dic.has_key(processed) == True:
+                z = dic[processed]
+                z.append(x)
+                dic[processed] = z
+            else:
+                dic[processed] = [x]
+
+        return dic
 
     def subsets_prime(self, n):
         """Returns adjacent and non-adjacent subsets of a given
         contour grouped by their prime forms.
 
-        Output has a list of csegs with same prime form. The first
-        cseg of each list is the prime form.
+        Output is a dictionary where the key is the prime form, and
+        the attribute is csubsets list.
 
         >>> Contour([0, 3, 1, 4, 2]).subsets_prime()
-        [[[1, 3, 0, 2], [3, 1, 4, 2]], [[0, 2, 3, 1], [0, 3, 4, 2]],
-        [[0, 1, 3, 2], [0, 1, 4, 2]], [[0, 3, 1, 2], [0, 3, 1, 2]],
-        [[0, 2, 1, 3], [0, 3, 1, 4]]]
+        {(0, 1, 3, 2): [[0, 1, 4, 2]],
+        (0, 2, 1, 3): [[0, 3, 1, 4]],
+        (0, 2, 3, 1): [[0, 3, 4, 2]],
+        (0, 3, 1, 2): [[0, 3, 1, 2]],
+        (1, 3, 0, 2): [[3, 1, 4, 2]]}
         """
 
         subsets = self.subsets(n)
-        pairs = [[tuple(x), tuple(Contour(x).prime_form())] for x in subsets]
-        prime_forms = list(set([x[1] for x in pairs]))
-        result = []
-        for prime in prime_forms:
-            pf = [list(prime)]
-            [pf.append(list(pair[0])) for pair in pairs if pair[1] == prime]
-            result.append(pf)
-        return result
+        dic = {}
+
+        for x in subsets:
+            processed = tuple(Contour(x).prime_form())
+            if dic.has_key(processed) == True:
+                z = dic[processed]
+                z.append(x)
+                dic[processed] = z
+            else:
+                dic[processed] = [x]
+
+        return dic
 
     def all_subsets(self):
         """Returns adjacent and non-adjacent subsets of a given
@@ -290,14 +309,18 @@ class Contour():
         contour grouped by their prime forms."""
 
         sizes = range(2, len(self.cseg) + 1)
-        return flatten([self.subsets_prime(x) for x in sizes])
+        subsets_list =  [self.subsets_prime(x) for x in sizes]
+        [subsets_list[0].update(dic) for dic in subsets_list]
+        return subsets_list[0]
 
     def all_subsets_normal(self):
         """Returns all adjacent and non-adjacent subsets of a given
         contour grouped by their normal forms."""
 
         sizes = range(2, len(self.cseg) + 1)
-        return flatten([self.subsets_normal(x) for x in sizes])
+        subsets_list = [self.subsets_normal(x) for x in sizes]
+        [subsets_list[0].update(dic) for dic in subsets_list]
+        return subsets_list[0]
 
     def subsets_adj(self, n):
         """Returns adjacent n-elements subsets of a given contour."""
@@ -617,12 +640,11 @@ def subsets_embed_number(cseg, csubseg):
     """Returns the number of time the normal form of a csubseg appears
     in cseg subsets. Marvin and Laprade (1987)."""
 
-    if len(cseg) > len(csubseg):
-        normal_subsets = defaultdict(int)
-        for lista in Contour(cseg).subsets_normal(len(csubseg)):
-            normal_subsets[tuple(lista[0])] = len(lista) - 1
-        return normal_subsets[tuple(csubseg)]
-    else:
+    try:
+        dic = Contour(cseg).subsets_normal(len(csubseg))
+        return len(dic[tuple(csubseg)])
+
+    except ValueError:
         print("Cseg must be greater than csubseg.")
 
 
