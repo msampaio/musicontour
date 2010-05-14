@@ -361,7 +361,6 @@ class App:
         else:
             second_get = int(self.secondary_entry.get())
             csegs = Internal_diagonal(int_d).csegs(second_get)
-            print(int_d)
             result = "\n".join([Contour(x).str_print() for x in csegs])
             plural = "s" if second_get > 1 else ""
             text = "Csegs:\n"
