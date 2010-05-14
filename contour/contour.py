@@ -8,13 +8,20 @@ from collections import defaultdict
 from utils import flatten
 
 
+def permut_csegs(cardinality):
+    """Returns a list of possible normalized csegs of a given
+    cardinality."""
+
+    base = range(cardinality)
+    permutations(base, cardinality)
+    return sorted(permutations(base, cardinality))
+
+
 def __contour_classes_generator_cardinality(cardinality):
     """Generates contour classes like Marvin and Laprade (1987)
     software for one cardinality
 
     Returns (cardinality, number, contour class).
-
-    'base' stores the c-pitches of a given cardinality.
 
     'permut' stores all permutations with csegs of a given
     cardinality.
@@ -26,8 +33,7 @@ def __contour_classes_generator_cardinality(cardinality):
     duplicates.
     """
 
-    base = range(cardinality)
-    permut = permutations(base, cardinality)
+    permut = permut_csegs(cardinality)
     __cc_repeat = [tuple(Contour(x).prime_form()) for x in permut]
     __cc_no_repeat = enumerate(sorted(list(set(__cc_repeat))))
     contour_classes = [(cardinality, n + 1, x, ri_identity_test(list(x)))
@@ -704,8 +710,7 @@ class Internal_diagonal():
         """
 
         size = len(self.internal_diagonal) + diagonal
-        base_contour = range(size)
-        permut = permutations(base_contour)
+        permut = permut_csegs(size)
         int_d_permut = [[Contour(list(x)).internal_diagonals(diagonal), list(x)] for x in permut]
         result = []
         [result.append(y[1]) for y in int_d_permut if y[0] == self.internal_diagonal]
