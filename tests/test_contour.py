@@ -50,6 +50,7 @@ def test_print_subsets_grouped():
            'Prime form < 0 3 1 2 > (1)\n< 0 3 1 2 >\n' + \
            'Prime form < 1 3 0 2 > (1)\n< 3 1 4 2 >'
 
+
 def test_double_replace():
     assert double_replace("0 1 -1 1 0") == "0 + - + 0"
 

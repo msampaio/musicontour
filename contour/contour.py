@@ -259,7 +259,7 @@ class Contour():
 
         for x in subsets:
             processed = tuple(Contour(x).translation())
-            if dic.has_key(processed) == True:
+            if processed in dic:
                 z = dic[processed]
                 z.append(x)
                 dic[processed] = z
@@ -288,7 +288,7 @@ class Contour():
 
         for x in subsets:
             processed = tuple(Contour(x).prime_form())
-            if dic.has_key(processed) == True:
+            if processed in dic:
                 z = dic[processed]
                 z.append(x)
                 dic[processed] = z
@@ -309,7 +309,7 @@ class Contour():
         contour grouped by their prime forms."""
 
         sizes = range(2, len(self.cseg) + 1)
-        subsets_list =  [self.subsets_prime(x) for x in sizes]
+        subsets_list = [self.subsets_prime(x) for x in sizes]
         [subsets_list[0].update(dic) for dic in subsets_list]
         return subsets_list[0]
 
