@@ -5,7 +5,8 @@ SERVER = genos.mus.br:www/villa-lobos/download/
 SRC_DIR = contour
 TEST_DIR = tests
 GUI_DIR = gui
-DIST_FILES = $(GUI_DIR) $(SRC_DIR) COPYING README RELEASE
+MAIN_FILE = vlcm.py
+DIST_FILES = $(MAIN_FILE) $(GUI_DIR) $(SRC_DIR) COPYING README RELEASE
 
 check:
 	pep8 *.py $(SRC_DIR)/*.py $(TEST_DIR)/*.py $(GUI_DIR)/*.py
