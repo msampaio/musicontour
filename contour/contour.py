@@ -174,6 +174,11 @@ def minima(list_of_tuples):
 
 
 class Contour():
+    """Returns an objcect contour.
+    Input is a list of cpitches:
+
+    >>> Contour([0, 1, 3, 2])
+    """
 
     def rotation(self, factor=1):
         """Rotates a cseg around a factor.
@@ -683,6 +688,12 @@ def cseg_similarity_compare(cseg1, cseg2):
 
 
 class Internal_diagonal():
+    """Returns an objcect Internal diagonal.
+    Input is a list of 1 and -1, representing + and - in an internal
+    diagonal:
+
+    >>> Internal_diagonal([-1, 1, 1])
+    """
 
     def csegs(self, diagonal=1):
         """Returns all csegs in normal form that have the given
@@ -761,6 +772,12 @@ class Internal_diagonal():
 
 
 class Comparison_matrix():
+    """Returns an objcect comparison matrix.
+    Input is a list of lists, each of them representing a line in
+    matrix:
+
+    >>> Comparison_matrix([[0, 1, 1], [-1, 0, -1], [-1, 1, 0]])
+    """
 
     def inversion(self):
         """Returns the inversion of a Comparison Matrix:
