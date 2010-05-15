@@ -5,7 +5,8 @@ from __future__ import print_function
 from itertools import (permutations, combinations, izip)
 from math import factorial
 from collections import defaultdict
-from utils import (flatten, replace_list_to_plus_minus, list_to_string)
+from utils import (flatten, replace_list_to_plus_minus, list_to_string,
+                   remove_duplicate_tuples)
 
 class ContourError(Exception):
     pass
@@ -561,20 +562,6 @@ def minimum(dur_list):
 
     (el1, p1), (el2, p2), (el3, p3) = dur_list
     return (el2, p2) if el2 <= el1 and el2 <= el3 else ''
-
-
-# FIXME: move to utils
-def remove_duplicate_tuples(list_of_tuples):
-    """Removes tuples that the first item is repeated in adjacent
-    tuples. The removed tuple is the second."""
-
-    prev = None
-    tmp = []
-    for a, b in list_of_tuples:
-        if a != prev:
-            tmp.append((a, b))
-            prev = a
-    return tmp
 
 
 ################################################################################

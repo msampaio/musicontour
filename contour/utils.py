@@ -84,3 +84,16 @@ def list_to_string(list):
     """
 
     return " ".join([str(x) for x in list])
+
+
+def remove_duplicate_tuples(list_of_tuples):
+    """Removes tuples that the first item is repeated in adjacent
+    tuples. The removed tuple is the second."""
+
+    prev = None
+    tmp = []
+    for a, b in list_of_tuples:
+        if a != prev:
+            tmp.append((a, b))
+            prev = a
+    return tmp

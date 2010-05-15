@@ -4,8 +4,7 @@ from contour.contour import (Contour, Contour_subsets,
     Internal_diagonal, Comparison_matrix, maximum, minimum,
     maxima, minima, ri_identity_test,
     __contour_classes_generator_cardinality,
-    contour_classes_generator,
-    remove_duplicate_tuples, print_subsets_grouped)
+    contour_classes_generator, print_subsets_grouped)
 import py
 
 
@@ -366,12 +365,6 @@ def test_minimum_1():
 def test_minimum_2():
     n = [(5, 2), (0, 3), (4, 4)]
     assert minimum(n) == (0, 3)
-
-
-def test_remove_duplicate_tuples():
-    n = [(5, 0), (4, 1), (4, 2), (9, 3), (7, 4), (9, 5), (5, 6)]
-    assert remove_duplicate_tuples(n) == [(5, 0), (4, 1), (9, 3),
-                                          (7, 4), (9, 5), (5, 6)]
 
 
 def test_csegs_1():
