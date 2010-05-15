@@ -13,12 +13,11 @@ class ContourError(Exception):
     pass
 
 
-# FIXME: rename to build_classes(cardinality)
-def contour_classes_generator(cardinality):
+def build_classes(cardinality):
     """Generates contour classes like Marvin and Laprade (1987)
     software."""
 
-    def __contour_classes_generator_card(card):
+    def __build_classes_card(card):
         """Generates contour classes like Marvin and Laprade (1987)
         software for one cardinality.
 
@@ -31,7 +30,7 @@ def contour_classes_generator(cardinality):
         return [(card, n + 1, x, ri_identity_test(list(x))) for n, x in primes]
 
     card_list = range(2, (cardinality + 1))
-    return [__contour_classes_generator_card(c) for c in card_list]
+    return [__build_classes_card(c) for c in card_list]
 
 
 def print_contour_classes(cardinality):
@@ -49,7 +48,7 @@ def print_contour_classes(cardinality):
     sec_txt = "\nC-space segment classes for cseg cardinality "
     sections = []
 
-    cc = flatten(contour_classes_generator(cardinality))
+    cc = flatten(build_classes(cardinality))
     card = 0
     for a, b, c, d in [[a, b, c, d] for (a, b, c, d) in cc]:
         if a != card:
@@ -473,7 +472,7 @@ class Contour():
         """
 
         prime_form = self.prime_form()
-        cseg_classes = flatten(contour_classes_generator(len(self.cseg)))
+        cseg_classes = flatten(build_classes(len(self.cseg)))
         for (cardinality, number, cseg_class, ri_identity) in cseg_classes:
             if tuple(prime_form) == cseg_class:
                 return cardinality, number, cseg_class, ri_identity

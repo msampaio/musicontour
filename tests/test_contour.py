@@ -2,25 +2,12 @@
 
 from contour.contour import (Contour, Contour_subsets,
     maximum, minimum, maxima, minima, ri_identity_test,
-    __contour_classes_generator_cardinality,
-    contour_classes_generator, print_subsets_grouped)
+    build_classes, print_subsets_grouped)
 import py
 
 
-def test_contour_classes_generator_cardinality():
-    function = __contour_classes_generator_cardinality
-    assert function(4) == [(4, 1, (0, 1, 2, 3), True),
-                           (4, 2, (0, 1, 3, 2), False),
-                           (4, 3, (0, 2, 1, 3), True),
-                           (4, 4, (0, 2, 3, 1), False),
-                           (4, 5, (0, 3, 1, 2), False),
-                           (4, 6, (0, 3, 2, 1), False),
-                           (4, 7, (1, 0, 3, 2), True),
-                           (4, 8, (1, 3, 0, 2), True)]
-
-
-def test_contour_classes_generator():
-    function = contour_classes_generator
+def test_build_classes():
+    function = build_classes
     assert function(4) == [[(2, 1, (0, 1), True)],
                            [(3, 1, (0, 1, 2), True), (3, 2, (0, 2, 1), False)],
                            [(4, 1, (0, 1, 2, 3), True),
