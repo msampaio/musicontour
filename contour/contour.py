@@ -330,14 +330,13 @@ class Contour():
         n = 0
         m = 0
 
-        # FIXME:  refactor in a function
-        while (max_tmp[-1] != max_tmp[-2]):
-            n = n + 1
-            max_tmp.append(maxima(remove_duplicate_tuples(max_tmp[-1])))
+        def steps_count(list, fn, variable):
+            while(list[-1] != list[-2]):
+                variable = variable + 1
+                list.append(fn(remove_duplicate_tuples(list[-1])))
 
-        while (min_tmp[-1] != min_tmp[-2]):
-            m = m + 1
-            min_tmp.append(minima(remove_duplicate_tuples(min_tmp[-1])))
+        steps_count(max_tmp, maxima, n)
+        steps_count(min_tmp, minima, m)
 
         max_tmp = max_tmp[-1]
         min_tmp = min_tmp[-1]
