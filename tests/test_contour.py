@@ -8,7 +8,8 @@ from ..contour.contour import (Contour, Contour_subsets,
     remove_duplicate_tuples, print_subsets_grouped, double_replace,
     replace_list_to_plus_minus, list_to_string, subsets_embed_total_number,
     subsets_embed_number, contour_embed, cseg_similarity_compare,
-    __csubseg_mutually_embed, csubseg_mutually_embed)
+    __csubseg_mutually_embed, csubseg_mutually_embed,
+    all_contour_mutualy_embed)
 import py
 
 
@@ -530,6 +531,18 @@ def test_csubseg_mutually_embed_1():
 
 def test_csubseg_mutually_embed_2():
     assert csubseg_mutually_embed(4, [1, 0, 4, 3, 2], [2, 0, 1, 4, 3]) == 0.5
+
+
+def test_all_csubseg_mutually_embed_1():
+    assert all_contour_mutualy_embed([0, 1, 2, 3], [0, 2, 1, 3]) == 0.85
+
+
+def test_all_csubseg_mutually_embed_2():
+    assert all_contour_mutualy_embed([0, 1, 2, 3], [0, 2, 1, 3, 4]) == 29/37
+
+
+def test_all_csubseg_mutually_embed_3():
+    assert all_contour_mutualy_embed([0, 2, 1, 3], [0, 2, 1, 3, 4]) == 33/37
 
 
 def test_csegs_1():

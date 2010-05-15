@@ -754,6 +754,21 @@ def csubseg_mutually_embed(cardinality, cseg1, cseg2):
     return 1.0 * a / b
 
 
+def all_contour_mutualy_embed(cseg1, cseg2):
+    """Returns ACMEMB(A,B) (Marvin and Laprade, 1987).
+
+    It's total number of significant mutually embeded csegs of
+    cardinality 2 through the cardinality of the smaller cseg divided
+    by the total possible csegs embed in both cseg1 and cseg2.
+    """
+
+    incidence, total = (0, 0)
+    for i in range(2, min(len(cseg1), len(cseg2))):
+        incidence += __csubseg_mutually_embed(i, cseg1, cseg2)[0]
+        total += __csubseg_mutually_embed(i, cseg1, cseg2)[1]
+    return 1.0 * incidence / total
+
+
 class Internal_diagonal():
     """Returns an objcect Internal diagonal.
     Input is a list of 1 and -1, representing + and - in an internal
