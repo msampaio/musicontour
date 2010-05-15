@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from contour.contour import (Contour, Contour_subsets,
-    maximum, minimum, maxima, minima, build_classes, subsets_grouped)
+     maxima, minima, build_classes, subsets_grouped)
 import py
 
 
@@ -330,23 +330,3 @@ def test_ri_identity_test_1():
 def test_ri_identity_test():
     n = Contour([1, 0, 3, 2])
     assert n.ri_identity_test() == True
-
-
-def test_maximum_1():
-    n = [(5, 0), (8, 1), (4, 2)]
-    assert maximum(n) == (8, 1)
-
-
-def test_maximum_2():
-    n = [(5, 0), (2, 1), (4, 2)]
-    assert maximum(n) == ''
-
-
-def test_minimum_1():
-    n = [(5, 4), (8, 5), (4, 6)]
-    assert minimum(n) == ''
-
-
-def test_minimum_2():
-    n = [(5, 2), (0, 3), (4, 4)]
-    assert minimum(n) == (0, 3)

@@ -120,11 +120,27 @@ def max_min(list_of_tuples, fn):
 def maxima(list_of_tuples):
     """Returns maxima (Morris, 1993) positions in a cseg."""
 
+    def maximum(dur_list):
+        """Returns the maximum (Morris, 1993) position of a three
+        c-pitches set. The input data is a list of three tuples. Each
+        tuple has the c-pitch and its position. """
+
+        (el1, p1), (el2, p2), (el3, p3) = dur_list
+        return (el2, p2) if el2 >= el1 and el2 >= el3 else ''
+
     return max_min(list_of_tuples, maximum)
 
 
 def minima(list_of_tuples):
     """Returns minima (Morris, 1993) positions in a cseg."""
+
+    def minimum(dur_list):
+        """Returns the minimum (Morris, 1993) position of a three
+        c-pitches set. The input data is a list of three tuples. Each
+        tuple has the c-pitch and its position. """
+
+        (el1, p1), (el2, p2), (el3, p3) = dur_list
+        return (el2, p2) if el2 <= el1 and el2 <= el3 else ''
 
     return max_min(list_of_tuples, minimum)
 
@@ -528,23 +544,3 @@ class Contour_subsets():
 
     def __init__(self, subsets):
         self.subsets = subsets
-
-
-# FIXME: move to maxima (or separate file)
-def maximum(dur_list):
-    """Returns the maximum (Morris, 1993) position of a three
-    c-pitches set. The input data is a list of three tuples. Each
-    tuple has the c-pitch and its position. """
-
-    (el1, p1), (el2, p2), (el3, p3) = dur_list
-    return (el2, p2) if el2 >= el1 and el2 >= el3 else ''
-
-
-# FIXME: move to maxima (or separate file)
-def minimum(dur_list):
-    """Returns the minimum (Morris, 1993) position of a three
-    c-pitches set. The input data is a list of three tuples. Each
-    tuple has the c-pitch and its position. """
-
-    (el1, p1), (el2, p2), (el3, p3) = dur_list
-    return (el2, p2) if el2 <= el1 and el2 <= el3 else ''
