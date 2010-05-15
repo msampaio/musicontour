@@ -8,6 +8,8 @@ GUI_DIR = gui
 MAIN_FILE = vlcm.py
 DIST_FILES = $(MAIN_FILE) $(GUI_DIR) $(SRC_DIR) COPYING README RELEASE
 
+.PHONY: doc tests
+
 check:
 	pep8 *.py $(SRC_DIR)/*.py $(TEST_DIR)/*.py $(GUI_DIR)/*.py
 
@@ -20,7 +22,7 @@ clean: clean-dist
 	rm -f $(GUI_DIR)/*~
 	rm -f $(GUI_DIR)/*.pyc
 
-unit-tests:
+tests:
 	py.test tests
 
 dist: tar zip
