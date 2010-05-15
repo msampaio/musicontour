@@ -7,19 +7,10 @@ from math import factorial
 from collections import defaultdict
 from utils import (flatten, replace_list_to_plus_minus, list_to_string,
                    remove_duplicate_tuples)
+from auxiliary import permut_csegs
 
 class ContourError(Exception):
     pass
-
-
-# FIXME: move inside function
-def permut_csegs(cardinality):
-    """Returns a list of possible normalized csegs of a given
-    cardinality."""
-
-    base = range(cardinality)
-    permutations(base, cardinality)
-    return sorted(permutations(base, cardinality))
 
 
 # FIXME: rename to build_classes(cardinality)

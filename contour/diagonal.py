@@ -5,6 +5,7 @@ from __future__ import print_function
 from itertools import combinations
 from contour import (Contour, permut_csegs)
 from utils import (flatten, replace_list_to_plus_minus)
+from auxiliary import permut_csegs
 
 
 class Internal_diagonal():
