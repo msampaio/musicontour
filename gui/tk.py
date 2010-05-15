@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from contour.contour import (Contour, Comparison_matrix,
-                             print_subsets_grouped, print_contour_classes)
+from contour.contour import (Contour, print_subsets_grouped,
+                             print_contour_classes)
 
 from contour.comparison import cseg_similarity_compare
 from contour.diagonal import Internal_diagonal
+from contour.matrix import Comparison_matrix
 from contour.utils import replace_plus_minus_to_list
 from contour.plot import *
 from Tkinter import (Tk, Frame, Button, Entry, Label, Text, Scrollbar,

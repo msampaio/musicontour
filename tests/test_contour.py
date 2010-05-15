@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from contour.contour import (Contour, Contour_subsets,
-    Comparison_matrix, maximum, minimum, maxima, minima, ri_identity_test,
+    maximum, minimum, maxima, minima, ri_identity_test,
     __contour_classes_generator_cardinality,
     contour_classes_generator, print_subsets_grouped)
 import py
@@ -364,14 +364,3 @@ def test_minimum_1():
 def test_minimum_2():
     n = [(5, 2), (0, 3), (4, 4)]
     assert minimum(n) == (0, 3)
-
-
-def test_Com_matrix_inversion():
-    cm = Comparison_matrix([[0, 1, 2], [0, 1, 1], [-1, 0, -1], [-1, 1, 0]])
-    assert cm.inversion() == [[2, 1, 0], [0, -1, -1], [1, 0, 1], [1, -1, 0]]
-
-
-def test_Com_str_print():
-    cm = Comparison_matrix([[0, 1, 2], [0, 1, 1], [-1, 0, -1], [-1, 1, 0]])
-    assert cm.str_print() == "  | 0 1 2\n---------\n" + \
-           "0 | 0 + +\n1 | - 0 -\n2 | - + 0\n"
