@@ -8,6 +8,11 @@ from collections import defaultdict
 from utils import flatten
 
 
+class ContourError(Exception):
+    pass
+
+
+# FIXME: move inside function
 def permut_csegs(cardinality):
     """Returns a list of possible normalized csegs of a given
     cardinality."""
@@ -17,36 +22,25 @@ def permut_csegs(cardinality):
     return sorted(permutations(base, cardinality))
 
 
-def __contour_classes_generator_cardinality(cardinality):
-    """Generates contour classes like Marvin and Laprade (1987)
-    software for one cardinality
-
-    Returns (cardinality, number, contour class).
-
-    'permut' stores all permutations with csegs of a given
-    cardinality.
-
-    '__cc_repeat stores prime forms of permut. It may have
-    duplicates.
-
-    '_cc_no_repeat' stores enumerated sorted contour class without
-    duplicates.
-    """
-
-    permut = permut_csegs(cardinality)
-    __cc_repeat = [tuple(Contour(x).prime_form()) for x in permut]
-    __cc_no_repeat = enumerate(sorted(list(set(__cc_repeat))))
-    contour_classes = [(cardinality, n + 1, x, ri_identity_test(list(x)))
-                       for n, x in __cc_no_repeat]
-    return contour_classes
-
-
+# FIXME: rename to build_classes(cardinality)
 def contour_classes_generator(cardinality):
     """Generates contour classes like Marvin and Laprade (1987)
     software."""
 
+    def __contour_classes_generator_card(card):
+        """Generates contour classes like Marvin and Laprade (1987)
+        software for one cardinality.
+
+        Returns (card, number, contour class).
+        """
+
+        permut = permut_csegs(card)
+        primes_repeats = [tuple(Contour(x).prime_form()) for x in permut]
+        primes = enumerate(sorted(list(set(primes_repeats))))
+        return [(card, n + 1, x, ri_identity_test(list(x))) for n, x in primes]
+
     card_list = range(2, (cardinality + 1))
-    return [__contour_classes_generator_cardinality(c) for c in card_list]
+    return [__contour_classes_generator_card(c) for c in card_list]
 
 
 def print_contour_classes(cardinality):
@@ -69,6 +63,7 @@ def print_contour_classes(cardinality):
     for a, b, c, d in [[a, b, c, d] for (a, b, c, d) in cc]:
         if a != card:
             sections.append(sec_txt + "{0}\n".format(a))
+            # FIXME: tira barras
             sections.append("\n" + " ".ljust(1) + "Csegclass".ljust(18) + \
                   "Prime form".ljust(20) + "INT(1)\n")
             card = a
@@ -85,6 +80,7 @@ def print_contour_classes(cardinality):
     return header + "".join(sections)
 
 
+# FIXME: rename to subsets_grouped
 def print_subsets_grouped(dictionary, group_type):
     """Returns a string with subsets grouped by their group type.
 
@@ -113,6 +109,7 @@ def print_subsets_grouped(dictionary, group_type):
     return "\n".join(r)
 
 
+# FIXME: move to utils
 def double_replace(string):
     """Replaces -1 by -, and 1 by +. Accepts string as input."""
 
@@ -148,6 +145,7 @@ def list_to_string(list):
     return " ".join([str(x) for x in list])
 
 
+# FIXME: move to maxima
 def max_min(list_of_tuples, fn):
     """Returns a list with the position of maximum or minimum
     cpitches of a cseg. Maximum or minimum function is defined in
@@ -178,6 +176,15 @@ def minima(list_of_tuples):
 
     return max_min(list_of_tuples, minimum)
 
+
+# FIXME:
+# class Fontour(list):
+#     def __init__(self, *args):
+#         list.__init__(self, args)
+
+# FIXME:
+# def __repr__(self):
+#     return "<{0}>".format(self[:])
 
 class Contour():
     """Returns an objcect contour.
@@ -354,6 +361,8 @@ class Contour():
 
         n = 0
         m = 0
+
+        # FIXME:  refactor in a function
         while (max_tmp[-1] != max_tmp[-2]):
             n = n + 1
             max_tmp.append(maxima(remove_duplicate_tuples(max_tmp[-1])))
@@ -525,6 +534,7 @@ class Contour():
         self.cseg = cseg
 
 
+# FIXME: put in a separate file
 class Contour_subsets():
 
     def subsets_count(self):
@@ -561,6 +571,7 @@ class Contour_subsets():
         self.subsets = subsets
 
 
+# FIXME: re-write as a Contour.method
 def ri_identity_test(cseg):
     """Returns True if cseg have identity under retrograde inversion."""
 
@@ -569,6 +580,7 @@ def ri_identity_test(cseg):
     return cseg == ri
 
 
+# FIXME: move to maxima (or separate file)
 def maximum(dur_list):
     """Returns the maximum (Morris, 1993) position of a three
     c-pitches set. The input data is a list of three tuples. Each
@@ -578,6 +590,7 @@ def maximum(dur_list):
     return (el2, p2) if el2 >= el1 and el2 >= el3 else ''
 
 
+# FIXME: move to maxima (or separate file)
 def minimum(dur_list):
     """Returns the minimum (Morris, 1993) position of a three
     c-pitches set. The input data is a list of three tuples. Each
@@ -587,6 +600,7 @@ def minimum(dur_list):
     return (el2, p2) if el2 <= el1 and el2 <= el3 else ''
 
 
+# FIXME: move to utils
 def remove_duplicate_tuples(list_of_tuples):
     """Removes tuples that the first item is repeated in adjacent
     tuples. The removed tuple is the second."""
@@ -600,6 +614,8 @@ def remove_duplicate_tuples(list_of_tuples):
     return tmp
 
 
+################################################################################
+# FIXME: move to separate file
 def __intern_diagon_sim(cseg1, cseg2, n):
     """Returns the number of positions where cseg1 and cseg2 have the
     same value in a n-internal diagonal."""
@@ -643,6 +659,7 @@ def subsets_embed_total_number(cseg_size, csubseg_size):
         b = factorial(csubseg_size)
         c = factorial(cseg_size - csubseg_size)
         return a / (b * c)
+    # FIXME: use ContourError
     except ValueError:
         print("Cseg_size must be greater than csubseg_size")
 
@@ -769,6 +786,8 @@ def all_contour_mutually_embed(cseg1, cseg2):
     return 1.0 * incidence / total
 
 
+################################################################################
+# FIXME: move to separate file
 class Internal_diagonal():
     """Returns an objcect Internal diagonal.
     Input is a list of 1 and -1, representing + and - in an internal
@@ -852,6 +871,8 @@ class Internal_diagonal():
         self.internal_diagonal = internal_diagonal
 
 
+################################################################################
+# FIXME: move to separate file
 class Comparison_matrix():
     """Returns an objcect comparison matrix.
     Input is a list of lists, each of them representing a line in
