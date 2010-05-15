@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from contour.contour import (Contour, print_subsets_grouped,
+from contour.contour import (Contour, subsets_grouped,
                              print_contour_classes)
 
 from contour.comparison import cseg_similarity_compare
@@ -316,9 +316,9 @@ class App:
         cseg_print = Contour(cseg).str_print()
         second_get = int(self.secondary_entry.get())
         csubset_normal = Contour(cseg).subsets_normal(second_get)
-        normal_grouped = print_subsets_grouped(csubset_normal, "normal")
+        normal_grouped = subsets_grouped(csubset_normal, "normal")
         csubset_prime = Contour(cseg).subsets_prime(second_get)
-        prime_grouped = print_subsets_grouped(csubset_prime, "prime")
+        prime_grouped = subsets_grouped(csubset_prime, "prime")
         plural = "s" if second_get > 1 else ""
         txt1 = "Original: {0}\n".format(cseg_print)
         txt2 = "Contour subsets ({0} element{1}):\n".format(second_get, plural)
@@ -339,9 +339,9 @@ class App:
         cseg = [int(x) for x in get.split(' ') if x]
         cseg_print = Contour(cseg).str_print()
         csubset_normal = Contour(cseg).all_subsets_normal()
-        normal_grouped = print_subsets_grouped(csubset_normal, "normal")
+        normal_grouped = subsets_grouped(csubset_normal, "normal")
         csubset_prime = Contour(cseg).all_subsets_prime()
-        prime_grouped = print_subsets_grouped(csubset_prime, "prime")
+        prime_grouped = subsets_grouped(csubset_prime, "prime")
         text1 = "Original: {0}\nAll contour subsets:\n".format(cseg_print)
         sep1 = ("-" * 22) + "\n"
         sep2 = ("=" * 22) + "\n"

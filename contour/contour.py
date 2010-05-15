@@ -70,16 +70,15 @@ def print_contour_classes(cardinality):
     return header + "".join(sections)
 
 
-# FIXME: rename to subsets_grouped
-def print_subsets_grouped(dictionary, group_type):
+def subsets_grouped(dictionary, group_type):
     """Returns a string with subsets grouped by their group type.
 
     If the group type is normal form, input list must be the
     Contour.subsets_normal output. If the group type is prime form,
     input list must be the Contour.subsets_prime output.
 
-    >>> print_subsets_grouped([[[1, 3, 0, 2], [3, 1, 4, 2]],
-                                [[0, 2, 3, 1], [0, 3, 4, 2]]], \"prime\")
+    >>> subsets_grouped([[[1, 3, 0, 2], [3, 1, 4, 2]],
+                        [[0, 2, 3, 1], [0, 3, 4, 2]]], \"prime\")
 
     \"Prime form < 1 3 0 2 > (1)\n< 3 1 4 2 >\n\" + \
     \"\nPrime form < 0 2 3 1 > (1)\n< 0 3 4 2 >\"

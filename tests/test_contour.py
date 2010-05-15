@@ -2,7 +2,7 @@
 
 from contour.contour import (Contour, Contour_subsets,
     maximum, minimum, maxima, minima, ri_identity_test,
-    build_classes, print_subsets_grouped)
+    build_classes, subsets_grouped)
 import py
 
 
@@ -20,13 +20,13 @@ def test_build_classes():
                             (4, 8, (1, 3, 0, 2), True)]]
 
 
-def test_print_subsets_grouped():
+def test_subsets_grouped():
     n = {(0, 1, 3, 2): [[0, 1, 4, 2]],
          (0, 2, 1, 3): [[0, 3, 1, 4]],
          (0, 2, 3, 1): [[0, 3, 4, 2]],
          (0, 3, 1, 2): [[0, 3, 1, 2]],
          (1, 3, 0, 2): [[3, 1, 4, 2]]}
-    assert print_subsets_grouped(n, "prime") == \
+    assert subsets_grouped(n, "prime") == \
            'Prime form < 0 1 3 2 > (1)\n< 0 1 4 2 >\n' + \
            'Prime form < 0 2 1 3 > (1)\n< 0 3 1 4 >\n' + \
            'Prime form < 0 2 3 1 > (1)\n< 0 3 4 2 >\n' + \

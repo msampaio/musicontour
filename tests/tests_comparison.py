@@ -2,7 +2,6 @@
 
 from contour.comparison import (cseg_similarity,
     __intern_diagon_sim,
-    print_subsets_grouped,
     subsets_embed_total_number,
     subsets_embed_number, contour_embed, cseg_similarity_compare,
     __csubseg_mutually_embed, csubseg_mutually_embed,
