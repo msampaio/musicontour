@@ -20,7 +20,7 @@ clean: clean-dist
 	rm -f $(GUI_DIR)/*~
 	rm -f $(GUI_DIR)/*.pyc
 
-regression_tests:
+unit-tests:
 	py.test tests
 
 dist: tar zip
