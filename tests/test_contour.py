@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from contour.contour import (Contour, Contour_subsets,
-    maximum, minimum, maxima, minima, ri_identity_test,
-    build_classes, subsets_grouped)
+    maximum, minimum, maxima, minima, build_classes, subsets_grouped)
 import py
 
 
@@ -324,13 +323,13 @@ def test_prime_form_subsets_count():
 
 
 def test_ri_identity_test_1():
-    n = [0, 1, 3, 2]
-    assert ri_identity_test(n) == False
+    n = Contour([0, 1, 3, 2])
+    assert n.ri_identity_test() == False
 
 
 def test_ri_identity_test():
-    n = [1, 0, 3, 2]
-    assert ri_identity_test(n) == True
+    n = Contour([1, 0, 3, 2])
+    assert n.ri_identity_test() == True
 
 
 def test_maximum_1():

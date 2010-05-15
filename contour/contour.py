@@ -27,7 +27,7 @@ def build_classes(cardinality):
         permut = permut_csegs(card)
         primes_repeats = [tuple(Contour(x).prime_form()) for x in permut]
         primes = enumerate(sorted(list(set(primes_repeats))))
-        return [(card, n + 1, x, ri_identity_test(list(x))) for n, x in primes]
+        return [(card, n + 1, x, Contour(list(x)).ri_identity_test()) for n, x in primes]
 
     card_list = range(2, (cardinality + 1))
     return [__build_classes_card(c) for c in card_list]
@@ -475,6 +475,13 @@ class Contour():
             if tuple(prime_form) == cseg_class:
                 return cardinality, number, cseg_class, ri_identity
 
+    def ri_identity_test(self):
+        """Returns True if cseg have identity under retrograde inversion."""
+
+        i = Contour(self.cseg).inversion()
+        ri = Contour(i).retrograde()
+        return self.cseg == ri
+
     def str_print(self):
         """Prints cseg like used in Contour theories:
         < 1 3 5 4 >
@@ -521,15 +528,6 @@ class Contour_subsets():
 
     def __init__(self, subsets):
         self.subsets = subsets
-
-
-# FIXME: re-write as a Contour.method
-def ri_identity_test(cseg):
-    """Returns True if cseg have identity under retrograde inversion."""
-
-    i = Contour(cseg).inversion()
-    ri = Contour(i).retrograde()
-    return cseg == ri
 
 
 # FIXME: move to maxima (or separate file)
