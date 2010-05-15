@@ -50,3 +50,37 @@ def abcm2ps(path, abc_filename):
     abc_file = path + "/" + abc_filename
     ps_file = path + "/" + filename + ".ps"
     call('abcm2ps -O {0} {1}'.format(ps_file, abc_file), shell=True)
+
+def double_replace(string):
+    """Replaces -1 by -, and 1 by +. Accepts string as input."""
+
+    return string.replace("-1", "-").replace("1", "+")
+
+
+def replace_list_to_plus_minus(list):
+    """Convert a list in a string and replace -1 by -, and 1 by +"""
+
+    return " ".join([double_replace(str(x)) for x in list])
+
+
+def replace_plus_minus_to_list(string):
+    """Convert a string with - and + to a list with -1, and 1.
+
+    >>> replace_plus_minus_to_list(\"- + -\")
+    [-1, 1, -1]]
+    >>> replace_plus_minus_to_list(\"-1 1 - + -\")
+    [-1, 1, -1, 1, -1]]
+    """
+
+    partial1 = string.replace('-1', '-').replace('1', '+')
+    partial2 = partial1.replace('-', '-1').replace('+', '1')
+    return [int(x) for x in partial2.split(" ") if x]
+
+
+def list_to_string(list):
+    """Convert a list in a string.
+
+    Inputs [1, 2, 3] and outputs '1 2 3'
+    """
+
+    return " ".join([str(x) for x in list])

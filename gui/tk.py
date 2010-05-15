@@ -3,9 +3,11 @@
 
 from contour.contour import (Contour, Internal_diagonal,
                              cseg_similarity_compare,
-                             replace_plus_minus_to_list,
                              Comparison_matrix,
                              print_subsets_grouped, print_contour_classes)
+
+from contour.utils import replace_plus_minus_to_list
+
 from contour.plot import *
 from Tkinter import (Tk, Frame, Button, Entry, Label, Text, Scrollbar,
                      END, FALSE, N, S)

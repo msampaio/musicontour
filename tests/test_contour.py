@@ -5,8 +5,8 @@ from contour.contour import (Contour, Contour_subsets,
     maxima, minima, ri_identity_test, cseg_similarity,
     __contour_classes_generator_cardinality,
     contour_classes_generator, __intern_diagon_sim,
-    remove_duplicate_tuples, print_subsets_grouped, double_replace,
-    replace_list_to_plus_minus, list_to_string, subsets_embed_total_number,
+    remove_duplicate_tuples, print_subsets_grouped,
+    subsets_embed_total_number,
     subsets_embed_number, contour_embed, cseg_similarity_compare,
     __csubseg_mutually_embed, csubseg_mutually_embed,
     all_contour_mutually_embed)
@@ -51,18 +51,6 @@ def test_print_subsets_grouped():
            'Prime form < 0 2 3 1 > (1)\n< 0 3 4 2 >\n' + \
            'Prime form < 0 3 1 2 > (1)\n< 0 3 1 2 >\n' + \
            'Prime form < 1 3 0 2 > (1)\n< 3 1 4 2 >'
-
-
-def test_double_replace():
-    assert double_replace("0 1 -1 1 0") == "0 + - + 0"
-
-
-def test_replace_list_to_plus_minus():
-    assert replace_list_to_plus_minus([0, 1, 1, -1, -1]) == "0 + + - -"
-
-
-def test_list_to_string():
-    assert list_to_string([1, 2, 3]) == "1 2 3"
 
 
 def test_rotation_1():
