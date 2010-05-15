@@ -693,6 +693,57 @@ def cseg_similarity_compare(cseg1, cseg2):
         return ["Cseg similarity", cseg_similarity(cseg1, cseg2)]
 
 
+def csubseg_mutually_embed(cardinality, cseg1, cseg2):
+    """Returns CMEMBn(X, A, B) (Marvin and Laprade, 1987).
+
+    All subsets of a given cardinality (n) are counted if they are
+    embed in both csegs A and B. This number is divided by the sum of
+    total contour subsets number of that cardinality in each segment,
+    A, and B.
+
+    'cseg1_s' and 'cseg2_s' store dictionaries with all their subsegs
+    and related normal forms.
+
+    'cseg1_t' and 'cseg2_t' store the number of csubsegs related to
+    each normal form.
+
+    'total_number' store the sum of all possible subsets of same
+    cardinality for each contour cseg1, and cseg2.
+
+    'intersection' store a list with normal forms common to cseg1 and
+    cseg2.
+
+    'incidence_number' stores the sum of subsets related by the same
+    normal form embed in cseg1 and cseg2.
+    """
+
+    try:
+        cseg1_s = Contour(cseg1).subsets_normal(cardinality)
+        cseg2_s = Contour(cseg2).subsets_normal(cardinality)
+        cseg1_t = 0
+        cseg2_t = 0
+
+        for key in cseg1_s.keys():
+            cseg1_t += len(cseg1_s[key])
+
+        for key in cseg2_s.keys():
+            cseg2_t += len(cseg2_s[key])
+
+        total_number = cseg1_t + cseg2_t
+
+        intersection = list(set(cseg2_s.keys()) & set(cseg1_s.keys()))
+        incidence_number = 0
+
+        for key in intersection:
+            incidence_number += len(cseg1_s[key])
+            incidence_number += len(cseg2_s[key])
+
+        return 1.0 * incidence_number / total_number
+
+    except ValueError:
+        print("Csegs length must be greater than cardinality.")
+
+
 class Internal_diagonal():
     """Returns an objcect Internal diagonal.
     Input is a list of 1 and -1, representing + and - in an internal
