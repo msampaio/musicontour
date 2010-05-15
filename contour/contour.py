@@ -693,8 +693,11 @@ def cseg_similarity_compare(cseg1, cseg2):
         return ["Cseg similarity", cseg_similarity(cseg1, cseg2)]
 
 
-def csubseg_mutually_embed(cardinality, cseg1, cseg2):
-    """Returns CMEMBn(X, A, B) (Marvin and Laprade, 1987).
+def __csubseg_mutually_embed(cardinality, cseg1, cseg2):
+    """Returns CMEMBn(X, A, B) (Marvin and Laprade, 1987) auxiliary
+    values.
+
+    Outputs a list with [incidence_number, total_numbers]
 
     All subsets of a given cardinality (n) are counted if they are
     embed in both csegs A and B. This number is divided by the sum of
@@ -738,10 +741,17 @@ def csubseg_mutually_embed(cardinality, cseg1, cseg2):
             incidence_number += len(cseg1_s[key])
             incidence_number += len(cseg2_s[key])
 
-        return 1.0 * incidence_number / total_number
+        return [incidence_number, total_number]
 
     except ValueError:
         print("Csegs length must be greater than cardinality.")
+
+
+def csubseg_mutually_embed(cardinality, cseg1, cseg2):
+    """Returns CMEMBn(X, A, B) (Marvin and Laprade, 1987)."""
+
+    [a, b] = __csubseg_mutually_embed(cardinality, cseg1, cseg2)
+    return 1.0 * a / b
 
 
 class Internal_diagonal():

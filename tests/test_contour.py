@@ -8,7 +8,7 @@ from ..contour.contour import (Contour, Contour_subsets,
     remove_duplicate_tuples, print_subsets_grouped, double_replace,
     replace_list_to_plus_minus, list_to_string, subsets_embed_total_number,
     subsets_embed_number, contour_embed, cseg_similarity_compare,
-    csubseg_mutually_embed)
+    __csubseg_mutually_embed, csubseg_mutually_embed)
 import py
 
 
@@ -512,6 +512,16 @@ def test_contour_similarity_compare_2():
     a = [0, 2, 1, 3]
     b = [0, 1, 2, 4]
     assert cseg_similarity_compare(a, b) == ["Cseg similarity", 5 / 6.0]
+
+
+def test___csubseg_mutually_embed_1():
+    (a, b) = ([1, 0, 4, 3, 2], [2, 0, 1, 4, 3])
+    assert __csubseg_mutually_embed(3, a, b) == [16, 20]
+
+
+def test___csubseg_mutually_embed_2():
+    (a, b) = ([1, 0, 4, 3, 2], [2, 0, 1, 4, 3])
+    assert __csubseg_mutually_embed(4, a, b) == [5, 10]
 
 
 def test_csubseg_mutually_embed_1():
