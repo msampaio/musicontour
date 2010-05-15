@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from ..contour.contour import (Contour, Contour_subsets,
+from contour.contour import (Contour, Contour_subsets,
     Internal_diagonal, Comparison_matrix, maximum, minimum,
     maxima, minima, ri_identity_test, cseg_similarity,
     __contour_classes_generator_cardinality,
