@@ -503,3 +503,6 @@ class Contour(list):
         """
 
         return "< " + utils.list_to_string(self) + " >"
+
+    def __repr__(self):
+        return "< {0} >".format(" ".join([str(x) for x in self[:]]))
