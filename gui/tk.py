@@ -298,11 +298,11 @@ class App:
     def contour_reduction(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
-        contour = contour.contour.Contour(cseg)
-        [reduced_c, depth] = contour.contour_reduction_algorithm()
+        cseg_obj = contour.contour.Contour(cseg)
+        [reduced_c, depth] = cseg_obj.contour_reduction_algorithm()
         reduced_c_print = contour.contour.Contour(reduced_c).str_print()
         text1 = "Morris Contour Reduction\n"
-        text2 = "Original:{0}\n".format(contour.str_print())
+        text2 = "Original:{0}\n".format(cseg_obj.str_print())
         result = "Reduction: {0}\nDepth: {1}".format(reduced_c_print, depth)
         self.text_output.insert(Tkinter.END, text1)
         self.text_output.insert(Tkinter.END, text2)
