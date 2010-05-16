@@ -1,8 +1,6 @@
 # -*- org -*-
 
 * main
-** rewrite classes as list children
-** use __repr__ instead of str_print
 ** change humdrum handling
    - remove humdrum module
    - use aristoxenus library
