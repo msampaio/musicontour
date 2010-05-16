@@ -1,0 +1,25 @@
+# -*- org -*-
+
+* main
+** rewrite classes as list children
+** use __repr__ instead of str_print
+** change humdrum handling
+   - remove humdrum module
+   - use aristoxenus library
+** review Villa-Lobos connection
+* documentation
+** improve operations documentation
+   - insert contour diagrams and musical examples
+   - use latex to mathematical equations
+** document new operations
+** document api
+* gui
+** create new gui with wxpython
+* tests
+** create tests for gui
+** review modules without tests
+* dist
+** create packages to install
+   - improve dependencies install
+   - use pypi
+   - create .exe for windows
