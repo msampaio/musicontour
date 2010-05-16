@@ -80,11 +80,6 @@ class InternalDiagonal(list):
         int_d = self
         return [int_d[i:i + n] for i in range(len(int_d) - (n - 1))]
 
-    def str_print(self):
-        """Prints internal diagonal like used in Contour theories:
-        < + - + >
-        """
-
         return "< " + utils.replace_list_to_plus_minus(self) + " >"
 
     def __repr__(self):
