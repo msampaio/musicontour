@@ -83,10 +83,10 @@ class App:
                                command=self.ccvii, width=10)
         self.b_cia = Tkinter.Button(master, text="CIA",
                                command=self.cia, width=10)
-        self.b_contour_compare = Tkinter.Button(master, text="Contour simil.",
-                               command=self.contour_compare, width=10)
-        self.b_contour_reduction = Tkinter.Button(master, text="Contour red.",
-                               command=self.contour_reduction, width=10)
+        self.b_compare = Tkinter.Button(master, text="Contour simil.",
+                               command=self.compare, width=10)
+        self.b_reduction = Tkinter.Button(master, text="Contour red.",
+                               command=self.reduction, width=10)
         self.b_segment_classes = Tkinter.Button(master, text="Cseg classes",
                                command=self.segment_classes, width=10)
 
@@ -109,14 +109,14 @@ class App:
             x.bind("<s>", self.n_subsets)
             x.bind("<S>", self.all_subsets)
             x.bind("<c>", self.csegs_from_int)
-            x.bind("<C>", self.contour_compare)
+            x.bind("<C>", self.compare)
 
             x.bind("<a>", self.casv)
             x.bind("<x>", self.cia)
             x.bind("<v>", self.ccvi)
             x.bind("<V>", self.ccvii)
 
-            x.bind("<e>", self.contour_reduction)
+            x.bind("<e>", self.reduction)
 
         master.columnconfigure(0, weight=1)
         master.columnconfigure(1, weight=1)
@@ -169,8 +169,8 @@ class App:
 
         ## row 8
         self.b_cia.grid(row=8, column=0)
-        self.b_contour_compare.grid(row=8, column=1)
-        self.b_contour_reduction.grid(row=8, column=2)
+        self.b_compare.grid(row=8, column=1)
+        self.b_reduction.grid(row=8, column=2)
         self.b_segment_classes.grid(row=8, column=3)
 
     ## functions
@@ -192,7 +192,7 @@ class App:
         plot_color = 'b'
         # Returns csegclass only if cseg has not repeated elements
         if len(set(cseg)) == len(cseg):
-            tmp = contour.contour.Contour(cseg).contour_segment_class()
+            tmp = contour.contour.Contour(cseg).segment_class()
             card, c_class, pr_form, ri = tmp
             pr_form_vis = contour.contour.Contour(pr_form).str_print()
             if ri == True:
@@ -295,11 +295,11 @@ class App:
         self.text_output.insert(Tkinter.END, com_matrix_str)
         self.text_output.insert(Tkinter.END, "\n")
 
-    def contour_reduction(self, event=None):
+    def reduction(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         cseg_obj = contour.contour.Contour(cseg)
-        [reduced_c, depth] = cseg_obj.contour_reduction_algorithm()
+        [reduced_c, depth] = cseg_obj.reduction_algorithm()
         reduced_c_print = contour.contour.Contour(reduced_c).str_print()
         text1 = "Morris Contour Reduction\n"
         text2 = "Original:{0}\n".format(cseg_obj.str_print())
@@ -373,7 +373,7 @@ class App:
     def casv(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
-        casv = contour.contour.Contour(cseg).contour_adjacency_series_vector()
+        casv = contour.contour.Contour(cseg).adjacency_series_vector()
         text = "Contour Adjacency Series Vector:\n"
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, casv)
@@ -382,7 +382,7 @@ class App:
     def cis(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
-        cis = contour.contour.Contour(cseg).contour_interval_succession()
+        cis = contour.contour.Contour(cseg).interval_succession()
         result = contour.contour.Contour(cis).str_print()
         text = "Contour Interval Succession:\n"
         self.text_output.insert(Tkinter.END, text)
@@ -392,7 +392,7 @@ class App:
     def cia(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
-        cia = list(contour.contour.Contour(cseg).contour_interval_array())
+        cia = list(contour.contour.Contour(cseg).interval_array())
         text = "Contour Interval Array:\n"
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, cia)
@@ -401,7 +401,7 @@ class App:
     def ccvi(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
-        ccvi = list(contour.contour.Contour(cseg).contour_class_vector_i())
+        ccvi = list(contour.contour.Contour(cseg).class_vector_i())
         text = "Contour class vector I:\n"
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, ccvi)
@@ -410,13 +410,13 @@ class App:
     def ccvii(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
-        ccvii = list(contour.contour.Contour(cseg).contour_class_vector_ii())
+        ccvii = list(contour.contour.Contour(cseg).class_vector_ii())
         text = "Contour class vector II:\n"
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, ccvii)
         self.text_output.insert(Tkinter.END, "\n")
 
-    def contour_compare(self, event=None):
+    def compare(self, event=None):
         get1 = self.main_entry.get()
         get2 = self.secondary_entry.get()
         cseg1 = [int(x) for x in get1.split(' ') if x]
@@ -432,7 +432,7 @@ class App:
         self.text_output.insert(Tkinter.END, "\n")
 
     def segment_classes(self, event=None):
-        result = contour.contour.print_contour_classes(7)
+        result = contour.contour.pretty_classes(7)
         self.text_output.insert(Tkinter.END, result)
         self.text_output.insert(Tkinter.END, "\n")
 
@@ -440,7 +440,7 @@ class App:
         self.text_output.delete(0.0, Tkinter.END)
 
     def clear_plot(self, event=None):
-        clear_plot()
+        contour.plot.clear_plot()
 
     def clear_main(self, event=None):
         self.main_entry.delete(0, Tkinter.END)

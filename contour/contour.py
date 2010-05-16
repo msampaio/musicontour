@@ -31,8 +31,8 @@ def build_classes(cardinality):
     return [__build_classes_card(c) for c in card_list]
 
 
-def print_contour_classes(cardinality):
-    """Prints contour classes like Marvin and Laprade (1987).
+def pretty_classes(cardinality):
+    """Returns contour classes like Marvin and Laprade (1987).
 
     'cc' stores flatten contour classes of all cardinalities until the
     one given.
@@ -317,7 +317,7 @@ class Contour():
 
         return [(self.cseg[p], p) for p in range(len(self.cseg))]
 
-    def contour_reduction_algorithm(self):
+    def reduction_algorithm(self):
         """Returns Morris (1993) contour reduction from a cseg."""
 
         cseg_dur = self.cps_position()
@@ -344,7 +344,7 @@ class Contour():
         c = Contour([x for (x, y) in utils.remove_duplicate_tuples(max_min)])
         return [c.prime_form(), times]
 
-    def contour_interval(self):
+    def interval(self):
         """Returns Friedmann (1985) CI, the distance between one
         element in a CC (normal_form cseg here), and a later element
         as signified by +, - and a number (without + here). For
@@ -357,20 +357,20 @@ class Contour():
         """Returns Morris (1987) comparison [COM(a, b)] for two
         c-pitches.
 
-        This method calls contour_interval(), but in contour theory
-        there is no relation between them. This calling reason is only
-        to reduce code."""
+        This method calls interval(), but in contour theory there is
+        no relation between them. This calling reason is only to
+        reduce code."""
 
-        delta = self.contour_interval()
+        delta = self.interval()
         return 0 if abs(delta) == 0 else (delta) / abs(delta)
 
-    def contour_interval_succession(self):
+    def interval_succession(self):
         """Return Friedmann (1985) CIS, a series which indicates the
         order of Contour Intervals in a given CC (normal form cseg
         here)."""
 
         subsets = self.subsets_adj(2)
-        return [Contour([x[0], x[-1]]).contour_interval() for x in subsets]
+        return [Contour([x[0], x[-1]]).interval() for x in subsets]
 
     def internal_diagonals(self, n):
         """Returns Morris (1987) int_n. The first internal diagonal
@@ -391,7 +391,7 @@ class Contour():
         [line.append([Contour(x).comparison() for x in n[r]]) for r in r_size]
         return line
 
-    def contour_adjacency_series_vector(self):
+    def adjacency_series_vector(self):
         """Returns Friedmann (1985) CASV, a two digit summation of ups
         and downs of a CAS (internal diagonal n=1 here). For example,
         [2, 1] means 2 ups and 1 down.
@@ -408,7 +408,7 @@ class Contour():
         downs = sum([(x if x < 0 else 0) for x in internal_diagonal])
         return [ups, abs(downs)]
 
-    def contour_interval_array(self):
+    def interval_array(self):
         """Return Friedmann (1985) CIA, an ordered series of numbers
         that indicates the multiplicity of each Contour Interval type
         in a given CC (normal form cseg here). For cseg [0, 1, 3, 2],
@@ -431,7 +431,7 @@ class Contour():
         downs_list = []
 
         for x in itertools.combinations(self.cseg, 2):
-            y = Contour(x).contour_interval()
+            y = Contour(x).interval()
             if y > 0:
                 ups_list.append(y)
             elif y < 0:
@@ -442,7 +442,7 @@ class Contour():
 
         return ups, downs
 
-    def contour_class_vector_i(self):
+    def class_vector_i(self):
         """Return Friedmann (1985) CCVI, a two-digit summation of
         degrees of ascent and descent expressed in contour interval
         array. The first digit is the total of products of frequency
@@ -461,21 +461,21 @@ class Contour():
         """
 
         items = range(1, len(self.cseg))
-        up_list, down_list = self.contour_interval_array()
+        up_list, down_list = self.interval_array()
         up_sum = sum([a * b for a, b in itertools.izip(up_list, items)])
         down_sum = sum([a * b for a, b in itertools.izip(down_list, items)])
         return [up_sum, down_sum]
 
-    def contour_class_vector_ii(self):
+    def class_vector_ii(self):
         """Return Friedmann (1985) CCVII, a two-digit summation of
         degrees of ascent and descent expressed in contour interval
         array. The first digit is the total of frequency of up contour
         intervals, and the second, of down contour intervals. For
         example, in CIA([2, 2, 1], [1, 0, 0], CCVII = [5, 1]."""
 
-        return [sum(x) for x in self.contour_interval_array()]
+        return [sum(x) for x in self.interval_array()]
 
-    def contour_segment_class(self):
+    def segment_class(self):
         """Returns contour segment class of a given cseg.
 
         Output format is: (cardinality, number, cseg_class, identity
