@@ -289,7 +289,7 @@ class App:
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         com_matrix = contour.contour.Contour(cseg).comparison_matrix()
-        com_matrix_str = contour.matrix.Comparison_matrix(com_matrix).str_print()
+        com_matrix_str = contour.matrix.ComparisonMatrix(com_matrix).str_print()
         text = "Comparison Matrix:\n"
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, com_matrix_str)

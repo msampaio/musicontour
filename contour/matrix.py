@@ -5,18 +5,18 @@ from __future__ import print_function
 import contour
 import utils
 
-class Comparison_matrix():
+class ComparisonMatrix():
     """Returns an objcect comparison matrix.
     Input is a list of lists, each of them representing a line in
     matrix:
 
-    >>> Comparison_matrix([[0, 1, 1], [-1, 0, -1], [-1, 1, 0]])
+    >>> ComparisonMatrix([[0, 1, 1], [-1, 0, -1], [-1, 1, 0]])
     """
 
     def inversion(self):
         """Returns the inversion of a Comparison Matrix:
 
-        >>> Comparison_matrix([[0, 1, 1], [-1, 0, -1], [-1, 1, 0]]).inversion()
+        >>> ComparisonMatrix([[0, 1, 1], [-1, 0, -1], [-1, 1, 0]]).inversion()
         [[0, -1, -1], [1, 0, 1], [1, -1, 0]]
         """
 
