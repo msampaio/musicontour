@@ -97,3 +97,11 @@ def remove_duplicate_tuples(list_of_tuples):
             tmp.append((a, b))
             prev = a
     return tmp
+
+def pretty_as_cseg(list):
+    """Prints like cseg, used in Contour theories:
+    < 1 3 5 4 >
+    """
+
+    return "< " + list_to_string(list) + " >"
+

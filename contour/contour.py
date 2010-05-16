@@ -58,12 +58,12 @@ def pretty_classes(cardinality):
             ri = "*"
         else:
             ri = " "
-        csegclass = Contour(c).str_print()
+        csegclass = Contour(c)
         int_diagonals = Contour(c).internal_diagonals(1)
-        str_int_diag = diagonal.InternalDiagonal(int_diagonals).str_print()
+        str_int_diag = diagonal.InternalDiagonal(int_diagonals)
         sections.append(" ".ljust(4) +
                         "c {0}-{1}{2}".format(a, b, ri).ljust(16) +
-                        csegclass.ljust(20) + str_int_diag.ljust(15) + "\n")
+                        str(csegclass).ljust(20) + str(str_int_diag).ljust(15) + "\n")
     return header + "".join(sections)
 
 
@@ -83,15 +83,14 @@ def subsets_grouped(dictionary, group_type):
 
     text = "{0} form".format(group_type).capitalize()
     dic = dictionary
-
     r = []
     keys = [[len(i), i] for i in dic.keys()]
     keys.sort()
     keys = [x[1] for x in keys]
     for key in keys:
-        r.append("{0} {1} ({2})".format(text, Contour(list(key)).str_print(),
+        r.append("{0} {1} ({2})".format(text, Contour(list(key)),
                                         len(dic[key])))
-        r.append("\n".join([Contour(x).str_print() for x in dic[key]]))
+        r.append("\n".join([str(Contour(x)) for x in dic[key]]))
     return "\n".join(r)
 
 
@@ -152,7 +151,7 @@ def minima(list_of_tuples):
 # def __repr__(self):
 #     return "<{0}>".format(self[:])
 
-class Contour():
+class Contour(list):
     """Returns an object contour.
     Input is a list of cpitches:
 
@@ -168,60 +167,62 @@ class Contour():
         numbers greater than cseg size.
         """
 
-        n = factor % len(self.cseg)
-        subset = self.cseg[n:]
-        subset.extend(self.cseg[0:n])
+        n = factor % len(self)
+        subset = self[n:]
+        subset.extend(self[0:n])
         return subset
 
     def retrograde(self):
         """Returns contour retrograde."""
 
-        self.cseg.reverse()
-        return self.cseg
+        tmp = self[:]
+        tmp.reverse()
+        return tmp
 
     def inversion(self):
         """Returns contour inversion."""
 
-        maxim = max(self.cseg)
-        return [(maxim - cps) for cps in self.cseg]
+        maxim = max(self)
+        return Contour([(maxim - cps) for cps in self])
 
     def translation(self):
         """Returns the normal form (Marvin 1987) of a given contour.
         It's the same of Friedmann (1985, 1987) contour class (CC)."""
 
-        sorted_contour = sorted(list(set(self.cseg)))
-        return [sorted_contour.index(x) for x in self.cseg]
+        sorted_contour = sorted(list(set(self)))
+        return [sorted_contour.index(x) for x in self]
 
     def prime_form(self):
         """Returns the prime form of a given contour."""
 
-        length = len(self.cseg)
-        self.cseg = self.translation()
+        tmp = Contour(self[:])
+        length = len(tmp)
+        tmp = Contour(tmp.translation())
 
-        if ((length - 1) - self.cseg[-1]) < self.cseg[0]:
-            self.cseg = self.inversion()
+        if ((length - 1) - tmp[-1]) < tmp[0]:
+            tmp = tmp.inversion()
         else:
-            self.cseg
+            tmp
 
-        if self.cseg[-1] < self.cseg[0]:
-            self.cseg = self.retrograde()
+        if tmp[-1] < tmp[0]:
+            tmp = tmp.retrograde()
         else:
-            self.cseg
+            tmp
 
-        return self.cseg
+        return Contour(tmp)
 
     def remove_adjacent(self):
-        """Removes adjacent elements from a list."""
+        """Removes duplicate adjacent elements from a list."""
 
-        groups = itertools.izip(self.cseg, self.cseg[1:])
-        return [a for a, b in groups if a != b] + [self.cseg[-1]]
+        groups = itertools.izip(self, self[1:])
+        return [a for a, b in groups if a != b] + [self[-1]]
 
     def subsets(self, n):
         """Returns adjacent and non-adjacent subsets of a given
         contour."""
 
-        cseg = self.cseg
-        return sorted([list(x) for x in itertools.combinations(cseg, n)])
+        cseg = self
+        return sorted([Contour(list(x)) for x in itertools.combinations(cseg, n)])
 
     def subsets_normal(self, n):
         """Returns adjacent and non-adjacent subsets of a given
@@ -242,7 +243,7 @@ class Contour():
         dic = {}
 
         for x in subsets:
-            processed = tuple(Contour(x).translation())
+            processed = tuple(x.translation())
             if processed in dic:
                 z = dic[processed]
                 z.append(x)
@@ -285,14 +286,14 @@ class Contour():
         """Returns adjacent and non-adjacent subsets of a given
         contour."""
 
-        sizes = range(2, len(self.cseg) + 1)
+        sizes = range(2, len(self) + 1)
         return utils.flatten([self.subsets(x) for x in sizes])
 
     def all_subsets_prime(self):
         """Returns all adjacent and non-adjacent subsets of a given
         contour grouped by their prime forms."""
 
-        sizes = range(2, len(self.cseg) + 1)
+        sizes = range(2, len(self) + 1)
         subsets_list = [self.subsets_prime(x) for x in sizes]
         [subsets_list[0].update(dic) for dic in subsets_list]
         return subsets_list[0]
@@ -301,7 +302,7 @@ class Contour():
         """Returns all adjacent and non-adjacent subsets of a given
         contour grouped by their normal forms."""
 
-        sizes = range(2, len(self.cseg) + 1)
+        sizes = range(2, len(self) + 1)
         subsets_list = [self.subsets_normal(x) for x in sizes]
         [subsets_list[0].update(dic) for dic in subsets_list]
         return subsets_list[0]
@@ -309,13 +310,13 @@ class Contour():
     def subsets_adj(self, n):
         """Returns adjacent n-elements subsets of a given contour."""
 
-        return [self.cseg[i:i + n] for i in range(len(self.cseg) - (n - 1))]
+        return [Contour(self[i:i + n]) for i in range(len(self) - (n - 1))]
 
     def cps_position(self):
         """Returns a tuple with c-pitch and its position for each
         c-pitch of a cseg done."""
 
-        return [(self.cseg[p], p) for p in range(len(self.cseg))]
+        return [(self[p], p) for p in range(len(self))]
 
     def reduction_algorithm(self):
         """Returns Morris (1993) contour reduction from a cseg."""
@@ -350,7 +351,7 @@ class Contour():
         as signified by +, - and a number (without + here). For
         example, in cseg = [0, 2, 1], CI(0, 2) = 2, e CI(2, 1) = -1."""
 
-        el1, el2 = self.cseg
+        el1, el2 = self
         return el2 - el1
 
     def comparison(self):
@@ -378,16 +379,16 @@ class Contour():
         adjacency series (CC)."""
 
         subsets = self.subsets_adj(n + 1)
-        return [Contour([x[0], x[-1]]).comparison() for x in subsets]
+        return diagonal.InternalDiagonal([Contour([x[0], x[-1]]).comparison() for x in subsets])
 
     def comparison_matrix(self):
         """Returns Morris (1987) a cseg COM-Matrix."""
 
-        size = len(self.cseg)
+        size = len(self)
         r_size = range(size)
-        m = [[a, b] for a in self.cseg for b in self.cseg]
+        m = [[a, b] for a in self for b in self]
         n = [m[(i * size):((i + 1) * size)] for i in range(size)]
-        line = [self.cseg]
+        line = [self]
         [line.append([Contour(x).comparison() for x in n[r]]) for r in r_size]
         return line
 
@@ -425,12 +426,12 @@ class Contour():
         types of positive and negative intervals in the cseg.
         """
 
-        up_intervals = range(1, len(self.cseg))
+        up_intervals = range(1, len(self))
         down_intervals = [-x for x in up_intervals]
         ups_list = []
         downs_list = []
 
-        for x in itertools.combinations(self.cseg, 2):
+        for x in itertools.combinations(self, 2):
             y = Contour(x).interval()
             if y > 0:
                 ups_list.append(y)
@@ -460,7 +461,7 @@ class Contour():
         contour interval frequency and contour interval value.
         """
 
-        items = range(1, len(self.cseg))
+        items = range(1, len(self))
         up_list, down_list = self.interval_array()
         up_sum = sum([a * b for a, b in itertools.izip(up_list, items)])
         down_sum = sum([a * b for a, b in itertools.izip(down_list, items)])
@@ -483,7 +484,7 @@ class Contour():
         """
 
         prime_form = self.prime_form()
-        cseg_classes = utils.flatten(build_classes(len(self.cseg)))
+        cseg_classes = utils.flatten(build_classes(len(self)))
         for (cardinality, number, cseg_class, ri_identity) in cseg_classes:
             if tuple(prime_form) == cseg_class:
                 return cardinality, number, cseg_class, ri_identity
@@ -491,16 +492,9 @@ class Contour():
     def ri_identity_test(self):
         """Returns True if cseg have identity under retrograde inversion."""
 
-        i = Contour(self.cseg).inversion()
+        i = Contour(self).inversion()
         ri = Contour(i).retrograde()
-        return self.cseg == ri
+        return self == ri
 
-    def str_print(self):
-        """Prints cseg like used in Contour theories:
-        < 1 3 5 4 >
-        """
-
-        return "< " + utils.list_to_string(self.cseg) + " >"
-
-    def __init__(self, cseg):
-        self.cseg = cseg
+    def __repr__(self):
+        return "< {0} >".format(" ".join([str(x) for x in self[:]]))

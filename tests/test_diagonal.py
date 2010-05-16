@@ -89,8 +89,3 @@ def test_Int_subsets_adj_2():
     n = contour.diagonal.InternalDiagonal([1, 1, 0, -1, -1, 1])
     assert n.subsets_adj(3) == [[1, 1, 0], [1, 0, -1],
                                 [0, -1, -1], [-1, -1, 1]]
-
-
-def test_Int_str_print():
-    i = contour.diagonal.InternalDiagonal([1, -1, 1])
-    assert i.str_print() == "< + - + >"
