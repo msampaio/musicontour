@@ -153,7 +153,7 @@ def minima(list_of_tuples):
 #     return "<{0}>".format(self[:])
 
 class Contour():
-    """Returns an objcect contour.
+    """Returns an object contour.
     Input is a list of cpitches:
 
     >>> Contour([0, 1, 3, 2])
