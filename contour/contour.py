@@ -5,7 +5,7 @@ from __future__ import print_function
 import itertools
 import utils
 import auxiliary
-
+import diagonal
 
 class ContourError(Exception):
     pass
@@ -60,7 +60,7 @@ def print_contour_classes(cardinality):
             ri = " "
         csegclass = Contour(c).str_print()
         int_diagonals = Contour(c).internal_diagonals(1)
-        str_int_diag = Internal_diagonal(int_diagonals).str_print()
+        str_int_diag = diagonal.Internal_diagonal(int_diagonals).str_print()
         sections.append(" ".ljust(4) +
                         "c {0}-{1}{2}".format(a, b, ri).ljust(16) +
                         csegclass.ljust(20) + str_int_diag.ljust(15) + "\n")
