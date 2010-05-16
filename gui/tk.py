@@ -279,7 +279,7 @@ class App:
         cseg = [int(x) for x in get.split(' ') if x]
         second_get = int(self.secondary_entry.get())
         int_diag = contour.contour.Contour(cseg).internal_diagonals(second_get)
-        format_int_diag = contour.diagonal.Internal_diagonal(int_diag).str_print()
+        format_int_diag = contour.diagonal.InternalDiagonal(int_diag).str_print()
         text = "Internal diagonal ({0}): ".format(second_get)
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, format_int_diag)
@@ -362,7 +362,7 @@ class App:
             self.text_output.insert(Tkinter.END, text)
         else:
             second_get = int(self.secondary_entry.get())
-            csegs = contour.diagonal.Internal_diagonal(int_d).csegs(second_get)
+            csegs = contour.diagonal.InternalDiagonal(int_d).csegs(second_get)
             result = "\n".join([contour.contour.Contour(x).str_print() for x in csegs])
             plural = "s" if second_get > 1 else ""
             text = "Csegs:\n"

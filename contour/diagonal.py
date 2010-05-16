@@ -8,19 +8,19 @@ import utils
 import auxiliary
 
 
-class Internal_diagonal():
+class InternalDiagonal():
     """Returns an objcect Internal diagonal.
     Input is a list of 1 and -1, representing + and - in an internal
     diagonal:
 
-    >>> Internal_diagonal([-1, 1, 1])
+    >>> InternalDiagonal([-1, 1, 1])
     """
 
     def csegs(self, diagonal=1):
         """Returns all csegs in normal form that have the given
         internal diagonal.
 
-        >>> Internal_diagonal([-1, 1, 1]).csegs
+        >>> InternalDiagonal([-1, 1, 1]).csegs
         [[1, 0, 2, 3], [2, 0, 1, 3], [3, 0, 1, 2]]
         """
 
@@ -54,7 +54,7 @@ class Internal_diagonal():
     def inversion(self):
         """Returns Internal diagonal inversion.
 
-        >>> Internal_diagonal([-1, 1, 1]).inversion
+        >>> InternalDiagonal([-1, 1, 1]).inversion
         [1, -1, -1]
         """
 
