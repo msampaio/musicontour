@@ -171,14 +171,14 @@ class Contour(list):
         n = factor % len(self)
         subset = self[n:]
         subset.extend(self[0:n])
-        return subset
+        return Contour(subset)
 
     def retrograde(self):
         """Returns contour retrograde."""
 
         tmp = self[:]
         tmp.reverse()
-        return tmp
+        return Contour(tmp)
 
     def inversion(self):
         """Returns contour inversion."""
@@ -191,7 +191,7 @@ class Contour(list):
         It's the same of Friedmann (1985, 1987) contour class (CC)."""
 
         sorted_contour = sorted(list(set(self)))
-        return [sorted_contour.index(x) for x in self]
+        return Contour([sorted_contour.index(x) for x in self])
 
     def prime_form(self):
         """Returns the prime form of a given contour."""
