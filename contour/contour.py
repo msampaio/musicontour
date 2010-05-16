@@ -6,6 +6,7 @@ import itertools
 import utils
 import auxiliary
 import diagonal
+import matrix
 
 class ContourError(Exception):
     pass
@@ -390,7 +391,7 @@ class Contour(list):
         n = [m[(i * size):((i + 1) * size)] for i in range(size)]
         line = [self]
         [line.append([Contour(x).comparison() for x in n[r]]) for r in r_size]
-        return line
+        return matrix.ComparisonMatrix(line)
 
     def adjacency_series_vector(self):
         """Returns Friedmann (1985) CASV, a two digit summation of ups
