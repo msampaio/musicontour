@@ -58,12 +58,12 @@ def pretty_classes(cardinality):
             ri = "*"
         else:
             ri = " "
-        csegclass = Contour(c).str_print()
+        csegclass = Contour(c)
         int_diagonals = Contour(c).internal_diagonals(1)
-        str_int_diag = diagonal.InternalDiagonal(int_diagonals).str_print()
+        str_int_diag = diagonal.InternalDiagonal(int_diagonals)
         sections.append(" ".ljust(4) +
                         "c {0}-{1}{2}".format(a, b, ri).ljust(16) +
-                        csegclass.ljust(20) + str_int_diag.ljust(15) + "\n")
+                        str(csegclass).ljust(20) + str(str_int_diag).ljust(15) + "\n")
     return header + "".join(sections)
 
 
@@ -83,15 +83,14 @@ def subsets_grouped(dictionary, group_type):
 
     text = "{0} form".format(group_type).capitalize()
     dic = dictionary
-
     r = []
     keys = [[len(i), i] for i in dic.keys()]
     keys.sort()
     keys = [x[1] for x in keys]
     for key in keys:
-        r.append("{0} {1} ({2})".format(text, Contour(list(key)).str_print(),
+        r.append("{0} {1} ({2})".format(text, Contour(list(key)),
                                         len(dic[key])))
-        r.append("\n".join([Contour(x).str_print() for x in dic[key]]))
+        r.append("\n".join([str(Contour(x)) for x in dic[key]]))
     return "\n".join(r)
 
 
@@ -496,13 +495,6 @@ class Contour(list):
         i = Contour(self).inversion()
         ri = Contour(i).retrograde()
         return self == ri
-
-    def str_print(self):
-        """Prints cseg like used in Contour theories:
-        < 1 3 5 4 >
-        """
-
-        return "< " + utils.list_to_string(self) + " >"
 
     def __repr__(self):
         return "< {0} >".format(" ".join([str(x) for x in self[:]]))

@@ -179,7 +179,7 @@ class App:
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         plot_color = 'k'
-        result = contour.contour.Contour(cseg).str_print()
+        result = contour.contour.Contour(cseg)
         text = "Original: "
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
@@ -194,7 +194,7 @@ class App:
         if len(set(cseg)) == len(cseg):
             tmp = contour.contour.Contour(cseg).segment_class()
             card, c_class, pr_form, ri = tmp
-            pr_form_vis = contour.contour.Contour(pr_form).str_print()
+            pr_form_vis = contour.contour.Contour(pr_form)
             if ri == True:
                 ri = "*"
             else:
@@ -202,7 +202,7 @@ class App:
             result = "{0}-{1}{2} {3}".format(card, c_class, ri, pr_form_vis)
         else:
             pr_form = contour.contour.Contour(cseg).pr_form()
-            pr_form_vis = contour.contour.Contour(pr_form).str_print()
+            pr_form_vis = contour.contour.Contour(pr_form)
             result = "{0}".format(pr_form_vis)
         text = "Prime form: "
         self.text_output.insert(Tkinter.END, text)
@@ -215,7 +215,7 @@ class App:
         cseg = [int(x) for x in get.split(' ') if x]
         plot_color = 'g'
         normal_form = contour.contour.Contour(cseg).translation()
-        result = contour.contour.Contour(normal_form).str_print()
+        result = contour.contour.Contour(normal_form)
         text = "Normal form: "
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
@@ -227,7 +227,7 @@ class App:
         cseg = [int(x) for x in get.split(' ') if x]
         plot_color = 'm'
         retrograde = contour.contour.Contour(cseg).retrograde()
-        result = contour.contour.Contour(retrograde).str_print()
+        result = contour.contour.Contour(retrograde)
         text = "Retrograde: "
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
@@ -239,7 +239,7 @@ class App:
         cseg = [int(x) for x in get.split(' ') if x]
         plot_color = 'r'
         inversion = contour.contour.Contour(cseg).inversion()
-        result = contour.contour.Contour(inversion).str_print()
+        result = contour.contour.Contour(inversion)
         text = "Inversion: "
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
@@ -252,7 +252,7 @@ class App:
         plot_color = 'c'
         ret = contour.contour.Contour(cseg).retrograde()
         ret_inv = contour.contour.Contour(ret).inversion()
-        result = contour.contour.Contour(ret_inv).str_print()
+        result = contour.contour.Contour(ret_inv)
         text = "Ret. Inv.: "
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
@@ -267,7 +267,7 @@ class App:
         # returns a color for each rotation factor
         plot_color = str((second_get / float(size) * .8) + .1)
         rotation = contour.contour.Contour(cseg).rotation(second_get)
-        result = contour.contour.Contour(rotation).str_print()
+        result = contour.contour.Contour(rotation)
         text = "Rotation ({0}): ".format(second_get)
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
@@ -279,7 +279,7 @@ class App:
         cseg = [int(x) for x in get.split(' ') if x]
         second_get = int(self.secondary_entry.get())
         int_diag = contour.contour.Contour(cseg).internal_diagonals(second_get)
-        format_int_diag = contour.diagonal.InternalDiagonal(int_diag).str_print()
+        format_int_diag = contour.diagonal.InternalDiagonal(int_diag)
         text = "Internal diagonal ({0}): ".format(second_get)
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, format_int_diag)
@@ -300,9 +300,9 @@ class App:
         cseg = [int(x) for x in get.split(' ') if x]
         cseg_obj = contour.contour.Contour(cseg)
         [reduced_c, depth] = cseg_obj.reduction_algorithm()
-        reduced_c_print = contour.contour.Contour(reduced_c).str_print()
+        reduced_c_print = contour.contour.Contour(reduced_c)
         text1 = "Morris Contour Reduction\n"
-        text2 = "Original:{0}\n".format(cseg_obj.str_print())
+        text2 = "Original:{0}\n".format(cseg_obj)
         result = "Reduction: {0}\nDepth: {1}".format(reduced_c_print, depth)
         self.text_output.insert(Tkinter.END, text1)
         self.text_output.insert(Tkinter.END, text2)
@@ -313,14 +313,13 @@ class App:
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         cseg_obj = contour.contour.Contour(cseg)
-        cseg_print = contour.contour.Contour(cseg).str_print()
         second_get = int(self.secondary_entry.get())
         csubset_normal = cseg_obj.subsets_normal(second_get)
         normal_gr = contour.contour.subsets_grouped(csubset_normal, "normal")
         csubset_prime = contour.contour.Contour(cseg).subsets_prime(second_get)
         prime_gr = contour.contour.subsets_grouped(csubset_prime, "prime")
         plural = "s" if second_get > 1 else ""
-        txt1 = "Original: {0}\n".format(cseg_print)
+        txt1 = "Original: {0}\n".format(cseg_obj)
         txt2 = "Contour subsets ({0} element{1}):\n".format(second_get, plural)
         sep1 = ("-" * 22) + "\n"
         sep2 = ("=" * 22) + "\n"
@@ -337,7 +336,7 @@ class App:
     def all_subsets(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
-        cseg_print = contour.contour.Contour(cseg).str_print()
+        cseg_print = contour.contour.Contour(cseg)
         csubset_normal = contour.contour.Contour(cseg).all_subsets_normal()
         normal_gr = contour.contour.subsets_grouped(csubset_normal, "normal")
         csubset_prime = contour.contour.Contour(cseg).all_subsets_prime()
@@ -363,7 +362,7 @@ class App:
         else:
             second_get = int(self.secondary_entry.get())
             csegs = contour.diagonal.InternalDiagonal(int_d).csegs(second_get)
-            result = "\n".join([contour.contour.Contour(x).str_print() for x in csegs])
+            result = "\n".join([str(x) for x in csegs])
             plural = "s" if second_get > 1 else ""
             text = "Csegs:\n"
             self.text_output.insert(Tkinter.END, text)
@@ -383,7 +382,7 @@ class App:
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         cis = contour.contour.Contour(cseg).interval_succession()
-        result = contour.contour.Contour(cis).str_print()
+        result = contour.utils.pretty_as_cseg(cis)
         text = "Contour Interval Succession:\n"
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
@@ -421,8 +420,8 @@ class App:
         get2 = self.secondary_entry.get()
         cseg1 = [int(x) for x in get1.split(' ') if x]
         cseg2 = [int(x) for x in get2.split(' ') if x]
-        cseg1_p = contour.contour.Contour(cseg1).str_print()
-        cseg2_p = contour.contour.Contour(cseg2).str_print()
+        cseg1_p = contour.contour.Contour(cseg1)
+        cseg2_p = contour.contour.Contour(cseg2)
         tmp = contour.comparison.cseg_similarity_compare(cseg1, cseg2)
         [operation, result] = tmp
         text1 = "{0}: {1:.2f}\n".format(operation, result)

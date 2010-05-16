@@ -264,10 +264,6 @@ def test_segment_class_2():
     assert c.segment_class() == (3, 1, (0, 1, 2), True)
 
 
-def test_str_print():
-    assert contour.contour.Contour([2, 1, 4]).str_print() == "< 2 1 4 >"
-
-
 def test_ri_identity_test_1():
     n = contour.contour.Contour([0, 1, 3, 2])
     assert n.ri_identity_test() == False

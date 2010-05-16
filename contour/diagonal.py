@@ -26,7 +26,7 @@ class InternalDiagonal(list):
 
         size = len(self) + diagonal
         permut = auxiliary.permut_csegs(size)
-        int_d_permut = [[contour.Contour(list(x)).internal_diagonals(diagonal), list(x)] for x in permut]
+        int_d_permut = [[contour.Contour(list(x)).internal_diagonals(diagonal), contour.Contour(list(x))] for x in permut]
         result = []
         [result.append(y[1]) for y in int_d_permut if y[0] == self]
         return result
