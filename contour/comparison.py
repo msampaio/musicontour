@@ -174,3 +174,34 @@ def all_contour_mutually_embed(cseg1, cseg2):
         incidence += __csubseg_mutually_embed(i, cseg1, cseg2)[0]
         total += __csubseg_mutually_embed(i, cseg1, cseg2)[1]
     return 1.0 * incidence / total
+
+
+def all_comparison(*csegs):
+    """Returns contour operations relations between each couple of
+    csegs of a list."""
+
+    def apply_fn(cseg, fn):
+        return apply(getattr(contour.Contour(cseg), fn))
+
+    def find_relations(dictionary):
+        relations = []
+        for a in dictionary:
+            for b in dictionary:
+                if a != b:
+                    if dictionary[a] == dictionary[b]:
+                        (m, n) = a
+                        (o, p) = b
+                        relations.append([[contour.Contour(list(m)), n], [contour.Contour(list(o)), p]])
+        return relations
+
+    def build_dictionary(csegs):
+        cseg_op = {}
+        for cseg in csegs:
+            for fn in operations:
+                cseg_op[(tuple(cseg), fn)] = apply_fn(contour.Contour(cseg).translation(), fn)
+        return cseg_op
+
+    operations = ["prime_form", "inversion", "rotation", "retrograde", "comparison_matrix"]
+    cseg_op = build_dictionary(csegs)
+
+    return find_relations(cseg_op)
