@@ -2,12 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-from itertools import (permutations, combinations, izip)
-from math import factorial
-from collections import defaultdict
-from utils import (flatten, replace_list_to_plus_minus, list_to_string,
-                   remove_duplicate_tuples)
-from auxiliary import permut_csegs
+import itertools
+import utils
+import auxiliary
+
 
 class ContourError(Exception):
     pass
@@ -24,7 +22,7 @@ def build_classes(cardinality):
         Returns (card, number, contour class).
         """
 
-        permut = permut_csegs(card)
+        permut = auxiliary.permut_csegs(card)
         primes_repeats = [tuple(Contour(x).prime_form()) for x in permut]
         primes = enumerate(sorted(list(set(primes_repeats))))
         return [(card, n + 1, x, Contour(list(x)).ri_identity_test()) for n, x in primes]
@@ -48,7 +46,7 @@ def print_contour_classes(cardinality):
     sec_txt = "\nC-space segment classes for cseg cardinality "
     sections = []
 
-    cc = flatten(build_classes(cardinality))
+    cc = utils.flatten(build_classes(cardinality))
     card = 0
     for a, b, c, d in [[a, b, c, d] for (a, b, c, d) in cc]:
         if a != card:
@@ -215,7 +213,7 @@ class Contour():
     def remove_adjacent(self):
         """Removes adjacent elements from a list."""
 
-        groups = izip(self.cseg, self.cseg[1:])
+        groups = itertools.izip(self.cseg, self.cseg[1:])
         return [a for a, b in groups if a != b] + [self.cseg[-1]]
 
     def subsets(self, n):
@@ -223,7 +221,7 @@ class Contour():
         contour."""
 
         cseg = self.cseg
-        return sorted([list(x) for x in combinations(cseg, n)])
+        return sorted([list(x) for x in itertools.combinations(cseg, n)])
 
     def subsets_normal(self, n):
         """Returns adjacent and non-adjacent subsets of a given
@@ -288,7 +286,7 @@ class Contour():
         contour."""
 
         sizes = range(2, len(self.cseg) + 1)
-        return flatten([self.subsets(x) for x in sizes])
+        return utils.flatten([self.subsets(x) for x in sizes])
 
     def all_subsets_prime(self):
         """Returns all adjacent and non-adjacent subsets of a given
@@ -333,7 +331,7 @@ class Contour():
         def steps_count(list, fn, variable):
             while(list[-1] != list[-2]):
                 variable = variable + 1
-                list.append(fn(remove_duplicate_tuples(list[-1])))
+                list.append(fn(utils.remove_duplicate_tuples(list[-1])))
 
         steps_count(max_tmp, maxima, n)
         steps_count(min_tmp, minima, m)
@@ -342,8 +340,8 @@ class Contour():
         min_tmp = min_tmp[-1]
 
         times = max([n, m])
-        max_min = sorted(flatten([max_tmp, min_tmp]), key=lambda x: x[1])
-        c = Contour([x for (x, y) in remove_duplicate_tuples(max_min)])
+        max_min = sorted(utils.flatten([max_tmp, min_tmp]), key=lambda x: x[1])
+        c = Contour([x for (x, y) in utils.remove_duplicate_tuples(max_min)])
         return [c.prime_form(), times]
 
     def contour_interval(self):
@@ -432,7 +430,7 @@ class Contour():
         ups_list = []
         downs_list = []
 
-        for x in combinations(self.cseg, 2):
+        for x in itertools.combinations(self.cseg, 2):
             y = Contour(x).contour_interval()
             if y > 0:
                 ups_list.append(y)
@@ -464,8 +462,8 @@ class Contour():
 
         items = range(1, len(self.cseg))
         up_list, down_list = self.contour_interval_array()
-        up_sum = sum([a * b for a, b in izip(up_list, items)])
-        down_sum = sum([a * b for a, b in izip(down_list, items)])
+        up_sum = sum([a * b for a, b in itertools.izip(up_list, items)])
+        down_sum = sum([a * b for a, b in itertools.izip(down_list, items)])
         return [up_sum, down_sum]
 
     def contour_class_vector_ii(self):
@@ -485,7 +483,7 @@ class Contour():
         """
 
         prime_form = self.prime_form()
-        cseg_classes = flatten(build_classes(len(self.cseg)))
+        cseg_classes = utils.flatten(build_classes(len(self.cseg)))
         for (cardinality, number, cseg_class, ri_identity) in cseg_classes:
             if tuple(prime_form) == cseg_class:
                 return cardinality, number, cseg_class, ri_identity
@@ -502,7 +500,7 @@ class Contour():
         < 1 3 5 4 >
         """
 
-        return "< " + list_to_string(self.cseg) + " >"
+        return "< " + utils.list_to_string(self.cseg) + " >"
 
     def __init__(self, cseg):
         self.cseg = cseg

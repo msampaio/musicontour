@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-from itertools import permutations
-from contour import Contour
+import itertools
+import contour
 
 
 def permut_csegs(cardinality):
@@ -11,8 +11,7 @@ def permut_csegs(cardinality):
     cardinality."""
 
     base = range(cardinality)
-    permutations(base, cardinality)
-    return sorted(permutations(base, cardinality))
+    return sorted(itertools.permutations(base, cardinality))
 
 
 def subsets_count(subsets_list):
@@ -27,13 +26,13 @@ def subsets_count(subsets_list):
 def normal_form_subsets(subsets_list):
     """Outputs normal form of a list of subsets."""
 
-    return [Contour(x).translation() for x in subsets_list]
+    return [contour.Contour(x).translation() for x in subsets_list]
 
 
 def prime_form_subsets(subsets_list):
     """Outputs normal form of a list of subsets."""
 
-    return [Contour(x).prime_form() for x in subsets_list]
+    return [contour.Contour(x).prime_form() for x in subsets_list]
 
 
 def normal_form_subsets_count(subsets_list):

@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-from itertools import combinations
-from contour import (Contour, permut_csegs)
-from utils import (flatten, replace_list_to_plus_minus)
-from auxiliary import permut_csegs
+import itertools
+import contour
+import utils
+import auxiliary
 
 
 class Internal_diagonal():
@@ -25,8 +25,8 @@ class Internal_diagonal():
         """
 
         size = len(self.internal_diagonal) + diagonal
-        permut = permut_csegs(size)
-        int_d_permut = [[Contour(list(x)).internal_diagonals(diagonal), list(x)] for x in permut]
+        permut = auxiliary.permut_csegs(size)
+        int_d_permut = [[contour.Contour(list(x)).internal_diagonals(diagonal), list(x)] for x in permut]
         result = []
         [result.append(y[1]) for y in int_d_permut if y[0] == self.internal_diagonal]
         return result
@@ -65,14 +65,14 @@ class Internal_diagonal():
         contour."""
 
         int_d = self.internal_diagonal
-        return sorted([list(x) for x in combinations(int_d, n)])
+        return sorted([list(x) for x in itertools.combinations(int_d, n)])
 
     def all_subsets(self):
         """Returns adjacent and non-adjacent subsets of a given
         contour."""
 
         sizes = range(2, len(self.internal_diagonal) + 1)
-        return flatten([self.subsets(x) for x in sizes])
+        return utils.flatten([self.subsets(x) for x in sizes])
 
     def subsets_adj(self, n):
         """Returns adjacent n-elements subsets of a given contour."""
@@ -85,7 +85,7 @@ class Internal_diagonal():
         < + - + >
         """
 
-        return "< " + replace_list_to_plus_minus(self.internal_diagonal) + " >"
+        return "< " + utils.replace_list_to_plus_minus(self.internal_diagonal) + " >"
 
     def __init__(self, internal_diagonal):
         self.internal_diagonal = internal_diagonal

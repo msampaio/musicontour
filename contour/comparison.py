@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-from contour import Contour
-from math import factorial
+import math
+import contour
 
 
 def __intern_diagon_sim(cseg1, cseg2, n):
     """Returns the number of positions where cseg1 and cseg2 have the
     same value in a n-internal diagonal."""
 
-    c1, c2 = Contour(cseg1), Contour(cseg2)
+    c1, c2 = contour.Contour(cseg1), contour.Contour(cseg2)
     d1, d2 = c1.internal_diagonals(n), c2.internal_diagonals(n)
     length = len(d1)
     return sum([(1 if d1[i] == d2[i] else 0) for i in range(length)])
@@ -45,9 +45,9 @@ def subsets_embed_total_number(cseg_size, csubseg_size):
 
     try:
         cseg_size >= csubseg_size == True
-        a = factorial(cseg_size)
-        b = factorial(csubseg_size)
-        c = factorial(cseg_size - csubseg_size)
+        a = math.factorial(cseg_size)
+        b = math.factorial(csubseg_size)
+        c = math.factorial(cseg_size - csubseg_size)
         return a / (b * c)
     # FIXME: use ContourError
     except ValueError:
@@ -59,7 +59,7 @@ def subsets_embed_number(cseg, csubseg):
     in cseg subsets. Marvin and Laprade (1987)."""
 
     try:
-        dic = Contour(cseg).subsets_normal(len(csubseg))
+        dic = contour.Contour(cseg).subsets_normal(len(csubseg))
         return len(dic[tuple(csubseg)])
 
     except ValueError:
@@ -78,7 +78,7 @@ def contour_embed(cseg1, cseg2):
         cseg = cseg2
         csubseg = cseg1
 
-    n_csubseg = Contour(csubseg).translation()
+    n_csubseg = contour.Contour(csubseg).translation()
     cseg_size = len(cseg)
     csubseg_size = len(csubseg)
 
@@ -128,8 +128,8 @@ def __csubseg_mutually_embed(cardinality, cseg1, cseg2):
     """
 
     try:
-        cseg1_s = Contour(cseg1).subsets_normal(cardinality)
-        cseg2_s = Contour(cseg2).subsets_normal(cardinality)
+        cseg1_s = contour.Contour(cseg1).subsets_normal(cardinality)
+        cseg2_s = contour.Contour(cseg2).subsets_normal(cardinality)
         cseg1_t = 0
         cseg2_t = 0
 

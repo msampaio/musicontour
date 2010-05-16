@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-from subprocess import (Popen, call)
+import subprocess
 
 
 def flatten(seq):
@@ -49,7 +49,7 @@ def abcm2ps(path, abc_filename):
     filename = abc_filename.split(".abc")[0]
     abc_file = path + "/" + abc_filename
     ps_file = path + "/" + filename + ".ps"
-    call('abcm2ps -O {0} {1}'.format(ps_file, abc_file), shell=True)
+    subprocess.call('abcm2ps -O {0} {1}'.format(ps_file, abc_file), shell=True)
 
 def double_replace(string):
     """Replaces -1 by -, and 1 by +. Accepts string as input."""
