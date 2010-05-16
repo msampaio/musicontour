@@ -360,12 +360,15 @@ class App:
             text = "ERROR: Insert Internal diagonal in main entry:\n- + -\n"
             self.text_output.insert(Tkinter.END, text)
         else:
+            int_d = contour.diagonal.InternalDiagonal(int_d)
             second_get = int(self.secondary_entry.get())
-            csegs = contour.diagonal.InternalDiagonal(int_d).csegs(second_get)
+            csegs = int_d.csegs(second_get)
             result = "\n".join([str(x) for x in csegs])
             plural = "s" if second_get > 1 else ""
-            text = "Csegs:\n"
-            self.text_output.insert(Tkinter.END, text)
+            text1 = "Possible Csegs with "
+            text2 = "Internal diagonal ({0}): {1}\n".format(second_get, int_d)
+            self.text_output.insert(Tkinter.END, text1)
+            self.text_output.insert(Tkinter.END, text2)
             self.text_output.insert(Tkinter.END, result)
             self.text_output.insert(Tkinter.END, "\n")
 
