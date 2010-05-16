@@ -380,7 +380,7 @@ class Contour(list):
         adjacency series (CC)."""
 
         subsets = self.subsets_adj(n + 1)
-        return [Contour([x[0], x[-1]]).comparison() for x in subsets]
+        return diagonal.InternalDiagonal([Contour([x[0], x[-1]]).comparison() for x in subsets])
 
     def comparison_matrix(self):
         """Returns Morris (1987) a cseg COM-Matrix."""
