@@ -77,21 +77,6 @@ def test_prime_form_1():
     assert n.prime_form() == [0, 3, 2, 1]
 
 
-def test_remove_adjacent_1():
-    n = contour.contour.Contour([1, 4, 9, 9, 2, 1])
-    assert n.remove_adjacent() == [1, 4, 9, 2, 1]
-
-
-def test_remove_adjacent_2():
-    n = contour.contour.Contour([0, 1, 1, 2, 3])
-    assert n.remove_adjacent() == [0, 1, 2, 3]
-
-
-def test_remove_adjacent_3():
-    n = contour.contour.Contour([1, 4, 9, 9, 2, 4])
-    assert n.remove_adjacent() == [1, 4, 9, 2, 4]
-
-
 def test_subsets_1():
     n = contour.contour.Contour([2, 8, 12, 9])
     assert n.subsets(2) == [[2, 8], [2, 9], [2, 12], [8, 9], [8, 12], [12, 9]]

@@ -3,6 +3,7 @@
 
 from __future__ import print_function
 import subprocess
+import itertools
 
 
 def flatten(seq):
@@ -84,6 +85,13 @@ def list_to_string(list):
     """
 
     return " ".join([str(x) for x in list])
+
+
+def remove_adjacent(list):
+    """Removes duplicate adjacent elements from a list."""
+
+    groups = itertools.izip(list, list[1:])
+    return [a for a, b in groups if a != b] + [list[-1]]
 
 
 def remove_duplicate_tuples(list_of_tuples):

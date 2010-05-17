@@ -212,12 +212,6 @@ class Contour(list):
 
         return Contour(tmp)
 
-    def remove_adjacent(self):
-        """Removes duplicate adjacent elements from a list."""
-
-        groups = itertools.izip(self, self[1:])
-        return [a for a, b in groups if a != b] + [self[-1]]
-
     def subsets(self, n):
         """Returns adjacent and non-adjacent subsets of a given
         contour."""
