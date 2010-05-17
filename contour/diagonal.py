@@ -43,13 +43,14 @@ class InternalDiagonal(list):
         n = factor % len(self)
         subset = self[n:]
         subset.extend(self[0:n])
-        return subset
+        return InternalDiagonal(subset)
 
     def retrograde(self):
         """Returns internal diagonal retrograde."""
 
-        self.reverse()
-        return self
+        tmp = self[:]
+        tmp.reverse()
+        return InternalDiagonal(tmp)
 
     def inversion(self):
         """Returns Internal diagonal inversion.
@@ -58,14 +59,14 @@ class InternalDiagonal(list):
         [1, -1, -1]
         """
 
-        return [(x * -1) for x in self]
+        return InternalDiagonal([(x * -1) for x in self])
 
     def subsets(self, n):
         """Returns adjacent and non-adjacent subsets of a given
         contour."""
 
         int_d = self
-        return sorted([list(x) for x in itertools.combinations(int_d, n)])
+        return sorted([InternalDiagonal(list(x)) for x in itertools.combinations(int_d, n)])
 
     def all_subsets(self):
         """Returns adjacent and non-adjacent subsets of a given
@@ -78,9 +79,7 @@ class InternalDiagonal(list):
         """Returns adjacent n-elements subsets of a given contour."""
 
         int_d = self
-        return [int_d[i:i + n] for i in range(len(int_d) - (n - 1))]
-
-        return "< " + utils.replace_list_to_plus_minus(self) + " >"
+        return [InternalDiagonal(int_d[i:i + n]) for i in range(len(int_d) - (n - 1))]
 
     def __repr__(self):
         return "< {0} >".format(" ".join([utils.double_replace(str(x)) for x in self[:]]))
