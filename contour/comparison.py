@@ -187,21 +187,27 @@ def all_comparison(*csegs):
         relations = []
         for a in dictionary:
             for b in dictionary:
-                if a != b:
-                    if dictionary[a] == dictionary[b]:
-                        (m, n) = a
-                        (o, p) = b
+                if dictionary[a] == dictionary[b]:
+                    (m, n) = a
+                    (o, p) = b
+                    if m != o:
                         relations.append([[contour.Contour(list(m)), n], [contour.Contour(list(o)), p]])
         return relations
 
     def build_dictionary(csegs):
         cseg_op = {}
         for cseg in csegs:
+            cseg_op[(tuple(cseg), 'original')] = cseg
             for fn in operations:
-                cseg_op[(tuple(cseg), fn)] = apply_fn(contour.Contour(cseg).translation(), fn)
+                normal_form = apply_fn(contour.Contour(cseg).translation(), fn)
+                reduced = contour.Contour(cseg).reduction_algorithm()
+                ## removes csegs that are equal to their normal form
+                ## or reduced algorithm form
+                if cseg != normal_form or cseg != reduced[0]:
+                    cseg_op[(tuple(cseg), fn)] = normal_form
         return cseg_op
 
-    operations = ["prime_form", "inversion", "rotation", "retrograde", "comparison_matrix"]
+    operations = ["translation", "prime_form", "inversion", "retrograde", "reduction_algorithm", "rotation"]
     cseg_op = build_dictionary(csegs)
 
     return find_relations(cseg_op)
