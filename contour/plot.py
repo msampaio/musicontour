@@ -1,15 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from pylab import (grid, axis, plot, title, legend, show, xticks,
-     yticks, figure, ylabel, xlabel, axes, pie, imshow, rcParams,
-     subplot, clf)
-from matplotlib.font_manager import FontProperties
-from matplotlib.ticker import NullLocator
-from PIL import (Image, ImageChops)
-
-from contour import Contour
-from utils import flatten
+import pylab
+import matplotlib
+import PIL
+import utils
+import contour
 import random
 
 name = "Villa-Lobos Contour Module"
@@ -35,21 +31,21 @@ def aux_plot(cseg, plot_color, custom_legend=""):
     cseg_xticks = range(len(cseg))
 
     ## These commands don't allow the plotting the same window in GUI
-    # fig = figure()
+    # fig = pylab.figure()
     # fig.canvas.set_window_title(program_name)
 
-    grid(color='b', linestyle='-', linewidth=.1)
-    axis()
+    pylab.grid(color='b', linestyle='-', linewidth=.1)
+    pylab.axis()
 
     title_name = program_name + " --- Contour plotter"
-    xlabel('c-pitch position')
-    ylabel('c-pitch')
-    xticks(cseg_xticks)
-    yticks(cseg_yticks)
-    p = plot(cseg, linewidth=2, marker='d', color=plot_color,
-         label='{0} {1}'.format(Contour(cseg), custom_legend))
-    title(title_name, family='georgia', size='small')
-    legend(prop=FontProperties(size=10))
+    pylab.xlabel('c-pitch position')
+    pylab.ylabel('c-pitch')
+    pylab.xticks(cseg_xticks)
+    pylab.yticks(cseg_yticks)
+    p = pylab.plot(cseg, linewidth=2, marker='d', color=plot_color,
+         label='{0} {1}'.format(contour.Contour(cseg), custom_legend))
+    pylab.title(title_name, family='georgia', size='small')
+    pylab.legend(prop=matplotlib.font_manager.FontProperties(size=10))
     return p
 
 
@@ -63,13 +59,13 @@ def plot_preview(cseg, plot_color, legend=""):
     """
 
     aux_plot(cseg, plot_color, legend)
-    show()
+    pylab.show()
 
 
 def clear_plot():
     """Clear plot image."""
 
-    clf()
+    pylab.clf()
 
 
 def multi_plot_preview(cseg_array):
@@ -81,54 +77,54 @@ def multi_plot_preview(cseg_array):
     """
 
     csegs = [cseg for cseg, color in cseg_array]
-    all_cps = flatten(csegs)
+    all_cps = contour.utils.flatten(csegs)
 
     cseg_yticks = range((min(all_cps)), (max(all_cps) + 1))
     cseg_xticks = range(max([len(x) for x in csegs]))
 
-    fig = figure()
+    fig = pylab.figure()
     fig.canvas.set_window_title(program_name)
 
-    grid(color='b', linestyle='-', linewidth=.1)
-    axis()
+    pylab.grid(color='b', linestyle='-', linewidth=.1)
+    pylab.axis()
 
     title_name = program_name + " --- Contour plotter"
-    xlabel('c-pitch position')
-    ylabel('c-pitch')
-    xticks(cseg_xticks)
-    yticks(cseg_yticks)
+    pylab.xlabel('c-pitch position')
+    pylab.ylabel('c-pitch')
+    pylab.xticks(cseg_xticks)
+    pylab.yticks(cseg_yticks)
     for cseg, color in cseg_array:
-        plot(cseg, linewidth=2, color=color,
-             label='{0}'.format(Contour(cseg)))
+        pylab.plot(cseg, linewidth=2, color=color,
+             label='{0}'.format(contour.Contour(cseg)))
 
-    title(title_name, family='georgia', size='small')
-    legend(prop=FontProperties(size=12))
-    show()
+    pylab.title(title_name, family='georgia', size='small')
+    pylab.legend(prop=matplotlib.font_manager.FontProperties(size=12))
+    pylab.show()
 
 
 def pie_plot(data, plot_title=""):
-    ax = axes([0.1, 0.1, 0.8, 0.8])
-    figure(1, figsize=(6, 6))
-    title(plot_title, bbox={'facecolor': '0.8', 'pad': 5})
+    ax = pylab.axes([0.1, 0.1, 0.8, 0.8])
+    pylab.figure(1, figsize=(6, 6))
+    pylab.title(plot_title, bbox={'facecolor': '0.8', 'pad': 5})
     sorted_data = sorted(data, key=lambda x: x[1])
     fracs = [x[1] for x in sorted_data]
     labels = [x[0] for x in sorted_data]
     colors = ['b', 'g', 'r', 'c', 'm', 'y', 'w']
 
-    pie(fracs, colors=colors, labels=labels, autopct='%1.1f%%', shadow=True)
-    show()
+    pylab.pie(fracs, colors=colors, labels=labels, autopct='%1.1f%%', shadow=True)
+    pylab.show()
 
 
 def cseg_pie_plot(data, plot_title=""):
-    ax = axes([0.1, 0.1, 0.8, 0.8])
-    figure(1, figsize=(6, 6))
-    title(plot_title, bbox={'facecolor': '0.8', 'pad': 5})
+    ax = pylab.axes([0.1, 0.1, 0.8, 0.8])
+    pylab.figure(1, figsize=(6, 6))
+    pylab.title(plot_title, bbox={'facecolor': '0.8', 'pad': 5})
     sorted_data = sorted(data, key=lambda x: x[1])
     fracs = [x[1] for x in sorted_data]
-    labels = [Contour(x[0]) for x in sorted_data]
+    labels = [contour.Contour(x[0]) for x in sorted_data]
 
-    pie(fracs,  labels=labels, autopct='%1.1f%%', shadow=True)
-    show()
+    pylab.pie(fracs,  labels=labels, autopct='%1.1f%%', shadow=True)
+    pylab.show()
 
 
 def autoCrop(image, backgroundColor=None):
@@ -213,8 +209,8 @@ def autoCrop(image, backgroundColor=None):
         # Crop a non-transparent image.
         # .getbbox() always crops the black color.
         # So we need to substract the "background" color from our image.
-        bg = Image.new("RGB", image.size, backgroundColor)
-        diff = ImageChops.difference(image, bg)  # Substract background color from image
+        bg = PIL.Image.new("RGB", image.size, backgroundColor)
+        diff = PIL.ImageChops.difference(image, bg)  # Substract background color from image
         bbox = diff.getbbox()  # Try to find the real bounding box of the image.
     else:
         raise NotImplementedError, "Sorry, this function is not " + \
@@ -227,17 +223,17 @@ def autoCrop(image, backgroundColor=None):
 
 
 def aux_pdf(file):
-    img = Image.open(file)
+    img = PIL.Image.open(file)
     pdf = autoCrop(img)
-    im = imshow(pdf, origin='lower')
+    im = pylab.imshow(pdf, origin='lower')
     return im
 
 
 def plot_cseg_and_pdf(cseg, file, plot_color="k"):
-    subplot(212)
+    pylab.subplot(212)
     aux_pdf(file)
 
-    subplot(211)
+    pylab.subplot(211)
     aux_plot(cseg, plot_color)
 
-    show()
+    pylab.show()
