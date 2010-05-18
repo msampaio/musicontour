@@ -18,13 +18,11 @@ def random_color():
     return colors[random.randint(0, len(colors) - 1)]
 
 
-def aux_plot(cseg, plot_color, custom_legend=""):
+def __contour_lines(cseg, plot_color, custom_legend=""):
     """Returns cseg plot data to plot.
 
     The code is based on
     http://matplotlib.sourceforge.net/examples/pylab_examples/unicode_demo.html
-
-    >>> plot_preview([5, 3, 4, 1, 2, 0])
     """
 
     cseg_yticks = range((min(cseg)), (max(cseg) + 1))
@@ -43,66 +41,39 @@ def aux_plot(cseg, plot_color, custom_legend=""):
     pylab.xticks(cseg_xticks)
     pylab.yticks(cseg_yticks)
     p = pylab.plot(cseg, linewidth=2, marker='d', color=plot_color,
-         label='{0} {1}'.format(contour.Contour(cseg), custom_legend))
+         label='{0} {1}'.format(cseg, custom_legend))
     pylab.title(title_name, family='georgia', size='small')
     pylab.legend(prop=matplotlib.font_manager.FontProperties(size=10))
     return p
 
 
-def plot_preview(cseg, plot_color, legend=""):
-    """Generates cseg plot.
-
-    The code is based on
-    http://matplotlib.sourceforge.net/examples/pylab_examples/unicode_demo.html
-
-    >>> plot_preview([5, 3, 4, 1, 2, 0])
-    """
-
-    aux_plot(cseg, plot_color, legend)
-    pylab.show()
-
-
-def clear_plot():
+def clear():
     """Clear plot image."""
 
     pylab.clf()
 
 
-def multi_plot_preview(cseg_array):
-    """Generates multiple cseg plot.
+def contour_lines(*csegs):
+    """Generates cseg plot.
 
-    [cseg, color]
-    >>> multi_plot_preview([[[0, 2, 1], 'blue'], [[0, 1, 2], 'lightblue'],
-                            [[0, 2, 3], 'green']])
+    The code is based on
+    http://matplotlib.sourceforge.net/examples/pylab_examples/unicode_demo.html
+
+    For one contour:
+    >>> contour([Contour([5, 3, 4, 1, 2, 0]), \"\#006633\", \"contour legend\"])
+
+    For multiple contours:
+    >>> c1 = Contour([1, 3, 0, 2])
+    >>> c2 = Contour([2, 0, 3, 1])
+    >>> contour([c1, \"g\", \"main contour\"], [c2, \"b\", \"secondary contour\"])
     """
 
-    csegs = [cseg for cseg, color in cseg_array]
-    all_cps = contour.utils.flatten(csegs)
-
-    cseg_yticks = range((min(all_cps)), (max(all_cps) + 1))
-    cseg_xticks = range(max([len(x) for x in csegs]))
-
-    fig = pylab.figure()
-    fig.canvas.set_window_title(program_name)
-
-    pylab.grid(color='b', linestyle='-', linewidth=.1)
-    pylab.axis()
-
-    title_name = program_name + " --- Contour plotter"
-    pylab.xlabel('c-pitch position')
-    pylab.ylabel('c-pitch')
-    pylab.xticks(cseg_xticks)
-    pylab.yticks(cseg_yticks)
-    for cseg, color in cseg_array:
-        pylab.plot(cseg, linewidth=2, color=color,
-             label='{0}'.format(contour.Contour(cseg)))
-
-    pylab.title(title_name, family='georgia', size='small')
-    pylab.legend(prop=matplotlib.font_manager.FontProperties(size=12))
+    for [cseg, plot_color, legend] in csegs:
+        __contour_lines(cseg, plot_color, legend)
     pylab.show()
 
 
-def pie_plot(data, plot_title=""):
+def pie(data, plot_title=""):
     ax = pylab.axes([0.1, 0.1, 0.8, 0.8])
     pylab.figure(1, figsize=(6, 6))
     pylab.title(plot_title, bbox={'facecolor': '0.8', 'pad': 5})
@@ -115,7 +86,7 @@ def pie_plot(data, plot_title=""):
     pylab.show()
 
 
-def cseg_pie_plot(data, plot_title=""):
+def pie_comparison(data, plot_title=""):
     ax = pylab.axes([0.1, 0.1, 0.8, 0.8])
     pylab.figure(1, figsize=(6, 6))
     pylab.title(plot_title, bbox={'facecolor': '0.8', 'pad': 5})
@@ -123,7 +94,7 @@ def cseg_pie_plot(data, plot_title=""):
     fracs = [x[1] for x in sorted_data]
     labels = [contour.Contour(x[0]) for x in sorted_data]
 
-    pylab.pie(fracs,  labels=labels, autopct='%1.1f%%', shadow=True)
+    pylab.pie(fracs, labels=labels, autopct='%1.1f%%', shadow=True)
     pylab.show()
 
 
@@ -222,18 +193,18 @@ def autoCrop(image, backgroundColor=None):
     return image
 
 
-def aux_pdf(file):
+def __pdf(file):
     img = PIL.Image.open(file)
     pdf = autoCrop(img)
     im = pylab.imshow(pdf, origin='lower')
     return im
 
 
-def plot_cseg_and_pdf(cseg, file, plot_color="k"):
+def contour_line_score(cseg, file, plot_color="k"):
     pylab.subplot(212)
-    aux_pdf(file)
+    __pdf(file)
 
     pylab.subplot(211)
-    aux_plot(cseg, plot_color)
+    __contour_lines(cseg, plot_color)
 
     pylab.show()

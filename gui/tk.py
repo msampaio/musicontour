@@ -184,7 +184,7 @@ class App:
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
         self.text_output.insert(Tkinter.END, "\n")
-        contour.plot.plot_preview(cseg, plot_color, "Original")
+        contour.plot.contour_lines([cseg, plot_color, "Original"])
 
     def prime_form(self, event=None):
         get = self.main_entry.get()
@@ -208,7 +208,7 @@ class App:
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
         self.text_output.insert(Tkinter.END, "\n")
-        contour.plot.plot_preview(pr_form, plot_color, "Prime form")
+        contour.plot.contour_lines([pr_form, plot_color, "Prime form"])
 
     def normal_form(self, event=None):
         get = self.main_entry.get()
@@ -220,7 +220,7 @@ class App:
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
         self.text_output.insert(Tkinter.END, "\n")
-        contour.plot.plot_preview(normal_form, plot_color, "Normal form")
+        contour.plot.contour_lines([normal_form, plot_color, "Normal form"])
 
     def retrograde(self, event=None):
         get = self.main_entry.get()
@@ -232,7 +232,7 @@ class App:
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
         self.text_output.insert(Tkinter.END, "\n")
-        contour.plot.plot_preview(retrograde, plot_color, "Retrograde")
+        contour.plot.contour_lines([retrograde, plot_color, "Retrograde"])
 
     def inversion(self, event=None):
         get = self.main_entry.get()
@@ -244,7 +244,7 @@ class App:
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
         self.text_output.insert(Tkinter.END, "\n")
-        contour.plot.plot_preview(inversion, plot_color, "Inversion")
+        contour.plot.contour_lines([inversion, plot_color, "Inversion"])
 
     def ret_inv(self, event=None):
         get = self.main_entry.get()
@@ -257,7 +257,7 @@ class App:
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
         self.text_output.insert(Tkinter.END, "\n")
-        contour.plot.plot_preview(ret_inv, plot_color, "Ret.inv.")
+        contour.plot.contour_lines([ret_inv, plot_color, "Ret.inv."])
 
     def rotation(self, event=None):
         get = self.main_entry.get()
@@ -272,7 +272,7 @@ class App:
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
         self.text_output.insert(Tkinter.END, "\n")
-        contour.plot.plot_preview(rotation, plot_color, "Rotation({0})".format(second_get))
+        contour.plot.contour_lines([rotation, plot_color, "Rotation({0}])".format(second_get)])
 
     def internal(self, event=None):
         get = self.main_entry.get()
@@ -442,7 +442,7 @@ class App:
         self.text_output.delete(0.0, Tkinter.END)
 
     def clear_plot(self, event=None):
-        contour.plot.clear_plot()
+        contour.plot.clear()
 
     def clear_main(self, event=None):
         self.main_entry.delete(0, Tkinter.END)
