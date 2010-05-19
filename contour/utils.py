@@ -113,3 +113,15 @@ def pretty_as_cseg(list):
 
     return "< " + list_to_string(list) + " >"
 
+
+def greatest_first(list1, list2):
+    """Returns greatest list first.
+
+    >>> contour.utils.gretest([0, 1], [3, 2, 1])
+    [[3, 2, 1], [0, 1]]
+    """
+
+    if len(list1) > len(list2):
+        return [list1, list2]
+    else:
+        return [list2, list1]
