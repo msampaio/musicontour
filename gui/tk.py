@@ -28,67 +28,69 @@ class App:
         self.text_output.config(yscrollcommand=self.text_scroll.set)
 
         self.main_label = Tkinter.Label(master, text='main entry:')
-        self.main_entry = Tkinter.Entry(master, width=13)
+        self.main_entry = Tkinter.Entry(master, width=16)
         self.main_entry.focus()
         self.main_entry.insert('end', "2 6 3 7 9 1")
         self.main_entry.get()
 
         self.secondary_label = Tkinter.Label(master, text='second. entry:')
 
-        self.secondary_entry = Tkinter.Entry(master, width=13)
+        self.secondary_entry = Tkinter.Entry(master, width=16)
         self.secondary_entry.insert("end", "1")
         self.secondary_entry.get()
 
         ## buttons
 
         self.b_clear_output = Tkinter.Button(master, text="Clear Output",
-                                     command=self.clear_output, width=10)
+                                     command=self.clear_output, width=13)
         self.b_clear_plot = Tkinter.Button(master, text="Clear Plot",
-                               command=self.clear_plot, width=10)
+                               command=self.clear_plot, width=13)
         self.b_clear_main = Tkinter.Button(master, text="Clear Main",
-                               command=self.clear_main, width=10)
+                               command=self.clear_main, width=13)
         self.b_clear_secondary = Tkinter.Button(master, text="Clear Second.",
-                               command=self.clear_secondary, width=10)
+                               command=self.clear_secondary, width=13)
         self.b_plot = Tkinter.Button(master, text="Plot", command=self.plot,
-                           width=10)
+                           width=13)
         self.b_normal_form = Tkinter.Button(master, text="Normal form",
-                                     command=self.normal_form, width=10)
+                                     command=self.normal_form, width=13)
         self.b_prime_form = Tkinter.Button(master, text="Prime form",
-                                    command=self.prime_form, width=10)
+                                    command=self.prime_form, width=13)
         self.b_inversion = Tkinter.Button(master, text="Inversion",
-                                   command=self.inversion, width=10)
+                                   command=self.inversion, width=13)
         self.b_rotation = Tkinter.Button(master, text="Rotation",
-                               command=self.rotation, width=10)
+                               command=self.rotation, width=13)
         self.b_retrograde = Tkinter.Button(master, text="Retrograde",
-                                    command=self.retrograde, width=10)
+                                    command=self.retrograde, width=13)
         self.b_ret_inv = Tkinter.Button(master, text="Retrograde inv.",
-                                 command=self.ret_inv, width=10)
+                                 command=self.ret_inv, width=13)
         self.b_comparison_matrix = Tkinter.Button(master, text="COM Matrix",
-                               command=self.comparison_matrix, width=10)
+                               command=self.comparison_matrix, width=13)
         self.b_n_subsets = Tkinter.Button(master, text="n subsets",
-                               command=self.n_subsets, width=10)
+                               command=self.n_subsets, width=13)
         self.b_all_subsets = Tkinter.Button(master, text="All subsets",
-                               command=self.all_subsets, width=10)
+                               command=self.all_subsets, width=13)
         self.b_internal = Tkinter.Button(master, text="Int. Diagonal",
-                               command=self.internal, width=10)
+                               command=self.internal, width=13)
         self.b_csegs_from_int = Tkinter.Button(master, text="Csegs from INT",
-                               command=self.csegs_from_int, width=10)
+                               command=self.csegs_from_int, width=13)
         self.b_casv = Tkinter.Button(master, text="CASV",
-                               command=self.casv, width=10)
+                               command=self.casv, width=13)
         self.b_cis = Tkinter.Button(master, text="CIS",
-                               command=self.cis, width=10)
+                               command=self.cis, width=13)
         self.b_ccvi = Tkinter.Button(master, text="CCV I",
-                               command=self.ccvi, width=10)
+                               command=self.ccvi, width=13)
         self.b_ccvii = Tkinter.Button(master, text="CCV II",
-                               command=self.ccvii, width=10)
+                               command=self.ccvii, width=13)
         self.b_cia = Tkinter.Button(master, text="CIA",
-                               command=self.cia, width=10)
-        self.b_compare = Tkinter.Button(master, text="Contour simil.",
-                               command=self.compare, width=10)
+                               command=self.cia, width=13)
+        self.b_compare = Tkinter.Button(master, text="Contour comparison",
+                               command=self.compare, width=13)
+        self.b_all_embed = Tkinter.Button(master, text="Embed comparison",
+                               command=self.all_embed, width=13)
         self.b_reduction = Tkinter.Button(master, text="Contour red.",
-                               command=self.reduction, width=10)
+                               command=self.reduction, width=13)
         self.b_segment_classes = Tkinter.Button(master, text="Cseg classes",
-                               command=self.segment_classes, width=10)
+                               command=self.segment_classes, width=13)
 
         ## key bindings:
         for x in [self.main_entry, master, self.secondary_entry]:
@@ -170,8 +172,11 @@ class App:
         ## row 8
         self.b_cia.grid(row=8, column=0)
         self.b_compare.grid(row=8, column=1)
-        self.b_reduction.grid(row=8, column=2)
-        self.b_segment_classes.grid(row=8, column=3)
+        self.b_all_embed.grid(row=8, column=2)
+        self.b_reduction.grid(row=8, column=3)
+
+        ## row9
+        self.b_segment_classes.grid(row=9, column=0)
 
     ## functions
 
@@ -433,6 +438,20 @@ class App:
         self.text_output.insert(Tkinter.END, text2)
         self.text_output.insert(Tkinter.END, "\n")
 
+    def all_embed(self, event=None):
+        get1 = self.main_entry.get()
+        get2 = self.secondary_entry.get()
+        cseg1 = [int(x) for x in get1.split(' ') if x]
+        cseg2 = [int(x) for x in get2.split(' ') if x]
+        cseg1_p = contour.contour.Contour(cseg1)
+        cseg2_p = contour.contour.Contour(cseg2)
+        result = contour.comparison.all_contour_mutually_embed(cseg1, cseg2)
+        text1 = "All mutually embed contour comparison: {0:.2f}\n".format(result)
+        text2 = "Cseg 1: {0}\nCseg 2: {1}".format(cseg1_p, cseg2_p)
+        self.text_output.insert(Tkinter.END, text1)
+        self.text_output.insert(Tkinter.END, text2)
+        self.text_output.insert(Tkinter.END, "\n")
+
     def segment_classes(self, event=None):
         result = contour.contour.pretty_classes(7)
         self.text_output.insert(Tkinter.END, result)
@@ -454,7 +473,7 @@ class App:
 def gui():
     root = Tkinter.Tk()
     root.title(sw_name)
-    root.geometry('450x580+0+0')
+    root.geometry('550x610+0+0')
     root.resizable(Tkinter.FALSE, Tkinter.FALSE)
 
     app = App(root)
