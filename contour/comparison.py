@@ -4,6 +4,7 @@
 from __future__ import print_function
 import math
 import contour
+import utils
 
 
 def __intern_diagon_sim(cseg1, cseg2, n):
@@ -39,31 +40,31 @@ def cseg_similarity(cseg1, cseg2):
     return similar_pos / float(triangle_pos)
 
 
-def subsets_embed_total_number(cseg_size, csubseg_size):
+def subsets_embed_total_number(cseg1, cseg2):
     """Returns the number of subsets with csubseg_size in a set with
     cseg_size. Marvin and Laprade (1987, p. 237)."""
 
-    try:
-        cseg_size >= csubseg_size == True
-        a = math.factorial(cseg_size)
-        b = math.factorial(csubseg_size)
-        c = math.factorial(cseg_size - csubseg_size)
-        return a / (b * c)
-    # FIXME: use ContourError
-    except ValueError:
-        print("Cseg_size must be greater than csubseg_size")
+    cseg, csubseg = utils.greatest_first(cseg1, cseg2)
+    cseg_size = len(cseg)
+    csubseg_size = len(csubseg)
+
+    a = math.factorial(cseg_size)
+    b = math.factorial(csubseg_size)
+    c = math.factorial(cseg_size - csubseg_size)
+    return a / (b * c)
 
 
-def subsets_embed_number(cseg, csubseg):
+def subsets_embed_number(cseg1, cseg2):
     """Returns the number of time the normal form of a csubseg appears
     in cseg subsets. Marvin and Laprade (1987)."""
 
-    try:
-        dic = contour.Contour(cseg).subsets_normal(len(csubseg))
-        return len(dic[tuple(csubseg)])
+    cseg, csubseg = utils.greatest_first(cseg1, cseg2)
 
-    except ValueError:
-        print("Cseg must be greater than csubseg.")
+    dic = contour.Contour(cseg).subsets_normal(len(csubseg))
+    if tuple(csubseg) in dic:
+        return len(dic[tuple(csubseg)])
+    else:
+        return 0
 
 
 def contour_embed(cseg1, cseg2):
@@ -71,19 +72,14 @@ def contour_embed(cseg1, cseg2):
     cardinalities. 1 for greater similarity. Marvin and Laprade
     (1987)."""
 
-    if cseg1 > cseg2:
-        cseg = cseg1
-        csubseg = cseg2
-    else:
-        cseg = cseg2
-        csubseg = cseg1
+    cseg, csubseg = utils.greatest_first(cseg1, cseg2)
 
     n_csubseg = contour.Contour(csubseg).translation()
     cseg_size = len(cseg)
     csubseg_size = len(csubseg)
 
     embed_times = subsets_embed_number(cseg, n_csubseg)
-    total_subsets = subsets_embed_total_number(cseg_size, csubseg_size)
+    total_subsets = subsets_embed_total_number(cseg, csubseg)
     return 1.0 * embed_times / total_subsets
 
 
