@@ -90,12 +90,12 @@ class App:
                                command=self.casv, width=7)
         self.b_cis = Tkinter.Button(self.frame_friedmann, text="CIS",
                                command=self.cis, width=7)
+        self.b_cia = Tkinter.Button(self.frame_friedmann, text="CIA",
+                               command=self.cia, width=7)
         self.b_ccvi = Tkinter.Button(self.frame_friedmann, text="CCV I",
                                command=self.ccvi, width=7)
         self.b_ccvii = Tkinter.Button(self.frame_friedmann, text="CCV II",
                                command=self.ccvii, width=7)
-        self.b_cia = Tkinter.Button(self.frame_friedmann, text="CIA",
-                               command=self.cia, width=7)
 
         self.b_compare = Tkinter.Button(self.frame_comparisons, text="Contour comparison",
                                command=self.compare, width=13)
@@ -185,9 +185,9 @@ class App:
         self.frame_friedmann.grid(row=4, column=3, rowspan=5, sticky=Tkinter.W)
         self.b_casv.grid(row=4, column=3)
         self.b_cis.grid(row=5, column=3)
-        self.b_ccvi.grid(row=6, column=3)
-        self.b_ccvii.grid(row=7, column=3)
-        self.b_cia.grid(row=8, column=3)
+        self.b_cia.grid(row=6, column=3)
+        self.b_ccvi.grid(row=7, column=3)
+        self.b_ccvii.grid(row=8, column=3)
 
         ## comparisons area
         self.frame_comparisons.grid(row=8, column=1, rowspan=3, sticky=Tkinter.W)
