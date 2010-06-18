@@ -4,6 +4,8 @@
 import pylab
 import matplotlib
 import PIL
+import Image
+import ImageChops
 import utils
 import contour
 import random
@@ -180,8 +182,8 @@ def autoCrop(image, backgroundColor=None):
         # Crop a non-transparent image.
         # .getbbox() always crops the black color.
         # So we need to substract the "background" color from our image.
-        bg = PIL.Image.new("RGB", image.size, backgroundColor)
-        diff = PIL.ImageChops.difference(image, bg)  # Substract background color from image
+        bg = Image.new("RGB", image.size, backgroundColor)
+        diff = ImageChops.difference(image, bg)  # Substract background color from image
         bbox = diff.getbbox()  # Try to find the real bounding box of the image.
     else:
         raise NotImplementedError, "Sorry, this function is not " + \
@@ -194,7 +196,7 @@ def autoCrop(image, backgroundColor=None):
 
 
 def __pdf(file):
-    img = PIL.Image.open(file)
+    img = Image.open(file)
     pdf = autoCrop(img)
     im = pylab.imshow(pdf, origin='lower')
     return im
