@@ -206,7 +206,7 @@ class App:
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
         self.text_output.insert(Tkinter.END, "\n")
-        contour.plot.contour_lines([cseg, plot_color, "Original"])
+        contour.plot.contour_lines([result, plot_color, "Original"])
 
     def prime_form(self, event=None):
         get = self.main_entry.get()
@@ -230,7 +230,7 @@ class App:
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
         self.text_output.insert(Tkinter.END, "\n")
-        contour.plot.contour_lines([pr_form, plot_color, "Prime form"])
+        contour.plot.contour_lines([pr_form_vis, plot_color, "Prime form"])
 
     def normal_form(self, event=None):
         get = self.main_entry.get()
