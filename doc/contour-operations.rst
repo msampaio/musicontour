@@ -17,6 +17,8 @@ For instance::
 
  Retrograde(A) = < 3 2 1 0 >
 
+.. figure:: lily/retrograde.png
+
 .. index:: Inversion
 
 Inversion
@@ -47,6 +49,8 @@ Thus::
 
  Inversion(A) = <0 2 1 4 3 5>
 
+.. figure:: lily/inversion.png
+
 .. index:: Rotation
 
 Rotation
@@ -63,6 +67,8 @@ For instance::
  Rotation(A, 1) = < 1 2 3 0 >
  Rotation(A, 2) = < 2 3 0 1 >
  Rotation(A, 3) = < 3 0 1 2 >
+
+.. figure:: lily/rotation.png
 
 .. index:: Normal form
 .. index:: Translation
@@ -82,6 +88,9 @@ For instance::
 
  B = < 3 34 21 55 >
  Translation(B) = < 0 2 1 3 >
+
+.. figure:: figs/normal-form-25891.png
+   :scale: 70%
 
 .. index:: Prime form
 
@@ -108,6 +117,9 @@ For instance::
 In this example, A and B have the same prime form::
 
  < 0 3 1 2 >
+
+.. figure:: figs/prime-form-comparative.png
+   :scale: 70%
 
 In GUI, Prime form operation returns also the contour segment class
 number, like in Marvin and Laprade C-space segment-classes table
@@ -162,9 +174,9 @@ left to bottom right, above the main diagonal. The main diagonal is
 filled by zeros.
 
 In this figure, INT_1, INT_2, and INT_3 means internal diagonal 1, 2,
-and 3. 
+and 3.
 
-.. image:: figs/internal_diagonals.png
+.. figure:: figs/internal_diagonals.png
 
 For this Comparison matrix, internal diagonals are::
 
@@ -187,6 +199,12 @@ For example, for a given contour A, all 3 elements subsets::
  A < 0 3 1 2 >
  Subsets(3) =  < 0 1 2 >, < 0 3 1 >, < 0 3 2 >, < 3 1 2 >
 
+.. figure:: figs/0312.png
+   :scale: 70%
+
+.. figure:: figs/subsets-0312.png
+   :scale: 70%
+
 .. index:: Contour segments for an internal diagonal
 
 Contour segments for an internal diagonal
@@ -204,6 +222,9 @@ For instance::
  < 3 0 2 1 >
  < 3 1 2 0 >
 
+.. figure:: figs/possibilities-for-minus-plus-minus.png
+   :scale: 70 %
+
 The other internal diagonals can be used as input::
 
  INT(2) = < - + >
@@ -218,7 +239,7 @@ The other internal diagonals can be used as input::
 In |VLCM| GUI, the internal diagonal must be given with 1 and -1, and
 internal number must be in secondary entry::
 
- Main entry: -1 1 -1 
+ Main entry: -1 1 -1
  Second. entry: 1
 
 .. index:: Contour Adjacency Series Vector (CASV)
@@ -243,7 +264,7 @@ For instance::
 Contour Interval Succession (CIS)
 ---------------------------------
 
-A succession of all adjacent 
+A succession of all adjacent
 :term:`contour intervals <Contour Interval (CI)>` in a cseg. Also
 known as CIS.
 
@@ -293,7 +314,7 @@ For instance::
 .. index:: Contour Class Vector II (CCVII)
 
 Contour Class Vector II (CCVII)
------------------------------
+-------------------------------
 
 Two digit summation of the frequency of ups and downs. Final result is
 the sum of number of elements of a
@@ -320,12 +341,15 @@ corresponding position in the other contour segment. The similarity
 value is given by the quotient between sum of similar content
 positions and total of positions.
 
-.. image:: figs/superior_triangle.png
+.. figure:: figs/superior_triangle.png
 
 For instance, these two contour segments, ``< 0 3 1 2 >`` and ``< 0 2
 1 3 >`` differ in comparison matrix superior triangle only in one
 position (marked in figure). Five of six positions have the same value
 in both segments. Thus, contour similarity is 5/6, or 0.83.
+
+.. figure:: figs/0312-0213.png
+   :scale: 70%
 
 In |VLCM| GUI, the contour segments must be input in main and
 secondary entries. For instance::
