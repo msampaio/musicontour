@@ -11,6 +11,13 @@ PAPEROPT_a4     = -D latex_paper_size=a4
 PAPEROPT_letter = -D latex_paper_size=letter
 ALLSPHINXOPTS   = -d _build/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 
+### Generates pdf from lilypond files
+
+LILYDIR = lily
+LILY_PDF= $(patsubst %.ly,%.pdf,$(wildcard $(LILYDIR)/*.ly))
+vpath %.ly $(LILYDIR)
+
+
 .PHONY: help clean html dirhtml pickle json htmlhelp qthelp latex changes linkcheck doctest
 
 help:
@@ -89,3 +96,6 @@ doctest:
 
 sync:
 	rsync -a --progress --delete _build/html/ genos.mus.br:www/villa-lobos/contour-module/
+
+%.png: %.ly
+	lilypond --png -o  $(basename $@) $<
