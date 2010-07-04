@@ -153,6 +153,16 @@ def test_cps_position():
                                 (7, 5), (3, 6), (12, 7), (3, 8), (7, 9)]
 
 
+def test_reduction_algorithm_1():
+    c = contour.contour.Contour([0, 4, 3, 2, 5, 5, 1])
+    assert c.reduction_algorithm() == [contour.contour.Contour([0, 2, 1]), 2]
+
+
+def test_reduction_algorithm_2():
+    c = contour.contour.Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
+    assert c.reduction_algorithm() == [contour.contour.Contour([2, 3, 0, 1]), 3]
+
+
 def test_maxima():
     n = [(0, 0), (1, 1), (3, 2), (2, 3), (4, 4)]
     assert contour.contour.maxima(n) == [(0, 0), (3, 2), (4, 4)]
