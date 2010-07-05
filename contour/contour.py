@@ -327,11 +327,24 @@ class Contour(list):
             return Contour([x for (x, y) in cps_position])
 
         def unflagged(tuples_list):
-            """Returns unflagged cpitch tuples."""
+            """Returns unflagged cpitch tuples.
 
+            It runs steps 1, 2, 3, 6, and 7."""
+
+            ## steps 1 and 2
             tmp_max = maxima(tuples_list)
             tmp_min = minima(tuples_list)
+            if depth != 0:
+                ## steps 6 and 7
+
+                ## FIXME: implement options if cpitches is the first
+                ## or last of the sequence
+                tmp_max = utils.remove_duplicate_tuples(tmp_max)
+                tmp_min = utils.remove_duplicate_tuples(tmp_min)
+
             tmp_all = list(set(utils.flatten([tmp_max, tmp_min])))
+
+            ## step 3 (partial): returns not_flagged cpitches
             not_flagged = []
             for el in tuples_list:
                 if el not in tmp_all:
@@ -341,18 +354,22 @@ class Contour(list):
         ## returns list of cpitch/position tuples
         cseg_pos_tuples = self.cps_position()
 
-        ## initial value
+        ## initial value (step 0)
         depth = 0
 
-        ## FIXME: broken loop
         ## loop to run unflagged until finish unflagged cpitches
-        while len(unflagged(cseg_pos_tuples)) == 3:
+        ## while tests if there are unflagged cpitches (partial step
+        ## 3)
+        while unflagged(cseg_pos_tuples)[2] != []:
             x = unflagged(cseg_pos_tuples)[2][0]
-            cseg_pos_tuples.remove(x)
-            depth += 1
-            print(cseg_pos_tuples)
 
-        return [cps_position_to_cseg(cseg_pos_tuples), depth]
+            ## It removes non-flagged cpitches (step 4)
+            cseg_pos_tuples.remove(x)
+
+            ## It increases depth (step 5)
+            depth += 1
+
+        return [cps_position_to_cseg(cseg_pos_tuples), depth - 1]
 
     def interval(self):
         """Returns Friedmann (1985) CI, the distance between one
