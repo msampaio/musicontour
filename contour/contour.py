@@ -319,37 +319,60 @@ class Contour(list):
         return [(self[p], p) for p in range(len(self))]
 
     def reduction_algorithm(self):
-        """Returns Morris (1993) contour reduction from a cseg."""
+        """Returns Morris (1993) contour reduction from a cseg, and
+        its depth.
+
+        >>> Contour([0, 4, 3, 2, 5, 5, 1]).reduction_algorithm()
+        [< 0 2 1 >, 2]
+        """
 
         def cps_position_to_cseg(cps_position):
             """Converts a list of cps_position tuples to cseg object."""
 
             return Contour([x for (x, y) in cps_position])
 
-        def unflagged(tuples_list):
-            """Returns unflagged cpitch tuples.
+        def init_flag(tuples_list):
+            """Returns max_list, min_list, flagged and unflagged
+            cpitch tuples.
 
-            It runs steps 1, 2, 3, 6, and 7."""
+            Accepts a tuples_list with the original contour.
 
-            ## steps 1 and 2
-            tmp_max = maxima(tuples_list)
-            tmp_min = minima(tuples_list)
-            if depth != 0:
-                ## steps 6 and 7
+            It runs steps 1 and 2."""
 
-                ## FIXME: implement options if cpitches is the first
-                ## or last of the sequence
-                tmp_max = utils.remove_duplicate_tuples(tmp_max)
-                tmp_min = utils.remove_duplicate_tuples(tmp_min)
+            max_list = maxima(tuples_list)
+            min_list = minima(tuples_list)
 
-            tmp_all = list(set(utils.flatten([tmp_max, tmp_min])))
+            ## flagged cpitches are all cpitches that are in max_list
+            ## or min_list
+            flagged = list(set(utils.flatten([max_list, min_list])))
 
-            ## step 3 (partial): returns not_flagged cpitches
             not_flagged = []
             for el in tuples_list:
-                if el not in tmp_all:
+                if el not in flagged:
                     not_flagged.append(el)
-            return tmp_max, tmp_min, not_flagged
+
+            return max_list, min_list, flagged, not_flagged
+
+        def flag(max_list, min_list):
+            """Returns max_list, min_list and unflagged cpitch tuples.
+
+            It runs steps 6, and 7."""
+
+            init_list = list(set(utils.flatten([max_list, min_list])))
+            new_max_list = utils.remove_duplicate_tuples(maxima(max_list))
+            new_min_list = utils.remove_duplicate_tuples(minima(min_list))
+
+            ## flagged cpitches are all cpitches that are in max_list
+            ## or min_list
+            flagged = list(set(utils.flatten([new_max_list, new_min_list])))
+            flagged = sorted(flagged, key=lambda(x, y): y)
+            not_flagged = []
+            ## fills not_flagged:
+            for el in init_list:
+                if el not in flagged:
+                    not_flagged.append(el)
+
+            return new_max_list, new_min_list, flagged, not_flagged
 
         ## returns list of cpitch/position tuples
         cseg_pos_tuples = self.cps_position()
@@ -357,19 +380,24 @@ class Contour(list):
         ## initial value (step 0)
         depth = 0
 
-        ## loop to run unflagged until finish unflagged cpitches
-        ## while tests if there are unflagged cpitches (partial step
-        ## 3)
-        while unflagged(cseg_pos_tuples)[2] != []:
-            x = unflagged(cseg_pos_tuples)[2][0]
+        ## runs steps 1 and 2
+        max_list, min_list, flagged, not_flagged = init_flag(cseg_pos_tuples)
 
-            ## It removes non-flagged cpitches (step 4)
-            cseg_pos_tuples.remove(x)
+        if not_flagged != []:
 
-            ## It increases depth (step 5)
+            ## step 5 (first time)
             depth += 1
 
-        return [cps_position_to_cseg(cseg_pos_tuples), depth - 1]
+            ## loop to run unflagged until finish unflagged cpitches
+            ## tests if there are unflagged cpitches (partial step 3)
+            while flag(max_list, min_list)[3] != []:
+                ## back to steps 6 and 7
+                max_list, min_list, flagged, not_flagged = flag(max_list, min_list)
+
+                ## increases depth (step 5)
+                depth += 1
+
+        return [Contour(cps_position_to_cseg(flagged).translation()), depth]
 
     def interval(self):
         """Returns Friedmann (1985) CI, the distance between one
