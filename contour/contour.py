@@ -321,29 +321,38 @@ class Contour(list):
     def reduction_algorithm(self):
         """Returns Morris (1993) contour reduction from a cseg."""
 
-        cseg_dur = self.cps_position()
+        def cps_position_to_cseg(cps_position):
+            """Converts a list of cps_position tuples to cseg object."""
 
-        max_tmp = [0, cseg_dur]
-        min_tmp = [0, cseg_dur]
+            return Contour([x for (x, y) in cps_position])
 
-        n = 0
-        m = 0
+        def unflagged(tuples_list):
+            """Returns unflagged cpitch tuples."""
 
-        def steps_count(list, fn, variable):
-            while(list[-1] != list[-2]):
-                variable = variable + 1
-                list.append(fn(utils.remove_duplicate_tuples(list[-1])))
+            tmp_max = maxima(tuples_list)
+            tmp_min = minima(tuples_list)
+            tmp_all = list(set(utils.flatten([tmp_max, tmp_min])))
+            not_flagged = []
+            for el in tuples_list:
+                if el not in tmp_all:
+                    not_flagged.append(el)
+            return tmp_max, tmp_min, not_flagged
 
-        steps_count(max_tmp, maxima, n)
-        steps_count(min_tmp, minima, m)
+        ## returns list of cpitch/position tuples
+        cseg_pos_tuples = self.cps_position()
 
-        max_tmp = max_tmp[-1]
-        min_tmp = min_tmp[-1]
+        ## initial value
+        depth = 0
 
-        times = max([n, m])
-        max_min = sorted(utils.flatten([max_tmp, min_tmp]), key=lambda x: x[1])
-        c = Contour([x for (x, y) in utils.remove_duplicate_tuples(max_min)])
-        return [c.prime_form(), times]
+        ## FIXME: broken loop
+        ## loop to run unflagged until finish unflagged cpitches
+        while len(unflagged(cseg_pos_tuples)) == 3:
+            x = unflagged(cseg_pos_tuples)[2][0]
+            cseg_pos_tuples.remove(x)
+            depth += 1
+            print(cseg_pos_tuples)
+
+        return [cps_position_to_cseg(cseg_pos_tuples), depth]
 
     def interval(self):
         """Returns Friedmann (1985) CI, the distance between one
