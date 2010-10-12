@@ -22,7 +22,7 @@ class App:
         font = 'sans 8 bold'
         self.initial = Tkinter.Label(master, text=sw_name + " v." + version, font=font)
 
-        self.text_output = Tkinter.Text(master, height=20)
+        self.text_output = Tkinter.Text(master, height=10)
         self.text_scroll = Tkinter.Scrollbar(master)
         self.text_scroll.config(command=self.text_output.yview)
         self.text_output.config(yscrollcommand=self.text_scroll.set)
@@ -490,7 +490,7 @@ class App:
 def gui():
     root = Tkinter.Tk()
     root.title(sw_name)
-    root.geometry('500x650+0+0')
+    root.geometry('500x500+0+0')
     root.resizable(Tkinter.FALSE, Tkinter.FALSE)
 
     app = App(root)
