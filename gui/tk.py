@@ -296,7 +296,7 @@ class App:
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
         self.text_output.insert(Tkinter.END, "\n")
-        contour.plot.contour_lines([rotation, plot_color, "Rotation({0}])".format(second_get)])
+        contour.plot.contour_lines([rotation, plot_color, "Rotation({0})".format(second_get)])
 
     def internal(self, event=None):
         get = self.main_entry.get()
