@@ -26,3 +26,19 @@ This is the first release and it has these features:
  - Contour Similarity
 - Tk GUI
 - Plotter
+
+Villa-Lobos Contour Module, release 0.2, November 11th 2010
+-----------------------------------------------------------
+
+This is the second release and it has these features:
+
+- Contour Embed Comparison
+- All embed contour Comparison
+- Morris Contour Reduction Algorithm
+- Contour classes table
+- Code reorganization
+- Tk GUI
+ - New display with grouped buttons by functionality
+ - New size for netbooks
+ - Clear buttons
+ - Subsets output grouped by normal and prime form
