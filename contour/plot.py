@@ -30,6 +30,8 @@ def __contour_lines(cseg, plot_color, custom_legend=""):
     cseg_yticks = range((min(cseg)), (max(cseg) + 1))
     cseg_xticks = range(len(cseg))
 
+    pylab.figure(figsize=(5, 5))
+
     ## These commands don't allow the plotting the same window in GUI
     # fig = pylab.figure()
     # fig.canvas.set_window_title(program_name)
