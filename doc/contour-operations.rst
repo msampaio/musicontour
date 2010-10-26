@@ -357,4 +357,40 @@ secondary entries. For instance::
  Main entry: 0 3 1 2
  Second. entry: 0 2 1 3
 
+Morris Contour Reduction Algorithm
+----------------------------------
+
+The Morris Contour Reduction Algorithm reduces a contour to a prime
+contour by cpitches prunning until no more cpitch can be deleted.
+
+.. explain what maxima, minima concepts and how the algorithm does its
+.. job
+
+Algorithm (Morris 1993, p.212)::
+
+0. Set N to 0
+1. Flag all maxima in C; call the resulting set the max-list.
+2. Flag all minima in C; call the resulting set the min-list.
+3. If all pitches in C are flagged, go to step 9.
+4. Delete all non-flagged pitches in C.
+5. N is incremented by 1 (i.e., N becomes N+1)
+6. Flag all maxima in max-list. For any string of equal and adjacent minima in min list, either: (1) flag only one of them; or (2) if one pitch in the string is the first or last pitch of C, flag only it; or (3) if both the first and last pitch of C are in the string, flag (only) both the first and last pitch of C.
+7. Flag all minima in min-list. For any string of equal and adjacent minima in min list, either: (1) flag only one of them; or (2) if one pitch in the string is the first or last pitch of C, flag only it; or (3) if both the first and last pitch of C are in the string, flag (only) both the first and last pitch of C.
+8. Go to step 3.
+9. End. N is the "depth" of the original contour C.
+
+Definitions:
+
+Maximum pitch
+        Given three adjacent pitches in a contour, if the second is
+        higher than or equal to the others it is a maximum. A set of
+        maximum pitches is called a maxima. The first and last pitches
+        of a contour are maxima by definition.
+
+Minimum pitch
+        Given three adjacent pitches in a contour, if the second is
+        lower than or equal to the others it is a minimum. A set of
+        minimum pitches is called a minima. The first and last pitches
+        of a contour are minima by definition.
+
 .. |VLCM| replace:: Villa-Lobos Contour Module
