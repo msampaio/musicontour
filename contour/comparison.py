@@ -172,7 +172,7 @@ def all_contour_mutually_embed(cseg1, cseg2):
     return 1.0 * incidence / total
 
 
-def all_comparison(*csegs):
+def operations_comparison(*csegs):
     """Returns contour operations relations between each couple of
     csegs of a list."""
 
@@ -225,11 +225,10 @@ def all_comparison(*csegs):
 
     return find_relations(cseg_op)
 
-def pretty_all_comparison(*csegs):
+def pretty_operations_comparison(*csegs):
     """Prints a pretty result for operations comparison."""
 
     r = []
-    all = all_comparison(*csegs)
-    for [[a, b], [c, d]] in all:
+    for [[a, b], [c, d]] in operations_comparison(*csegs):
         r.append("{1}({0}) = {3}({2})".format(a, b, c, d))
     return "\n".join(r)

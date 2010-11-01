@@ -105,8 +105,8 @@ class App:
                                command=self.all_embed, width=13, font=font_par)
         self.b_reduction = Tkinter.Button(self.frame_comparisons, text="Contour reduction",
                                command=self.reduction, width=13, font=font_par)
-        self.b_all_comparison = Tkinter.Button(self.frame_comparisons, text="All comparison",
-                               command=self.all_comparison, width=13, font=font_par)
+        self.b_operations_comparison = Tkinter.Button(self.frame_comparisons, text="Op. comparison",
+                               command=self.operations_comparison, width=13, font=font_par)
 
         ## key bindings:
         for x in [self.main_entry, master, self.secondary_entry]:
@@ -197,7 +197,7 @@ class App:
         self.frame_comparisons.grid(row=8, column=1, rowspan=3, sticky=Tkinter.W)
         self.b_compare.grid(row=8, column=1)
         self.b_all_embed.grid(row=9, column=1)
-        self.b_all_comparison.grid(row=10, column=1)
+        self.b_operations_comparison.grid(row=10, column=1)
         self.b_reduction.grid(row=11, column=1)
 
     ## functions
@@ -474,12 +474,12 @@ class App:
         self.text_output.insert(Tkinter.END, text2)
         self.text_output.insert(Tkinter.END, "\n")
 
-    def all_comparison(self, event=None):
+    def operations_comparison(self, event=None):
         get1 = self.main_entry.get()
         get2 = self.secondary_entry.get()
         cseg1 = [int(x) for x in get1.split(' ') if x]
         cseg2 = [int(x) for x in get2.split(' ') if x]
-        result = contour.comparison.pretty_all_comparison(cseg1, cseg2)
+        result = contour.comparison.pretty_operations_comparison(cseg1, cseg2)
         text1 = "Operations contour comparison:\n{0}".format(result)
         self.text_output.insert(Tkinter.END, text1)
         self.text_output.insert(Tkinter.END, "\n")
