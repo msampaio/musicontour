@@ -231,4 +231,7 @@ def pretty_operations_comparison(*csegs):
     r = []
     for [[a, b], [c, d]] in operations_comparison(*csegs):
         r.append("{1}({0}) = {3}({2})".format(a, b, c, d))
-    return "\n".join(r)
+    if r == []:
+        return "No operation similarity."
+    else:
+        return "\n".join(r)
