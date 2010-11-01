@@ -179,6 +179,23 @@ def all_comparison(*csegs):
     def apply_fn(cseg, fn):
         return apply(getattr(contour.Contour(cseg), fn))
 
+    def remove_operation_repetition(op_list):
+        """Removes operations repetitions.
+        For input l = [[a, b], [b, a], [c, d]], the output is
+        [[a, b], [c, d]]
+
+        >>> l = [[[(0, 1, 2), 'retrograde'], [(2, 1, 0), 'original']],
+        [[(2, 1, 0), 'original'], [(0, 1, 2), 'retrograde']]]
+        >>> remove_operation_repetition(l)
+        [[(0, 1, 2), 'retrograde'], [(2, 1, 0), 'original']]"""
+
+        new_list = []
+
+        for i in op_list:
+            if [i[1], i[0]] not in new_list:
+                new_list.append(i)
+        return new_list
+
     def find_relations(dictionary):
         relations = []
         for a in dictionary:
@@ -188,7 +205,7 @@ def all_comparison(*csegs):
                     (o, p) = b
                     if m != o:
                         relations.append([[contour.Contour(list(m)), n], [contour.Contour(list(o)), p]])
-        return relations
+        return remove_operation_repetition(relations)
 
     def build_dictionary(csegs):
         cseg_op = {}
