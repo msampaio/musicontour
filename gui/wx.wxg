@@ -4,7 +4,7 @@
 <application path="/home/marcos/repositorios/contour-module/wx_gui.py" name="" class="VLCM" option="0" language="python" top_window="main_frame" encoding="UTF-8" use_gettext="0" overwrite="0" use_new_namespace="1" for_version="2.6" is_template="0">
     <object class="VLCM_Frame" name="main_frame" base="EditFrame">
         <style>wxDEFAULT_FRAME_STYLE</style>
-        <title>Villa-Lobos Contour Module</title>
+        <title>MusiContour</title>
         <menubar>1</menubar>
         <statusbar>1</statusbar>
         <toolbar>1</toolbar>

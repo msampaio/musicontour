@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Villa-Lobos Contour Module build configuration file, created by
+# MusiContour build configuration file, created by
 # sphinx-quickstart on Sun Apr 18 14:14:51 2010.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -37,7 +37,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Villa-Lobos Contour Module'
+project = u'MusiContour'
 copyright = u'2010, Marcos di Silva and Pedro Kröger'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -103,7 +103,7 @@ html_theme = 'default'
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-html_title = "Villa-Lobos Contour Module"
+html_title = "MusiContour"
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #html_short_title = None
@@ -158,7 +158,7 @@ html_static_path = ['_static']
 #html_file_suffix = ''
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Villa-LobosContourModuledoc'
+htmlhelp_basename = 'MusiContourModuledoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -172,7 +172,7 @@ htmlhelp_basename = 'Villa-LobosContourModuledoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'Villa-LobosContourModule.tex', u'Villa-Lobos Contour Module',
+  ('index', 'MusiContour.tex', u'MusiContour',
    u'Marcos di Silva and Pedro Kröger', 'manual'),
 ]
 

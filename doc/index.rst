@@ -1,21 +1,19 @@
-.. Villa-Lobos Contour Module master file, created by
+.. MusiContour master file, created by
    sphinx-quickstart on Sun Apr 18 14:14:51 2010.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-|VLCM|
-======
+MusiContour
+===========
 
-|VLCM| (VLCM) is a module of `Villa-Lobos
-<http://github.com/kroger/villa-lobos/>`_, a program for music
-research, developed by Genos_. VLCM is a multiplataform `free software
-<about.html>`_ that plots and processes mathematical operations on
-musical contours. VLCM has a few `Contour Theories
-<contour-theories.html>`_ functions implemented, like prime form,
-comparison matrix and internal diagonals.
+MusiContour is a musical contour relations calculator, that plots and
+calculates mathematical operations on musical contours. MusiContour
+has a few `Contour Theories <contour-theories.html>`_ functions
+implemented, like prime form, comparison matrix and internal
+diagonals.
 
-VLCM is designed for Linux, but also runs in Windows. It's developed
-in Python.
+MusiContour is designed for Linux, but also runs in Windows. It's
+developed in Python.
 
 Contents:
 
@@ -36,4 +34,3 @@ Indexes and tables
 * :ref:`search`
 
 .. _Genos: http://genos.mus.br
-.. |VLCM| replace:: Villa-Lobos Contour Module

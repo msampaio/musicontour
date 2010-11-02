@@ -10,7 +10,7 @@ import utils
 import contour
 import random
 
-name = "Villa-Lobos Contour Module"
+name = "MusiContour"
 version = "0.2"
 program_name = "{0} v.{1}".format(name, version)
 

@@ -1,14 +1,15 @@
 Contour Theories
 ================
 
-|VLCM| is developed based on Contour Theories. These theories provides
-contour operations, and some of them are implemented in VLCM. They are
-described in `Contour operations <contour-operations.html>`_ section.
+MusiContour is developed based on Contour Theories. These theories
+provides contour operations, and some of them are implemented in
+MusiContour. They are described in `Contour operations
+<contour-operations.html>`_ section.
 
 Bibliography
 ------------
 
-The operations implemented in |VLCM| are described in this basic
+The operations implemented in MusiContour are described in this basic
 Contour Theories bibliography.
 
 * Friedmann, Michael L. 1985. A Methodology for the Discussion of
@@ -28,7 +29,7 @@ Contour Theories bibliography.
 
 * Morris, Robert D. 1993. New Directions in the Theory and Analysis of
   Musical Contour. Music Theory Spectrum xv: 205-228.
-  
+
 * Morris, Robert D. 1987. Composition with Pitch-classes: A Theory of
   Compositional Design. Yale University Press.
 
@@ -40,5 +41,3 @@ Contour Theories bibliography.
   <http://marcosdisilva.net/pdf/artsbcm2009-1.pdf>`_: a software to
   process musical contours. In Proceedings of the 12th Brazilian
   Symposium on Computer Music, 203-206. Recife, Brazil.
-
-.. |VLCM| replace:: Villa-Lobos Contour Module

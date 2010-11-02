@@ -67,9 +67,9 @@ qthelp:
 	@echo
 	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
 	      ".qhcp project file in _build/qthelp, like this:"
-	@echo "# qcollectiongenerator _build/qthelp/Villa-LobosContourModule.qhcp"
+	@echo "# qcollectiongenerator _build/qthelp/MusiContourModule.qhcp"
 	@echo "To view the help file:"
-	@echo "# assistant -collectionFile _build/qthelp/Villa-LobosContourModule.qhc"
+	@echo "# assistant -collectionFile _build/qthelp/MusiContourModule.qhc"
 
 latex:
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) _build/latex
@@ -95,7 +95,7 @@ doctest:
 	      "results in _build/doctest/output.txt."
 
 sync:
-	rsync -a --progress --delete _build/html/ genos.mus.br:www/villa-lobos/contour-module/
+	rsync -a --progress --delete _build/html/ genos.mus.br:www/MusiContour/
 
 %.png: %.ly
 	lilypond --png -o  $(basename $@) $<
