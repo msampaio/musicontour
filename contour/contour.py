@@ -422,7 +422,7 @@ class Contour(list):
         subsets = self.subsets_adj(2)
         return [Contour([x[0], x[-1]]).interval() for x in subsets]
 
-    def internal_diagonals(self, n):
+    def internal_diagonals(self, n=1):
         """Returns Morris (1987) int_n. The first internal diagonal
         (int_1) is the same of Friedmann (1985, 1987) contour
         adjacency series (CC)."""
