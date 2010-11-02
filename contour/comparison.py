@@ -220,7 +220,7 @@ def operations_comparison(*csegs):
                     cseg_op[(tuple(cseg), fn)] = normal_form
         return cseg_op
 
-    operations = ["translation", "prime_form", "inversion", "retrograde", "reduction_algorithm", "rotation"]
+    operations = ["translation", "prime_form", "inversion", "retrograde", "reduction_algorithm", "rotation", "internal_diagonals"]
     cseg_op = build_dictionary(csegs)
 
     return find_relations(cseg_op)
