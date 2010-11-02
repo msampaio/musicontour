@@ -1,21 +1,21 @@
-Villa-Lobos Contour Module (VLCM)
+MusiContour: musical contour relations calculator
 
-by Marcos di Silva and Pedro Kröger
+by Marcos di Silva and Pedro Kröger (Genos Research Group [1])
 
-This is a module of Villa-Lobos, the software for computer musicology
-developed by Genos [1]. VLCM began as Goiaba, a software developed to
-process musical contours, during Marcos di Silva master's degree
-[2]. In addition to melodic contour, VLCM can process contour related
-to other parameters such as duration, dynamics and chord density.
-This software provides Contour Theories functions [3].
+This is a software to calculate and plot musical contour relations
+operations. MusiContour can process contour related to parameters such
+as pitch, duration, dynamics and chord density. This software provides
+Contour Theories functions [2].
+
+MusiContour had two names before its current one: Goiaba (2007), a
+software developed to process musical contours, during Marcos di Silva
+master's degree [3], and Villa-Lobos Contour module, a module of
+Villa-Lobos [4], and is now independent.
 
 Footnotes:
 [1] http://genos.mus.br
 
-[2] http://marcosdisilva.net/en/research.html
-
-[3] Find more about Contour Theories in:﻿
-
+[2] Find more about Contour Theories in:﻿
 
 * Friedmann, Michael L. 1985. A Methodology for the Discussion of
   Contour: its Application to Schoenberg's Music. Journal of Music
@@ -44,6 +44,10 @@ Footnotes:
 * Sampaio, Marcos, and Pedro Kröger. 2009. Goiaba: a software to
   process musical contours. In Proceedings of the 12th Brazilian
   Symposium on Computer Music, 203-206. Recife, Brazil.
+
+[3] http://marcosdisilva.net/en/research.html
+
+[4] http://github.com/kroger/villa-lobos
 
 Keywords: Musical contour, contour in music, melodic contour,
           computational musicology, contour theory, contorno melódico.
