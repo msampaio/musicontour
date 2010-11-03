@@ -50,8 +50,8 @@ Source code
 ~~~~~~~~~~~
 
 The source code is available in
-http://github.com/mdsmus/contour-module. It's possible to download a
-package in http://github.com/mdsmus/contour-module/archives/master, or
+http://github.com/mdsmus/MusiContour. It's possible to download a
+package in http://github.com/mdsmus/MusiContour/archives/master, or
 to clone the repository::
 
  git clone git://github.com/mdsmus/contour-module.git
