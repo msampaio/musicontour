@@ -361,7 +361,8 @@ Morris Contour Reduction Algorithm
 ----------------------------------
 
 The Morris Contour Reduction Algorithm reduces a contour to a prime
-contour by cpitches prunning until no more cpitch can be deleted.
+contour prunning :term:`cpitches <Cpitch>` until no more cpitch can be
+deleted.
 
 .. explain what maxima, minima concepts and how the algorithm does its
 .. job
