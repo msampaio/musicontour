@@ -360,14 +360,41 @@ secondary entries. For instance::
 Morris Contour Reduction Algorithm
 ----------------------------------
 
-The Morris Contour Reduction Algorithm reduces a contour to a prime
-contour prunning :term:`cpitches <Cpitch>` until no more cpitch can be
-deleted.
+The Morris Contour Reduction Algorithm reduces a contour to a "contour
+reduction prime form" prunning :term:`cpitches <Cpitch>` in steps
+until no more cpitch can be deleted. The greater the number of steps,
+greater the reduction depth. The basic reduction idea is that each
+group of 3 adjacent cpitches in a same direction, like < 1 2 3 > or <
+6 3 2 > have the second cpitch prunned, becoming < 1 3 > and < 6 2 >.
 
-.. explain what maxima, minima concepts and how the algorithm does its
-.. job
+Thus, given three adjacent cpitches, if the second one is greater or
+equal to the others, this second cpitch is called maximum pitch. If
+this second pitch is less or equal than the others, it's called
+minimum pitch. For instance, given a cseg < 3 8 7 >, the cpitch 8 is a
+maximum pitch, and given a cseg < 5 2 2 >, the cpitch 2 is a minimum
+pitch. The < 3 8 7 > cseg has not a minimum pitch, as < 5 2 2 > cseg
+has not a maximum pitch. A set of maximum pitches is called maxima and
+a set of minimum pitches is called minima. First and last cpitches are
+both maximum and minimum pitches by definition.
 
-Algorithm (Morris 1993, p.212)::
+For instance, a cseg < 1 6 9 3 2 4 > has < 1 9 4 > as maxima, and < 1
+2 4 > as minima.
+
+.. figure:: figs/169324.png
+   :scale: 70%
+
+The non-flagged cpitches, that is, the cpitches that are not in maxima
+AND minima, are prunned. In the example, cpitches 6 and 3 are
+prunned. The contour is reduced to < 1 9 2 4 >, depth is increased in
+1, repeated adjacent cpitches like < 2 2 > are prunned, and
+maxima/minima flagging restarts.
+
+.. figure:: figs/1924.png
+   :scale: 70%
+
+This algorithm is formalized in this way (Morris 1993, p.212)::
+
+Given a contour C, and a variable N.
 
 0. Set N to 0
 1. Flag all maxima in C; call the resulting set the max-list.
@@ -379,17 +406,3 @@ Algorithm (Morris 1993, p.212)::
 7. Flag all minima in min-list. For any string of equal and adjacent minima in min list, either: (1) flag only one of them; or (2) if one pitch in the string is the first or last pitch of C, flag only it; or (3) if both the first and last pitch of C are in the string, flag (only) both the first and last pitch of C.
 8. Go to step 3.
 9. End. N is the "depth" of the original contour C.
-
-Definitions:
-
-Maximum pitch
-        Given three adjacent pitches in a contour, if the second is
-        higher than or equal to the others it is a maximum. A set of
-        maximum pitches is called a maxima. The first and last pitches
-        of a contour are maxima by definition.
-
-Minimum pitch
-        Given three adjacent pitches in a contour, if the second is
-        lower than or equal to the others it is a minimum. A set of
-        minimum pitches is called a minima. The first and last pitches
-        of a contour are minima by definition.
