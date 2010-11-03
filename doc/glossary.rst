@@ -76,6 +76,18 @@ Glossary
         The diagonals above zero main diagonal in a Comparison
         Matrix.
 
+    Maximum pitch (Morris 1993, p. 212)
+        Given three adjacent pitches in a contour, if the second is
+        higher than or equal to the others it is a maximum. A set of
+        maximum pitches is called a maxima. The first and last pitches
+        of a contour are maxima by definition.
+
+    Minimum pitch (Morris 1993, p. 212)
+        Given three adjacent pitches in a contour, if the second is
+        lower than or equal to the others it is a minimum. A set of
+        minimum pitches is called a minima. The first and last pitches
+        of a contour are minima by definition.
+
     Normal form
         A contour representation in which elements are enumerated in
         integers from 0, to lowest cpitch to n - 1, to highest pitch,
