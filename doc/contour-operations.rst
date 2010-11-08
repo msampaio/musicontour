@@ -380,6 +380,8 @@ both maximum and minimum pitches by definition.
 For instance, a cseg < 1 6 9 3 2 4 > has < 1 9 4 > as maxima, and < 1
 2 4 > as minima.
 
+.. figure:: lily/morris-contour-reduction-1.png
+
 .. figure:: figs/169324.png
    :scale: 70%
 
@@ -388,6 +390,10 @@ AND minima, are prunned. In the example, cpitches 6 and 3 are
 prunned. The contour is reduced to < 1 9 2 4 >, depth is increased in
 1, repeated adjacent cpitches like < 2 2 > are prunned, and
 maxima/minima flagging restarts.
+
+.. figure:: lily/morris-contour-reduction-2.png
+
+.. figure:: lily/morris-contour-reduction-3.png
 
 .. figure:: figs/1924.png
    :scale: 70%
