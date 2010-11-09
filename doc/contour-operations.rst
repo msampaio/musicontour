@@ -357,6 +357,20 @@ secondary entries. For instance::
  Main entry: 0 3 1 2
  Second. entry: 0 2 1 3
 
+All Mutually Embedded Contour Segments (ACMEMB)
+-----------------------------------------------
+
+A numeric measure for similarity between two csegs of different or
+similar cardinality. The number of all csubsegs mutually embedded in
+both csegs is divided by the total of possible csubsegs in the smaller
+csegs
+
+Each cseg has embedded csubsegs. For instance, cseg < 0 3 1 2 4 > has
+10 embedded csubsegs with cardinality 3 that can be visualized in plot
+or comparison matrix representations (see figure below).
+
+.. figure:: figs/cemb.png
+
 Morris Contour Reduction Algorithm
 ----------------------------------
 
