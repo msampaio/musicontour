@@ -362,12 +362,75 @@ All Mutually Embedded Contour Segments (ACMEMB)
 
 A numeric measure for similarity between two csegs of different or
 similar cardinality. The number of all csubsegs mutually embedded in
-both csegs is divided by the total of possible csubsegs in the smaller
-csegs
+both csegs is divided by the total of possible csubsegs in both
+csegs. For instance, two csegs C1 < 0 3 1 2 4 >, and C2 < 0 2 1 3 >
+have 37 possible csubsegs in common, and 32 mutually embedded
+csubsegs. Thus ACMEMB(C1, C2) = 0.86.
 
-Each cseg has embedded csubsegs. For instance, cseg < 0 3 1 2 4 > has
-10 embedded csubsegs with cardinality 3 that can be visualized in plot
-or comparison matrix representations (see figure below).
+C1 < 0 3 1 2 4 > csubsegs (grouped by normal form)::
+
+   Normal form < 0 1 > (8 csubsegs)
+   < 0 1 >
+   < 0 2 >
+   < 0 3 >
+   < 0 4 >
+   < 1 2 >
+   < 1 4 >
+   < 2 4 >
+   < 3 4 >
+   Normal form < 1 0 > (2 csubsegs)
+   < 3 1 >
+   < 3 2 >
+   Normal form < 0 1 2 > (5 csubsegs)
+   < 0 1 2 >
+   < 0 1 4 >
+   < 0 2 4 >
+   < 0 3 4 >
+   < 1 2 4 >
+   Normal form < 0 2 1 > (2 csubsegs)
+   < 0 3 1 >
+   < 0 3 2 >
+   Normal form < 1 0 2 > (2 csubsegs)
+   < 3 1 4 >
+   < 3 2 4 >
+   Normal form < 2 0 1 > (1 cusbseg)
+   < 3 1 2 >
+   Normal form < 0 1 2 3 > (1 csubseg)
+   < 0 1 2 4 >
+   Normal form < 0 2 1 3 > (2 csubsegs)
+   < 0 3 1 4 >
+   < 0 3 2 4 >
+   Normal form < 0 3 1 2 > (1 csubseg)
+   < 0 3 1 2 >
+   Normal form < 2 0 1 3 > (1 csubseg)
+   < 3 1 2 4 >
+   Normal form < 0 3 1 2 4 > (1 csubseg)
+   < 0 3 1 2 4 >
+
+
+C2 < 0 2 1 3 > csubsegs (grouped by normal form)::
+
+   Normal form < 0 1 > (5 csubsegs)
+   < 0 1 >
+   < 0 2 >
+   < 0 3 >
+   < 1 3 >
+   < 2 3 >
+   Normal form < 1 0 > (1 csubseg)
+   < 2 1 >
+   Normal form < 0 1 2 > (2 csubsegs)
+   < 0 1 3 >
+   < 0 2 3 >
+   Normal form < 0 2 1 > (1 csubseg)
+   < 0 2 1 >
+   Normal form < 1 0 2 > (1 csubseg)
+   < 2 1 3 >
+   Normal form < 0 2 1 3 > (1 csubseg)
+   < 0 2 1 3 >
+
+These embedded csubsegs can be visualized in plot or comparison matrix
+representations. For instance, cseg < 0 3 1 2 4 > has 10 embedded
+csubsegs with cardinality 3 (see figure below).
 
 .. figure:: figs/cemb.png
 
