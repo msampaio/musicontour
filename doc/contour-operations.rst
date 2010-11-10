@@ -24,6 +24,8 @@ For instance::
 Inversion
 ---------
 
+[Morris, 1987]
+
 The :term:`cseg <Cseg>` horizontal inversion. The cseg is renumbered
 under `Morris (1987) <contour-theories.html>`_ inversion formula::
 
@@ -76,6 +78,8 @@ For instance::
 Normal form (translation)
 -------------------------
 
+[Marvin and Laprade, 1987]
+
 A contour is in its Normal form when reenumerated in integers from 0
 to lower cpitch to ``(n - 1)`` to highest cpitch, where n is the
 contour cardinality. Normal form is accomplished by translation
@@ -96,6 +100,8 @@ For instance::
 
 Prime form
 ----------
+
+[Marvin and Laprade, 1987]
 
 The Prime form is calculated by Marvin and Laprade Prime Form
 Algorithm `(1987) <contour-theories.html>`_::
@@ -138,6 +144,8 @@ The pair 6-163 means cardinality and Prime form order.
 Comparison Matrix
 -----------------
 
+[Morris, 1987]
+
 Comparison Matrix (also known as COM-Matrix) returns a matrix with
 comparison between all elements of a contour. The result of a
 comparison is 0, + ou -. The Comparison Matrix is described by `Morris
@@ -168,6 +176,8 @@ comparison function between a and b elements::
 
 Internal Diagonal
 -----------------
+
+[Morris, 1987]
 
 The Internal diagonals are yanked from the Comparison Matrix, from top
 left to bottom right, above the main diagonal. The main diagonal is
@@ -210,6 +220,8 @@ For example, for a given contour A, all 3 elements subsets::
 Contour segments for an internal diagonal
 -----------------------------------------
 
+[Friedmann, 1985]
+
 Returns all possible csegs for a given internal diagonal.
 
 For instance::
@@ -247,6 +259,8 @@ and internal number must be in secondary entry::
 Contour Adjacency Series Vector (CASV)
 --------------------------------------
 
+[Friedmann, 1985]
+
 Two digit summation of ascendent and descendent movements in Contour
 Adjacency Series (Internal diagonal 1) of a contour segment. The first
 digit signifies ups, and second, downs. Also known as CASV.
@@ -264,6 +278,8 @@ For instance::
 Contour Interval Succession (CIS)
 ---------------------------------
 
+[Friedmann, 1985]
+
 A succession of all adjacent
 :term:`contour intervals <Contour Interval (CI)>` in a cseg. Also
 known as CIS.
@@ -280,6 +296,8 @@ For instance::
 
 Contour Interval Array (CIA)
 ----------------------------
+
+[Friedmann, 1985]
 
 An array with the multiplicity of
 :term:`contour intervals <Contour Interval (CI)>` types in a cseg.
@@ -299,6 +317,8 @@ contour interval of type -1: (3 2), and zero contour interval of types
 Contour Class Vector I (CCVI)
 -----------------------------
 
+[Friedmann, 1985]
+
 Two digit summation of the frequency of ascendent and descendent
 movements. Final result is the sum of number of elements and contour
 interval multiplication.
@@ -316,6 +336,8 @@ For instance::
 Contour Class Vector II (CCVII)
 -------------------------------
 
+[Friedmann, 1985]
+
 Two digit summation of the frequency of ups and downs. Final result is
 the sum of number of elements of a
 :term:`contour interval <Contour Interval (CI)>` type.
@@ -332,6 +354,8 @@ For instance::
 
 Contour Similarity
 ------------------
+
+[Marvin and Laprade, 1987]
 
 A numeric measure for similarity between csegs with the same
 :term:`cardinality <Cardinality>`. It varies from 0 to 1, representing
@@ -359,6 +383,8 @@ secondary entries. For instance::
 
 All Mutually Embedded Contour Segments (ACMEMB)
 -----------------------------------------------
+
+[Marvin and Laprade, 1987]
 
 A numeric measure for similarity between two csegs of different or
 similar cardinality. The number of all csubsegs mutually embedded in
@@ -436,6 +462,8 @@ csubsegs with cardinality 3 (see figure below).
 
 Morris Contour Reduction Algorithm
 ----------------------------------
+
+[Morris, 1993]
 
 The Morris Contour Reduction Algorithm reduces a contour to a "contour
 reduction prime form" prunning :term:`cpitches <Cpitch>` in steps
