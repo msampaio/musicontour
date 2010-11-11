@@ -1,20 +1,19 @@
 Install
 =======
 
-.. index:: Getting VLCM
+.. index:: Getting MusiContour
 
 Getting software
 ----------------
 
-|VLCM| source code and user releases tarballs are
+MusiContour source code and user releases tarballs are
 available.
 
 User releases
 ~~~~~~~~~~~~~
 
-|VLCM| can be downloaded as tarballs or zipfiles at
-http://genos.mus.br/villa-lobos/download. The files have this syntax:
-contour-module-VERSION.zip or contour-module-VERSION.tar.gz
+MusiContour can be downloaded as tarballs or zipfiles at
+http://github.com/mdsmus/MusiContour/archives/master
 
 Linux users
 ```````````
@@ -26,7 +25,7 @@ Linux users must install also this dependency::
 Windows users
 `````````````
 
-Windows users must install manually all dependencies for |VLCM|:
+Windows users must install manually all dependencies for MusiContour:
 `Python 2.6 <http://www.python.org/download/windows/>`_, `Numpy
 <http://sourceforge.net/projects/numpy/>`_, `Matplotlib
 <http://matplotlib.sourceforge.net/>`_ and `PIL
@@ -44,15 +43,15 @@ Look at the the picture:
 Mac users
 `````````
 
-VLCM was not tested in Macintosh, but probably can be installed
+MusiContour was not tested in Macintosh, but probably can be installed
 following `Windows users`_ steps.
 
 Source code
 ~~~~~~~~~~~
 
 The source code is available in
-http://github.com/mdsmus/contour-module. It's possible to download a
-package in http://github.com/mdsmus/contour-module/archives/master, or
+http://github.com/mdsmus/MusiContour. It's possible to download a
+package in http://github.com/mdsmus/MusiContour/archives/master, or
 to clone the repository::
 
  git clone git://github.com/mdsmus/contour-module.git
@@ -64,4 +63,26 @@ It's necessary to install these dependencies::
  sudo easy_install pep8
  sudo easy_install pylint
 
-.. |VLCM| replace:: Villa-Lobos Contour Module
+.. index:: Running MusiContour
+
+Running
+-------
+
+On Linux
+~~~~~~~~
+
+To run MusiContour GUI in Linux you have to open a
+terminal, change to contour-module directory, and run one of these
+commands::
+
+ python gui.py
+
+or::
+
+ ./gui.py
+
+On Windows
+~~~~~~~~~~
+
+To run MusiContour GUI in Windows, double-click gui.py
+file.

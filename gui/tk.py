@@ -9,7 +9,7 @@ import contour.utils
 import contour.plot
 import Tkinter
 
-sw_name = "Villa-Lobos Contour Module"
+sw_name = "MusiContour"
 version = "0.2"
 
 

@@ -9,4 +9,4 @@ User documentation
    user-doc-0.2.rst
 
 The documentation is also available in PDF format, at
-http://genos.mus.br/villa-lobos/download
+http://genos.mus.br/MusiContour/pdf

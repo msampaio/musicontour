@@ -2,7 +2,7 @@ Contour Operations
 ==================
 
 Contour theories provides many contour operations. Eight of them are
-implemented in |VLCM|:
+implemented in MusiContour:
 
 .. index:: Retrograde
 
@@ -248,8 +248,8 @@ The other internal diagonals can be used as input::
  < 3 0 2 1 >
  < 3 1 0 2 >
 
-In |VLCM| GUI, the internal diagonal must be given with 1 and -1, and
-internal number must be in secondary entry::
+In MusiContour GUI, the internal diagonal must be given with 1 and -1,
+and internal number must be in secondary entry::
 
  Main entry: -1 1 -1
  Second. entry: 1
@@ -375,7 +375,7 @@ in both segments. Thus, contour similarity is 5/6, or 0.83.
 .. figure:: figs/0312-0213.png
    :scale: 70%
 
-In |VLCM| GUI, the contour segments must be input in main and
+In MusiContour GUI, the contour segments must be input in main and
 secondary entries. For instance::
 
  Main entry: 0 3 1 2
@@ -539,5 +539,3 @@ Given a contour C, and a variable N.
 7. Flag all minima in min-list. For any string of equal and adjacent minima in min list, either: (1) flag only one of them; or (2) if one pitch in the string is the first or last pitch of C, flag only it; or (3) if both the first and last pitch of C are in the string, flag (only) both the first and last pitch of C.
 8. Go to step 3.
 9. End. N is the "depth" of the original contour C.
-
-.. |VLCM| replace:: Villa-Lobos Contour Module

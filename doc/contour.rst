@@ -1,8 +1,7 @@
 The Contour data structure
 ==========================
 
-The basic data structure in Villa-Lobos Contour Module is the class
-:class:`Contour`.
+The basic data structure in MusiContour is the class :class:`Contour`.
 
 Contour methods
 ---------------
