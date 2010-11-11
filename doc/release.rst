@@ -33,10 +33,11 @@ Villa-Lobos Contour Module, release 0.2, November 11th 2010
 This is the second release and it has these features:
 
 - Contour theories operations implemented:
- - Embed Contour Comparison
  - All Embed Contour Comparison
  - Morris Contour Reduction Algorithm
  - Contour classes table
+- Other operation implemented:
+ - Operations relations
 - Tk GUI
  - New display with grouped buttons by functionality
  - New size for netbooks
