@@ -105,7 +105,7 @@ class App:
                                command=self.all_embed, width=13, font=font_par)
         self.b_reduction = Tkinter.Button(self.frame_comparisons, text="Contour reduction",
                                command=self.reduction, width=13, font=font_par)
-        self.b_operations_comparison = Tkinter.Button(self.frame_comparisons, text="Op. comparison",
+        self.b_operations_comparison = Tkinter.Button(self.frame_comparisons, text="Op. relations",
                                command=self.operations_comparison, width=13, font=font_par)
 
         ## key bindings:
