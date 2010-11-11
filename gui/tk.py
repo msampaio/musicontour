@@ -128,6 +128,8 @@ class App:
             x.bind("<S>", self.all_subsets)
             x.bind("<c>", self.csegs_from_int)
             x.bind("<C>", self.compare)
+            x.bind("<E>", self.all_embed)
+            x.bind("<o>", self.operations_comparison)
 
             x.bind("<a>", self.casv)
             x.bind("<x>", self.cia)
