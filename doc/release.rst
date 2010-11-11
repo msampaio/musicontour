@@ -42,5 +42,6 @@ This is the second release and it has these features:
  - New display with grouped buttons by functionality
  - New size for netbooks
  - Clear buttons
+ - Shortcuts
  - Subsets output grouped by normal and prime form
 - Code reorganization
