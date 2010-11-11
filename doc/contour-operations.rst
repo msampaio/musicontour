@@ -460,6 +460,28 @@ csubsegs with cardinality 3 (see figure below).
 
 .. figure:: figs/cemb.png
 
+Operations Comparison
+---------------------
+
+Operations Relations returns Translation, Prime form, Inversion,
+Retrograde, Morris Reduction and Internal Diagonals operations
+relations between two csegs. For instance, two csegs C1 < 0 1 2 3 >,
+and C2 < 9 5 3 1 > have these operations relations::
+
+           inversion(< 9 5 3 1 >) = original(< 0 1 2 3 >)
+           inversion(< 9 5 3 1 >) = translation(< 0 1 2 3 >)
+           inversion(< 9 5 3 1 >) = prime_form(< 0 1 2 3 >)
+           prime_form(< 9 5 3 1 >) = original(< 0 1 2 3 >)
+           prime_form(< 9 5 3 1 >) = translation(< 0 1 2 3 >)
+           prime_form(< 9 5 3 1 >) = prime_form(< 0 1 2 3 >)
+           original(< 0 1 2 3 >) = retrograde(< 9 5 3 1 >)
+           retrograde(< 9 5 3 1 >) = translation(< 0 1 2 3 >)
+           retrograde(< 9 5 3 1 >) = prime_form(< 0 1 2 3 >)
+           translation(< 9 5 3 1 >) = retrograde(< 0 1 2 3 >)
+           translation(< 9 5 3 1 >) = inversion(< 0 1 2 3 >)
+           retrograde(< 0 1 2 3 >) = original(< 9 5 3 1 >)
+           inversion(< 0 1 2 3 >) = original(< 9 5 3 1 >)
+
 Morris Contour Reduction Algorithm
 ----------------------------------
 
