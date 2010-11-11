@@ -26,9 +26,9 @@ Graphic User Interface (GUI)
 The current GUI for VLCM is made up of `Main frame`_ and `Plot
 frame`_.
 
-.. image:: figs/villa-lobos-gui-main-frame.png
+.. image:: figs/villa-lobos-0.1-gui-main-frame.png
 
-.. image:: figs/villa-lobos-gui-plot-frame.png
+.. image:: figs/villa-lobos-0.1-gui-plot-frame.png
 
 .. index:: Main frame
 
@@ -36,7 +36,7 @@ Main frame
 ``````````
 This is the VLCM `Main frame`_:
 
-.. image:: figs/villa-lobos-gui-main-frame.png
+.. image:: figs/villa-lobos-0.1-gui-main-frame.png
 
 The gui is divided in three parts:
 
@@ -44,7 +44,7 @@ The gui is divided in three parts:
 2. `Input text area`_
 3. `Functions buttons`_
 
-.. image:: figs/villa-lobos-gui-main-frame-areas.png
+.. image:: figs/villa-lobos-0.1-gui-main-frame-areas.png
 
 .. index:: Output text area
 
@@ -98,11 +98,11 @@ Plot frame
 a bottom toolbar with navigation, pan, zoom, adjust, and save
 tools. So, it's possible to save a png file with the plotted contour.
 
-.. image:: figs/villa-lobos-gui-plot-frame.png
+.. image:: figs/villa-lobos-0.1-gui-plot-frame.png
 
 The plotted contour has a top-right legend. `Plot frame`_ superposes
 contour plotting when two or more functions are choosen in `Functions
 buttons`_.
 
-.. image:: figs/villa-lobos-gui-plot-frame-contours.png
+.. image:: figs/villa-lobos-0.1-gui-plot-frame-contours.png
 
