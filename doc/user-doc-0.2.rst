@@ -8,6 +8,8 @@ Installing
 
 To install VLCM look at `install documentation <install.html>`_.
 
+.. index:: Running VLCM
+
 Running
 -------
 

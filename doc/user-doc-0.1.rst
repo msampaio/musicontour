@@ -3,11 +3,34 @@ User documentation - Release 0.1
 
 Released in May 4th, 2010.
 
-Installing and Running
-----------------------
+Installing
+----------
 
-To install and run VLCM look at `install documentation
-<install.html>`_.
+To install VLCM look at `install documentation <install.html>`_.
+
+.. index:: Running VLCM
+
+Running
+-------
+
+On Linux
+~~~~~~~~
+
+To run |VLCM| GUI in Linux you have to open a
+terminal, change to contour-module directory, and run one of these
+commands::
+
+ python gui.py
+
+or::
+
+ ./gui.py
+
+On Windows
+~~~~~~~~~~
+
+To run |VLCM| GUI in Windows, double-click gui.py
+file.
 
 Plotting a contour and an operation
 -----------------------------------
@@ -33,7 +56,8 @@ frame`_.
 .. index:: Main frame
 
 Main frame
-``````````
+~~~~~~~~~~
+
 This is the VLCM `Main frame`_:
 
 .. image:: figs/villa-lobos-0.1-gui-main-frame.png
@@ -106,3 +130,4 @@ buttons`_.
 
 .. image:: figs/villa-lobos-0.1-gui-plot-frame-contours.png
 
+.. |VLCM| replace:: Villa-Lobos Contour Module

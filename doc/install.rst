@@ -64,28 +64,4 @@ It's necessary to install these dependencies::
  sudo easy_install pep8
  sudo easy_install pylint
 
-.. index:: Running VLCM
-
-Running
--------
-
-On Linux
-~~~~~~~~
-
-To run |VLCM| GUI in Linux you have to open a
-terminal, change to contour-module directory, and run one of these
-commands::
-
- python gui.py
-
-or::
-
- ./gui.py
-
-On Windows
-~~~~~~~~~~
-
-To run |VLCM| GUI in Windows, double-click gui.py
-file.
-
 .. |VLCM| replace:: Villa-Lobos Contour Module
