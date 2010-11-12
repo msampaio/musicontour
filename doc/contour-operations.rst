@@ -381,6 +381,8 @@ secondary entries. For instance::
  Main entry: 0 3 1 2
  Second. entry: 0 2 1 3
 
+.. index:: All Mutually Embedded Contour Segments (ACMEMB)
+
 All Mutually Embedded Contour Segments (ACMEMB)
 -----------------------------------------------
 
@@ -460,6 +462,8 @@ csubsegs with cardinality 3 (see figure below).
 
 .. figure:: figs/cemb.png
 
+.. index:: Operations Comparison
+
 Operations Comparison
 ---------------------
 
@@ -481,6 +485,8 @@ and C2 < 9 5 3 1 > have these operations relations::
            translation(< 9 5 3 1 >) = inversion(< 0 1 2 3 >)
            retrograde(< 0 1 2 3 >) = original(< 9 5 3 1 >)
            inversion(< 0 1 2 3 >) = original(< 9 5 3 1 >)
+
+.. index:: Morris Contour Reduction Algorithm
 
 Morris Contour Reduction Algorithm
 ----------------------------------
