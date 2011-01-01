@@ -172,66 +172,84 @@ def all_contour_mutually_embed(cseg1, cseg2):
     return 1.0 * incidence / total
 
 
-def operations_comparison(*csegs):
-    """Returns contour operations relations between each couple of
-    csegs of a list."""
+def operations_comparison(cseg1, cseg2):
+    """Returns contour operations relations between two given csegs."""
 
     def apply_fn(cseg, fn):
         return apply(getattr(contour.Contour(cseg), fn))
 
-    def remove_operation_repetition(op_list):
-        """Removes operations repetitions.
-        For input l = [[a, b], [b, a], [c, d]], the output is
-        [[a, b], [c, d]]
+    operations = ["translation", "prime_form", "inversion", "retrograde", "reduction_algorithm", "internal_diagonals"]
 
-        >>> l = [[[(0, 1, 2), 'retrograde'], [(2, 1, 0), 'original']],
-        [[(2, 1, 0), 'original'], [(0, 1, 2), 'retrograde']]]
-        >>> remove_operation_repetition(l)
-        [[(0, 1, 2), 'retrograde'], [(2, 1, 0), 'original']]"""
+    def all_rotations(cseg):
+        """Returns all possible rotations of a given cseg.
 
-        new_list = []
+        >>> all_rotations(Contour([0, 1, 2])
+        [(< 0, 1, 2>, 0, < 0, 1, 2 >),
+        (< 0, 1, 2 >, 1, < 1, 2, 0 >),
+        (< 0, 1, 2 >, 2, < 2, 0, 1 >)]
+        """
 
-        for i in op_list:
-            if [i[1], i[0]] not in new_list:
-                new_list.append(i)
-        return new_list
+        s = len(cseg)
+        return [(cseg, factor, cseg.rotation(factor)) for factor in range(s)]
 
-    def find_relations(dictionary):
-        relations = []
-        for a in dictionary:
-            for b in dictionary:
-                if dictionary[a] == dictionary[b]:
-                    (m, n) = a
-                    (o, p) = b
-                    if m != o:
-                        relations.append([[contour.Contour(list(m)), n], [contour.Contour(list(o)), p]])
-        return remove_operation_repetition(relations)
+    def all_op(cseg, factor, rotated):
+        """Returns all operations defined in variable 'operations' of
+        a given tuple (original cseg, rotation factor, and rotated
+        cseg)."""
 
-    def build_dictionary(csegs):
-        cseg_op = {}
-        for cseg in csegs:
-            cseg_op[(tuple(cseg), 'original')] = cseg
-            for fn in operations:
-                normal_form = apply_fn(contour.Contour(cseg).translation(), fn)
-                reduced = contour.Contour(cseg).reduction_algorithm()
-                ## removes csegs that are equal to their normal form
-                ## or reduced algorithm form
-                if cseg != normal_form or cseg != reduced[0]:
-                    cseg_op[(tuple(cseg), fn)] = normal_form
-        return cseg_op
+        r = []
+        r.append((cseg, factor, "original", rotated))
+        [r.append((cseg, factor, op, apply_fn(rotated, op))) for op in operations]
+        return r
 
-    operations = ["translation", "prime_form", "inversion", "retrograde", "reduction_algorithm", "rotation", "internal_diagonals"]
-    cseg_op = build_dictionary(csegs)
+    def all_op_all_rot(cseg):
+        """Returns a list with all operations of all rotations of a
+        given cseg."""
 
-    return find_relations(cseg_op)
+        r = []
+        for (c, factor, rotated) in all_rotations(cseg):
+            r.append(all_op(c, factor, rotated))
 
-def pretty_operations_comparison(*csegs):
+        return utils.flatten(r)
+
+    def compare_csegs(cseg1, cseg2):
+
+        l1 = all_op_all_rot(cseg1)
+        l2 = all_op_all_rot(cseg2)
+
+        r = []
+
+        for x in l1:
+            for y in l2:
+                if list(x)[3] == list(y)[3]:
+                    r.append([x, y])
+
+        ## if comparison is prime form or translation, break
+
+        result = []
+        for (x, y) in r:
+            if list(x)[2] and list(y)[2] == "original":
+                result.append([x, y])
+                break
+            elif list(x)[2] or list(y)[2] == "prime_form" or "translation":
+                result.append([x, y])
+                break
+            else:
+                result.append([x, y])
+
+        return result
+
+    return compare_csegs(cseg1, cseg2)
+
+
+def pretty_operations_comparison(cseg1, cseg2):
     """Prints a pretty result for operations comparison."""
 
     r = []
-    for [[a, b], [c, d]] in operations_comparison(*csegs):
-        r.append("{1}({0}) = {3}({2})".format(a, b, c, d))
+    for [(c1, f1, o1, r1), (c2, f2, o2, r2)] in operations_comparison(cseg1, cseg2):
+        r.append("{0} [rot{1}] ({2}): {3}\n{4} [rot{5}] ({6})\n".format(c1, f2, o1, r1, c2, f2, o2))
     if r == []:
         return "No operation similarity."
     else:
         return "\n".join(r)
+

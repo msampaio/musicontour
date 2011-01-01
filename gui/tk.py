@@ -479,8 +479,8 @@ class App:
     def operations_comparison(self, event=None):
         get1 = self.main_entry.get()
         get2 = self.secondary_entry.get()
-        cseg1 = [int(x) for x in get1.split(' ') if x]
-        cseg2 = [int(x) for x in get2.split(' ') if x]
+        cseg1 = contour.contour.Contour([int(x) for x in get1.split(' ') if x])
+        cseg2 = contour.contour.Contour([int(x) for x in get2.split(' ') if x])
         result = contour.comparison.pretty_operations_comparison(cseg1, cseg2)
         text1 = "Operations contour comparison:\n{0}".format(result)
         self.text_output.insert(Tkinter.END, text1)
