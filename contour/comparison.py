@@ -213,6 +213,10 @@ def operations_comparison(cseg1, cseg2):
         return utils.flatten(r)
 
     def compare_csegs(cseg1, cseg2):
+        """Returns a list of operations that csegs are related. If
+        csegs are related by original, prime or normal form, only the
+        first relations is returned. The test order is 'original',
+        'normal form', and 'prime form'."""
 
         l1 = all_op_all_rot(cseg1)
         l2 = all_op_all_rot(cseg2)
@@ -221,18 +225,30 @@ def operations_comparison(cseg1, cseg2):
 
         for x in l1:
             for y in l2:
+
+                ## Tests if csegs are related by basic operations
                 if list(x)[3] == list(y)[3]:
-                    r.append([x, y])
+                    if list(x)[2] == list(y)[2] == "original":
+                        r = [[x, y]]
+                        break
 
-        ## if comparison is prime form or translation, break
+                    ## Tests csegs with the same rotation factor.
+                    elif list(x)[1] == list(y)[1] == 0:
+                        if list(x)[2] == list(y)[2] == "translation":
+                            r = [[x, y]]
+                            break
+                        elif list(x)[2] == list(y)[2] == "prime_form":
+                            r = [[x, y]]
+                            break
+                    else:
+                        r.append([x, y])
 
+        ## if csegs have different rotation factor, but are in prime
+        ## or normal form, break
         result = []
         for (x, y) in r:
-            if list(x)[2] and list(y)[2] == "original":
-                result.append([x, y])
-                break
-            elif list(x)[2] or list(y)[2] == "prime_form" or "translation":
-                result.append([x, y])
+            if list(x)[2] or list(y)[2] == "prime_form" or "translation":
+                result = [[x, y]]
                 break
             else:
                 result.append([x, y])
