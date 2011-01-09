@@ -17,11 +17,11 @@ def __intern_diagon_sim(cseg1, cseg2, n):
     return sum([(1 if d1[i] == d2[i] else 0) for i in range(length)])
 
 
-def cseg_similarity(cseg1, cseg2):
-    """Returns Marvin and Laprade (1987) Csim(a, b). It's a contour
-    similarity function that measures similarity between two csegs of
-    the same cardinality. The maximum similarity is 1, and minimum is
-    0.
+def single_cseg_similarity(cseg1, cseg2):
+    """Returns Marvin and Laprade (1987) CSIM(A, B) for a single
+    cseg. It's a contour similarity function that measures similarity
+    between two csegs of the same cardinality. The maximum similarity
+    is 1, and minimum is 0.
 
     'd' means the number of internal diagonals.
 
@@ -38,6 +38,15 @@ def cseg_similarity(cseg1, cseg2):
     triangle_pos = sum(d)
     similar_pos = sum([__intern_diagon_sim(cseg1, cseg2, n) for n in d])
     return similar_pos / float(triangle_pos)
+
+
+def cseg_similarity(cseg1, cseg2):
+    """Returns Marvin and Laprade (1987) CSIM(A, B) with csegclasses
+    representatives comparison.
+    """
+
+    csims = [single_cseg_similarity(cseg1, c) for c in cseg2.class_representatives()]
+    return sorted(csims, reverse=True)[0]
 
 
 def subsets_embed_total_number(cseg1, cseg2):
