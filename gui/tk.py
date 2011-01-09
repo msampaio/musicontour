@@ -454,7 +454,7 @@ class App:
         cseg2 = [int(x) for x in get2.split(' ') if x]
         cseg1_p = contour.contour.Contour(cseg1)
         cseg2_p = contour.contour.Contour(cseg2)
-        tmp = contour.comparison.cseg_similarity_compare(cseg1, cseg2)
+        tmp = contour.comparison.cseg_similarity_compare(cseg1_p, cseg2_p)
         [operation, result] = tmp
         text1 = "{0}: {1:.2f}\n".format(operation, result)
         text2 = "Cseg 1: {0}\nCseg 2: {1}".format(cseg1_p, cseg2_p)
