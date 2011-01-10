@@ -4,6 +4,7 @@
 from __future__ import print_function
 import contour
 import utils
+import diagonal
 
 class ComparisonMatrix(list):
     """Returns an objcect comparison matrix.
@@ -23,6 +24,15 @@ class ComparisonMatrix(list):
         lines = [contour.Contour(self[0]).inversion()]
         [lines.append([(el * -1) for el in item]) for item in self[1:]]
         return ComparisonMatrix(lines)
+
+    def diagonal(self, n=1):
+        """Returns internal diagonal INTn of a Comparison Matrix."""
+
+        if n < len(self):
+            numbered_matrix = sorted(enumerate(self))[1:-n]
+            r = [el[i - 1 + n] for (i, el) in numbered_matrix]
+
+            return contour.diagonal.InternalDiagonal(r)
 
     def __repr__(self):
 
