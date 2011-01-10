@@ -166,7 +166,7 @@ def csubseg_mutually_embed(cardinality, cseg1, cseg2):
     return 1.0 * a / b
 
 
-def all_contour_mutually_embed(cseg1, cseg2):
+def __all_contour_mutually_embed(cseg1, cseg2):
     """Returns ACMEMB(A,B) (Marvin and Laprade, 1987).
 
     It's total number of significant mutually embeded csegs of
@@ -179,6 +179,19 @@ def all_contour_mutually_embed(cseg1, cseg2):
         incidence += __csubseg_mutually_embed(i, cseg1, cseg2)[0]
         total += __csubseg_mutually_embed(i, cseg1, cseg2)[1]
     return 1.0 * incidence / total
+
+
+def all_contour_mutually_embed(cseg1, cseg2):
+    """Returns ACMEMB(A,B) (Marvin and Laprade, 1987).
+
+    It's total number of significant mutually embeded csegs of
+    cardinality 2 through the cardinality of the smaller cseg divided
+    by the total possible csegs embed in both cseg1 and cseg2 and its
+    csegclasses representatives.
+    """
+
+    acmembs = [__all_contour_mutually_embed(cseg1, c) for c in cseg2.class_representatives()]
+    return sorted(acmembs, reverse=True)[0]
 
 
 def operations_comparison(cseg1, cseg2):
