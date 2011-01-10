@@ -12,24 +12,25 @@ class ContourError(Exception):
     pass
 
 
+def build_classes_card(card):
+    """Generates contour classes like Marvin and Laprade (1987)
+    software for one cardinality.
+
+    Returns (card, number, contour class).
+    """
+
+    permut = auxiliary.permut_csegs(card)
+    primes_repeats = [tuple(Contour(x).prime_form()) for x in permut]
+    primes = enumerate(sorted(list(set(primes_repeats))))
+    return [(card, n + 1, x, Contour(list(x)).ri_identity_test()) for n, x in primes]
+
+
 def build_classes(cardinality):
     """Generates contour classes like Marvin and Laprade (1987)
     software."""
 
-    def __build_classes_card(card):
-        """Generates contour classes like Marvin and Laprade (1987)
-        software for one cardinality.
-
-        Returns (card, number, contour class).
-        """
-
-        permut = auxiliary.permut_csegs(card)
-        primes_repeats = [tuple(Contour(x).prime_form()) for x in permut]
-        primes = enumerate(sorted(list(set(primes_repeats))))
-        return [(card, n + 1, x, Contour(list(x)).ri_identity_test()) for n, x in primes]
-
     card_list = range(2, (cardinality + 1))
-    return [__build_classes_card(c) for c in card_list]
+    return [build_classes_card(c) for c in card_list]
 
 
 def pretty_classes(cardinality):

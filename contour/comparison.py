@@ -278,3 +278,33 @@ def pretty_operations_comparison(cseg1, cseg2):
     else:
         return "\n".join(r)
 
+
+def cseg_similarity_continuum(cseg):
+    """Returns all csegs with the same cardinality of the given one
+    sorted by cseg similarity.
+
+    >>> cseg_similarity_continuum(Contour([1, 0, 3, 2]))
+    [[0.5, [< 0 2 1 3 >, < 0 3 2 1 >]],
+    [0.66666666666666663, [< 0 1 2 3 >, < 0 2 3 1 >, < 0 3 1 2 >]],
+    [0.83333333333333337, [< 0 1 3 2 >, < 1 3 0 2 >]],
+    [1.0, [< 1 0 3 2 >]]]
+    """
+
+    size = len(cseg)
+    built_classes = contour.build_classes_card(size)
+    csegclasses = []
+    similarity = []
+    for (a, b, csegclass, d) in built_classes:
+        csegclass = contour.Contour(csegclass)
+        csim = cseg_similarity(cseg, csegclass)
+        csegclasses.append([csim, csegclass])
+        similarity.append(csim)
+    similarity = sorted(list(set(similarity)))
+    result = []
+    for similarity_index in similarity:
+        si = []
+        for csegclass in sorted(csegclasses):
+            if csegclass[0] == similarity_index:
+                si.append(csegclass[1])
+        result.append([similarity_index, si])
+    return result
