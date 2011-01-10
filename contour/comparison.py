@@ -292,19 +292,40 @@ def cseg_similarity_continuum(cseg):
 
     size = len(cseg)
     built_classes = contour.build_classes_card(size)
-    csegclasses = []
-    similarity = []
-    for (a, b, csegclass, d) in built_classes:
-        csegclass = contour.Contour(csegclass)
-        csim = cseg_similarity(cseg, csegclass)
-        csegclasses.append([csim, csegclass])
-        similarity.append(csim)
-    similarity = sorted(list(set(similarity)))
-    result = []
-    for similarity_index in similarity:
-        si = []
-        for csegclass in sorted(csegclasses):
-            if csegclass[0] == similarity_index:
-                si.append(csegclass[1])
-        result.append([similarity_index, si])
-    return result
+
+    def cseg_similarity_lists(built_classes):
+        """Returns a tuple with two lists:
+        1. cseg similarity (CSIM) and csegclass, and
+        2. all cseg similarity in previous list.
+
+        Accepts built classes with one cardinality
+        """
+
+        csegclasses = []
+        similarity = []
+
+        for (a, b, csegclass, d) in built_classes:
+            csegclass = contour.Contour(csegclass)
+            csim = cseg_similarity(cseg, csegclass)
+            csegclasses.append([csim, csegclass])
+            similarity.append(csim)
+
+        return csegclasses, sorted(list(set(similarity)))
+
+    def grouped_cseg_similarity_lists((csegclasses, similarity)):
+        """Returns csegclasses grouped by cseg similarity. Accepts
+        lists provided by cseg_similarity_lists function.
+        """
+
+        result = []
+
+        for similarity_index in similarity:
+            simil_index = []
+            for csegclass in sorted(csegclasses):
+                if csegclass[0] == similarity_index:
+                    simil_index.append(csegclass[1])
+            result.append([similarity_index, simil_index])
+
+        return result
+
+    return grouped_cseg_similarity_lists(cseg_similarity_lists(built_classes))
