@@ -195,23 +195,37 @@ class Contour(list):
         return Contour([sorted_contour.index(x) for x in self])
 
     def prime_form(self):
-        """Returns the prime form of a given contour."""
+        """Returns the prime form of a given contour (Marvin and
+        Laprade, 1987)."""
 
         tmp = Contour(self[:])
-        length = len(tmp)
+
+        # step 1: translate if necessary
         tmp = Contour(tmp.translation())
 
-        if ((length - 1) - tmp[-1]) < tmp[0]:
-            tmp = tmp.inversion()
-        else:
-            tmp
+        def step_2(contour):
+            """Runs algorithm second step.
+            If (n - 1) - last pitch < first pitch, invert.
+            """
 
-        if tmp[-1] < tmp[0]:
-            tmp = tmp.retrograde()
-        else:
-            tmp
+            length = len(contour)
 
-        return Contour(tmp)
+            if ((length - 1) - contour[-1]) < contour[0]:
+                contour = contour.inversion()
+
+            return contour
+
+        def step_3(contour):
+            """Runs third step.
+            If last cpitch < first cpitch, retrograde.
+            """
+
+            if contour[-1] < contour[0]:
+                contour = contour.retrograde()
+
+            return contour
+
+        return Contour(step_3(step_2(tmp)))
 
     def subsets(self, n):
         """Returns adjacent and non-adjacent subsets of a given
