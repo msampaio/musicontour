@@ -1,7 +1,19 @@
 Release Notes
 =============
 
-Villa-Lobos Contour Module release notes
+MusiContour release notes
+
+MusiContour, next release (in development)
+------------------------------------------
+
+The next release will have these features:
+
+- Improved contours comparison function
+- Fixed CSIM and ACMEMB functions (now with all representatives)
+- Contour similarity continuum comparison function
+- Internal diagonal from Comparison Matrix function
+- Rotation related contour classes
+
 
 Villa-Lobos Contour Module, release 0.2, November 11th 2010
 -----------------------------------------------------------
