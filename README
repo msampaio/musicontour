@@ -12,6 +12,10 @@ software developed to process musical contours, during Marcos di Silva
 master's degree [3], and Villa-Lobos Contour module, a module of
 Villa-Lobos [4], and is now independent.
 
+MusiContour is part of Marcos di Silva PhD project about musical
+contour relations. More information about these project is available
+in its wiki [5] and tasks manager [6], both in portuguese.
+
 Footnotes:
 [1] http://genos.mus.br
 
@@ -48,6 +52,10 @@ Footnotes:
 [3] http://marcosdisilva.net/en/research.html
 
 [4] http://github.com/kroger/villa-lobos
+
+[5] http://genos.mus.br/wiki/Pesquisa:Contornos
+
+[6] http://genos.mus.br/tasks/projects/contornos-musicais
 
 Keywords: Musical contour, contour in music, melodic contour,
           computational musicology, contour theory, contorno melódico.
