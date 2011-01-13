@@ -203,14 +203,29 @@ class Contour(list):
         # step 1: translate if necessary
         tmp = Contour(tmp.translation())
 
+        def unequal_edges(contour):
+            """Compares first and last cpitches and
+            increases/decreases until get different values. For example,
+            a cseg [0, 3, 1, 4, 2, 3, 0] are compared like:
+            0 != 0 F
+            3 != 3 F
+            1 != 2 V
+            So the function returns cpitch position: 2.
+            """
+
+            for x in range(len(contour) / 2):
+                if contour[x] != contour[(x * -1) - 1]:
+                    return x
+
         def step_2(contour):
             """Runs algorithm second step.
             If (n - 1) - last pitch < first pitch, invert.
             """
 
             length = len(contour)
+            x = unequal_edges(contour)
 
-            if ((length - 1) - contour[-1]) < contour[0]:
+            if ((length - 1) - contour[(x * -1) - 1]) < contour[x]:
                 contour = contour.inversion()
 
             return contour
@@ -220,7 +235,9 @@ class Contour(list):
             If last cpitch < first cpitch, retrograde.
             """
 
-            if contour[-1] < contour[0]:
+            x = unequal_edges(contour)
+
+            if contour[(x * -1) -1] < contour[x]:
                 contour = contour.retrograde()
 
             return contour
