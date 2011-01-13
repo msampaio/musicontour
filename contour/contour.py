@@ -8,6 +8,7 @@ import auxiliary
 import diagonal
 import matrix
 
+
 class ContourError(Exception):
     pass
 
@@ -144,6 +145,37 @@ def minima(list_of_tuples):
     return max_min(list_of_tuples, minimum)
 
 
+def contour_rotation_classes(cardinality):
+    """Returns all rotation related contour classes of a given
+    cardinality. Each cseg is rotation class representative."""
+
+    ## sets universe set with all csegs with a given cardinality
+    universe = set(auxiliary.permut_csegs(cardinality))
+    s = set()
+
+    for el in universe:
+        cseg = Contour(el)
+        all = set([tuple(x) for x in cseg.rotated_representatives()])
+        r = 0
+        ## tests if an operation in cseg's all operation is already in
+        ## s set
+        for op in all:
+            if op in s:
+                r += 1
+        if r == 0:
+            s.update([el])
+
+    ## sets the first contour of each class for function return
+    result = []
+
+    for el in s:
+        cseg = Contour(el)
+        all = [Contour(x) for x in cseg.rotated_representatives()]
+        result.append(sorted(all)[0])
+
+    return sorted(result)
+
+
 # FIXME:
 # class Fontour(list):
 #     def __init__(self, *args):
@@ -237,7 +269,7 @@ class Contour(list):
 
             x = unequal_edges(contour)
 
-            if contour[(x * -1) -1] < contour[x]:
+            if contour[(x * -1) - 1] < contour[x]:
                 contour = contour.retrograde()
 
             return contour
@@ -590,6 +622,25 @@ class Contour(list):
 
         return [p, i, r, ri]
 
+    def all_rotations(self):
+        """Returns all rotations forms of a cseg:
+
+        >>> all_rotations(cseg)
+        [< 0 2 1 >, < 2 1 0 >, < 1 0 2 >]
+        """
+
+        size = len(self)
+        return [self.rotation(n) for n in range(size + 1)]
+
+    def rotated_representatives(self):
+        """Returns a set with csegclass representatives of each
+        rotation of a contour."""
+
+        result = [contour.class_representatives() for contour in self.all_rotations()]
+        result = utils.flatten(result)
+        result = set([tuple(x) for x in result])
+
+        return sorted([Contour(list(x)) for x in list(result)])
 
     def __repr__(self):
         return "< {0} >".format(" ".join([str(x) for x in self[:]]))
