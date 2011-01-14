@@ -7,6 +7,25 @@ import contour
 import utils
 import auxiliary
 
+def internal_diagonal_classes(cardinality):
+    """Returns internal diagonal classes of a given cardinality.
+
+    >>> internal_diagonal_classes(4)
+    [< + + + >, < + + - >, < + - + >]
+    """
+
+    permut = []
+    [permut.append([-1, 1]) for n in range(cardinality)]
+    permut = sorted(utils.flatten(permut))
+    permut = itertools.permutations(permut, cardinality)
+
+    collection = set()
+
+    for el in permut:
+        collection.add(tuple(InternalDiagonal(el).prime_form()))
+
+    return sorted([InternalDiagonal(list(x)) for x in list(collection)], reverse=True)
+
 
 class InternalDiagonal(list):
     """Returns an objcect Internal diagonal.
@@ -97,6 +116,27 @@ class InternalDiagonal(list):
                 new_diagonal.append(el)
 
         return InternalDiagonal(new_diagonal)
+
+    def prime_form(self):
+        """Returns internal diagonal prime form.
+
+        The prime form has more pluses than minuses, and is organized
+        in a way that most pluses comes first.
+
+        The algorithm:
+
+        1) if there are more minuses than pluses, then invert.
+
+        2) if there are more pluses at the end than the beginning,
+        then rotate.
+        """
+
+        tmp = self
+
+        if self.count(-1) > self.count(1):
+            tmp = self.inversion()
+
+        return sorted([tmp, tmp.retrograde()], reverse=True)[0]
 
     def __repr__(self):
         return "< {0} >".format(" ".join([utils.double_replace(str(x)) for x in self[:]]))
