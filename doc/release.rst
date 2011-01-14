@@ -13,6 +13,7 @@ The next release will have these features:
 - Contour similarity continuum comparison function
 - Internal diagonal from Comparison Matrix function
 - Rotation related contour classes
+- Internal diagonal related contour classes
 
 
 Villa-Lobos Contour Module, release 0.2, November 11th 2010
