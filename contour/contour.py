@@ -309,9 +309,9 @@ class Contour(list):
 
         # tests if cseg has repeated elements
         if len(self) == len(set([x for x in self])):
-            return self.__repeated_prime_form()
-        else:
             return self.__non_repeated_prime_form()
+        else:
+            return self.__repeated_prime_form()
 
     def subsets(self, n):
         """Returns adjacent and non-adjacent subsets of a given
