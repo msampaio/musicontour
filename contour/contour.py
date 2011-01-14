@@ -226,7 +226,7 @@ class Contour(list):
         sorted_contour = sorted(list(set(self)))
         return Contour([sorted_contour.index(x) for x in self])
 
-    def prime_form(self):
+    def __non_repeated_prime_form(self):
         """Returns the prime form of a given contour (Marvin and
         Laprade, 1987)."""
 
@@ -275,6 +275,43 @@ class Contour(list):
             return contour
 
         return Contour(step_3(step_2(tmp)))
+
+    def __one_repeated_prime_form(self, signal):
+        """Returns one of prime forms of a repeated cpitch cseg
+        (Marvin and Laprade, 1987)."""
+
+        size = len(self)
+
+        # sets of csegs from each internal diagonal
+        coll = []
+
+        for d in range(1, size):
+            int_d = self.internal_diagonals(d).zero_to_signal(signal)
+            int_d = diagonal.InternalDiagonal(int_d)
+
+            s = set([tuple(x) for x in int_d.csegs(d)])
+            coll.append(s)
+
+        [coll[0].intersection_update(coll[x]) for x in range(len(coll))]
+
+        return Contour(list(list(coll[0])[0]))
+
+    def __repeated_prime_form(self):
+        """Returns prime forms of a repeated cpitch cseg."""
+
+        signals = [-1, 1]
+
+        return sorted([self.__one_repeated_prime_form(s) for s in signals])
+
+    def prime_form(self):
+        """Returns the prime form of a given contour (Marvin and
+        Laprade, 1987)."""
+
+        # tests if cseg has repeated elements
+        if len(self) == len(set([x for x in self])):
+            return self.__repeated_prime_form()
+        else:
+            return self.__non_repeated_prime_form()
 
     def subsets(self, n):
         """Returns adjacent and non-adjacent subsets of a given

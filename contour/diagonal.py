@@ -81,5 +81,22 @@ class InternalDiagonal(list):
         int_d = self
         return [InternalDiagonal(int_d[i:i + n]) for i in range(len(int_d) - (n - 1))]
 
+    def zero_to_signal(self, signal=1):
+        """Substitutes zeros to given signals.
+
+        >>> zero_to_signal(InternalDiagonal([1, -1, 0]), -1)
+        < + - - >
+        """
+
+        new_diagonal = []
+
+        for el in self:
+            if el == 0:
+                new_diagonal.append(signal)
+            else:
+                new_diagonal.append(el)
+
+        return InternalDiagonal(new_diagonal)
+
     def __repr__(self):
         return "< {0} >".format(" ".join([utils.double_replace(str(x)) for x in self[:]]))
