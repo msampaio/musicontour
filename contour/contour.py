@@ -226,7 +226,55 @@ class Contour(list):
         sorted_contour = sorted(list(set(self)))
         return Contour([sorted_contour.index(x) for x in self])
 
-    def __non_repeated_prime_form(self):
+    def __unequal_edges(self):
+        """Compares first and last cpitches and
+        increases/decreases until get different values. For example,
+        a cseg [0, 3, 1, 4, 2, 3, 0] are compared like:
+        0 != 0 F
+        3 != 3 F
+        1 != 2 V
+        So the function returns cpitch position: 2.
+        """
+
+        tmp = self
+
+        for x in range(len(tmp) / 2):
+            if tmp[x] != tmp[(x * -1) - 1]:
+                return x
+
+    def __marvin_laprade_prime_form_step_2(self):
+        """Runs Marvin and Laprade (1987) second step of prime form
+        algorithm.
+
+        If (n - 1) - last pitch < first pitch, invert.
+        """
+
+        tmp = self
+
+        length = len(tmp)
+        x = tmp.__unequal_edges()
+
+        if ((length - 1) - tmp[(x * -1) - 1]) < tmp[x]:
+            tmp = tmp.inversion()
+
+        return tmp
+
+    def __marvin_laprade_prime_form_step_3(self):
+        """Runs Marvin and Laprade (1987) third step of prime form
+        algorithm.
+
+        If last cpitch < first cpitch, retrograde.
+        """
+
+        tmp = self
+        x = tmp.__unequal_edges()
+
+        if tmp[(x * -1) - 1] < tmp[x]:
+            tmp = tmp.retrograde()
+
+        return tmp
+
+    def __non_repeated_marvin_laprade_prime_form(self):
         """Returns the prime form of a given contour (Marvin and
         Laprade, 1987)."""
 
@@ -235,46 +283,10 @@ class Contour(list):
         # step 1: translate if necessary
         tmp = Contour(tmp.translation())
 
-        def unequal_edges(contour):
-            """Compares first and last cpitches and
-            increases/decreases until get different values. For example,
-            a cseg [0, 3, 1, 4, 2, 3, 0] are compared like:
-            0 != 0 F
-            3 != 3 F
-            1 != 2 V
-            So the function returns cpitch position: 2.
-            """
+        step2 = tmp.__marvin_laprade_prime_form_step_2()
+        step3 = step2.__marvin_laprade_prime_form_step_3()
 
-            for x in range(len(contour) / 2):
-                if contour[x] != contour[(x * -1) - 1]:
-                    return x
-
-        def step_2(contour):
-            """Runs algorithm second step.
-            If (n - 1) - last pitch < first pitch, invert.
-            """
-
-            length = len(contour)
-            x = unequal_edges(contour)
-
-            if ((length - 1) - contour[(x * -1) - 1]) < contour[x]:
-                contour = contour.inversion()
-
-            return contour
-
-        def step_3(contour):
-            """Runs third step.
-            If last cpitch < first cpitch, retrograde.
-            """
-
-            x = unequal_edges(contour)
-
-            if contour[(x * -1) - 1] < contour[x]:
-                contour = contour.retrograde()
-
-            return contour
-
-        return Contour(step_3(step_2(tmp)))
+        return step3
 
     def __one_repeated_prime_form(self, signal):
         """Returns one of prime forms of a repeated cpitch cseg
@@ -309,7 +321,7 @@ class Contour(list):
 
         # tests if cseg has repeated elements
         if len(self) == len(set([x for x in self])):
-            return self.__non_repeated_prime_form()
+            return self.__non_repeated_marvin_laprade_prime_form()
         else:
             return self.__repeated_prime_form()
 
