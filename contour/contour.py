@@ -325,6 +325,29 @@ class Contour(list):
         else:
             return self.__repeated_prime_form()
 
+    def sampaio_prime_form(self):
+        """Runs Sampaio prime form algorithm.
+
+        Runs Marvin Algorithm and comparison prime form with
+        retrograde of inversion prime form. If different, return the
+        form that has the lower second c-pitch.
+        """
+
+        tmp = self
+
+        orig = tmp.prime_form()
+        ri = tmp.retrograde().inversion().prime_form()
+
+        if orig != ri:
+            orig_pos = orig[1]
+            ri_pos = ri[1]
+            if orig_pos < ri_pos:
+                return orig
+            else:
+                return ri
+        else:
+            return orig
+
     def subsets(self, n):
         """Returns adjacent and non-adjacent subsets of a given
         contour."""
