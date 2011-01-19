@@ -469,7 +469,7 @@ class App:
         cseg2 = [int(x) for x in get2.split(' ') if x]
         cseg1_p = contour.contour.Contour(cseg1)
         cseg2_p = contour.contour.Contour(cseg2)
-        result = contour.comparison.all_contour_mutually_embed(cseg1, cseg2)
+        result = contour.comparison.all_contour_mutually_embed(cseg1_p, cseg2_p)
         text1 = "All mutually embed contour comparison: {0:.2f}\n".format(result)
         text2 = "Cseg 1: {0}\nCseg 2: {1}".format(cseg1_p, cseg2_p)
         self.text_output.insert(Tkinter.END, text1)
