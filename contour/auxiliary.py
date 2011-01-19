@@ -47,3 +47,9 @@ def prime_form_subsets_count(subsets_list):
 
     prime_form = prime_form_subsets(subsets_list)
     return subsets_count(prime_form)
+
+
+def apply_fn(cseg, fn):
+    """Apply a method to a contour."""
+
+    return apply(getattr(contour.Contour(cseg), fn))

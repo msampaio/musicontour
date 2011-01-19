@@ -5,6 +5,7 @@ from __future__ import print_function
 import math
 import contour
 import utils
+import auxiliary
 
 
 def __intern_diagon_sim(cseg1, cseg2, n):
@@ -197,9 +198,6 @@ def all_contour_mutually_embed(cseg1, cseg2):
 def operations_comparison(cseg1, cseg2):
     """Returns contour operations relations between two given csegs."""
 
-    def apply_fn(cseg, fn):
-        return apply(getattr(contour.Contour(cseg), fn))
-
     operations = ["translation", "prime_form", "inversion", "retrograde", "reduction_algorithm", "internal_diagonals"]
 
     def all_rotations(cseg):
@@ -221,7 +219,7 @@ def operations_comparison(cseg1, cseg2):
 
         r = []
         r.append((cseg, factor, "original", rotated))
-        [r.append((cseg, factor, op, apply_fn(rotated, op))) for op in operations]
+        [r.append((cseg, factor, op, auxiliary.apply_fn(rotated, op))) for op in operations]
         return r
 
     def all_op_all_rot(cseg):
