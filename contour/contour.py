@@ -13,7 +13,7 @@ class ContourError(Exception):
     pass
 
 
-def build_classes_card(card, prime_algorithm="prime_form"):
+def build_classes_card(card, prime_algorithm="prime_form_marvin_laprade"):
     """Generates contour classes like Marvin and Laprade (1987) table
     for one cardinality. Accepts more than one algorithm of prime
     form. Marvin and Laprade algorithm is default.
@@ -27,7 +27,7 @@ def build_classes_card(card, prime_algorithm="prime_form"):
     return [(card, n + 1, x, Contour(list(x)).ri_identity_test()) for n, x in primes]
 
 
-def build_classes(cardinality, prime_algorithm="prime_form"):
+def build_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
     """Generates contour classes like Marvin and Laprade (1987)
     table. Accepts more than one algorithm of prime form. Marvin and
     Laprade algorithm is default."""
@@ -36,7 +36,7 @@ def build_classes(cardinality, prime_algorithm="prime_form"):
     return [build_classes_card(c, prime_algorithm) for c in card_list]
 
 
-def pretty_classes(cardinality, prime_algorithm="prime_form"):
+def pretty_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
     """Returns contour classes like Marvin and Laprade (1987)
     table. Accepts more than one algorithm of prime form. Marvin and
     Laprade algorithm is default.
@@ -246,7 +246,7 @@ class Contour(list):
             if tmp[x] != tmp[(x * -1) - 1]:
                 return x
 
-    def __marvin_laprade_prime_form_step_2(self):
+    def __prime_form_marvin_laprade_step_2(self):
         """Runs Marvin and Laprade (1987) second step of prime form
         algorithm.
 
@@ -263,7 +263,7 @@ class Contour(list):
 
         return tmp
 
-    def __marvin_laprade_prime_form_step_3(self):
+    def __prime_form_marvin_laprade_step_3(self):
         """Runs Marvin and Laprade (1987) third step of prime form
         algorithm.
 
@@ -278,7 +278,7 @@ class Contour(list):
 
         return tmp
 
-    def __non_repeated_marvin_laprade_prime_form(self):
+    def __non_repeated_prime_form_marvin_laprade(self):
         """Returns the prime form of a given contour (Marvin and
         Laprade, 1987)."""
 
@@ -287,12 +287,12 @@ class Contour(list):
         # step 1: translate if necessary
         tmp = Contour(tmp.translation())
 
-        step2 = tmp.__marvin_laprade_prime_form_step_2()
-        step3 = step2.__marvin_laprade_prime_form_step_3()
+        step2 = tmp.__prime_form_marvin_laprade_step_2()
+        step3 = step2.__prime_form_marvin_laprade_step_3()
 
         return step3
 
-    def __one_repeated_prime_form(self, signal):
+    def __one_repeated_prime_form_marvin_laprade(self, signal):
         """Returns one of prime forms of a repeated cpitch cseg
         (Marvin and Laprade, 1987)."""
 
@@ -312,24 +312,24 @@ class Contour(list):
 
         return Contour(list(list(coll[0])[0]))
 
-    def __repeated_prime_form(self):
+    def __repeated_prime_form_marvin_laprade(self):
         """Returns prime forms of a repeated cpitch cseg."""
 
         signals = [-1, 1]
 
-        return sorted([self.__one_repeated_prime_form(s) for s in signals])
+        return sorted([self.__one_repeated_prime_form_marvin_laprade(s) for s in signals])
 
-    def prime_form(self):
+    def prime_form_marvin_laprade(self):
         """Returns the prime form of a given contour (Marvin and
         Laprade, 1987)."""
 
         # tests if cseg has repeated elements
         if len(self) == len(set([x for x in self])):
-            return self.__non_repeated_marvin_laprade_prime_form()
+            return self.__non_repeated_prime_form_marvin_laprade()
         else:
-            return self.__repeated_prime_form()
+            return self.__repeated_prime_form_marvin_laprade()
 
-    def sampaio_prime_form(self):
+    def prime_form_sampaio(self):
         """Runs Sampaio prime form algorithm.
 
         Runs Marvin Algorithm and comparison prime form with
@@ -339,8 +339,8 @@ class Contour(list):
 
         tmp = self
 
-        orig = tmp.prime_form()
-        ri = tmp.retrograde().inversion().prime_form()
+        orig = tmp.prime_form_marvin_laprade()
+        ri = tmp.retrograde().inversion().prime_form_marvin_laprade()
 
         if orig != ri:
             orig_pos = orig[1]
@@ -407,7 +407,7 @@ class Contour(list):
         dic = {}
 
         for x in subsets:
-            processed = tuple(Contour(x).prime_form())
+            processed = tuple(Contour(x).prime_form_marvin_laprade())
             if processed in dic:
                 z = dic[processed]
                 z.append(x)
@@ -672,7 +672,7 @@ class Contour(list):
         under retrograde inversion), like (3, 1, (0, 1, 2), True).
         """
 
-        prime_form = self.prime_form()
+        prime_form = self.prime_form_marvin_laprade()
         cseg_classes = utils.flatten(build_classes(len(self)))
         for (cardinality, number, cseg_class, ri_identity) in cseg_classes:
             if tuple(prime_form) == cseg_class:
@@ -691,7 +691,7 @@ class Contour(list):
         inversion.
         """
 
-        p = Contour(self).prime_form()
+        p = Contour(self).prime_form_marvin_laprade()
         i = Contour(self).inversion()
         r = Contour(self).retrograde()
         ri = Contour(i).retrograde()

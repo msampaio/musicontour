@@ -67,14 +67,14 @@ def test_translation():
     assert n.translation() == [0, 2, 3, 3, 1, 0]
 
 
-def test_prime_form_1():
+def test_prime_form_marvin_laprade_1():
     n = contour.contour.Contour([1, 4, 9, 2])
-    assert n.prime_form() == [0, 2, 3, 1]
+    assert n.prime_form_marvin_laprade() == [0, 2, 3, 1]
 
 
-def test_prime_form_1():
+def test_prime_form_marvin_laprade_1():
     n = contour.contour.Contour([5, 7, 9, 1])
-    assert n.prime_form() == [0, 3, 2, 1]
+    assert n.prime_form_marvin_laprade() == [0, 3, 2, 1]
 
 
 def test_subsets_1():
@@ -267,3 +267,11 @@ def test_ri_identity_test_1():
 def test_ri_identity_test():
     n = contour.contour.Contour([1, 0, 3, 2])
     assert n.ri_identity_test() == True
+
+
+def test_class_representatives():
+    n = contour.contour.Contour([0, 1, 3, 2])
+    assert n.class_representatives() == [contour.contour.Contour([0, 1, 3, 2]),
+                                         contour.contour.Contour([3, 2, 0, 1]),
+                                         contour.contour.Contour([2, 3, 1, 0]),
+                                         contour.contour.Contour([1, 0, 2, 3])]
