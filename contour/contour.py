@@ -13,29 +13,33 @@ class ContourError(Exception):
     pass
 
 
-def build_classes_card(card):
-    """Generates contour classes like Marvin and Laprade (1987)
-    software for one cardinality.
+def build_classes_card(card, prime_algorithm="prime_form"):
+    """Generates contour classes like Marvin and Laprade (1987) table
+    for one cardinality. Accepts more than one algorithm of prime
+    form. Marvin and Laprade algorithm is default.
 
     Returns (card, number, contour class).
     """
 
     permut = auxiliary.permut_csegs(card)
-    primes_repeats = [tuple(Contour(x).prime_form()) for x in permut]
+    primes_repeats = [tuple(auxiliary.apply_fn(Contour(x), prime_algorithm)) for x in permut]
     primes = enumerate(sorted(list(set(primes_repeats))))
     return [(card, n + 1, x, Contour(list(x)).ri_identity_test()) for n, x in primes]
 
 
-def build_classes(cardinality):
+def build_classes(cardinality, prime_algorithm="prime_form"):
     """Generates contour classes like Marvin and Laprade (1987)
-    software."""
+    table. Accepts more than one algorithm of prime form. Marvin and
+    Laprade algorithm is default."""
 
     card_list = range(2, (cardinality + 1))
-    return [build_classes_card(c) for c in card_list]
+    return [build_classes_card(c, prime_algorithm) for c in card_list]
 
 
-def pretty_classes(cardinality):
-    """Returns contour classes like Marvin and Laprade (1987).
+def pretty_classes(cardinality, prime_algorithm="prime_form"):
+    """Returns contour classes like Marvin and Laprade (1987)
+    table. Accepts more than one algorithm of prime form. Marvin and
+    Laprade algorithm is default.
 
     'cc' stores flatten contour classes of all cardinalities until the
     one given.
@@ -49,7 +53,7 @@ def pretty_classes(cardinality):
     sec_txt = "\nC-space segment classes for cseg cardinality "
     sections = []
 
-    cc = utils.flatten(build_classes(cardinality))
+    cc = utils.flatten(build_classes(cardinality, prime_algorithm))
     card = 0
     for a, b, c, d in [[a, b, c, d] for (a, b, c, d) in cc]:
         if a != card:
