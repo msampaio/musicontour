@@ -30,7 +30,7 @@ def normal_form_subsets(subsets_list):
 
 
 def prime_form_subsets(subsets_list):
-    """Outputs normal form of a list of subsets."""
+    """Outputs prime form of a list of subsets."""
 
     return [contour.Contour(x).prime_form() for x in subsets_list]
 
