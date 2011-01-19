@@ -7,7 +7,7 @@ import contour
 import utils
 import auxiliary
 
-def internal_diagonal_classes(cardinality):
+def internal_diagonal_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
     """Returns internal diagonal classes of a given cardinality.
 
     >>> internal_diagonal_classes(4)
@@ -22,7 +22,7 @@ def internal_diagonal_classes(cardinality):
     collection = set()
 
     for el in permut:
-        collection.add(tuple(InternalDiagonal(el).prime_form()))
+        collection.add(tuple(auxiliary.apply_fn(InternalDiagonal(el), prime_algorithm)))
 
     return sorted([InternalDiagonal(list(x)) for x in list(collection)], reverse=True)
 

@@ -29,23 +29,23 @@ def normal_form_subsets(subsets_list):
     return [contour.Contour(x).translation() for x in subsets_list]
 
 
-def prime_form_subsets(subsets_list):
+def prime_form_subsets(subsets_list, prime_algorithm="prime_form_marvin_laprade"):
     """Outputs prime form of a list of subsets."""
 
-    return [contour.Contour(x).prime_form() for x in subsets_list]
+    return [apply_fn(contour.Contour(x), prime_algorithm) for x in subsets_list]
 
 
 def normal_form_subsets_count(subsets_list):
-    """Counts subset prime forms with n elements."""
+    """Counts subset normal forms with n elements."""
 
     normal_form = normal_form_subsets(subsets_list)
     return subsets_count(normal_form)
 
 
-def prime_form_subsets_count(subsets_list):
+def prime_form_subsets_count(subsets_list, prime_algorithm="prime_form_marvin_laprade"):
     """Counts subset prime forms with n elements."""
 
-    prime_form = prime_form_subsets(subsets_list)
+    prime_form = prime_form_subsets(subsets_list, prime_algorithm)
     return subsets_count(prime_form)
 
 

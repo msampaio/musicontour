@@ -195,10 +195,10 @@ def all_contour_mutually_embed(cseg1, cseg2):
     return sorted(acmembs, reverse=True)[0]
 
 
-def operations_comparison(cseg1, cseg2):
+def operations_comparison(cseg1, cseg2, prime_algorithm="prime_form_marvin_laprade"):
     """Returns contour operations relations between two given csegs."""
 
-    operations = ["translation", "prime_form", "inversion", "retrograde", "reduction_algorithm", "internal_diagonals"]
+    operations = ["translation", prime_algorithm, "inversion", "retrograde", "reduction_algorithm", "internal_diagonals"]
 
     def all_rotations(cseg):
         """Returns all possible rotations of a given cseg.
@@ -232,7 +232,7 @@ def operations_comparison(cseg1, cseg2):
 
         return utils.flatten(r)
 
-    def compare_csegs(cseg1, cseg2):
+    def compare_csegs(cseg1, cseg2, prime_algorithm):
         """Returns a list of operations that csegs are related. If
         csegs are related by original, prime or normal form, only the
         first relations is returned. The test order is 'original',
@@ -257,7 +257,7 @@ def operations_comparison(cseg1, cseg2):
                         if list(x)[2] == list(y)[2] == "translation":
                             r = [[x, y]]
                             break
-                        elif list(x)[2] == list(y)[2] == "prime_form":
+                        elif list(x)[2] == list(y)[2] == prime_algorithm:
                             r = [[x, y]]
                             break
                     else:
@@ -267,7 +267,7 @@ def operations_comparison(cseg1, cseg2):
         ## or normal form, break
         result = []
         for (x, y) in r:
-            if list(x)[2] or list(y)[2] == "prime_form" or "translation":
+            if list(x)[2] or list(y)[2] == prime_algorithm or "translation":
                 result = [[x, y]]
                 break
             else:
@@ -275,14 +275,14 @@ def operations_comparison(cseg1, cseg2):
 
         return result
 
-    return compare_csegs(cseg1, cseg2)
+    return compare_csegs(cseg1, cseg2, prime_algorithm)
 
 
-def pretty_operations_comparison(cseg1, cseg2):
+def pretty_operations_comparison(cseg1, cseg2, prime_algorithm="prime_form_marvin_laprade"):
     """Prints a pretty result for operations comparison."""
 
     r = []
-    for [(c1, f1, o1, r1), (c2, f2, o2, r2)] in operations_comparison(cseg1, cseg2):
+    for [(c1, f1, o1, r1), (c2, f2, o2, r2)] in operations_comparison(cseg1, cseg2, prime_algorithm):
         r.append("{0} [rot{1}] ({2}): {3}\n{4} [rot{5}] ({6})\n".format(c1, f2, o1, r1, c2, f2, o2))
     if r == []:
         return "No operation similarity."
@@ -290,7 +290,7 @@ def pretty_operations_comparison(cseg1, cseg2):
         return "\n".join(r)
 
 
-def cseg_similarity_continuum(cseg):
+def cseg_similarity_continuum(cseg, prime_algorithm="prime_form_marvin_laprade"):
     """Returns all csegs with the same cardinality of the given one
     sorted by cseg similarity.
 
@@ -302,7 +302,7 @@ def cseg_similarity_continuum(cseg):
     """
 
     size = len(cseg)
-    built_classes = contour.build_classes_card(size)
+    built_classes = contour.build_classes_card(size, prime_algorithm)
 
     def cseg_similarity_lists(built_classes):
         """Returns a tuple with two lists:
