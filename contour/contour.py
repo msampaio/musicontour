@@ -665,15 +665,15 @@ class Contour(list):
 
         return [sum(x) for x in self.interval_array()]
 
-    def segment_class(self):
+    def segment_class(self, prime_algorithm="prime_form_sampaio"):
         """Returns contour segment class of a given cseg.
 
         Output format is: (cardinality, number, cseg_class, identity
         under retrograde inversion), like (3, 1, (0, 1, 2), True).
         """
 
-        prime_form = self.prime_form_marvin_laprade()
-        cseg_classes = utils.flatten(build_classes(len(self)))
+        prime_form = auxiliary.apply_fn(self, prime_algorithm)
+        cseg_classes = utils.flatten(build_classes(len(self), prime_algorithm))
         for (cardinality, number, cseg_class, ri_identity) in cseg_classes:
             if tuple(prime_form) == cseg_class:
                 return cardinality, number, cseg_class, ri_identity
