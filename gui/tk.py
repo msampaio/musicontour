@@ -223,21 +223,19 @@ class App:
         if len(set(cseg)) == len(cseg):
             tmp = contour.contour.Contour(cseg).segment_class()
             card, c_class, pr_form, ri = tmp
-            pr_form_vis = contour.contour.Contour(pr_form)
             if ri == True:
                 ri = "*"
             else:
                 ri = ""
-            result = "{0}-{1}{2} {3}".format(card, c_class, ri, pr_form_vis)
+            result = "{0}-{1}{2} {3}".format(card, c_class, ri, pr_form)
         else:
             pr_form = contour.contour.Contour(cseg).pr_form()
-            pr_form_vis = contour.contour.Contour(pr_form)
-            result = "{0}".format(pr_form_vis)
+            result = "{0}".format(pr_form)
         text = "Prime form: "
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
         self.text_output.insert(Tkinter.END, "\n")
-        contour.plot.contour_lines([pr_form_vis, plot_color, "Prime form"])
+        contour.plot.contour_lines([pr_form, plot_color, "Prime form"])
 
     def normal_form(self, event=None):
         get = self.main_entry.get()

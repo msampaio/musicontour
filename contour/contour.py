@@ -676,7 +676,7 @@ class Contour(list):
         cseg_classes = utils.flatten(build_classes(len(self), prime_algorithm))
         for (cardinality, number, cseg_class, ri_identity) in cseg_classes:
             if tuple(prime_form) == cseg_class:
-                return cardinality, number, cseg_class, ri_identity
+                return cardinality, number, Contour(list(cseg_class)), ri_identity
 
     def ri_identity_test(self):
         """Returns True if cseg have identity under retrograde inversion."""
