@@ -40,7 +40,6 @@ double_pf = [contour.Contour([0, 2, 1, 3, 4]),
              contour.Contour([2, 5, 4, 0, 1, 3])]
 
 
-double_pf = csegs_from_card_number(missing, classes)
 representatives_double_pf = [x.class_representatives() for x in double_pf]
 
 
@@ -59,4 +58,3 @@ def save_double_pf(filename, representatives):
         f.write("\n")
         for [P, IP, RP, RIP] in representatives:
             f.write("{0:20} {1:20} {2:20} {3:20}\n".format(P, IP, RP, RIP))
-
