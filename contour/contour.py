@@ -74,6 +74,18 @@ def pretty_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
     return header + "".join(sections)
 
 
+def contour_class(cardinality, number):
+    """Returns the prime form of a given contour class.
+
+    >>> contour_class(6, 117)
+    < 0 5 4 2 1 3 >
+    """
+
+    for (card, n, cseg, ri) in build_classes_card(cardinality):
+        if card == cardinality and n == number:
+            return Contour(cseg)
+
+
 def subsets_grouped(dictionary, group_type):
     """Returns a string with subsets grouped by their group type.
 
