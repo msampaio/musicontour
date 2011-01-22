@@ -50,6 +50,27 @@ def cseg_similarity(cseg1, cseg2):
     return sorted(csims, reverse=True)[0]
 
 
+def cseg_similarity_matrix(csegs):
+    """Returns a matrix with CSIM between multiple csegs."""
+
+    m = []
+    for a in csegs:
+        line = []
+        for b in csegs:
+            line.append(cseg_similarity(a, b))
+        m.append(line)
+    m.insert(0, csegs)
+    return m
+
+
+def cseg_similarity_matrix_classes(card, prime_algorithm="prime_form_sampaio"):
+    """Returns a matrix with CSIM between multiple csegs."""
+
+    classes = [contour.Contour(list(cseg)) for (a, b, cseg, c) in contour.build_classes_card(card, prime_algorithm)]
+
+    return cseg_similarity_matrix(classes)
+
+
 def subsets_embed_total_number(cseg1, cseg2):
     """Returns the number of subsets with csubseg_size in a set with
     cseg_size. Marvin and Laprade (1987, p. 237)."""
