@@ -361,3 +361,21 @@ def cseg_similarity_continuum(cseg, prime_algorithm="prime_form_marvin_laprade")
         return result
 
     return grouped_cseg_similarity_lists(cseg_similarity_lists(built_classes))
+
+
+def cseg_similarity_subsets_continuum(cseg, prime_algorithm="prime_form_sampaio"):
+    """Returns all csegs with smaller cardinality of the given one
+    sorted by cseg similarity.
+
+    """
+
+    subsets = cseg.all_subsets_prime().keys()
+
+    result = []
+
+    for subset in subsets:
+        prime = contour.Contour(subset)
+        acmemb = all_contour_mutually_embed(cseg, prime)
+        result.append([prime, acmemb])
+
+    return sorted(result, key=lambda x: x[1])
