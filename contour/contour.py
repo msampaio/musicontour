@@ -400,7 +400,7 @@ class Contour(list):
 
         return dic
 
-    def subsets_prime(self, n):
+    def subsets_prime(self, n, prime_algorithm="prime_form_sampaio"):
         """Returns adjacent and non-adjacent subsets of a given
         contour grouped by their prime forms.
 
@@ -419,7 +419,7 @@ class Contour(list):
         dic = {}
 
         for x in subsets:
-            processed = tuple(Contour(x).prime_form_marvin_laprade())
+            processed = tuple(auxiliary.apply_fn(Contour(x), prime_algorithm))
             if processed in dic:
                 z = dic[processed]
                 z.append(x)
@@ -429,19 +429,19 @@ class Contour(list):
 
         return dic
 
-    def all_subsets(self):
+    def all_subsets(self, prime_algorithm="prime_form_sampaio"):
         """Returns adjacent and non-adjacent subsets of a given
         contour."""
 
         sizes = range(2, len(self) + 1)
         return utils.flatten([self.subsets(x) for x in sizes])
 
-    def all_subsets_prime(self):
+    def all_subsets_prime(self, prime_algorithm="prime_form_sampaio"):
         """Returns all adjacent and non-adjacent subsets of a given
         contour grouped by their prime forms."""
 
         sizes = range(2, len(self) + 1)
-        subsets_list = [self.subsets_prime(x) for x in sizes]
+        subsets_list = [self.subsets_prime(x, prime_algorithm) for x in sizes]
         [subsets_list[0].update(dic) for dic in subsets_list]
         return subsets_list[0]
 
