@@ -251,12 +251,12 @@ def test_class_vector_ii():
 
 def test_segment_class_1():
     c = contour.contour.Contour([2, 1, 4])
-    assert c.segment_class() == (3, 2, (0, 2, 1), False)
+    assert c.segment_class() == (3, 2, contour.contour.Contour([0, 2, 1]), False)
 
 
 def test_segment_class_2():
     c = contour.contour.Contour([3, 1, 0])
-    assert c.segment_class() == (3, 1, (0, 1, 2), True)
+    assert c.segment_class() == (3, 1, contour.contour.Contour([0, 1, 2]), True)
 
 
 def test_ri_identity_test_1():
