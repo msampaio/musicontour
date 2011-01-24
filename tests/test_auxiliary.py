@@ -60,3 +60,9 @@ def test_prime_form_subsets_count():
                                                [(0, 2, 3, 1), 1],
                                                [(0, 3, 1, 2), 1]]
 
+
+def test_absolute_pitches():
+    cseg = Contour([1, 4, 2, 3, 0])
+    pitches_set = [0, 7, 6, 9, 4]
+
+    assert aux.absolute_pitches(cseg, pitches_set) == [12, 31, 18, 21, 4]

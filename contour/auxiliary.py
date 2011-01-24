@@ -53,3 +53,25 @@ def apply_fn(cseg, fn):
     """Apply a method to a contour."""
 
     return apply(getattr(contour.Contour(cseg), fn))
+
+
+def absolute_pitches(cseg, pitch_set):
+    """Returns absolute pitches for given cseg and pitch set with the
+    same cardinality.
+
+    >>> absolute_pitches(Contour([1, 4, 2, 3, 0]), [0, 7, 6, 9, 4])
+    [12, 31, 18, 21, 4]
+    """
+
+    ## lists stores [position, cpitch, pitch] for each pitch
+    lists = [[pos, cseg[pos], value] for (pos, value) in enumerate(pitch_set)]
+    lists = sorted(lists, key = lambda x: x[1])
+
+    for el in range(1, len(lists)):
+        interval = lists[el][2] - lists[el - 1][2]
+        ## increases octaves if interval between a pitch and previous
+        ## is negative
+        if interval < 0:
+            octave = abs(interval / 12) * 12
+            lists[el] = [lists[el][0], lists[el][1], (lists[el][2] + octave)]
+    return [x[2] for x in sorted(lists, key = lambda x: x[0])]
