@@ -75,3 +75,15 @@ def absolute_pitches(cseg, pitch_set):
             octave = abs(interval / 12) * 12
             lists[el] = [lists[el][0], lists[el][1], (lists[el][2] + octave)]
     return [x[2] for x in sorted(lists, key = lambda x: x[0])]
+
+
+def octave_calculator(pitch):
+    """Returns pitch class and octave for a given absolute pitch.
+
+    >>> octave_calculator(50)
+    (2, 4)
+    """
+
+    p_class = pitch % 12
+    octave = pitch / 12
+    return (p_class, octave)
