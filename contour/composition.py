@@ -11,20 +11,41 @@ import music21
 notes = "c c# d d# e f f# g g# a a# b".split()
 
 
-def notes_to_music21(notes_list):
-    """Generates Music21 measure object from a given Music21 notation
-    list of notes.
+def notes_to_music21(notes_list, notes_measure = 0):
+    """Generates Music21 Part object from a given Music21 notation
+    list of notes. The number of notes in each measure is optional. If
+    the notes_list is lower than 9, all notes are output in one bar,
+    if higher or equal to 9, notes are grouped by 4, unless
+    notes_measures is not 0.
 
     >>> notes_to_music21(['c4', 'g4', 'f#4', 'a4', 'e4'])
-    <music21.stream.Measure 0 offset=0.0>
+    <music21.stream.Part 0 offset=0.0>
     """
 
-    m = music21.stream.Measure()
-    for note in notes_list:
-        n = music21.note.Note(note)
-        n.duration.type = "quarter"
-        m.append(n)
-    return m
+    part = music21.stream.Part()
+
+    if len(notes_list) < 9 and notes_measure == 0:
+
+        m = music21.stream.Measure()
+        for note in notes_list:
+            n = music21.note.Note(note)
+            n.duration.type = "quarter"
+            m.append(n)
+        part.append(m)
+
+    else:
+        if notes_measure == 0:
+            notes_measure = 4
+        sequence = range(0, len(notes_list), notes_measure)
+        measures = [notes_list[x:(x + notes_measure)] for x in sequence]
+        for measure in measures:
+            m = music21.stream.Measure()
+            for note in measure:
+                n = music21.note.Note(note)
+                n.duration.type = "quarter"
+                m.append(n)
+            part.append(m)
+    return part
 
 
 def pitches_to_notes(pitches, offset = 0):
