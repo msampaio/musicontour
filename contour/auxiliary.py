@@ -87,3 +87,15 @@ def octave_calculator(pitch):
     p_class = pitch % 12
     octave = pitch / 12
     return (p_class, octave)
+
+
+def cseg_string_to_Contour(cseg_string):
+    """Returns a Contour object from a cseg string:
+
+    >>> cseg_string_to_Contour('< 0 1 2 >')
+    Contour([0, 1, 2])
+    """
+
+    splitted = cseg_string.strip("<").strip(">").split()
+
+    return contour.Contour([int(x) for x in splitted])
