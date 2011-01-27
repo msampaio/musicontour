@@ -544,7 +544,11 @@ class Contour(list):
                 ## increases depth (step 5)
                 depth += 1
 
-        return [Contour(cps_position_to_cseg(flagged).translation()), depth]
+
+        sorted_flagged = sorted(flagged, key = lambda x: x[1])
+        reduced = Contour(cps_position_to_cseg(sorted_flagged).translation())
+
+        return [reduced, depth]
 
     def interval(self):
         """Returns Friedmann (1985) CI, the distance between one
