@@ -3,6 +3,17 @@
 
 from contour import Contour
 
+def print_literature_csegs(key):
+    result = []
+    cseg_size = max([len(x[0]) for x in key])
+    for el in key:
+        cseg = el[0]
+        page = el[1]
+        contexts = el[2]
+        diff = " " * 30
+        texto = ("\n" + " " * 28).join(contexts)
+        print("{0:17} - {1:5} - {2}").format(cseg, page, texto)
+
 data = {"marvin87:relating":
         [['< 5 0 2 3 1 4 >', 229, ['Figure 2',
                                    'Subsegs of cardinality 4']],

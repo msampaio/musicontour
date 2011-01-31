@@ -366,7 +366,6 @@ def cseg_similarity_continuum(cseg, prime_algorithm="prime_form_marvin_laprade")
 def cseg_similarity_subsets_continuum(cseg, prime_algorithm="prime_form_sampaio"):
     """Returns all csegs with smaller cardinality of the given one
     sorted by cseg similarity.
-
     """
 
     subsets = cseg.all_subsets_prime().keys()
