@@ -1,9 +1,9 @@
-*~
 *.pyc
-doc/_build/
-contour-module-*
 *.tar.gz
 *.zip
+*~
+contour-module-*
+doc/_build/
 lab/*
 print/*.aux
 print/*.log
