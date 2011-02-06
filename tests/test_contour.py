@@ -249,6 +249,16 @@ def test_class_vector_ii():
     assert n.class_vector_ii() == [5, 1]
 
 
+def test_class_index_i():
+    n = contour.contour.Contour([0, 1, 3, 2])
+    assert n.class_index_i() == 0.9
+
+
+def test_class_index_ii():
+    n = contour.contour.Contour([0, 1, 3, 2])
+    assert n.class_index_ii() == 5.0/6
+
+
 def test_segment_class_1():
     c = contour.contour.Contour([2, 1, 4])
     assert c.segment_class() == (3, 2, contour.contour.Contour([0, 2, 1]), False)

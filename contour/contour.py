@@ -712,15 +712,14 @@ class Contour(list):
 
         return self.__class_index("class_vector_i")
 
-
     def class_index_ii(self):
         """Returns a general upward/downward decimal index, that -1.0
         means the cseg is completely downward; 1.0 means the cseg is
         completely upward, and 0 means the cseg is balanced. This
         operation is based on Friedmann CCVII.
 
-        >>> Contour([0, 3, 1, 2]).class_index_i()
-        0.69999999999999996
+        >>> Contour([0, 3, 1, 2]).class_index_ii()
+        0.66666666666666663
         """
 
         return self.__class_index("class_vector_ii")
