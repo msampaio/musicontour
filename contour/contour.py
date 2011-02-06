@@ -681,6 +681,50 @@ class Contour(list):
 
         return [sum(x) for x in self.interval_array()]
 
+    def __class_index(self, vector_method):
+        """Returns a general upward/downward decimal index, that -1.0
+        means the cseg is completely downward; 1.0 means the cseg is
+        completely upward, and 0 means the cseg is balanced. Accepts
+        Friedmann CCVI and CCVII as vector method.
+
+        >>> Contour([0, 3, 1, 2]).__class_index('class_vector_i')
+        0.69999999999999996
+        """
+
+        ups, downs = auxiliary.apply_fn(self, vector_method)
+        total = ups + downs
+        if ups == downs:
+            return 0
+        elif ups > downs:
+            return ups * 1.0 / total
+        else:
+            return downs * -1.0 / total
+
+    def class_index_i(self):
+        """Returns a general upward/downward decimal index, that -1.0
+        means the cseg is completely downward; 1.0 means the cseg is
+        completely upward, and 0 means the cseg is balanced. This
+        operation is based on Friedmann CCVI.
+
+        >>> Contour([0, 3, 1, 2]).class_index_i()
+        0.69999999999999996
+        """
+
+        return self.__class_index("class_vector_i")
+
+
+    def class_index_ii(self):
+        """Returns a general upward/downward decimal index, that -1.0
+        means the cseg is completely downward; 1.0 means the cseg is
+        completely upward, and 0 means the cseg is balanced. This
+        operation is based on Friedmann CCVII.
+
+        >>> Contour([0, 3, 1, 2]).class_index_i()
+        0.69999999999999996
+        """
+
+        return self.__class_index("class_vector_ii")
+
     def segment_class(self, prime_algorithm="prime_form_sampaio"):
         """Returns contour segment class of a given cseg.
 
