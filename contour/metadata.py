@@ -53,24 +53,31 @@ def get_source(abs_filename):
     return source, figure
 
 
-def add(filename, m_key, m_value, available_keys = keys):
-    """Inserts metadata to a PNG file:
+def __source_figure_add(filename):
 
-    >>> metadata.add('/tmp/foo.png', 'Page', '227')
-    """
+    im = Image.open(filename)
 
     source_key = contour_key_creator("Source")
     figure_key = contour_key_creator("Figure")
 
     source, figure = get_source(filename)
 
+    ## inserts source and figure automatically
+    im.info[source_key] = source
+    im.info[figure_key] = figure
+
+    __pngsave(im, filename)
+
+
+def add(filename, m_key, m_value, available_keys = keys):
+    """Inserts metadata to a PNG file:
+
+    >>> metadata.add('/tmp/foo.png', 'Page', '227')
+    """
     if m_key in available_keys:
         im = Image.open(filename)
 
-        ## inserts source and figure automatically
-        im.info[source_key] = source
-        im.info[figure_key] = figure
-
+        __source_figure_add(filename)
         im.info[contour_key_creator(m_key)] = m_value
         __pngsave(im, filename)
 
