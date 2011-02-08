@@ -5,7 +5,7 @@ from __future__ import print_function
 from PIL import Image
 
 
-metadata_keys = set(["Contour_Source", "Contour_Page", "Contour_Figure",
+keys = set(["Contour_Source", "Contour_Page", "Contour_Figure",
                      "Contour_Caption", "Contour_Description",
                      "Contour_Cseg"])
 
@@ -29,10 +29,10 @@ def pngsave(im, file):
     im.save(file, "PNG", pnginfo=meta)
 
 
-def add(filename, m_key, m_value, available_keys = metadata_keys):
+def add(filename, m_key, m_value, available_keys = keys):
     """Inserts metadata to a PNG file:
 
-    >>> metadata_add('/tmp/foo.png', 'Contour_Source', 'marvin.ea87:relating')
+    >>> metadata.add('/tmp/foo.png', 'Contour_Source', 'marvin.ea87:relating')
     """
 
     if m_key in available_keys:
@@ -48,7 +48,7 @@ def add(filename, m_key, m_value, available_keys = metadata_keys):
 def remove(filename, m_key):
     """Removes metadata from a PNG file:
 
-    >>> metadata_remove('/tmp/foo.png', 'Contour_Source')
+    >>> metadata.remove('/tmp/foo.png', 'Contour_Source')
     """
 
     im = Image.open(filename)
@@ -59,7 +59,7 @@ def remove(filename, m_key):
 def show(filename):
     """Shows metadata in a PNG file:
 
-    >>> metadata_add('/tmp/foo.png')
+    >>> metadata.add('/tmp/foo.png')
     {'Contour_Source': 'marvin.ea87:relating'}
     """
 
