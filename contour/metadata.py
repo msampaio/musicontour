@@ -136,4 +136,9 @@ def add_from_doc(data_file, path_to_figures):
                         figure, 'Caption': caption, 'Cseg': cseg,
                         'Description': description}
 
-            [add(filename, key, dic_data[key]) for key in dic_data.keys()]
+            im = Image.open(filename)
+
+            for key in dic_data.keys():
+                im.info[contour_key_creator(key)] = dic_data[key]
+
+            __pngsave(im, filename)
