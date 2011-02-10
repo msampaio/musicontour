@@ -108,3 +108,32 @@ def show(filename):
 
     im = Image.open(filename)
     return im.info
+
+
+def add_from_doc(data_file, path_to_figures):
+    """Adds metadata collected in a data_file. The data_file must be
+    written in this order:
+
+    Source
+    Page
+    Figure
+    Cseg
+    Caption
+    Description
+
+    There is a empty line between figure data.
+
+    >>> add_from_doc('/tmp/music_examples_database.txt', '/tmp/figs')
+    """
+
+    with open(data_file, "r") as f:
+        data = f.read().split('\n\n')
+        for el in data:
+            el = el.split('\n')
+            source, page, figure, cseg, caption, description = el[:6]
+            filename = path_to_figures + "/" + ".".join([source, figure]) + ".png"
+            dic_data = {'Source': source, 'Page': page, 'Figure':
+                        figure, 'Caption': caption, 'Cseg': cseg,
+                        'Description': description}
+
+            [add(filename, key, dic_data[key]) for key in dic_data.keys()]
