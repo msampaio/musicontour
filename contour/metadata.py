@@ -142,3 +142,28 @@ def add_from_doc(data_file, path_to_figures):
                 im.info[contour_key_creator(key)] = dic_data[key]
 
             __pngsave(im, filename)
+
+
+def pretty_data_view(filename):
+    """Prints metadata in google docs file order.
+
+    >>> metadata.pretty_data_view(''/tmp/marvin.ea87:relating.17-4.png')
+    Contour_Source: marvin.ea87:relating
+    Contour_Page: 252
+    Contour_Figure: 17-4
+    Contour_Cseg: 2 0 1 0 3
+    Contour_Caption: Secondary Melodic Material: Webern, op. 10/1. Contour H: mm. 8-9
+    Contour_Description:
+    """
+
+    dictionary = show(filename)
+
+    for key in ["Contour_Source", "Contour_Page", "Contour_Figure",
+                "Contour_Cseg", "Contour_Caption", "Contour_Description"]:
+
+        if key not in dictionary:
+            value = ""
+        else:
+            value = dictionary[key]
+
+        print("{0}: {1}".format(key, value))
