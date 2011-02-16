@@ -112,14 +112,14 @@ def show(filename):
 
 def add_from_doc(data_file, path_to_figures):
     """Adds metadata collected in a data_file. The data_file must be
-    written in this order:
+    written in this way:
 
-    Source
-    Page
-    Figure
-    Cseg
-    Caption
-    Description
+    Contour_Source: marvin.ea87:relating
+    Contour_Page: 227
+    Contour_Figure: 1a
+    Contour_Cseg: 9 8 7 8 6 5 4 3 2 1 0
+    Contour_Caption: Same-Contour Melodies. Berg: Lyric Suite, (mvt. 11), vln. I, mrn. 66-67 and 72-73
+    Contour_Description: The figure illustrates melodic patterns that share melodic contour but not set-class
 
     There is a empty line between figure data.
 
@@ -128,18 +128,29 @@ def add_from_doc(data_file, path_to_figures):
 
     with open(data_file, "r") as f:
         data = f.read().split('\n\n')
-        for el in data:
-            el = el.split('\n')
-            source, page, figure, cseg, caption, description = el[:6]
-            filename = path_to_figures + "/" + ".".join([source, figure]) + ".png"
-            dic_data = {'Source': source, 'Page': page, 'Figure':
-                        figure, 'Caption': caption, 'Cseg': cseg,
-                        'Description': description}
+
+        for figure_data in data:
+
+            figure_data = figure_data.split('\n')
+            figure_data_dic = {}
+
+            for figure_item in figure_data:
+                splitted = figure_item.split(' ')
+                key = splitted[0].strip(':')
+                value = " ".join(splitted[1:])
+
+                if key:
+                    figure_data_dic[key] = value
+
+            source = figure_data_dic['Contour_Source']
+            figure = figure_data_dic['Contour_Figure']
+            figure_name = ".".join([source, figure])
+            filename = path_to_figures + "/" + figure_name + ".png"
 
             im = Image.open(filename)
 
-            for key in dic_data.keys():
-                im.info[contour_key_creator(key)] = dic_data[key]
+            for key in figure_data_dic.keys():
+                im.info[key] = figure_data_dic[key]
 
             __pngsave(im, filename)
 
