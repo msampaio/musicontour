@@ -4,14 +4,14 @@
 from __future__ import print_function
 import itertools
 import contour
-
+import utils
 
 def permut_csegs(cardinality):
     """Returns a list of possible normalized csegs of a given
     cardinality."""
 
     base = range(cardinality)
-    return sorted(itertools.permutations(base, cardinality))
+    return utils.permut_list(base)
 
 
 def subsets_count(subsets_list):

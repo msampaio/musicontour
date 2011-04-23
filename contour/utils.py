@@ -125,3 +125,14 @@ def greatest_first(list1, list2):
         return [list1, list2]
     else:
         return [list2, list1]
+
+
+def permut_list(numbers_list):
+    """Returns a sorted list of all permutations of a list.
+
+    >>> permut_list([1, 2, 3])
+    [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
+    """
+
+    permutted = sorted(itertools.permutations(numbers_list, len(numbers_list)))
+    return [list(x) for x in permutted]
