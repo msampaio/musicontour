@@ -6,6 +6,9 @@
 MusiContour
 ===========
 
+.. image:: figs/04231.png
+   :align: right
+
 MusiContour is a musical contour relations calculator, that plots and
 calculates mathematical operations on musical contours. MusiContour
 has a few `Contour Theories <contour-theories.html>`_ functions
@@ -15,7 +18,9 @@ diagonals.
 MusiContour is designed for Linux, but also runs in Windows. It's
 developed in Python.
 
-Contents:
+
+Contents
+========
 
 .. toctree::
    :maxdepth: 2
