@@ -23,8 +23,9 @@ def notes_to_music21(notes_list, notes_measure = 0):
     """
 
     part = music21.stream.Part()
+    notes_list_size = len(notes_list)
 
-    if len(notes_list) < 9 and notes_measure == 0:
+    if notes_list_size < 9 and notes_measure == 0:
 
         m = music21.stream.Measure()
         for note in notes_list:
@@ -36,7 +37,7 @@ def notes_to_music21(notes_list, notes_measure = 0):
     else:
         if notes_measure == 0:
             notes_measure = 4
-        sequence = range(0, len(notes_list), notes_measure)
+        sequence = range(0, notes_list_size, notes_measure)
         measures = [notes_list[x:(x + notes_measure)] for x in sequence]
         for measure in measures:
             m = music21.stream.Measure()
