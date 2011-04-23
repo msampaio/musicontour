@@ -6,6 +6,7 @@ import itertools
 import contour
 import utils
 
+
 def permut_csegs(cardinality):
     """Returns a list of possible normalized csegs of a given
     cardinality."""
@@ -65,7 +66,7 @@ def absolute_pitches(cseg, pitch_set):
 
     ## lists stores [position, cpitch, pitch] for each pitch
     lists = [[pos, cseg[pos], value] for (pos, value) in enumerate(pitch_set)]
-    lists = sorted(lists, key = lambda x: x[1])
+    lists = sorted(lists, key=lambda x: x[1])
 
     for el in range(1, len(lists)):
         interval = lists[el][2] - lists[el - 1][2]
@@ -74,7 +75,7 @@ def absolute_pitches(cseg, pitch_set):
         if interval < 0:
             octave = abs(interval / 12) * 12
             lists[el] = [lists[el][0], lists[el][1], (lists[el][2] + octave)]
-    return [x[2] for x in sorted(lists, key = lambda x: x[0])]
+    return [x[2] for x in sorted(lists, key=lambda x: x[0])]
 
 
 def absolute_pitches_permutation(cseg, psets_list):

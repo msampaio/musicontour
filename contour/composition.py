@@ -11,7 +11,7 @@ import utils
 notes = "c c# d d# e f f# g g# a a# b".split()
 
 
-def notes_to_music21(notes_list, notes_measure = 0):
+def notes_to_music21(notes_list, notes_measure=0):
     """Generates Music21 Part object from a given Music21 notation
     list of notes. The number of notes in each measure is optional. If
     the notes_list is lower than 9, all notes are output in one bar,
@@ -50,7 +50,7 @@ def notes_to_music21(notes_list, notes_measure = 0):
     return part
 
 
-def pitches_to_notes(pitches, offset = 0):
+def pitches_to_notes(pitches, offset=0):
     """Returns Music21 notation pitches from a given list of numeric
     absolute pitches. Accepts octave (offset) as optional. Default is
     0.
@@ -69,7 +69,7 @@ def pitches_to_notes(pitches, offset = 0):
     return result
 
 
-def cseg_pitch_sets_to_music21(cseg, pitch_set, octave = 4):
+def cseg_pitch_sets_to_music21(cseg, pitch_set, octave=4):
     """Returns a music21.stream.Part object with a musical excerpt with all
     permutations of a given pitch set organized by a given contour on
     a given octave.

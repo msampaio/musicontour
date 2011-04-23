@@ -10,9 +10,11 @@ keys = set(["Source", "Page", "Figure", "Caption", "Description", "Cseg"])
 
 
 def __pngsave(im, file):
-    # source: http://blog.client9.com/2007/08/python-pil-and-png-metadata-take-2.html
-    # these can be automatically added to Image.info dict
-    # they are not user-added metadata
+    # source:
+    # http://blog.client9.com/2007/08/python-pil-and-png-metadata-take-2.html
+
+    # these can be automatically added to Image.info dict they are not
+    # user-added metadata
     reserved = ('interlace', 'gamma', 'dpi', 'transparency', 'aspect')
 
     # undocumented class
@@ -20,8 +22,9 @@ def __pngsave(im, file):
     meta = PngImagePlugin.PngInfo()
 
     # copy metadata into new object
-    for k,v in im.info.iteritems():
-        if k in reserved: continue
+    for k, v in im.info.iteritems():
+        if k in reserved:
+            continue
         meta.add_text(k, v, 0)
 
     # and save
@@ -69,7 +72,7 @@ def __source_figure_add(filename):
     __pngsave(im, filename)
 
 
-def add(filename, m_key, m_value, available_keys = keys):
+def add(filename, m_key, m_value, available_keys=keys):
     """Inserts metadata to a PNG file:
 
     >>> metadata.add('/tmp/foo.png', 'Page', '227')
@@ -82,7 +85,9 @@ def add(filename, m_key, m_value, available_keys = keys):
         __pngsave(im, filename)
 
     else:
-        print("Selected m_key '{0}' is not one of the available keys list:\n".format(m_key))
+        phrase_1 = "Selected m_key '{0}'".format(m_key)
+        phrase_2 = " is not one of the available keys list:\n"
+        print(phrase_1 + phrase_2)
         for key in sorted(list(available_keys)):
             print("{0}".format(key))
 
@@ -95,7 +100,8 @@ def remove(filename, m_key):
 
     complete_key = contour_key_creator(m_key)
     im = Image.open(filename)
-    if complete_key in im.info: del im.info[complete_key]
+    if complete_key in im.info:
+        del im.info[complete_key]
     __pngsave(im, filename)
 
 

@@ -256,7 +256,7 @@ def test_class_index_i():
 
 def test_class_index_ii():
     n = contour.contour.Contour([0, 1, 3, 2])
-    assert n.class_index_ii() == 5.0/6
+    assert n.class_index_ii() == 5.0 / 6
 
 
 def test_segment_class_1():
