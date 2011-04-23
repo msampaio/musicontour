@@ -22,10 +22,8 @@ def notes_to_music21(notes_list, notes_measure = 0):
     <music21.stream.Part 0 offset=0.0>
     """
 
-    part = music21.stream.Part()
-    notes_list_size = len(notes_list)
-
-    if notes_list_size < 9 and notes_measure == 0:
+    def insert_notes(part, notes_measure):
+        """Inserts notes in a Music21 Part object."""
 
         m = music21.stream.Measure()
         for note in notes_list:
@@ -34,18 +32,21 @@ def notes_to_music21(notes_list, notes_measure = 0):
             m.append(n)
         part.append(m)
 
+    part = music21.stream.Part()
+    notes_list_size = len(notes_list)
+
+    if notes_list_size < 9 and notes_measure == 0:
+        insert_notes(part, notes_list_size)
     else:
         if notes_measure == 0:
             notes_measure = 4
+
         sequence = range(0, notes_list_size, notes_measure)
         measures = [notes_list[x:(x + notes_measure)] for x in sequence]
+
         for measure in measures:
-            m = music21.stream.Measure()
-            for note in measure:
-                n = music21.note.Note(note)
-                n.duration.type = "quarter"
-                m.append(n)
-            part.append(m)
+            insert_notes(part, notes_list_size)
+
     return part
 
 
