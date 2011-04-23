@@ -65,3 +65,17 @@ def pitches_to_notes(pitches, offset = 0):
         result.append(notes[p_class] + str(octave))
 
     return result
+
+
+def cseg_pitch_sets_to_music21(cseg, pitch_set, octave = 4):
+    """Returns a music21.stream.Part object with a musical excerpt with all
+    permutations of a given pitch set organized by a given contour on
+    a given octave.
+
+    >>> cseg_pitch_sets_to_music21(Contour([0, 1, 2]), [3, 4, 5], 4)
+    """
+
+    pitch_numbers = flatten(absolute_pitches_permutation(cseg, pitch_set))
+    notes = pitches_to_notes(pitch_numbers, octave)
+
+    return notes_to_music21(notes)

@@ -77,6 +77,17 @@ def absolute_pitches(cseg, pitch_set):
     return [x[2] for x in sorted(lists, key = lambda x: x[0])]
 
 
+def absolute_pitches_permutation(cseg, psets_list):
+    """Returns lists of absolute pitches permutations of a given cseg
+    and a list of pitch sets permutations.
+
+    >>> absolute_pitches_permutation(Contour([0, 1, 2]), [3, 4, 5])
+    [[3, 4, 5], [3, 5, 16], [4, 15, 17], [4, 5, 15], [5, 15, 16], [5, 16, 27]]
+    """
+
+    return [absolute_pitches(cseg, pset) for pset in permut_list(psets_list)]
+
+
 def octave_calculator(pitch):
     """Returns pitch class and octave for a given absolute pitch.
 
