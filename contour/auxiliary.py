@@ -85,7 +85,8 @@ def absolute_pitches_permutation(cseg, psets_list):
     [[3, 4, 5], [3, 5, 16], [4, 15, 17], [4, 5, 15], [5, 15, 16], [5, 16, 27]]
     """
 
-    return [absolute_pitches(cseg, pset) for pset in permut_list(psets_list)]
+    permutted = utils.permut_list(psets_list)
+    return [absolute_pitches(cseg, pset) for pset in permutted]
 
 
 def octave_calculator(pitch):

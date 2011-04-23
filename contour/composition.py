@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-import auxiliary
+import auxiliary as aux
 import sys
 sys.path.append("/home/marcos/local/music21")
 import music21
-
+import utils
 
 notes = "c c# d d# e f f# g g# a a# b".split()
 
@@ -61,7 +61,7 @@ def pitches_to_notes(pitches, offset = 0):
     result = []
 
     for pitch in pitches:
-        p_class, octave = auxiliary.octave_calculator(pitch)
+        p_class, octave = aux.octave_calculator(pitch)
         octave = octave + offset
         result.append(notes[p_class] + str(octave))
 
@@ -76,7 +76,8 @@ def cseg_pitch_sets_to_music21(cseg, pitch_set, octave = 4):
     >>> cseg_pitch_sets_to_music21(Contour([0, 1, 2]), [3, 4, 5], 4)
     """
 
-    pitch_numbers = flatten(absolute_pitches_permutation(cseg, pitch_set))
+    pitch_numbers = aux.absolute_pitches_permutation(cseg, pitch_set)
+    pitch_numbers = utils.flatten(pitch_numbers)
     notes = pitches_to_notes(pitch_numbers, octave)
 
     return notes_to_music21(notes)
