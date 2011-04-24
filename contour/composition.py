@@ -14,15 +14,15 @@ notes = "c c# d d# e f f# g g# a a# b".split()
 def notes_to_music21(notes_list, notes_measure=0):
     """Generates Music21 Part object from a given Music21 notation
     list of notes. The number of notes in each measure is optional. If
-    the notes_list is lower than 9, all notes are output in one bar,
-    if higher or equal to 9, notes are grouped by 4, unless
+    the notes_list is equal or lower than 10, all notes are output in
+    one bar, if higher or equal to 10, notes are grouped by 10, unless
     notes_measures is not 0.
 
     >>> notes_to_music21(['c4', 'g4', 'f#4', 'a4', 'e4'])
     <music21.stream.Part 0 offset=0.0>
     """
 
-    def insert_notes(part, notes_measure):
+    def insert_notes(part, notes_list, notes_measure):
         """Inserts notes in a Music21 Part object."""
 
         m = music21.stream.Measure()
@@ -35,17 +35,16 @@ def notes_to_music21(notes_list, notes_measure=0):
     part = music21.stream.Part()
     notes_list_size = len(notes_list)
 
-    if notes_list_size < 9 and notes_measure == 0:
-        insert_notes(part, notes_list_size)
+    if notes_list_size > 10:
+        sequence = range(0, notes_list_size, 10)
+        measures_data = [notes_list[x:(x + 10)] for x in sequence]
     else:
-        if notes_measure == 0:
-            notes_measure = 4
+        measures_data = [notes_list]
 
-        sequence = range(0, notes_list_size, notes_measure)
-        measures = [notes_list[x:(x + notes_measure)] for x in sequence]
+    part.insert(0, music21.meter.TimeSignature('{0}/4'.format(len(measures_data[0]))))
 
-        for measure in measures:
-            insert_notes(part, notes_list_size)
+    for measure in measures_data:
+        insert_notes(part, measure, notes_list_size)
 
     return part
 
