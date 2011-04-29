@@ -364,6 +364,24 @@ class Contour(list):
         else:
             return orig
 
+    def unique_prime_form_test(self, prime_algorithm="prime_form_sampaio"):
+        """Returns True if the prime form algorithm returns only one
+        prime form for each contour class. Sampaio prime form
+        algorithm is default.
+
+        >>> Contour([0, 2, 1, 3, 4]).unique_prime_form_test()
+        True
+        """
+
+        p, i, r, ri = self.class_representatives()
+
+        prime_p = auxiliary.apply_fn(p, prime_algorithm)
+        prime_i = auxiliary.apply_fn(i, prime_algorithm)
+        prime_r = auxiliary.apply_fn(r, prime_algorithm)
+        prime_ri = auxiliary.apply_fn(ri, prime_algorithm)
+
+        return prime_p == prime_i == prime_r == prime_ri
+
     def subsets(self, n):
         """Returns adjacent and non-adjacent subsets of a given
         contour."""
