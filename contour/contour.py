@@ -358,10 +358,8 @@ class Contour(list):
         if mlpf == ri_mlpf:
             return mlpf
         else:
-            if mlpf[1] < ri_mlpf[1]:
-                return mlpf
-            else:
-                return ri_mlpf
+            # returns the cseg closer to bottom on left
+            return sorted([mlpf, ri_mlpf])[0]
 
     def unique_prime_form_test(self, prime_algorithm="prime_form_sampaio"):
         """Returns True if the prime form algorithm returns only one
