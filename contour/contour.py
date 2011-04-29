@@ -346,7 +346,7 @@ class Contour(list):
 
         Runs Marvin Algorithm and comparison prime form with
         retrograde of inversion prime form. If different, return the
-        form that has the lower second c-pitch.
+        form that has the lower c-pitches on the left side.
         """
 
         tmp = self
@@ -354,12 +354,8 @@ class Contour(list):
         mlpf = tmp.prime_form_marvin_laprade()
         ri_mlpf = mlpf.retrograde().inversion().prime_form_marvin_laprade()
 
-        # tests if marvin_prime_form is unique
-        if mlpf == ri_mlpf:
-            return mlpf
-        else:
-            # returns the cseg closer to bottom on left
-            return sorted([mlpf, ri_mlpf])[0]
+        # returns the cseg closer to bottom on left
+        return sorted([mlpf, ri_mlpf])[0]
 
     def unique_prime_form_test(self, prime_algorithm="prime_form_sampaio"):
         """Returns True if the prime form algorithm returns only one
