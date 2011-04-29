@@ -743,13 +743,13 @@ class Contour(list):
         ri = Contour(i).retrograde()
         return self == ri
 
-    def class_representatives(self):
+    def class_representatives(self, prime_algorithm="prime_form_sampaio"):
         """Returns the four csegclass representatives (Marvin and
         Laprade 1987, p. 237): prime, inversion, and retrograde
         inversion.
         """
 
-        p = Contour(self).prime_form_marvin_laprade()
+        p = auxiliary.apply_fn(Contour(self), prime_algorithm)
         i = Contour(self).inversion()
         r = Contour(self).retrograde()
         ri = Contour(i).retrograde()
