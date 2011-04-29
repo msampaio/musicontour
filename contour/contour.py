@@ -351,18 +351,17 @@ class Contour(list):
 
         tmp = self
 
-        orig = tmp.prime_form_marvin_laprade()
-        ri = tmp.retrograde().inversion().prime_form_marvin_laprade()
+        mlpf = tmp.prime_form_marvin_laprade()
+        ri_mlpf = mlpf.retrograde().inversion().prime_form_marvin_laprade()
 
-        if orig != ri:
-            orig_pos = orig[1]
-            ri_pos = ri[1]
-            if orig_pos < ri_pos:
-                return orig
-            else:
-                return ri
+        # tests if marvin_prime_form is unique
+        if mlpf == ri_mlpf:
+            return mlpf
         else:
-            return orig
+            if mlpf[1] < ri_mlpf[1]:
+                return mlpf
+            else:
+                return ri_mlpf
 
     def unique_prime_form_test(self, prime_algorithm="prime_form_sampaio"):
         """Returns True if the prime form algorithm returns only one
