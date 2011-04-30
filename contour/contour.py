@@ -738,6 +738,32 @@ class Contour(list):
         ri = Contour(i).retrograde()
         return self == ri
 
+    def symmetry_index(self):
+        """Returns the symmetry index based on the edge symmetry of a
+        contour. This method compares first cseg half of a given cseg
+        and its inverted retrograde. Each c-pitch of both cseg half is
+        compared and, if equal, the total number of similarities is
+        increased by 1. This number is later divided by the total
+        number of elements of the cseg half.
+
+        >>> Contour([0, 1, 4, 2, 3, 5, 6]).symmetry_index()
+        0.5
+        """
+
+        cseg = self
+        ri = self.retrograde().inversion()
+        size_half = round(len(cseg) / 2.0)
+        int_size_half = int(size_half)
+        half_cseg = cseg[:int_size_half]
+        half_ri = ri[:int_size_half]
+
+        result = 0
+        for a, b in zip (half_cseg, half_ri):
+            if a == b:
+                result += 1
+
+        return result / size_half
+
     def class_representatives(self, prime_algorithm="prime_form_sampaio"):
         """Returns the four csegclass representatives (Marvin and
         Laprade 1987, p. 237): prime, inversion, and retrograde
