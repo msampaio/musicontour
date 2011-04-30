@@ -192,15 +192,6 @@ def contour_rotation_classes(cardinality):
     return sorted(result)
 
 
-# FIXME:
-# class Fontour(list):
-#     def __init__(self, *args):
-#         list.__init__(self, args)
-
-# FIXME:
-# def __repr__(self):
-#     return "<{0}>".format(self[:])
-
 class Contour(list):
     """Returns an object contour.
     Input is a list of cpitches:
