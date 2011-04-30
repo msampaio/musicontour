@@ -344,18 +344,11 @@ class Contour(list):
     def prime_form_sampaio(self):
         """Runs Sampaio prime form algorithm.
 
-        Runs Marvin Algorithm and comparison prime form with
-        retrograde of inversion prime form. If different, return the
-        form that has the lower c-pitches on the left side.
+        The Sampaio prime form algorithm returns the csegclass
+        representative with the best ascendent numeric order.
         """
 
-        tmp = self
-
-        mlpf = tmp.prime_form_marvin_laprade()
-        ri_mlpf = mlpf.retrograde().inversion().prime_form_marvin_laprade()
-
-        # returns the cseg closer to bottom on left
-        return sorted([mlpf, ri_mlpf])[0]
+        return sorted(self.class_four_forms())[0]
 
     def unique_prime_form_test(self, prime_algorithm="prime_form_sampaio"):
         """Returns True if the prime form algorithm returns only one
@@ -766,6 +759,19 @@ class Contour(list):
         ri = Contour(i).retrograde()
 
         return [p, i, r, ri]
+
+    def class_four_forms(self):
+        """Returns four csegclass representative forms. This method is
+        similar to class_representatives, but the first cseg form is
+        the normal, not prime form.
+        """
+
+        t = self.translation()
+        i = self.inversion()
+        r = self.retrograde()
+        ri = i.retrograde()
+
+        return [t, i, r, ri]
 
     def all_rotations(self):
         """Returns all rotations forms of a cseg:
