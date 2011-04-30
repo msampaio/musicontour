@@ -784,8 +784,8 @@ class Contour(list):
         """
 
         t = self.translation()
-        i = self.inversion()
-        r = self.retrograde()
+        i = t.inversion()
+        r = t.retrograde()
         ri = i.retrograde()
 
         return [t, i, r, ri]
