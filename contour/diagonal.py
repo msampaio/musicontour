@@ -140,3 +140,27 @@ class InternalDiagonal(list):
 
     def __repr__(self):
         return "< {0} >".format(" ".join([utils.double_replace(str(x)) for x in self[:]]))
+
+
+def csegs_from_diagonals(diagonals_list):
+    """Returns possible csegs from a given list of internal diagonals.
+
+    >>> cseg_from_diagonals([InternalDiagonal([1, -1, 1, -1]),
+        InternalDiagonal([1, 1, 1]), InternalDiagonal([1, 1]),
+        InternalDiagonal([1])])
+    < 0 2 1 4 3 >
+    """
+
+    coll = []
+
+    for n, diagonal in enumerate(diagonals_list):
+
+        # appends a set with each possible cseg from internal diagonal
+        # to coll
+        s = set([tuple(x) for x in diagonal.csegs(n + 1)])
+        coll.append(s)
+
+    # make the intersection among csegs from internal diagonals
+    [coll[0].intersection_update(coll[x]) for x in range(len(coll))]
+
+    return contour.Contour(list(list(coll[0])[0]))

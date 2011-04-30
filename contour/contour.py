@@ -300,20 +300,14 @@ class Contour(list):
         (Marvin and Laprade, 1987)."""
 
         size = len(self)
-
-        # sets of csegs from each internal diagonal
-        coll = []
+        diagonals_list = []
 
         for d in range(1, size):
+            # substitutes zeros for a given signal
             int_d = self.internal_diagonals(d).zero_to_signal(signal)
-            int_d = diagonal.InternalDiagonal(int_d)
+            diagonals_list.append(diagonal.InternalDiagonal(int_d))
 
-            s = set([tuple(x) for x in int_d.csegs(d)])
-            coll.append(s)
-
-        [coll[0].intersection_update(coll[x]) for x in range(len(coll))]
-
-        return Contour(list(list(coll[0])[0]))
+        return diagonal.csegs_from_diagonals(diagonals_list)
 
     def __repeated_prime_form_marvin_laprade(self):
         """Returns prime forms of a repeated cpitch cseg."""
