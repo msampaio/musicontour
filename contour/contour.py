@@ -806,3 +806,22 @@ class Contour(list):
 
     def __repr__(self):
         return "< {0} >".format(" ".join([str(x) for x in self[:]]))
+
+
+def prime_form_algorithm_test(cardinality, prime_form_algorithm="prime_form_sampaio"):
+    """Returns contour classes with two prime forms from a given
+    cardinality and prime form algorithm.
+    """
+
+    # creates a list of all possible lists
+    lists = [auxiliary.permut_csegs(c) for c in range(2, cardinality + 1)]
+    lists = utils.flatten(lists)
+
+    result = []
+
+    for el in lists:
+        cseg = Contour(el)
+        if cseg.unique_prime_form_test(prime_form_algorithm) == False:
+            result.append(cseg)
+
+    return result
