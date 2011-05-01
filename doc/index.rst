@@ -18,24 +18,11 @@ diagonals.
 MusiContour is designed for Linux, but also runs in Windows. It's
 developed in Python.
 
+Documentation
+-------------
 
-Contents
-========
+`Contents <contents.html>`_
 
-.. toctree::
-   :maxdepth: 2
-
-   about.rst
-   install.rst
-   user-doc.rst
-   contour-theories.rst
-   contour-operations.rst
-   glossary.rst
-
-Indexes and tables
-==================
-
-* :ref:`genindex`
-* :ref:`search`
+`General Index <genindex.html>`_
 
 .. _Genos: http://genos.mus.br
