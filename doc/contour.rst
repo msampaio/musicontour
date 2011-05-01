@@ -1,19 +1,68 @@
 The Contour data structure
 ==========================
 
-The basic data structure in MusiContour is the class :class:`Contour`.
+The basic data structure in MusiContour.
 
-Contour methods
+contour.contour
 ---------------
 
-.. class:: Contour()
+.. automodule:: contour.contour
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-.. method:: inversion()
+contour.comparison
+------------------
 
-The method :method:`inversion` is based on Jamary Oliveira function:
+.. automodule:: contour.comparison
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-  I(x)n = 2n - x
+contour.composition
+-------------------
 
-Robert Morris uses this function:
+.. automodule:: contour.composition
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-  I(x)n = (n - 1) - x
+contour.plot
+------------
+
+.. automodule:: contour.plot
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+contour.diagonal
+----------------
+
+.. automodule:: contour.diagonal
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+contour.matrix
+--------------
+
+.. automodule:: contour.matrix
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+contour.auxiliary
+-----------------
+
+.. automodule:: contour.auxiliary
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+contour.utils
+-------------
+
+.. automodule:: contour.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
