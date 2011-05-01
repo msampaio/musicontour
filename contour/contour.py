@@ -359,7 +359,7 @@ class Contour(list):
             # appends all possible csegs from each diagonal
             result.append(diagonal.csegs_from_diagonals(lst))
 
-        return sorted(result)
+        return sorted([x for x in result if x])
 
     def prime_form_sampaio(self):
         """Runs Sampaio prime form algorithm.

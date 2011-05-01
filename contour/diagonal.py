@@ -153,14 +153,17 @@ def csegs_from_diagonals(diagonals_list):
 
     coll = []
 
-    for n, diagonal in enumerate(diagonals_list):
+    try:
+        for n, diagonal in enumerate(diagonals_list):
 
-        # appends a set with each possible cseg from internal diagonal
-        # to coll
-        s = set([tuple(x) for x in diagonal.csegs(n + 1)])
-        coll.append(s)
+            # appends a set with each possible cseg from internal diagonal
+            # to coll
+            s = set([tuple(x) for x in diagonal.csegs(n + 1)])
+            coll.append(s)
 
-    # make the intersection among csegs from internal diagonals
-    [coll[0].intersection_update(coll[x]) for x in range(len(coll))]
+        # make the intersection among csegs from internal diagonals
+        [coll[0].intersection_update(coll[x]) for x in range(len(coll))]
 
-    return contour.Contour(list(list(coll[0])[0]))
+        return contour.Contour(list(list(coll[0])[0]))
+    except:
+        pass
