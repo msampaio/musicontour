@@ -326,6 +326,41 @@ class Contour(list):
         else:
             return self.__repeated_prime_form_marvin_laprade()
 
+    def __non_repeated_prime_form_sampaio(self):
+        """Returns Sampaio prime form algorithm for non repeated
+        c-pitches csegs.
+
+        The Sampaio prime form algorithm returns the csegclass
+        representative with the best ascendent numeric order.
+        """
+        return sorted(self.class_four_forms())[0]
+
+    def __repeated_prime_form_sampaio(self):
+        """Returns Sampaio prime form algorithm for repeated c-pitches
+        csegs.
+
+        Returns all possible prime forms of a cseg with repeated
+        elements."""
+
+        size = len(self)
+        d_list = []
+        range_size = range(1, size)
+
+        # generates a vector with all internal diagonals of self
+        [d_list.append(self.internal_diagonals(d)) for d in range_size]
+
+        # generates a vector with all possible zero substitutions
+        lists = utils.zero_to_plus_minus(d_list)
+
+        result = []
+
+        for lst in lists:
+            lst = [diagonal.InternalDiagonal(x) for x in lst]
+            # appends all possible csegs from each diagonal
+            result.append(diagonal.csegs_from_diagonals(lst))
+
+        return sorted(result)
+
     def prime_form_sampaio(self):
         """Runs Sampaio prime form algorithm.
 
@@ -333,7 +368,11 @@ class Contour(list):
         representative with the best ascendent numeric order.
         """
 
-        return sorted(self.class_four_forms())[0]
+        # tests if cseg has repeated elements
+        if len(self) == len(set([x for x in self])):
+            return self.__non_repeated_prime_form_sampaio()
+        else:
+            return self.__repeated_prime_form_sampaio()
 
     def unique_prime_form_test(self, prime_algorithm="prime_form_sampaio"):
         """Returns True if the prime form algorithm returns only one
