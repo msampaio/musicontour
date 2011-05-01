@@ -197,6 +197,7 @@ class Contour(list):
     Input is a list of cpitches:
 
     >>> Contour([0, 1, 3, 2])
+    < 0 1 3 2 >
     """
 
     def rotation(self, factor=1):

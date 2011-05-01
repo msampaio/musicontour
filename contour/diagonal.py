@@ -33,6 +33,7 @@ class InternalDiagonal(list):
     diagonal:
 
     >>> InternalDiagonal([-1, 1, 1])
+    < - + + >
     """
 
     def csegs(self, diagonal=1):
