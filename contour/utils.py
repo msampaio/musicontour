@@ -7,13 +7,21 @@ import itertools
 
 
 def flatten(seq):
-    """Flatten Sequences."""
+    """Flatten Sequences.
+
+    >>> flatten([[0, 1], [2, 3]])
+    [0, 1, 2, 3]
+    """
 
     return [item for sublist in seq for item in sublist]
 
 
 def filter_int(item):
-    """Tests and outputs int."""
+    """Tests and outputs int.
+
+    >>> filter_int(3):
+    3
+    """
 
     if isinstance(item, int):
         return item
@@ -22,22 +30,35 @@ def filter_int(item):
 
 
 def percent(list):
-    """Outputs percentuals from a list like [[(1, 0), 10],
-    [(0, 1), 11]]"""
+    """Outputs percentuals from a list.
+
+    >>> percent()[[(1, 0), 10], [(0, 1), 11]]
+    [[(1, 0), '47.62'], [(0, 1), '52.38']]
+    """
 
     sigma = sum(x[1] for x in list)
     return [[n[0], "%.2f" % (float(n[1]) * 100 / sigma)] for n in list]
 
 
 def lists_printing(list):
-    """Prints a list of two items lists."""
+    """Prints a list of two items lists.
+
+    >>> lists_printing([[0, 1], [2, 3], [4, 5]])
+    0 - 1 %
+    2 - 3 %
+    4 - 5 %
+    """
 
     for n in list:
         print("{0} - {1} %".format(n[0], n[1]))
 
 
 def item_count(data):
-    """Counts items in a list of lists"""
+    """Counts items in a list of lists.
+
+    >>> item_count([[0, 1], [2, 3], [4, 5]])
+    [[(0, 1), 1], [(4, 5), 1], [(2, 3), 1]]
+    """
 
     sorted_subsets = sorted(data)
     tuples = [tuple(x) for x in sorted_subsets]
@@ -106,8 +127,11 @@ def remove_duplicate_tuples(list_of_tuples):
             prev = a
     return tmp
 
+
 def pretty_as_cseg(list):
-    """Prints like cseg, used in Contour theories:
+    """Prints like cseg, used in Contour theories.
+
+    >>> pretty_as_cseg([1, 3, 5, 4])
     < 1 3 5 4 >
     """
 
@@ -117,7 +141,7 @@ def pretty_as_cseg(list):
 def greatest_first(list1, list2):
     """Returns greatest list first.
 
-    >>> contour.utils.gretest([0, 1], [3, 2, 1])
+    >>> greatest_first([0, 1], [3, 2, 1])
     [[3, 2, 1], [0, 1]]
     """
 
