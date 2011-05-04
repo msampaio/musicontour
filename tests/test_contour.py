@@ -4,6 +4,18 @@ import contour.contour as cc
 import py
 
 
+def test_build_classes_card():
+    function = cc.build_classes_card
+    assert function(4) == [(4, 1, (0, 1, 2, 3), True),
+                           (4, 2, (0, 1, 3, 2), False),
+                           (4, 3, (0, 2, 1, 3), True),
+                           (4, 4, (0, 2, 3, 1), False),
+                           (4, 5, (0, 3, 1, 2), False),
+                           (4, 6, (0, 3, 2, 1), False),
+                           (4, 7, (1, 0, 3, 2), True),
+                           (4, 8, (1, 3, 0, 2), True)]
+
+
 def test_build_classes():
     function = cc.build_classes
     assert function(4) == [[(2, 1, (0, 1), True)],
@@ -16,6 +28,10 @@ def test_build_classes():
                             (4, 6, (0, 3, 2, 1), False),
                             (4, 7, (1, 0, 3, 2), True),
                             (4, 8, (1, 3, 0, 2), True)]]
+
+
+def test_contour_class():
+    assert cc.contour_class(6, 117) == cc.Contour([0, 5, 4, 2, 1, 3])
 
 
 def test_subsets_grouped():
@@ -158,6 +174,12 @@ def test_minima():
     assert cc.minima(n) == [(0, 0), (2, 3), (4, 4)]
 
 
+def test_contour_rotation_classes():
+    assert cc.contour_rotation_classes(4) == [cc.Contour([0, 1, 2, 3]),
+                                              cc.Contour([0, 1, 3, 2]),
+                                              cc.Contour([0, 2, 1, 3])]
+
+
 def test_interval_1():
     n = cc.Contour([1, 5])
     assert n.interval() == 4
@@ -285,3 +307,26 @@ def test_class_representatives():
                                          cc.Contour([3, 2, 0, 1]),
                                          cc.Contour([2, 3, 1, 0]),
                                          cc.Contour([1, 0, 2, 3])]
+
+
+def test_prime_form_algorithm_test_1():
+    algorithm = "prime_form_marvin_laprade"
+    assert cc.prime_form_algorithm_test(4, algorithm) == []
+
+
+def test_prime_form_algorithm_test_2():
+    algorithm = "prime_form_marvin_laprade"
+    fn = cc.prime_form_algorithm_test(5, algorithm)
+    assert fn == [cc.Contour([0, 1, 3, 2, 4]), cc.Contour([0, 2, 1, 3, 4]),
+                  cc.Contour([0, 2, 3, 1, 4]), cc.Contour([0, 3, 1, 2, 4]),
+                  cc.Contour([1, 0, 4, 2, 3]), cc.Contour([1, 2, 0, 4, 3]),
+                  cc.Contour([1, 2, 4, 0, 3]), cc.Contour([1, 4, 0, 2, 3]),
+                  cc.Contour([3, 0, 4, 2, 1]), cc.Contour([3, 2, 0, 4, 1]),
+                  cc.Contour([3, 2, 4, 0, 1]), cc.Contour([3, 4, 0, 2, 1]),
+                  cc.Contour([4, 1, 3, 2, 0]), cc.Contour([4, 2, 1, 3, 0]),
+                  cc.Contour([4, 2, 3, 1, 0]), cc.Contour([4, 3, 1, 2, 0])]
+
+
+def test_prime_form_algorithm_test_3():
+    algorithm = "prime_form_sampaio"
+    assert cc.prime_form_algorithm_test(6, algorithm) == []
