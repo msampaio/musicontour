@@ -166,7 +166,7 @@ def contour_rotation_classes(cardinality):
     cardinality. Each cseg is rotation class representative."""
 
     ## sets universe set with all csegs with a given cardinality
-    universe = set(auxiliary.permut_csegs(cardinality))
+    universe = set([tuple(x) for x in auxiliary.permut_csegs(cardinality)])
     s = set()
 
     for el in universe:
