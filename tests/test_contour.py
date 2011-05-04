@@ -88,9 +88,62 @@ def test_prime_form_marvin_laprade_1():
     assert n.prime_form_marvin_laprade() == [0, 2, 3, 1]
 
 
-def test_prime_form_marvin_laprade_1():
+def test_prime_form_marvin_laprade_2():
     n = cc.Contour([5, 7, 9, 1])
     assert n.prime_form_marvin_laprade() == [0, 3, 2, 1]
+
+
+def test_prime_form_marvin_laprade_2():
+    n = cc.Contour([5, 7, 9, 1])
+    assert n.prime_form_marvin_laprade() == [0, 3, 2, 1]
+
+
+def test_prime_form_marvin_laprade_3():
+    n = cc.Contour([0, 2, 1, 3, 4])
+    assert n.prime_form_marvin_laprade() == [0, 2, 1, 3, 4]
+
+
+def test_prime_form_marvin_laprade_5():
+    n = cc.Contour([0, 1, 2, 1, 2])
+    assert n.prime_form_marvin_laprade() == [[0, 1, 3, 2, 4], [0, 2, 4, 1, 3]]
+
+
+def test_prime_form_sampaio_1():
+    n = cc.Contour([1, 4, 9, 2])
+    assert n.prime_form_sampaio() == [0, 2, 3, 1]
+
+
+def test_prime_form_sampaio_2():
+    n = cc.Contour([5, 7, 9, 1])
+    assert n.prime_form_sampaio() == [0, 3, 2, 1]
+
+
+def test_prime_form_sampaio_2():
+    n = cc.Contour([5, 7, 9, 1])
+    assert n.prime_form_sampaio() == [0, 3, 2, 1]
+
+
+def test_prime_form_sampaio_3():
+    n = cc.Contour([0, 2, 1, 3, 4])
+    assert n.prime_form_sampaio() == [0, 1, 3, 2, 4]
+
+
+def test_prime_form_sampaio_5():
+    n = cc.Contour([0, 1, 2, 1, 2])
+    assert n.prime_form_sampaio() == [[0, 1, 3, 2, 4], [0, 1, 4, 2, 3],
+                                      [0, 2, 3, 1, 4], [0, 2, 4, 1, 3]]
+
+
+def test_unique_prime_form_test_1():
+    n = cc.Contour([0, 2, 1, 3, 4])
+    algorithm = "prime_form_marvin_laprade"
+    assert n.unique_prime_form_test(algorithm) == False
+
+
+def test_unique_prime_form_test_2():
+    n = cc.Contour([0, 2, 1, 3, 4])
+    algorithm = "prime_form_sampaio"
+    assert n.unique_prime_form_test(algorithm) == True
 
 
 def test_subsets_1():
@@ -301,12 +354,60 @@ def test_ri_identity_test():
     assert n.ri_identity_test() == True
 
 
+def test_symmetry_index_1():
+    n = cc.Contour([1, 0, 3, 2])
+    assert n.symmetry_index() == 1
+
+
+def test_symmetry_index_2():
+    n = cc.Contour([0, 2, 1])
+    assert n.symmetry_index() == 0
+
+
+def test_symmetry_index_3():
+    n = cc.Contour([0, 1, 3, 4, 2, 5, 6])
+    assert n.symmetry_index() == 0.5
+
+
 def test_class_representatives():
     n = cc.Contour([0, 1, 3, 2])
     assert n.class_representatives() == [cc.Contour([0, 1, 3, 2]),
                                          cc.Contour([3, 2, 0, 1]),
                                          cc.Contour([2, 3, 1, 0]),
                                          cc.Contour([1, 0, 2, 3])]
+
+
+def test_class_four_forms():
+    n = cc.Contour([0, 1, 3, 2])
+    assert n.class_four_forms() == [cc.Contour([0, 1, 3, 2]),
+                                         cc.Contour([3, 2, 0, 1]),
+                                         cc.Contour([2, 3, 1, 0]),
+                                         cc.Contour([1, 0, 2, 3])]
+
+
+def test_all_rotations_1():
+    n = cc.Contour([0, 1, 2])
+    assert n.all_rotations() == [[0, 1, 2], [1, 2, 0], [2, 0, 1], [0, 1, 2]]
+
+
+def test_all_rotations_2():
+    n = cc.Contour([0, 3, 1, 2])
+    assert n.all_rotations() == [[0, 3, 1, 2], [3, 1, 2, 0], [1, 2, 0, 3],
+                                 [2, 0, 3, 1], [0, 3, 1, 2]]
+
+
+def test_rotated_representatives_1():
+    n = cc.Contour([0, 1, 2])
+    assert n.rotated_representatives() == [[0, 1, 2], [0, 2, 1], [1, 0, 2],
+                                           [1, 2, 0], [2, 0, 1], [2, 1, 0]]
+
+
+def test_rotated_representatives_2():
+    n = cc.Contour([0, 3, 1, 2])
+    assert n.rotated_representatives() == [[0, 2, 1, 3], [0, 3, 1, 2],
+                                           [1, 2, 0, 3], [1, 3, 0, 2],
+                                           [2, 0, 3, 1], [2, 1, 3, 0],
+                                           [3, 0, 2, 1], [3, 1, 2, 0]]
 
 
 def test_prime_form_algorithm_test_1():
