@@ -157,7 +157,7 @@ class InternalDiagonal(list):
 def csegs_from_diagonals(diagonals_list):
     """Returns possible csegs from a given list of internal diagonals.
 
-    >>> cseg_from_diagonals([InternalDiagonal([1, -1, 1, -1]),
+    >>> csegs_from_diagonals([InternalDiagonal([1, -1, 1, -1]),
         InternalDiagonal([1, 1, 1]), InternalDiagonal([1, 1]),
         InternalDiagonal([1])])
     < 0 2 1 4 3 >
