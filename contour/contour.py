@@ -611,8 +611,17 @@ class Contour(list):
         (int_1) is the same of Friedmann (1985, 1987) contour
         adjacency series (CC)."""
 
+        def __int_d(subset):
+            """Returns a contour comparison from a given subset.
+            """
+
+            a, b = subset[0], subset[-1]
+            return Contour([a, b]).comparison()
+
+
         subsets = self.subsets_adj(n + 1)
-        return diagonal.InternalDiagonal([Contour([x[0], x[-1]]).comparison() for x in subsets])
+
+        return diagonal.InternalDiagonal([__int_d(s) for s in subsets])
 
     def comparison_matrix(self):
         """Returns Morris (1987) a cseg COM-Matrix."""
