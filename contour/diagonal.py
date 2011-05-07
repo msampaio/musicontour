@@ -3,9 +3,10 @@
 
 from __future__ import print_function
 import itertools
-import contour
+from contour import Contour
 import utils
 import auxiliary
+
 
 def internal_diagonal_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
     """Returns internal diagonal classes of a given cardinality.
@@ -36,20 +37,30 @@ class InternalDiagonal(list):
     < - + + >
     """
 
-    def csegs(self, diagonal=1):
+    def csegs(self, d=1):
         """Returns all csegs in normal form that have the given
-        internal diagonal.
+        internal diagonal. Default diagonal is 1.
 
         >>> InternalDiagonal([-1, 1, 1]).csegs
         [[1, 0, 2, 3], [2, 0, 1, 3], [3, 0, 1, 2]]
         """
 
-        size = len(self) + diagonal
+        def __cseg(original, x, d):
+            """Returns a list with cseg internal diagonals and cseg
+            from a given tuple and diagonal number.
+            """
+
+            cseg = Contour(list(x))
+            int_d = cseg.internal_diagonals(d)
+            if int_d == original:
+                return cseg
+
+        size = len(self) + d
         permut = auxiliary.permut_csegs(size)
-        int_d_permut = [[contour.Contour(list(x)).internal_diagonals(diagonal), contour.Contour(list(x))] for x in permut]
-        result = []
-        [result.append(y[1]) for y in int_d_permut if y[0] == self]
-        return result
+        r = []
+        [r.append(__cseg(self, x, d)) for x in permut if __cseg(self, x, d)]
+
+        return r
 
     def rotation(self, factor=1):
         """Rotates an internal diagonal around a factor.
@@ -165,6 +176,6 @@ def csegs_from_diagonals(diagonals_list):
         # make the intersection among csegs from internal diagonals
         [coll[0].intersection_update(coll[x]) for x in range(len(coll))]
 
-        return contour.Contour(list(list(coll[0])[0]))
+        return Contour(list(list(coll[0])[0]))
     except:
         pass
