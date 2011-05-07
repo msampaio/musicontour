@@ -84,3 +84,9 @@ def test_pretty_as_cseg():
 def test_greatest_first():
     n1, n2 = [0, 1], [3, 2, 1]
     assert cu.greatest_first(n1, n2) == [[3, 2, 1], [0, 1]]
+
+
+def test_permut_list():
+    lst = [1, 2, 3]
+    assert cu.permut_list(lst) == [[1, 2, 3], [1, 3, 2], [2, 1, 3],
+                                   [2, 3, 1], [3, 1, 2], [3, 2, 1]]
