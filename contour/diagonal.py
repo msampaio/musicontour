@@ -3,7 +3,7 @@
 
 from __future__ import print_function
 import itertools
-from contour import Contour
+import contour
 import utils
 import auxiliary
 
@@ -50,7 +50,7 @@ class InternalDiagonal(list):
             from a given tuple and diagonal number.
             """
 
-            cseg = Contour(list(x))
+            cseg = contour.Contour(list(x))
             int_d = cseg.internal_diagonals(d)
             if int_d == original:
                 return cseg
@@ -176,6 +176,6 @@ def csegs_from_diagonals(diagonals_list):
         # make the intersection among csegs from internal diagonals
         [coll[0].intersection_update(coll[x]) for x in range(len(coll))]
 
-        return Contour(list(list(coll[0])[0]))
+        return contour.Contour(list(list(coll[0])[0]))
     except:
         pass
