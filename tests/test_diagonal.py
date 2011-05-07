@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from contour.diagonal import InternalDiagonal
+import contour.diagonal as diagonal
 
 
 def test_csegs_1():
@@ -89,3 +90,9 @@ def test_Int_subsets_adj_2():
     i = InternalDiagonal([1, 1, 0, -1, -1, 1])
     assert i.subsets_adj(3) == [[1, 1, 0], [1, 0, -1],
                                 [0, -1, -1], [-1, -1, 1]]
+
+
+def test_csegs_from_diagonals():
+    d = [InternalDiagonal([1, -1, 1, -1]), InternalDiagonal([1, 1, 1]),
+         InternalDiagonal([1, 1]), InternalDiagonal([1])]
+    assert diagonal.csegs_from_diagonals(d) == [0, 2, 1, 4, 3]
