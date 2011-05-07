@@ -1,37 +1,30 @@
 # -*- coding: utf-8 -*-
 
-import contour.contour as cc
+import contour.contour as contour
+from contour.contour import Contour
 import py
 
 
 def test_build_classes_card():
-    function = cc.build_classes_card
-    assert function(4) == [(4, 1, (0, 1, 2, 3), True),
-                           (4, 2, (0, 1, 3, 2), False),
-                           (4, 3, (0, 2, 1, 3), True),
-                           (4, 4, (0, 2, 3, 1), False),
-                           (4, 5, (0, 3, 1, 2), False),
-                           (4, 6, (0, 3, 2, 1), False),
-                           (4, 7, (1, 0, 3, 2), True),
-                           (4, 8, (1, 3, 0, 2), True)]
+    fn = contour.build_classes_card
+    assert fn(4) == [(4, 1, (0, 1, 2, 3), True), (4, 2, (0, 1, 3, 2), False),
+                     (4, 3, (0, 2, 1, 3), True), (4, 4, (0, 2, 3, 1), False),
+                     (4, 5, (0, 3, 1, 2), False), (4, 6, (0, 3, 2, 1), False),
+                     (4, 7, (1, 0, 3, 2), True), (4, 8, (1, 3, 0, 2), True)]
 
 
 def test_build_classes():
-    function = cc.build_classes
-    assert function(4) == [[(2, 1, (0, 1), True)],
-                           [(3, 1, (0, 1, 2), True), (3, 2, (0, 2, 1), False)],
-                           [(4, 1, (0, 1, 2, 3), True),
-                            (4, 2, (0, 1, 3, 2), False),
-                            (4, 3, (0, 2, 1, 3), True),
-                            (4, 4, (0, 2, 3, 1), False),
-                            (4, 5, (0, 3, 1, 2), False),
-                            (4, 6, (0, 3, 2, 1), False),
-                            (4, 7, (1, 0, 3, 2), True),
-                            (4, 8, (1, 3, 0, 2), True)]]
+    fn = contour.build_classes
+    assert fn(4) == [[(2, 1, (0, 1), True)],
+                     [(3, 1, (0, 1, 2), True), (3, 2, (0, 2, 1), False)],
+                     [(4, 1, (0, 1, 2, 3), True), (4, 2, (0, 1, 3, 2), False),
+                      (4, 3, (0, 2, 1, 3), True), (4, 4, (0, 2, 3, 1), False),
+                      (4, 5, (0, 3, 1, 2), False), (4, 6, (0, 3, 2, 1), False),
+                      (4, 7, (1, 0, 3, 2), True), (4, 8, (1, 3, 0, 2), True)]]
 
 
 def test_contour_class():
-    assert cc.contour_class(6, 117) == cc.Contour([0, 5, 4, 2, 1, 3])
+    assert contour.contour_class(6, 117) == Contour([0, 5, 4, 2, 1, 3])
 
 
 def test_subsets_grouped():
@@ -40,7 +33,7 @@ def test_subsets_grouped():
          (0, 2, 3, 1): [[0, 3, 4, 2]],
          (0, 3, 1, 2): [[0, 3, 1, 2]],
          (1, 3, 0, 2): [[3, 1, 4, 2]]}
-    assert cc.subsets_grouped(n, "prime") == \
+    assert contour.subsets_grouped(n, "prime") == \
            'Prime form < 0 1 3 2 > (1)\n< 0 1 4 2 >\n' + \
            'Prime form < 0 2 1 3 > (1)\n< 0 3 1 4 >\n' + \
            'Prime form < 0 2 3 1 > (1)\n< 0 3 4 2 >\n' + \
@@ -49,385 +42,380 @@ def test_subsets_grouped():
 
 
 def test_rotation_1():
-    n = cc.Contour([1, 4, 9, 9, 2, 1])
-    assert n.rotation() == [4, 9, 9, 2, 1, 1]
+    cseg = Contour([1, 4, 9, 9, 2, 1])
+    assert cseg.rotation() == [4, 9, 9, 2, 1, 1]
 
 
 def test_rotation_2():
-    n = cc.Contour([1, 4, 9, 9, 2, 1])
-    assert n.rotation(1) == [4, 9, 9, 2, 1, 1]
+    cseg = Contour([1, 4, 9, 9, 2, 1])
+    assert cseg.rotation(1) == [4, 9, 9, 2, 1, 1]
 
 
 def test_rotation_3():
-    n = cc.Contour([1, 4, 9, 9, 2, 1])
-    assert n.rotation(2) == [9, 9, 2, 1, 1, 4]
+    cseg = Contour([1, 4, 9, 9, 2, 1])
+    assert cseg.rotation(2) == [9, 9, 2, 1, 1, 4]
 
 
 def test_rotation_4():
-    n = cc.Contour([1, 4, 9, 9, 2, 1])
-    assert n.rotation(20) == [9, 9, 2, 1, 1, 4]
+    cseg = Contour([1, 4, 9, 9, 2, 1])
+    assert cseg.rotation(20) == [9, 9, 2, 1, 1, 4]
 
 
 def test_retrograde():
-    n = cc.Contour([1, 4, 9, 9, 2, 1])
-    assert n.retrograde() == [1, 2, 9, 9, 4, 1]
+    cseg = Contour([1, 4, 9, 9, 2, 1])
+    assert cseg.retrograde() == [1, 2, 9, 9, 4, 1]
 
 
 def test_inversion():
-    n = cc.Contour([1, 4, 9, 9, 2, 1])
-    assert n.inversion() == [8, 5, 0, 0, 7, 8]
+    cseg = Contour([1, 4, 9, 9, 2, 1])
+    assert cseg.inversion() == [8, 5, 0, 0, 7, 8]
 
 
 def test_translation():
-    n = cc.Contour([1, 4, 9, 9, 2, 1])
-    assert n.translation() == [0, 2, 3, 3, 1, 0]
+    cseg = Contour([1, 4, 9, 9, 2, 1])
+    assert cseg.translation() == [0, 2, 3, 3, 1, 0]
 
 
 def test_prime_form_marvin_laprade_1():
-    n = cc.Contour([1, 4, 9, 2])
-    assert n.prime_form_marvin_laprade() == [0, 2, 3, 1]
+    cseg = Contour([1, 4, 9, 2])
+    assert cseg.prime_form_marvin_laprade() == [0, 2, 3, 1]
 
 
 def test_prime_form_marvin_laprade_2():
-    n = cc.Contour([5, 7, 9, 1])
-    assert n.prime_form_marvin_laprade() == [0, 3, 2, 1]
+    cseg = Contour([5, 7, 9, 1])
+    assert cseg.prime_form_marvin_laprade() == [0, 3, 2, 1]
 
 
 def test_prime_form_marvin_laprade_2():
-    n = cc.Contour([5, 7, 9, 1])
-    assert n.prime_form_marvin_laprade() == [0, 3, 2, 1]
+    cseg = Contour([5, 7, 9, 1])
+    assert cseg.prime_form_marvin_laprade() == [0, 3, 2, 1]
 
 
 def test_prime_form_marvin_laprade_3():
-    n = cc.Contour([0, 2, 1, 3, 4])
-    assert n.prime_form_marvin_laprade() == [0, 2, 1, 3, 4]
+    cseg = Contour([0, 2, 1, 3, 4])
+    assert cseg.prime_form_marvin_laprade() == [0, 2, 1, 3, 4]
 
 
 def test_prime_form_marvin_laprade_5():
-    n = cc.Contour([0, 1, 2, 1, 2])
-    assert n.prime_form_marvin_laprade() == [[0, 1, 3, 2, 4], [0, 2, 4, 1, 3]]
+    cseg = Contour([0, 1, 2, 1, 2])
+    assert cseg.prime_form_marvin_laprade() == [[0, 1, 3, 2, 4], [0, 2, 4, 1, 3]]
 
 
 def test_prime_form_sampaio_1():
-    n = cc.Contour([1, 4, 9, 2])
-    assert n.prime_form_sampaio() == [0, 2, 3, 1]
+    cseg = Contour([1, 4, 9, 2])
+    assert cseg.prime_form_sampaio() == [0, 2, 3, 1]
 
 
 def test_prime_form_sampaio_2():
-    n = cc.Contour([5, 7, 9, 1])
-    assert n.prime_form_sampaio() == [0, 3, 2, 1]
+    cseg = Contour([5, 7, 9, 1])
+    assert cseg.prime_form_sampaio() == [0, 3, 2, 1]
 
 
 def test_prime_form_sampaio_2():
-    n = cc.Contour([5, 7, 9, 1])
-    assert n.prime_form_sampaio() == [0, 3, 2, 1]
+    cseg = Contour([5, 7, 9, 1])
+    assert cseg.prime_form_sampaio() == [0, 3, 2, 1]
 
 
 def test_prime_form_sampaio_3():
-    n = cc.Contour([0, 2, 1, 3, 4])
-    assert n.prime_form_sampaio() == [0, 1, 3, 2, 4]
+    cseg = Contour([0, 2, 1, 3, 4])
+    assert cseg.prime_form_sampaio() == [0, 1, 3, 2, 4]
 
 
 def test_prime_form_sampaio_5():
-    n = cc.Contour([0, 1, 2, 1, 2])
-    assert n.prime_form_sampaio() == [[0, 1, 3, 2, 4], [0, 1, 4, 2, 3],
-                                      [0, 2, 3, 1, 4], [0, 2, 4, 1, 3]]
+    cseg = Contour([0, 1, 2, 1, 2])
+    assert cseg.prime_form_sampaio() == [[0, 1, 3, 2, 4], [0, 1, 4, 2, 3],
+                                         [0, 2, 3, 1, 4], [0, 2, 4, 1, 3]]
 
 
 def test_unique_prime_form_test_1():
-    n = cc.Contour([0, 2, 1, 3, 4])
+    cseg = Contour([0, 2, 1, 3, 4])
     algorithm = "prime_form_marvin_laprade"
-    assert n.unique_prime_form_test(algorithm) == False
+    assert cseg.unique_prime_form_test(algorithm) == False
 
 
 def test_unique_prime_form_test_2():
-    n = cc.Contour([0, 2, 1, 3, 4])
+    cseg = Contour([0, 2, 1, 3, 4])
     algorithm = "prime_form_sampaio"
-    assert n.unique_prime_form_test(algorithm) == True
+    assert cseg.unique_prime_form_test(algorithm) == True
 
 
 def test_subsets_1():
-    n = cc.Contour([2, 8, 12, 9])
-    assert n.subsets(2) == [[2, 8], [2, 9], [2, 12], [8, 9], [8, 12], [12, 9]]
+    cseg = Contour([2, 8, 12, 9])
+    assert cseg.subsets(2) == [[2, 8], [2, 9], [2, 12], [8, 9], [8, 12],
+                               [12, 9]]
 
 
 def test_subsets_2():
-    n = cc.Contour([2, 8, 12, 9])
-    assert n.subsets(3) == [[2, 8, 9], [2, 8, 12], [2, 12, 9], [8, 12, 9]]
+    cseg = Contour([2, 8, 12, 9])
+    assert cseg.subsets(3) == [[2, 8, 9], [2, 8, 12], [2, 12, 9], [8, 12, 9]]
 
 
 def test_subsets_prime():
-    n = cc.Contour([0, 3, 1, 4, 2])
-    assert n.subsets_prime(4) == {(0, 1, 3, 2): [[0, 1, 4, 2]],
-                                  (0, 2, 1, 3): [[0, 3, 1, 4]],
-                                  (0, 2, 3, 1): [[0, 3, 4, 2]],
-                                  (0, 3, 1, 2): [[0, 3, 1, 2]],
-                                  (1, 3, 0, 2): [[3, 1, 4, 2]]}
+    cseg = Contour([0, 3, 1, 4, 2])
+    assert cseg.subsets_prime(4) == {(0, 1, 3, 2): [[0, 1, 4, 2]],
+                                     (0, 2, 1, 3): [[0, 3, 1, 4]],
+                                     (0, 2, 3, 1): [[0, 3, 4, 2]],
+                                     (0, 3, 1, 2): [[0, 3, 1, 2]],
+                                     (1, 3, 0, 2): [[3, 1, 4, 2]]}
 
 
 def test_subsets_normal():
-    n = cc.Contour([0, 3, 1, 4, 2])
-    assert n.subsets_normal(4) == {(0, 1, 3, 2): [[0, 1, 4, 2]],
-                                   (0, 2, 1, 3): [[0, 3, 1, 4]],
-                                   (0, 2, 3, 1): [[0, 3, 4, 2]],
-                                   (0, 3, 1, 2): [[0, 3, 1, 2]],
-                                   (2, 0, 3, 1): [[3, 1, 4, 2]]}
+    cseg = Contour([0, 3, 1, 4, 2])
+    assert cseg.subsets_normal(4) == {(0, 1, 3, 2): [[0, 1, 4, 2]],
+                                      (0, 2, 1, 3): [[0, 3, 1, 4]],
+                                      (0, 2, 3, 1): [[0, 3, 4, 2]],
+                                      (0, 3, 1, 2): [[0, 3, 1, 2]],
+                                      (2, 0, 3, 1): [[3, 1, 4, 2]]}
 
 
 def test_all_subsets():
-    n = cc.Contour([2, 8, 12, 9])
-    assert n.all_subsets() == [[2, 8], [2, 9], [2, 12], [8, 9], [8, 12],
-                               [12, 9], [2, 8, 9], [2, 8, 12], [2, 12, 9],
-                               [8, 12, 9], [2, 8, 12, 9]]
+    cseg = Contour([2, 8, 12, 9])
+    assert cseg.all_subsets() == [[2, 8], [2, 9], [2, 12], [8, 9], [8, 12],
+                                  [12, 9], [2, 8, 9], [2, 8, 12], [2, 12, 9],
+                                  [8, 12, 9], [2, 8, 12, 9]]
 
 
 def test_all_subsets_prime():
-    n = cc.Contour([2, 8, 12])
-    assert n.all_subsets_prime() == {(0, 1): [[2, 8], [2, 12], [8, 12]],
-                                     (0, 1, 2): [[2, 8, 12]]}
+    cseg = Contour([2, 8, 12])
+    assert cseg.all_subsets_prime() == {(0, 1): [[2, 8], [2, 12], [8, 12]],
+                                        (0, 1, 2): [[2, 8, 12]]}
 
 
 def test_all_subsets_normal():
-    n = cc.Contour([2, 8, 7])
-    assert n.all_subsets_normal() == {(0, 1): [[2, 7], [2, 8]],
-                                      (0, 2, 1): [[2, 8, 7]],
-                                      (1, 0): [[8, 7]]}
+    cseg = Contour([2, 8, 7])
+    assert cseg.all_subsets_normal() == {(0, 1): [[2, 7], [2, 8]],
+                                         (0, 2, 1): [[2, 8, 7]],
+                                         (1, 0): [[8, 7]]}
 
 
 def test_subsets_adj():
-    n = cc.Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
-    assert n.subsets_adj(4) == [[2, 8, 12, 9], [8, 12, 9, 5], [12, 9, 5, 7],
-                                [9, 5, 7, 3], [5, 7, 3, 12], [7, 3, 12, 3],
-                                [3, 12, 3, 7]]
+    cseg = Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
+    assert cseg.subsets_adj(4) == [[2, 8, 12, 9], [8, 12, 9, 5], [12, 9, 5, 7],
+                                   [9, 5, 7, 3], [5, 7, 3, 12], [7, 3, 12, 3],
+                                   [3, 12, 3, 7]]
 
 
 def test_cps_position():
-    n = cc.Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
-    assert n.cps_position() == [(2, 0), (8, 1), (12, 2), (9, 3), (5, 4),
-                                (7, 5), (3, 6), (12, 7), (3, 8), (7, 9)]
+    cseg = Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
+    assert cseg.cps_position() == [(2, 0), (8, 1), (12, 2), (9, 3), (5, 4),
+                                   (7, 5), (3, 6), (12, 7), (3, 8), (7, 9)]
 
 
 def test_reduction_algorithm_1():
-    c = cc.Contour([0, 4, 3, 2, 5, 5, 1])
-    assert c.reduction_algorithm() == [cc.Contour([0, 2, 1]), 2]
+    cseg = Contour([0, 4, 3, 2, 5, 5, 1])
+    assert cseg.reduction_algorithm() == [[0, 2, 1], 2]
 
 
 def test_reduction_algorithm_2():
-    c = cc.Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
-    assert c.reduction_algorithm() == [cc.Contour([2, 3, 0, 1]), 3]
+    cseg = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
+    assert cseg.reduction_algorithm() == [[2, 3, 0, 1], 3]
 
 
 def test_maxima():
     n = [(0, 0), (1, 1), (3, 2), (2, 3), (4, 4)]
-    assert cc.maxima(n) == [(0, 0), (3, 2), (4, 4)]
+    assert contour.maxima(n) == [(0, 0), (3, 2), (4, 4)]
 
 
 def test_minima():
     n = [(0, 0), (1, 1), (3, 2), (2, 3), (4, 4)]
-    assert cc.minima(n) == [(0, 0), (2, 3), (4, 4)]
+    assert contour.minima(n) == [(0, 0), (2, 3), (4, 4)]
 
 
 def test_contour_rotation_classes():
-    assert cc.contour_rotation_classes(4) == [cc.Contour([0, 1, 2, 3]),
-                                              cc.Contour([0, 1, 3, 2]),
-                                              cc.Contour([0, 2, 1, 3])]
+    assert contour.contour_rotation_classes(4) == [[0, 1, 2, 3],
+                                                   [0, 1, 3, 2],
+                                                   [0, 2, 1, 3]]
 
 
 def test_interval_1():
-    n = cc.Contour([1, 5])
-    assert n.interval() == 4
+    cseg = Contour([1, 5])
+    assert cseg.interval() == 4
 
 
 def test_interval_2():
-    n = cc.Contour([3, 0])
-    assert n.interval() == -3
+    cseg = Contour([3, 0])
+    assert cseg.interval() == -3
 
 
 def test_comparison_1():
-    n = cc.Contour([1, 4])
-    assert n.comparison() == 1
+    cseg = Contour([1, 4])
+    assert cseg.comparison() == 1
 
 
 def test_comparison_2():
-    n = cc.Contour([5, 0])
-    assert n.comparison() == -1
+    cseg = Contour([5, 0])
+    assert cseg.comparison() == -1
 
 
 def test_interval_succession():
-    n = cc.Contour([0, 1, 3, 2])
-    assert n.interval_succession() == [1, 2, -1]
+    cseg = Contour([0, 1, 3, 2])
+    assert cseg.interval_succession() == [1, 2, -1]
 
 
 def test_internal_diagonals_1():
-    c = cc.Contour([0, 2, 3, 1])
+    cseg = Contour([0, 2, 3, 1])
     n = 1
-    assert c.internal_diagonals(n) == [1, 1, -1]
+    assert cseg.internal_diagonals(n) == [1, 1, -1]
 
 
 def test_internal_diagonals_2():
-    c = cc.Contour([0, 2, 3, 1])
+    cseg = Contour([0, 2, 3, 1])
     n = 2
-    assert c.internal_diagonals(n) == [1, -1]
+    assert cseg.internal_diagonals(n) == [1, -1]
 
 
 def test_internal_diagonals_3():
-    c = cc.Contour([1, 0, 4, 3, 2])
+    cseg = Contour([1, 0, 4, 3, 2])
     n = 1
-    assert c.internal_diagonals(n) == [-1, 1, -1, -1]
+    assert cseg.internal_diagonals(n) == [-1, 1, -1, -1]
 
 
 def test_internal_diagonals_4():
-    c = cc.Contour([1, 0, 4, 3, 2])
+    cseg = Contour([1, 0, 4, 3, 2])
     n = 2
-    assert c.internal_diagonals(n) == [1, 1, -1]
+    assert cseg.internal_diagonals(n) == [1, 1, -1]
 
 
 def test_comparison_matrix_1():
-    c = cc.Contour([0, 2, 3, 1])
-    assert c.comparison_matrix() == [[0, 2, 3, 1], [0, 1, 1, 1],
-                                      [-1, 0, 1, -1], [-1, -1, 0, -1],
-                                      [-1, 1, 1, 0]]
+    cseg = Contour([0, 2, 3, 1])
+    assert cseg.comparison_matrix() == [[0, 2, 3, 1], [0, 1, 1, 1], [-1, 0, 1, -1],
+                                        [-1, -1, 0, -1], [-1, 1, 1, 0]]
 
 
 def test_comparison_matrix_2():
-    c = cc.Contour([1, 2, 3, 0, 3, 1])
-    assert c.comparison_matrix() == [[1, 2, 3, 0, 3, 1], [0, 1, 1, -1, 1, 0],
-                                      [-1, 0, 1, -1, 1, -1],
-                                      [-1, -1, 0, -1, 0, -1],
-                                      [1, 1, 1, 0, 1, 1],
-                                      [-1, -1, 0, -1, 0, -1],
-                                      [0, 1, 1, -1, 1, 0]]
+    cseg = Contour([1, 2, 3, 0, 3, 1])
+    assert cseg.comparison_matrix() == [[1, 2, 3, 0, 3, 1],
+                                        [0, 1, 1, -1, 1, 0],
+                                        [-1, 0, 1, -1, 1, -1],
+                                        [-1, -1, 0, -1, 0, -1],
+                                        [1, 1, 1, 0, 1, 1],
+                                        [-1, -1, 0, -1, 0, -1],
+                                        [0, 1, 1, -1, 1, 0]]
 
 
 def test_adjacency_series_vector_1():
-    c = cc.Contour([0, 2, 3, 1])
-    assert c.adjacency_series_vector() == [2, 1]
+    cseg = Contour([0, 2, 3, 1])
+    assert cseg.adjacency_series_vector() == [2, 1]
 
 
 def test_adjacency_series_vector_2():
-    c = cc.Contour([1, 2, 3, 0, 3, 1])
-    assert c.adjacency_series_vector() == [3, 2]
+    cseg = Contour([1, 2, 3, 0, 3, 1])
+    assert cseg.adjacency_series_vector() == [3, 2]
 
 
 def test_interval_array():
-    n = cc.Contour([0, 1, 3, 2])
-    assert n.interval_array() == ([2, 2, 1], [1, 0, 0])
+    cseg = Contour([0, 1, 3, 2])
+    assert cseg.interval_array() == ([2, 2, 1], [1, 0, 0])
 
 
 def test_class_vector_i():
-    n = cc.Contour([0, 1, 3, 2])
-    assert n.class_vector_i() == [9, 1]
+    cseg = Contour([0, 1, 3, 2])
+    assert cseg.class_vector_i() == [9, 1]
 
 
 def test_class_vector_ii():
-    n = cc.Contour([0, 1, 3, 2])
-    assert n.class_vector_ii() == [5, 1]
+    cseg = Contour([0, 1, 3, 2])
+    assert cseg.class_vector_ii() == [5, 1]
 
 
 def test_class_index_i():
-    n = cc.Contour([0, 1, 3, 2])
-    assert n.class_index_i() == 0.9
+    cseg = Contour([0, 1, 3, 2])
+    assert cseg.class_index_i() == 0.9
 
 
 def test_class_index_ii():
-    n = cc.Contour([0, 1, 3, 2])
-    assert n.class_index_ii() == 5.0 / 6
+    cseg = Contour([0, 1, 3, 2])
+    assert cseg.class_index_ii() == 5.0 / 6
 
 
 def test_segment_class_1():
-    c = cc.Contour([2, 1, 4])
-    assert c.segment_class() == (3, 2, cc.Contour([0, 2, 1]), False)
+    cseg = Contour([2, 1, 4])
+    assert cseg.segment_class() == (3, 2, [0, 2, 1], False)
 
 
 def test_segment_class_2():
-    c = cc.Contour([3, 1, 0])
-    assert c.segment_class() == (3, 1, cc.Contour([0, 1, 2]), True)
+    cseg = Contour([3, 1, 0])
+    assert cseg.segment_class() == (3, 1, [0, 1, 2], True)
 
 
 def test_ri_identity_test_1():
-    n = cc.Contour([0, 1, 3, 2])
-    assert n.ri_identity_test() == False
+    cseg = Contour([0, 1, 3, 2])
+    assert cseg.ri_identity_test() == False
 
 
 def test_ri_identity_test():
-    n = cc.Contour([1, 0, 3, 2])
-    assert n.ri_identity_test() == True
+    cseg = Contour([1, 0, 3, 2])
+    assert cseg.ri_identity_test() == True
 
 
 def test_symmetry_index_1():
-    n = cc.Contour([1, 0, 3, 2])
-    assert n.symmetry_index() == 1
+    cseg = Contour([1, 0, 3, 2])
+    assert cseg.symmetry_index() == 1
 
 
 def test_symmetry_index_2():
-    n = cc.Contour([0, 2, 1])
-    assert n.symmetry_index() == 0
+    cseg = Contour([0, 2, 1])
+    assert cseg.symmetry_index() == 0
 
 
 def test_symmetry_index_3():
-    n = cc.Contour([0, 1, 3, 4, 2, 5, 6])
-    assert n.symmetry_index() == 0.5
+    cseg = Contour([0, 1, 3, 4, 2, 5, 6])
+    assert cseg.symmetry_index() == 0.5
 
 
 def test_class_representatives():
-    n = cc.Contour([0, 1, 3, 2])
-    assert n.class_representatives() == [cc.Contour([0, 1, 3, 2]),
-                                         cc.Contour([3, 2, 0, 1]),
-                                         cc.Contour([2, 3, 1, 0]),
-                                         cc.Contour([1, 0, 2, 3])]
+    cseg = Contour([0, 1, 3, 2])
+    assert cseg.class_representatives() == [[0, 1, 3, 2], [3, 2, 0, 1],
+                                            [2, 3, 1, 0], [1, 0, 2, 3]]
 
 
 def test_class_four_forms():
-    n = cc.Contour([0, 1, 3, 2])
-    assert n.class_four_forms() == [cc.Contour([0, 1, 3, 2]),
-                                         cc.Contour([3, 2, 0, 1]),
-                                         cc.Contour([2, 3, 1, 0]),
-                                         cc.Contour([1, 0, 2, 3])]
+    cseg = Contour([0, 1, 3, 2])
+    assert cseg.class_four_forms() == [[0, 1, 3, 2], [3, 2, 0, 1],
+                                       [2, 3, 1, 0], [1, 0, 2, 3]]
 
 
 def test_all_rotations_1():
-    n = cc.Contour([0, 1, 2])
-    assert n.all_rotations() == [[0, 1, 2], [1, 2, 0], [2, 0, 1], [0, 1, 2]]
+    cseg = Contour([0, 1, 2])
+    assert cseg.all_rotations() == [[0, 1, 2], [1, 2, 0], [2, 0, 1], [0, 1, 2]]
 
 
 def test_all_rotations_2():
-    n = cc.Contour([0, 3, 1, 2])
-    assert n.all_rotations() == [[0, 3, 1, 2], [3, 1, 2, 0], [1, 2, 0, 3],
-                                 [2, 0, 3, 1], [0, 3, 1, 2]]
+    cseg = Contour([0, 3, 1, 2])
+    assert cseg.all_rotations() == [[0, 3, 1, 2], [3, 1, 2, 0], [1, 2, 0, 3],
+                                    [2, 0, 3, 1], [0, 3, 1, 2]]
 
 
 def test_rotated_representatives_1():
-    n = cc.Contour([0, 1, 2])
-    assert n.rotated_representatives() == [[0, 1, 2], [0, 2, 1], [1, 0, 2],
-                                           [1, 2, 0], [2, 0, 1], [2, 1, 0]]
+    cseg = Contour([0, 1, 2])
+    assert cseg.rotated_representatives() == [[0, 1, 2], [0, 2, 1], [1, 0, 2],
+                                              [1, 2, 0], [2, 0, 1], [2, 1, 0]]
 
 
 def test_rotated_representatives_2():
-    n = cc.Contour([0, 3, 1, 2])
-    assert n.rotated_representatives() == [[0, 2, 1, 3], [0, 3, 1, 2],
-                                           [1, 2, 0, 3], [1, 3, 0, 2],
-                                           [2, 0, 3, 1], [2, 1, 3, 0],
-                                           [3, 0, 2, 1], [3, 1, 2, 0]]
+    cseg = Contour([0, 3, 1, 2])
+    assert cseg.rotated_representatives() == [[0, 2, 1, 3], [0, 3, 1, 2],
+                                              [1, 2, 0, 3], [1, 3, 0, 2],
+                                              [2, 0, 3, 1], [2, 1, 3, 0],
+                                              [3, 0, 2, 1], [3, 1, 2, 0]]
 
 
 def test_prime_form_algorithm_test_1():
     algorithm = "prime_form_marvin_laprade"
-    assert cc.prime_form_algorithm_test(4, algorithm) == []
+    assert contour.prime_form_algorithm_test(4, algorithm) == []
 
 
 def test_prime_form_algorithm_test_2():
     algorithm = "prime_form_marvin_laprade"
-    fn = cc.prime_form_algorithm_test(5, algorithm)
-    assert fn == [cc.Contour([0, 1, 3, 2, 4]), cc.Contour([0, 2, 1, 3, 4]),
-                  cc.Contour([0, 2, 3, 1, 4]), cc.Contour([0, 3, 1, 2, 4]),
-                  cc.Contour([1, 0, 4, 2, 3]), cc.Contour([1, 2, 0, 4, 3]),
-                  cc.Contour([1, 2, 4, 0, 3]), cc.Contour([1, 4, 0, 2, 3]),
-                  cc.Contour([3, 0, 4, 2, 1]), cc.Contour([3, 2, 0, 4, 1]),
-                  cc.Contour([3, 2, 4, 0, 1]), cc.Contour([3, 4, 0, 2, 1]),
-                  cc.Contour([4, 1, 3, 2, 0]), cc.Contour([4, 2, 1, 3, 0]),
-                  cc.Contour([4, 2, 3, 1, 0]), cc.Contour([4, 3, 1, 2, 0])]
+    fn = contour.prime_form_algorithm_test(5, algorithm)
+    assert fn == [[0, 1, 3, 2, 4], [0, 2, 1, 3, 4], [0, 2, 3, 1, 4],
+                  [0, 3, 1, 2, 4], [1, 0, 4, 2, 3], [1, 2, 0, 4, 3],
+                  [1, 2, 4, 0, 3], [1, 4, 0, 2, 3], [3, 0, 4, 2, 1],
+                  [3, 2, 0, 4, 1], [3, 2, 4, 0, 1], [3, 4, 0, 2, 1],
+                  [4, 1, 3, 2, 0], [4, 2, 1, 3, 0], [4, 2, 3, 1, 0],
+                  [4, 3, 1, 2, 0]]
 
 
 def test_prime_form_algorithm_test_3():
     algorithm = "prime_form_sampaio"
-    assert cc.prime_form_algorithm_test(6, algorithm) == []
+    assert contour.prime_form_algorithm_test(6, algorithm) == []
