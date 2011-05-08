@@ -91,6 +91,20 @@ def test_cseg_similarity_2():
     assert comparison.cseg_similarity(cseg1, cseg2) == 0.6
 
 
+def test_cseg_similarity_matrix():
+    cseg1 = Contour([1, 0, 4, 3, 2])
+    cseg2 = Contour([3, 0, 4, 2, 1])
+    fn = comparison.cseg_similarity_matrix([cseg1, cseg2])
+    assert fn == [[[1, 0, 4, 3, 2], [3, 0, 4, 2, 1]], [1.0, 0.59999999999999998],
+                  [0.80000000000000004, 0.59999999999999998]]
+
+
+def test_cseg_similarity_matrix_classes():
+    fn = comparison.cseg_similarity_matrix_classes(3)
+    assert fn == [[[0, 1, 2], [0, 2, 1]], [1.0, 0.66666666666666663],
+                  [0.66666666666666663, 1.0]]
+
+
 def test_subsets_embed_total_number_1():
     c1 = [0, 1, 2, 3]
     c2 = [1, 0, 2]
@@ -155,19 +169,58 @@ def test_csubseg_mutually_embed_2():
     assert comparison.csubseg_mutually_embed(n, a, b) == 0.5
 
 
-def test_all_csubseg_mutually_embed_1():
+def test__all_contour_mutually_embed():
+    cseg1 = Contour([0, 1, 2, 3])
+    cseg2 = Contour([0, 1, 2])
+    fn = comparison.__all_contour_mutually_embed(cseg1, cseg2)
+    assert fn == 0.93333333333333335
+
+
+def test_all_contour_mutually_embed_1():
     cseg1 = Contour([0, 1, 2, 3])
     cseg2 = Contour([0, 2, 1, 3])
     assert comparison.all_contour_mutually_embed(cseg1, cseg2) == 17.0 / 22
 
 
-def test_all_csubseg_mutually_embed_2():
+def test_all_contour_mutually_embed_2():
     cseg1 = Contour([0, 1, 2, 3])
     cseg2 = Contour([0, 2, 1, 3, 4])
     assert comparison.all_contour_mutually_embed(cseg1, cseg2) == 29.0 / 37
 
 
-def test_all_csubseg_mutually_embed_3():
+def test_all_contour_mutually_embed_3():
     cseg1 = Contour([0, 2, 1, 3])
     cseg2 = Contour([0, 2, 1, 3, 4])
     assert comparison.all_contour_mutually_embed(cseg1, cseg2) == 33.0 / 37
+
+
+def test_operations_comparison():
+    cseg1 = Contour([0, 1, 2, 3])
+    cseg2 = Contour([3, 1, 2, 0])
+    fn = comparison.operations_comparison(cseg1, cseg2)
+    assert fn == [[([0, 1, 2, 3], 2, 'internal_diagonals', [1, -1, 1]),
+                   ([3, 1, 2, 0], 1, 'internal_diagonals', [1, -1, 1])]]
+
+
+def test_pretty_operations_comparison():
+    cseg1 = Contour([0, 1, 2, 3])
+    cseg2 = Contour([3, 1, 2, 0])
+    fn = comparison.pretty_operations_comparison(cseg1, cseg2)
+    assert fn == '< 0 1 2 3 > [rot1] (internal_diagonals): < + - + >\n' + \
+                 '< 3 1 2 0 > [rot1] (internal_diagonals)\n'
+
+
+def test_cseg_similarity_continuum():
+    fn = comparison.cseg_similarity_continuum(Contour([1, 0, 3, 2]))
+    assert fn == [[0.5, [[0, 2, 1, 3], [0, 3, 2, 1]]],
+                  [0.66666666666666663, [[0, 1, 2, 3], [0, 2, 3, 1],
+                                         [0, 3, 1, 2]]],
+                  [0.83333333333333337, [[0, 1, 3, 2], [1, 3, 0, 2]]],
+                  [1.0, [[1, 0, 3, 2]]]]
+
+
+def test_cseg_similarity_subsets_continuum():
+    fn = comparison.cseg_similarity_subsets_continuum(Contour([0, 1, 2, 3]))
+    assert fn ==  [[[0, 1], 0.58333333333333337],
+                   [[0, 1, 2], 0.93333333333333335],
+                   [[0, 1, 2, 3], 1.0]]
