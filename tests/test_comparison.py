@@ -95,7 +95,8 @@ def test_cseg_similarity_matrix():
     cseg1 = Contour([1, 0, 4, 3, 2])
     cseg2 = Contour([3, 0, 4, 2, 1])
     fn = comparison.cseg_similarity_matrix([cseg1, cseg2])
-    assert fn == [[[1, 0, 4, 3, 2], [3, 0, 4, 2, 1]], [1.0, 0.59999999999999998],
+    assert fn == [[[1, 0, 4, 3, 2], [3, 0, 4, 2, 1]],
+                  [1.0, 0.59999999999999998],
                   [0.80000000000000004, 0.59999999999999998]]
 
 
@@ -221,6 +222,6 @@ def test_cseg_similarity_continuum():
 
 def test_cseg_similarity_subsets_continuum():
     fn = comparison.cseg_similarity_subsets_continuum(Contour([0, 1, 2, 3]))
-    assert fn ==  [[[0, 1], 0.58333333333333337],
-                   [[0, 1, 2], 0.93333333333333335],
-                   [[0, 1, 2, 3], 1.0]]
+    assert fn == [[[0, 1], 0.58333333333333337],
+                  [[0, 1, 2], 0.93333333333333335],
+                  [[0, 1, 2, 3], 1.0]]

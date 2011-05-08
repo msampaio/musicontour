@@ -52,7 +52,8 @@ def cseg_similarity(cseg1, cseg2):
     1
     """
 
-    csims = [single_cseg_similarity(cseg1, c) for c in cseg2.class_representatives()]
+    representatives = cseg2.class_representatives()
+    csims = [single_cseg_similarity(cseg1, c) for c in representatives]
     return sorted(csims, reverse=True)[0]
 
 
@@ -259,7 +260,8 @@ def all_contour_mutually_embed(cseg1, cseg2):
     0.93333333333333335
     """
 
-    acmembs = [__all_contour_mutually_embed(cseg1, c) for c in cseg2.class_representatives()]
+    representatives = cseg2.class_representatives()
+    acmembs = [__all_contour_mutually_embed(cseg1, c) for c in representatives]
     return sorted(acmembs, reverse=True)[0]
 
 
@@ -291,9 +293,17 @@ def operations_comparison(cseg1, cseg2, prime_algorithm="prime_form_marvin_lapra
         a given tuple (original cseg, rotation factor, and rotated
         cseg)."""
 
+        def __append_op(lst, cseg, factor, op):
+            """Appends cseg, factor, and operation data to a given
+            list.
+            """
+
+            lst.append((cseg, factor, op, auxiliary.apply_fn(rotated, op)))
+
         r = []
         r.append((cseg, factor, "original", rotated))
-        [r.append((cseg, factor, op, auxiliary.apply_fn(rotated, op))) for op in operations]
+        [__append_op(r, cseg, factor, op) for op in operations]
+
         return r
 
     def all_op_all_rot(cseg):
@@ -357,12 +367,16 @@ def pretty_operations_comparison(cseg1, cseg2, prime_algorithm="prime_form_marvi
 
     >>> c1, c2 = Contour([0, 1, 2, 3]), Contour([3, 1, 2, 0])
     >>> pretty_operations_comparison(c1, c2)
-    '< 0 1 2 3 > [rot1] (internal_diagonals): < + - + >\n< 3 1 2 0 > [rot1] (internal_diagonals)\n'
+    '< 0 1 2 3 > [rot1] (internal_diagonals): < + - + >\n' +
+    '< 3 1 2 0 > [rot1] (internal_diagonals)\n'
     """
 
     r = []
-    for [(c1, f1, o1, r1), (c2, f2, o2, r2)] in operations_comparison(cseg1, cseg2, prime_algorithm):
-        r.append("{0} [rot{1}] ({2}): {3}\n{4} [rot{5}] ({6})\n".format(c1, f2, o1, r1, c2, f2, o2))
+    op_data = operations_comparison(cseg1, cseg2, prime_algorithm)
+
+    for [(c1, f1, o1, r1), (c2, f2, o2, r2)] in op_data:
+        els = c1, f2, o1, r1, c2, f2, o2
+        r.append("{0} [rot{1}] ({2}): {3}\n{4} [rot{5}] ({6})\n".format(*els))
     if r == []:
         return "No operation similarity."
     else:

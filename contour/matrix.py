@@ -6,6 +6,7 @@ import contour
 import utils
 import diagonal
 
+
 class ComparisonMatrix(list):
     """Returns an objcect comparison matrix.
     Input is a list of lists, each of them representing a line in
