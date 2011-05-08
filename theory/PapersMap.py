@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from contour import Contour
+from contour.contour import Contour
 
 def print_literature_csegs(key):
     result = []

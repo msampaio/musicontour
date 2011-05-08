@@ -5,8 +5,8 @@
 
 from __future__ import print_function
 import itertools
-import contour
-import comparison
+import contour.contour as contour
+import contour.comparison as comparison
 
 
 ## double prime form according to Marvin and Laprade prime form algorithm
