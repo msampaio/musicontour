@@ -91,7 +91,8 @@ def pretty_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
         str_int_diag = diagonal.InternalDiagonal(int_diagonals)
         sections.append(" ".ljust(4) +
                         "c {0}-{1}{2}".format(a, b, ri).ljust(16) +
-                        str(csegclass).ljust(20) + str(str_int_diag).ljust(15) + "\n")
+                        str(csegclass).ljust(20) +
+                        str(str_int_diag).ljust(15) + "\n")
     return header + "".join(sections)
 
 
@@ -336,7 +337,8 @@ class Contour(list):
 
         signals = [-1, 1]
 
-        return sorted([self.__one_repeated_prime_form_marvin_laprade(s) for s in signals])
+        r = [self.__one_repeated_prime_form_marvin_laprade(s) for s in signals]
+        return sorted(r)
 
     def prime_form_marvin_laprade(self):
         """Returns the prime form of a given contour (Marvin and
@@ -419,7 +421,8 @@ class Contour(list):
         contour."""
 
         cseg = self
-        return sorted([Contour(list(x)) for x in itertools.combinations(cseg, n)])
+        r = [Contour(list(x)) for x in itertools.combinations(cseg, n)]
+        return sorted(r)
 
     def subsets_normal(self, n):
         """Returns adjacent and non-adjacent subsets of a given
@@ -589,7 +592,8 @@ class Contour(list):
             ## tests if there are unflagged cpitches (partial step 3)
             while flag(max_list, min_list)[3] != []:
                 ## back to steps 6 and 7
-                max_list, min_list, flagged, not_flagged = flag(max_list, min_list)
+                r = flag(max_list, min_list)
+                max_list, min_list, flagged, not_flagged = r
 
                 ## increases depth (step 5)
                 depth += 1
@@ -638,7 +642,6 @@ class Contour(list):
 
             a, b = subset[0], subset[-1]
             return Contour([a, b]).comparison()
-
 
         subsets = self.subsets_adj(n + 1)
 
@@ -793,7 +796,8 @@ class Contour(list):
         cseg_classes = utils.flatten(build_classes(len(self), prime_algorithm))
         for (cardinality, number, cseg_class, ri_identity) in cseg_classes:
             if tuple(prime_form) == cseg_class:
-                return cardinality, number, Contour(list(cseg_class)), ri_identity
+                r = cardinality, number, Contour(list(cseg_class)), ri_identity
+                return r
 
     def ri_identity_test(self):
         """Returns True if cseg have identity under retrograde inversion."""
@@ -822,7 +826,7 @@ class Contour(list):
         half_ri = ri[:int_size_half]
 
         result = 0
-        for a, b in zip (half_cseg, half_ri):
+        for a, b in zip(half_cseg, half_ri):
             if a == b:
                 result += 1
 
@@ -868,7 +872,8 @@ class Contour(list):
         """Returns a set with csegclass representatives of each
         rotation of a contour."""
 
-        result = [contour.class_representatives() for contour in self.all_rotations()]
+        rot = self.all_rotations()
+        result = [contour.class_representatives() for contour in rot]
         result = utils.flatten(result)
         result = set([tuple(x) for x in result])
 
@@ -878,13 +883,13 @@ class Contour(list):
         return "< {0} >".format(" ".join([str(x) for x in self[:]]))
 
 
-def prime_form_algorithm_test(cardinality, prime_form_algorithm="prime_form_sampaio"):
+def prime_form_algorithm_test(card, prime_form_algorithm="prime_form_sampaio"):
     """Returns contour classes with two prime forms from a given
     cardinality and prime form algorithm.
     """
 
     # creates a list of all possible lists
-    lists = [auxiliary.permut_csegs(c) for c in range(2, cardinality + 1)]
+    lists = [auxiliary.permut_csegs(c) for c in range(2, card + 1)]
     lists = utils.flatten(lists)
 
     result = []
