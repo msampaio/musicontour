@@ -21,10 +21,31 @@ def build_classes_card(card, prime_algorithm="prime_form_marvin_laprade"):
     Returns (card, number, contour class).
     """
 
+    def __tuple_prime(lst, prime_algorithm):
+        """Returns a tuple with a cseg from a list of c-pitches.
+
+        >>> __tuple_prime([2, 1, 0])
+        (0, 1, 2)
+        """
+
+        return tuple(auxiliary.apply_fn(Contour(lst), prime_algorithm))
+
+    def __single_class_build(card, class_n, cseg):
+        """Returns a single contour class from cardinality, class
+        number, and cseg.
+
+        >>> __single_class_build(4, 1, (0, 1, 3, 2))
+
+        (4, 2, (0, 1, 3, 2), False)
+        """
+
+        return card, class_n + 1, cseg, Contour(list(cseg)).ri_identity_test()
+
     permut = auxiliary.permut_csegs(card)
-    primes_repeats = [tuple(auxiliary.apply_fn(Contour(x), prime_algorithm)) for x in permut]
+    primes_repeats = [__tuple_prime(el, prime_algorithm) for el in permut]
     primes = enumerate(sorted(list(set(primes_repeats))))
-    return [(card, n + 1, x, Contour(list(x)).ri_identity_test()) for n, x in primes]
+
+    return [__single_class_build(card, n, x) for n, x in primes]
 
 
 def build_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
