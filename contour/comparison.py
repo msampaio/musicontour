@@ -79,7 +79,7 @@ def cseg_similarity_matrix(csegs):
 def cseg_similarity_matrix_classes(card, prime_algorithm="prime_form_sampaio"):
     """Returns a matrix with CSIM between multiple csegs.
 
-    >>>comparison.cseg_similarity_matrix_classes(3)
+    >>> cseg_similarity_matrix_classes(3)
     [[< 0 1 2 >, < 0 2 1 >],
     [1.0, 0.66666666666666663],
     [0.66666666666666663, 1.0]]
