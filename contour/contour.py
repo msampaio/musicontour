@@ -17,8 +17,10 @@ def build_classes_card(card, prime_algorithm="prime_form_marvin_laprade"):
     """Generates contour classes like Marvin and Laprade (1987) table
     for one cardinality. Accepts more than one algorithm of prime
     form. Marvin and Laprade algorithm is default.
-
     Returns (card, number, contour class).
+
+    >>> build_classes_card(3, 'prime_form_sampaio')
+    [(3, 1, (0, 1, 2), True), (3, 2, (0, 2, 1), False)]
     """
 
     def __tuple_prime(lst, prime_algorithm):
@@ -35,7 +37,6 @@ def build_classes_card(card, prime_algorithm="prime_form_marvin_laprade"):
         number, and cseg.
 
         >>> __single_class_build(4, 1, (0, 1, 3, 2))
-
         (4, 2, (0, 1, 3, 2), False)
         """
 
@@ -51,7 +52,20 @@ def build_classes_card(card, prime_algorithm="prime_form_marvin_laprade"):
 def build_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
     """Generates contour classes like Marvin and Laprade (1987)
     table. Accepts more than one algorithm of prime form. Marvin and
-    Laprade algorithm is default."""
+    Laprade algorithm is default.
+
+    >>> build_classes_card(3, 'prime_form_sampaio')
+    [[(2, 1, (0, 1), True)],
+    [(3, 1, (0, 1, 2), True), (3, 2, (0, 2, 1), False)],
+    [(4, 1, (0, 1, 2, 3), True),
+    (4, 2, (0, 1, 3, 2), False),
+    (4, 3, (0, 2, 1, 3), True),
+    (4, 4, (0, 2, 3, 1), False),
+    (4, 5, (0, 3, 1, 2), False),
+    (4, 6, (0, 3, 2, 1), False),
+    (4, 7, (1, 0, 3, 2), True),
+    (4, 8, (1, 3, 0, 2), True)]]
+    """
 
     card_list = range(2, (cardinality + 1))
     return [build_classes_card(c, prime_algorithm) for c in card_list]
@@ -116,10 +130,10 @@ def subsets_grouped(dictionary, group_type):
     input list must be the Contour.subsets_prime output.
 
     >>> subsets_grouped([[[1, 3, 0, 2], [3, 1, 4, 2]],
-                        [[0, 2, 3, 1], [0, 3, 4, 2]]], \"prime\")
+                        [[0, 2, 3, 1], [0, 3, 4, 2]]], 'prime')
 
-    \"Prime form < 1 3 0 2 > (1)\n< 3 1 4 2 >\n\" + \
-    \"\nPrime form < 0 2 3 1 > (1)\n< 0 3 4 2 >\"
+    'Prime form < 1 3 0 2 > (1)\n< 3 1 4 2 >\n' + \
+    '\nPrime form < 0 2 3 1 > (1)\n< 0 3 4 2 >'
     """
 
     text = "{0} form".format(group_type).capitalize()
@@ -156,7 +170,12 @@ def max_min(list_of_tuples, fn):
 
 
 def maxima(list_of_tuples):
-    """Returns maxima (Morris, 1993) positions in a cseg."""
+    """Returns maxima (Morris, 1993) positions in a cseg.
+
+    >>> maxima([(0, 1), (1, 2), (2, 4), (4, 5), (3, 3)])
+    [(0, 1), (4, 5), (3, 3)]
+
+    """
 
     def maximum(dur_list):
         """Returns the maximum (Morris, 1993) position of a three
@@ -170,7 +189,11 @@ def maxima(list_of_tuples):
 
 
 def minima(list_of_tuples):
-    """Returns minima (Morris, 1993) positions in a cseg."""
+    """Returns minima (Morris, 1993) positions in a cseg.
+
+    >>> minima([(0, 1), (1, 2), (2, 4), (4, 5), (3, 3)])
+    [(0, 1), (3, 3)]
+    """
 
     def minimum(dur_list):
         """Returns the minimum (Morris, 1993) position of a three
@@ -185,7 +208,11 @@ def minima(list_of_tuples):
 
 def contour_rotation_classes(cardinality):
     """Returns all rotation related contour classes of a given
-    cardinality. Each cseg is rotation class representative."""
+    cardinality. Each cseg is rotation class representative.
+
+    >>> contour_rotation_classes(4)
+    [< 0 1 2 3 >, < 0 1 3 2 >, < 0 2 1 3 >]
+    """
 
     ## sets universe set with all csegs with a given cardinality
     universe = set([tuple(x) for x in auxiliary.permut_csegs(cardinality)])
@@ -229,6 +256,9 @@ class Contour(list):
 
         'n' is the module of input factor. It's allowed to use factor
         numbers greater than cseg size.
+
+        >>> Contour([0, 1, 2, 3]).rotation(2)
+        < 2 3 0 1 >
         """
 
         n = factor % len(self)
@@ -237,21 +267,33 @@ class Contour(list):
         return Contour(subset)
 
     def retrograde(self):
-        """Returns contour retrograde."""
+        """Returns contour retrograde.
+
+        >>> Contour([0, 1, 2, 3]).retrograde()
+        < 3 2 1 0 >
+        """
 
         tmp = self[:]
         tmp.reverse()
         return Contour(tmp)
 
     def inversion(self):
-        """Returns contour inversion."""
+        """Returns contour inversion.
+
+        >>> Contour([0, 3, 1, 2]).inversion()
+        < 3 0 2 1 >
+        """
 
         maxim = max(self)
         return Contour([(maxim - cps) for cps in self])
 
     def translation(self):
         """Returns the normal form (Marvin 1987) of a given contour.
-        It's the same of Friedmann (1985, 1987) contour class (CC)."""
+        It's the same of Friedmann (1985, 1987) contour class (CC).
+
+        >>> Contour([4, 2, 6, 1]).translation()
+        < 2 1 3 0 >
+        """
 
         sorted_contour = sorted(list(set(self)))
         return Contour([sorted_contour.index(x) for x in self])
@@ -342,7 +384,11 @@ class Contour(list):
 
     def prime_form_marvin_laprade(self):
         """Returns the prime form of a given contour (Marvin and
-        Laprade, 1987)."""
+        Laprade, 1987).
+
+        >>> Contour([4, 2, 6, 1]).prime_form_marvin_laprade()
+        < 0 3 1 2 >
+        """
 
         # tests if cseg has repeated elements
         if len(self) == len(set([x for x in self])):
@@ -390,6 +436,9 @@ class Contour(list):
 
         The Sampaio prime form algorithm returns the csegclass
         representative with the best ascendent numeric order.
+
+        >>> Contour([0, 2, 1, 3, 4]).prime_form_sampaio()
+        < 0 1 3 2 4 >
         """
 
         # tests if cseg has repeated elements
@@ -418,7 +467,11 @@ class Contour(list):
 
     def subsets(self, n):
         """Returns adjacent and non-adjacent subsets of a given
-        contour."""
+        contour.
+
+        >>> Contour([0, 2, 1, 3, 4]).subsets(4)
+        [< 0 1 3 4 >, < 0 2 1 3 >, < 0 2 1 4 >, < 0 2 3 4 >, < 2 1 3 4 >]
+        """
 
         cseg = self
         r = [Contour(list(x)) for x in itertools.combinations(cseg, n)]
@@ -484,14 +537,22 @@ class Contour(list):
 
     def all_subsets(self, prime_algorithm="prime_form_sampaio"):
         """Returns adjacent and non-adjacent subsets of a given
-        contour."""
+        contour.
+
+        >>> Contour([0, 1, 2]).all_subsets()
+        [< 0 1 >, < 0 2 >, < 1 2 >, < 0 1 2 >]
+        """
 
         sizes = range(2, len(self) + 1)
         return utils.flatten([self.subsets(x) for x in sizes])
 
     def all_subsets_prime(self, prime_algorithm="prime_form_sampaio"):
         """Returns all adjacent and non-adjacent subsets of a given
-        contour grouped by their prime forms."""
+        contour grouped by their prime forms.
+
+        >>> Contour([0, 1, 2]).all_subsets_prime()
+        {(0, 1): [< 0 1 >, < 0 2 >, < 1 2 >], (0, 1, 2): [< 0 1 2 >]}
+        """
 
         sizes = range(2, len(self) + 1)
         subsets_list = [self.subsets_prime(x, prime_algorithm) for x in sizes]
@@ -500,7 +561,15 @@ class Contour(list):
 
     def all_subsets_normal(self):
         """Returns all adjacent and non-adjacent subsets of a given
-        contour grouped by their normal forms."""
+        contour grouped by their normal forms.
+
+        >>> Contour([0, 1, 3, 2]).all_subsets_normal()
+        {(0, 1): [< 0 1 >, < 0 2 >, < 0 3 >, < 1 2 >, < 1 3 >],
+        (0, 1, 2): [< 0 1 2 >, < 0 1 3 >],
+        (0, 1, 3, 2): [< 0 1 3 2 >],
+        (0, 2, 1): [< 0 3 2 >, < 1 3 2 >],
+        (1, 0): [< 3 2 >]}
+        """
 
         sizes = range(2, len(self) + 1)
         subsets_list = [self.subsets_normal(x) for x in sizes]
@@ -508,13 +577,21 @@ class Contour(list):
         return subsets_list[0]
 
     def subsets_adj(self, n):
-        """Returns adjacent n-elements subsets of a given contour."""
+        """Returns adjacent n-elements subsets of a given contour.
+
+        >>> Contour([0, 1, 3, 2]).subsets_adj()
+        [< 0 1 3 >, < 1 3 2 >]
+        """
 
         return [Contour(self[i:i + n]) for i in range(len(self) - (n - 1))]
 
     def cps_position(self):
         """Returns a tuple with c-pitch and its position for each
-        c-pitch of a cseg done."""
+        c-pitch of a cseg done.
+
+        >>> Contour([0, 1, 3, 2]).cps_position()
+        [(0, 0), (1, 1), (3, 2), (2, 3)]
+        """
 
         return [(self[p], p) for p in range(len(self))]
 
@@ -603,11 +680,13 @@ class Contour(list):
 
         return [reduced, depth]
 
+    ## remove from Contour class
     def interval(self):
         """Returns Friedmann (1985) CI, the distance between one
         element in a CC (normal_form cseg here), and a later element
         as signified by +, - and a number (without + here). For
-        example, in cseg = [0, 2, 1], CI(0, 2) = 2, e CI(2, 1) = -1."""
+        example, in cseg = [0, 2, 1], CI(0, 2) = 2, e CI(2, 1) = -1.
+        """
 
         el1, el2 = self
         return el2 - el1
@@ -634,7 +713,11 @@ class Contour(list):
     def internal_diagonals(self, n=1):
         """Returns Morris (1987) int_n. The first internal diagonal
         (int_1) is the same of Friedmann (1985, 1987) contour
-        adjacency series (CC)."""
+        adjacency series (CC).
+
+        >>> Contour([0, 1, 3, 2]).internal_diagonals()
+        < + + - >
+        """
 
         def __int_d(subset):
             """Returns a contour comparison from a given subset.
@@ -648,7 +731,16 @@ class Contour(list):
         return diagonal.InternalDiagonal([__int_d(s) for s in subsets])
 
     def comparison_matrix(self):
-        """Returns Morris (1987) a cseg COM-Matrix."""
+        """Returns Morris (1987) a cseg COM-Matrix.
+
+        >>> Contour([0, 1, 3, 2]).comparison_matrix()
+          | 0 1 3 2
+        -----------
+        0 | 0 + + +
+        1 | - 0 + +
+        3 | - - 0 -
+        2 | - - + 0
+        """
 
         size = len(self)
         r_size = range(size)
@@ -668,6 +760,9 @@ class Contour(list):
         'ups' stores the total number of ups
 
         'downs' stores the total number of downs
+
+        >>> Contour([0, 1, 3, 2]).adjacency_series_vector()
+        [2, 1]
         """
 
         internal_diagonal = self.internal_diagonals(1)
@@ -690,6 +785,9 @@ class Contour(list):
 
         'ups' and 'downs' stores contour intervals counting for all
         types of positive and negative intervals in the cseg.
+
+        >>> Contour([0, 1, 3, 2]).interval_array()
+        ([2, 2, 1], [1, 0, 0])
         """
 
         up_intervals = range(1, len(self))
@@ -725,6 +823,9 @@ class Contour(list):
 
         'up_sum' and 'down_sum' stores the sum of the product of each
         contour interval frequency and contour interval value.
+
+        >>> Contour([0, 1, 3, 2]).class_vector_i()
+        [9, 1]
         """
 
         items = range(1, len(self))
@@ -738,7 +839,11 @@ class Contour(list):
         degrees of ascent and descent expressed in contour interval
         array. The first digit is the total of frequency of up contour
         intervals, and the second, of down contour intervals. For
-        example, in CIA([2, 2, 1], [1, 0, 0], CCVII = [5, 1]."""
+        example, in CIA([2, 2, 1], [1, 0, 0], CCVII = [5, 1].
+
+        >>> Contour([0, 1, 3, 2]).class_vector_ii()
+        [5, 1]
+        """
 
         return [sum(x) for x in self.interval_array()]
 
@@ -790,6 +895,9 @@ class Contour(list):
 
         Output format is: (cardinality, number, cseg_class, identity
         under retrograde inversion), like (3, 1, (0, 1, 2), True).
+
+        >>> Contour([0, 1, 3, 2]).segment_class()
+        (4, 2, < 0 1 3 2 >, False)
         """
 
         prime_form = auxiliary.apply_fn(self, prime_algorithm)
@@ -800,7 +908,11 @@ class Contour(list):
                 return r
 
     def ri_identity_test(self):
-        """Returns True if cseg have identity under retrograde inversion."""
+        """Returns True if cseg have identity under retrograde inversion.
+
+        >>> Contour([0, 1, 3, 2]).ri_identity_test()
+        False
+        """
 
         i = Contour(self).inversion()
         ri = Contour(i).retrograde()
@@ -836,6 +948,9 @@ class Contour(list):
         """Returns the four csegclass representatives (Marvin and
         Laprade 1987, p. 237): prime, inversion, and retrograde
         inversion.
+
+        >>> Contour([0, 1, 3, 2]).class_representatives()
+        [< 0 1 3 2 >, < 3 2 0 1 >, < 2 3 1 0 >, < 1 0 2 3 >]
         """
 
         p = auxiliary.apply_fn(Contour(self), prime_algorithm)
@@ -849,6 +964,9 @@ class Contour(list):
         """Returns four csegclass representative forms. This method is
         similar to class_representatives, but the first cseg form is
         the normal, not prime form.
+
+        >>> Contour([0, 1, 3, 2]).class_representatives()
+        [< 0 1 3 2 >, < 3 2 0 1 >, < 2 3 1 0 >, < 1 0 2 3 >]
         """
 
         t = self.translation()
@@ -861,8 +979,8 @@ class Contour(list):
     def all_rotations(self):
         """Returns all rotations forms of a cseg:
 
-        >>> all_rotations(cseg)
-        [< 0 2 1 >, < 2 1 0 >, < 1 0 2 >]
+        >>> Contour([0, 1, 3, 2]).all_rotations()
+        [< 0 1 3 2 >, < 1 3 2 0 >, < 3 2 0 1 >, < 2 0 1 3 >, < 0 1 3 2 >]
         """
 
         size = len(self)
@@ -870,7 +988,12 @@ class Contour(list):
 
     def rotated_representatives(self):
         """Returns a set with csegclass representatives of each
-        rotation of a contour."""
+        rotation of a contour.
+
+        >>> Contour([0, 1, 3, 2]).rotated_representatives()
+        [< 0 1 3 2 >, < 0 2 3 1 >, < 1 0 2 3 >, < 1 3 2 0 >,
+        < 2 0 1 3 >, < 2 3 1 0 >, < 3 1 0 2 >, < 3 2 0 1 >]
+        """
 
         rot = self.all_rotations()
         result = [contour.class_representatives() for contour in rot]
@@ -886,6 +1009,12 @@ class Contour(list):
 def prime_form_algorithm_test(card, prime_form_algorithm="prime_form_sampaio"):
     """Returns contour classes with two prime forms from a given
     cardinality and prime form algorithm.
+
+    >>> prime_form_algorithm_test(5, 'prime_form_marvin_laprade')
+    [< 0 1 3 2 4 >, < 0 2 1 3 4 >, < 0 2 3 1 4 >, < 0 3 1 2 4 >,
+    < 1 0 4 2 3 >, < 1 2 0 4 3 >, < 1 2 4 0 3 >, < 1 4 0 2 3 >,
+    < 3 0 4 2 1 >, < 3 2 0 4 1 >, < 3 2 4 0 1 >, < 3 4 0 2 1 >,
+    < 4 1 3 2 0 >, < 4 2 1 3 0 >, < 4 2 3 1 0 >, < 4 3 1 2 0 >]
     """
 
     # creates a list of all possible lists
