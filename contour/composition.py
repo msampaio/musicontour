@@ -39,7 +39,8 @@ def notes_to_music21(notes_list, notes_measure=0):
     else:
         measures_data = [notes_list]
 
-    part.insert(0, music21.meter.TimeSignature('{0}/4'.format(len(measures_data[0]))))
+    measure_size = len(measures_data[0])
+    part.insert(0, music21.meter.TimeSignature('{0}/4'.format(measure_size)))
 
     for measure in measures_data:
         insert_notes(part, measure, notes_list_size)

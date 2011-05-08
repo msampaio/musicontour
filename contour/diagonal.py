@@ -20,12 +20,15 @@ def internal_diagonal_classes(cardinality, prime_algorithm="prime_form_marvin_la
     permut = sorted(utils.flatten(permut))
     permut = itertools.permutations(permut, cardinality)
 
-    collection = set()
+    ## collection
+    coll = set()
 
     for el in permut:
-        collection.add(tuple(auxiliary.apply_fn(InternalDiagonal(el), prime_algorithm)))
+        int_d = auxiliary.apply_fn(InternalDiagonal(el), prime_algorithm)
+        coll.add(tuple(int_d))
 
-    return sorted([InternalDiagonal(list(x)) for x in list(collection)], reverse=True)
+    r = sorted([InternalDiagonal(list(x)) for x in list(coll)], reverse=True)
+    return r
 
 
 class InternalDiagonal(list):
@@ -97,7 +100,8 @@ class InternalDiagonal(list):
         contour."""
 
         int_d = self
-        return sorted([InternalDiagonal(list(x)) for x in itertools.combinations(int_d, n)])
+        comb = itertools.combinations(int_d, n)
+        return sorted([InternalDiagonal(list(x)) for x in comb])
 
     def all_subsets(self):
         """Returns adjacent and non-adjacent subsets of a given
@@ -110,7 +114,8 @@ class InternalDiagonal(list):
         """Returns adjacent n-elements subsets of a given contour."""
 
         int_d = self
-        return [InternalDiagonal(int_d[i:i + n]) for i in range(len(int_d) - (n - 1))]
+        int_range = range(len(int_d) - (n - 1))
+        return [InternalDiagonal(int_d[i:i + n]) for i in int_range]
 
     def zero_to_signal(self, signal=1):
         """Substitutes zeros to given signals.
@@ -151,7 +156,8 @@ class InternalDiagonal(list):
         return sorted([tmp, tmp.retrograde()], reverse=True)[0]
 
     def __repr__(self):
-        return "< {0} >".format(" ".join([utils.double_replace(str(x)) for x in self[:]]))
+        data = [utils.double_replace(str(x)) for x in self[:]]
+        return "< {0} >".format(" ".join(data))
 
 
 def csegs_from_diagonals(diagonals_list):
