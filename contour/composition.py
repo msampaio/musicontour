@@ -3,8 +3,6 @@
 
 from __future__ import print_function
 import auxiliary as aux
-import sys
-sys.path.append("/home/marcos/local/music21")
 import music21
 import utils
 
