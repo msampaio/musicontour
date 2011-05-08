@@ -425,11 +425,11 @@ def cseg_similarity_subsets_continuum(cseg, prime_algorithm="prime_form_sampaio"
     """Returns all csegs with smaller cardinality of the given one
     sorted by cseg similarity.
 
-    >>> cseg_similarity_continuum(Contour([0, 1, 2, 3]))
-    [[0.5, [< 0 3 2 1 >, < 1 3 0 2 >]],
-    [0.66666666666666663, [< 0 2 3 1 >, < 0 3 1 2 >, < 1 0 3 2 >]],
-    [0.83333333333333337, [< 0 1 3 2 >, < 0 2 1 3 >]],
-    [1.0, [< 0 1 2 3 >]]]
+    >>> cseg_similarity_subsets_continuum(Contour([0, 1, 2, 3]))
+
+    [[< 0 1 >, 0.58333333333333337],
+    [< 0 1 2 >, 0.93333333333333335],
+    [< 0 1 2 3 >, 1.0]]
     """
 
     subsets = cseg.all_subsets_prime().keys()
