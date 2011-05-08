@@ -32,6 +32,9 @@ def single_cseg_similarity(cseg1, cseg2):
     'similar pos' is the number of positions where cseg1 and cseg2
     have the same value. This variable is calculated with the private
     method __intern_diagon_sim().
+
+    >>> single_cseg_similarity(Contour([0, 2, 3, 1]), Contour([3, 1, 0, 2]))
+    0
     """
 
     d = range(len(cseg1))
@@ -44,6 +47,9 @@ def single_cseg_similarity(cseg1, cseg2):
 def cseg_similarity(cseg1, cseg2):
     """Returns Marvin and Laprade (1987) CSIM(A, B) with csegclasses
     representatives comparison.
+
+    >>> cseg_similarity(Contour([0, 2, 3, 1]), Contour([3, 1, 0, 2]))
+    1
     """
 
     csims = [single_cseg_similarity(cseg1, c) for c in cseg2.class_representatives()]
@@ -51,7 +57,13 @@ def cseg_similarity(cseg1, cseg2):
 
 
 def cseg_similarity_matrix(csegs):
-    """Returns a matrix with CSIM between multiple csegs."""
+    """Returns a matrix with CSIM between multiple csegs.
+
+    >>> cseg_similarity_matrix([Contour([0, 1, 2, 3]), Contour([1, 0, 3, 2])])
+    [[< 0 1 2 3 >, < 1 0 3 2 >],
+    [1.0, 0.66666666666666663],
+    [0.66666666666666663, 1.0]]
+    """
 
     m = []
     for a in csegs:
@@ -64,16 +76,28 @@ def cseg_similarity_matrix(csegs):
 
 
 def cseg_similarity_matrix_classes(card, prime_algorithm="prime_form_sampaio"):
-    """Returns a matrix with CSIM between multiple csegs."""
+    """Returns a matrix with CSIM between multiple csegs.
 
-    classes = [contour.Contour(list(cseg)) for (a, b, cseg, c) in contour.build_classes_card(card, prime_algorithm)]
+    >>>comparison.cseg_similarity_matrix_classes(3)
+    [[< 0 1 2 >, < 0 2 1 >],
+    [1.0, 0.66666666666666663],
+    [0.66666666666666663, 1.0]]
+    """
+
+    classes_lst = contour.build_classes_card(card, prime_algorithm)
+    classes = [contour.Contour(list(cseg)) for (a, b, cseg, c) in classes_lst]
 
     return cseg_similarity_matrix(classes)
 
 
 def subsets_embed_total_number(cseg1, cseg2):
     """Returns the number of subsets with csubseg_size in a set with
-    cseg_size. Marvin and Laprade (1987, p. 237)."""
+    cseg_size. Marvin and Laprade (1987, p. 237).
+
+    >>> c1, c2 = Contour([0, 1, 2, 3]), Contour([1, 0, 2])
+    >>> subsets_embed_total_number(c1, c2)
+    4
+    """
 
     cseg, csubseg = utils.greatest_first(cseg1, cseg2)
     cseg_size = len(cseg)
@@ -87,7 +111,12 @@ def subsets_embed_total_number(cseg1, cseg2):
 
 def subsets_embed_number(cseg1, cseg2):
     """Returns the number of time the normal form of a csubseg appears
-    in cseg subsets. Marvin and Laprade (1987)."""
+    in cseg subsets. Marvin and Laprade (1987).
+
+    >>> c1, c2 = Contour([0, 1, 2, 3]), Contour([1, 0, 2])
+    >>> subsets_embed_number(c1, c2)
+    0
+    """
 
     cseg, csubseg = utils.greatest_first(cseg1, cseg2)
 
@@ -101,7 +130,11 @@ def subsets_embed_number(cseg1, cseg2):
 def contour_embed(cseg1, cseg2):
     """Returns similarity between contours with different
     cardinalities. 1 for greater similarity. Marvin and Laprade
-    (1987)."""
+    (1987).
+
+    >>> contour_embed(Contour([0, 1, 2, 3]), Contour([0, 1, 2]))
+    1.0
+    """
 
     cseg, csubseg = utils.greatest_first(cseg1, cseg2)
 
@@ -118,7 +151,8 @@ def cseg_similarity_compare(cseg1, cseg2):
     """Returns Cseg Embed if cseg have different cardinality, and Cseg
     Similarity, if csegs have the same similarity.
 
-    Output example: [\"cseg embed\", 1]
+    >>> cseg_similarity_compare(Contour([0, 1, 2, 3]), Contour([0, 1, 2]))
+    ['cseg embed', 1.0]
     """
 
     if len(cseg1) != len(cseg2):
@@ -152,6 +186,9 @@ def __csubseg_mutually_embed(cardinality, cseg1, cseg2):
 
     'incidence_number' stores the sum of subsets related by the same
     normal form embed in cseg1 and cseg2.
+
+    >>> __csubseg_mutually_embed(3, Contour([0, 1, 2, 3]), Contour([0, 1, 2]))
+    [5, 5]
     """
 
     try:
@@ -182,7 +219,11 @@ def __csubseg_mutually_embed(cardinality, cseg1, cseg2):
 
 
 def csubseg_mutually_embed(cardinality, cseg1, cseg2):
-    """Returns CMEMBn(X, A, B) (Marvin and Laprade, 1987)."""
+    """Returns CMEMBn(X, A, B) (Marvin and Laprade, 1987).
+
+    >>> csubseg_mutually_embed(3, Contour([0, 1, 2, 3]), Contour([0, 1, 2]))
+    1.0
+    """
 
     [a, b] = __csubseg_mutually_embed(cardinality, cseg1, cseg2)
     return 1.0 * a / b
@@ -194,6 +235,9 @@ def __all_contour_mutually_embed(cseg1, cseg2):
     It's total number of significant mutually embeded csegs of
     cardinality 2 through the cardinality of the smaller cseg divided
     by the total possible csegs embed in both cseg1 and cseg2.
+
+    >>> __all_contour_mutually_embed(Contour([0, 1, 2, 3]), Contour([0, 1, 2]))
+    0.93333333333333335
     """
 
     incidence, total = (0, 0)
@@ -210,6 +254,9 @@ def all_contour_mutually_embed(cseg1, cseg2):
     cardinality 2 through the cardinality of the smaller cseg divided
     by the total possible csegs embed in both cseg1 and cseg2 and its
     csegclasses representatives.
+
+    >>> all_contour_mutually_embed(Contour([0, 1, 2, 3]), Contour([0, 1, 2]))
+    0.93333333333333335
     """
 
     acmembs = [__all_contour_mutually_embed(cseg1, c) for c in cseg2.class_representatives()]
@@ -217,9 +264,15 @@ def all_contour_mutually_embed(cseg1, cseg2):
 
 
 def operations_comparison(cseg1, cseg2, prime_algorithm="prime_form_marvin_laprade"):
-    """Returns contour operations relations between two given csegs."""
+    """Returns contour operations relations between two given csegs.
 
-    operations = ["translation", prime_algorithm, "inversion", "retrograde", "reduction_algorithm", "internal_diagonals"]
+    >>> operations_comparison(Contour([0, 1, 2, 3]), Contour([3, 1, 2, 0]))
+    [[(< 0 1 2 3 >, 2, 'internal_diagonals', < + - + >),
+    (< 3 1 2 0 >, 1, 'internal_diagonals', < + - + >)]]
+    """
+
+    operations = ["translation", prime_algorithm, "inversion",
+                  "retrograde", "reduction_algorithm", "internal_diagonals"]
 
     def all_rotations(cseg):
         """Returns all possible rotations of a given cseg.
@@ -300,7 +353,12 @@ def operations_comparison(cseg1, cseg2, prime_algorithm="prime_form_marvin_lapra
 
 
 def pretty_operations_comparison(cseg1, cseg2, prime_algorithm="prime_form_marvin_laprade"):
-    """Prints a pretty result for operations comparison."""
+    """Prints a pretty result for operations comparison.
+
+    >>> c1, c2 = Contour([0, 1, 2, 3]), Contour([3, 1, 2, 0])
+    >>> pretty_operations_comparison(c1, c2)
+    '< 0 1 2 3 > [rot1] (internal_diagonals): < + - + >\n< 3 1 2 0 > [rot1] (internal_diagonals)\n'
+    """
 
     r = []
     for [(c1, f1, o1, r1), (c2, f2, o2, r2)] in operations_comparison(cseg1, cseg2, prime_algorithm):
@@ -366,6 +424,12 @@ def cseg_similarity_continuum(cseg, prime_algorithm="prime_form_marvin_laprade")
 def cseg_similarity_subsets_continuum(cseg, prime_algorithm="prime_form_sampaio"):
     """Returns all csegs with smaller cardinality of the given one
     sorted by cseg similarity.
+
+    >>> cseg_similarity_continuum(Contour([0, 1, 2, 3]))
+    [[0.5, [< 0 3 2 1 >, < 1 3 0 2 >]],
+    [0.66666666666666663, [< 0 2 3 1 >, < 0 3 1 2 >, < 1 0 3 2 >]],
+    [0.83333333333333337, [< 0 1 3 2 >, < 0 2 1 3 >]],
+    [1.0, [< 0 1 2 3 >]]]
     """
 
     subsets = cseg.all_subsets_prime().keys()
