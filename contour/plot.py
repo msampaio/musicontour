@@ -60,12 +60,12 @@ def contour_lines(*csegs):
     http://matplotlib.sourceforge.net/examples/pylab_examples/unicode_demo.html
 
     For one contour:
-    >>> contour([Contour([5, 3, 4, 1, 2, 0]), \"\#006633\", \"contour legend\"])
+    >>> contour([Contour([5, 3, 4, 1, 2, 0]), '\#006633', 'contour legend'])
 
     For multiple contours:
     >>> c1 = Contour([1, 3, 0, 2])
     >>> c2 = Contour([2, 0, 3, 1])
-    >>> contour([c1, \"g\", \"main contour\"], [c2, \"b\", \"secondary contour\"])
+    >>> contour([c1, 'g', 'main contour'], [c2, 'b', 'secondary contour'])
     """
 
     for [cseg, plot_color, legend] in csegs:
