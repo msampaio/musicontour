@@ -680,35 +680,13 @@ class Contour(list):
 
         return [reduced, depth]
 
-    # remove from Contour class
-    def interval(self):
-        """Returns Friedmann (1985) CI, the distance between one
-        element in a CC (normal_form cseg here), and a later element
-        as signified by +, - and a number (without + here). For
-        example, in cseg = [0, 2, 1], CI(0, 2) = 2, e CI(2, 1) = -1.
-        """
-
-        el1, el2 = self
-        return el2 - el1
-
-    def comparison(self):
-        """Returns Morris (1987) comparison [COM(a, b)] for two
-        c-pitches.
-
-        This method calls interval(), but in contour theory there is
-        no relation between them. This calling reason is only to
-        reduce code."""
-
-        delta = self.interval()
-        return 0 if abs(delta) == 0 else (delta) / abs(delta)
-
     def interval_succession(self):
         """Return Friedmann (1985) CIS, a series which indicates the
         order of Contour Intervals in a given CC (normal form cseg
         here)."""
 
         subsets = self.subsets_adj(2)
-        return [Contour([x[0], x[-1]]).interval() for x in subsets]
+        return [auxiliary.interval([x[0], x[-1]]) for x in subsets]
 
     def internal_diagonals(self, n=1):
         """Returns Morris (1987) int_n. The first internal diagonal
@@ -724,7 +702,7 @@ class Contour(list):
             """
 
             a, b = subset[0], subset[-1]
-            return Contour([a, b]).comparison()
+            return auxiliary.comparison([a, b])
 
         subsets = self.subsets_adj(n + 1)
 
@@ -747,7 +725,7 @@ class Contour(list):
         m = [[a, b] for a in self for b in self]
         n = [m[(i * size):((i + 1) * size)] for i in range(size)]
         line = [self]
-        [line.append([Contour(x).comparison() for x in n[r]]) for r in r_size]
+        [line.append([auxiliary.comparison(x) for x in n[r]]) for r in r_size]
         return matrix.ComparisonMatrix(line)
 
     def adjacency_series_vector(self):
@@ -796,7 +774,7 @@ class Contour(list):
         downs_list = []
 
         for x in itertools.combinations(self, 2):
-            y = Contour(x).interval()
+            y = auxiliary.interval(x)
             if y > 0:
                 ups_list.append(y)
             elif y < 0:

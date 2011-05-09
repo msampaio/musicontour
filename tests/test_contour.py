@@ -227,26 +227,6 @@ def test_contour_rotation_classes():
                                                    [0, 2, 1, 3]]
 
 
-def test_interval_1():
-    cseg = Contour([1, 5])
-    assert cseg.interval() == 4
-
-
-def test_interval_2():
-    cseg = Contour([3, 0])
-    assert cseg.interval() == -3
-
-
-def test_comparison_1():
-    cseg = Contour([1, 4])
-    assert cseg.comparison() == 1
-
-
-def test_comparison_2():
-    cseg = Contour([5, 0])
-    assert cseg.comparison() == -1
-
-
 def test_interval_succession():
     cseg = Contour([0, 1, 3, 2])
     assert cseg.interval_succession() == [1, 2, -1]

@@ -35,3 +35,23 @@ def test_octave_calculator():
 
 def test_cseg_string_to_Contour():
     assert auxiliary.cseg_string_to_Contour('< 0 1 2 >') == [0, 1, 2]
+
+
+def test_interval_1():
+    n = [1, 5]
+    assert auxiliary.interval(n) == 4
+
+
+def test_interval_2():
+    n = [3, 0]
+    assert auxiliary.interval(n) == -3
+
+
+def test_comparison_1():
+    n = [1, 4]
+    assert auxiliary.comparison(n) == 1
+
+
+def test_comparison_2():
+    n = [5, 0]
+    assert auxiliary.comparison(n) == -1
