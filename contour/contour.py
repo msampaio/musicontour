@@ -131,7 +131,6 @@ def subsets_grouped(dictionary, group_type):
 
     >>> subsets_grouped([[[1, 3, 0, 2], [3, 1, 4, 2]],
                         [[0, 2, 3, 1], [0, 3, 4, 2]]], 'prime')
-
     'Prime form < 1 3 0 2 > (1)\n< 3 1 4 2 >\n' + \
     '\nPrime form < 0 2 3 1 > (1)\n< 0 3 4 2 >'
     """
@@ -174,13 +173,13 @@ def maxima(list_of_tuples):
 
     >>> maxima([(0, 1), (1, 2), (2, 4), (4, 5), (3, 3)])
     [(0, 1), (4, 5), (3, 3)]
-
     """
 
     def maximum(dur_list):
         """Returns the maximum (Morris, 1993) position of a three
         c-pitches set. The input data is a list of three tuples. Each
-        tuple has the c-pitch and its position. """
+        tuple has the c-pitch and its position.
+        """
 
         (el1, p1), (el2, p2), (el3, p3) = dur_list
         return (el2, p2) if el2 >= el1 and el2 >= el3 else ''
@@ -198,7 +197,8 @@ def minima(list_of_tuples):
     def minimum(dur_list):
         """Returns the minimum (Morris, 1993) position of a three
         c-pitches set. The input data is a list of three tuples. Each
-        tuple has the c-pitch and its position. """
+        tuple has the c-pitch and its position.
+        """
 
         (el1, p1), (el2, p2), (el3, p3) = dur_list
         return (el2, p2) if el2 <= el1 and el2 <= el3 else ''
@@ -214,7 +214,7 @@ def contour_rotation_classes(cardinality):
     [< 0 1 2 3 >, < 0 1 3 2 >, < 0 2 1 3 >]
     """
 
-    ## sets universe set with all csegs with a given cardinality
+    # sets universe set with all csegs with a given cardinality
     universe = set([tuple(x) for x in auxiliary.permut_csegs(cardinality)])
     s = set()
 
@@ -222,15 +222,15 @@ def contour_rotation_classes(cardinality):
         cseg = Contour(el)
         all = set([tuple(x) for x in cseg.rotated_representatives()])
         r = 0
-        ## tests if an operation in cseg's all operation is already in
-        ## s set
+        # tests if an operation in cseg's all operation is already in
+        # s set
         for op in all:
             if op in s:
                 r += 1
         if r == 0:
             s.update([el])
 
-    ## sets the first contour of each class for function return
+    # sets the first contour of each class for function return
     result = []
 
     for el in s:
@@ -619,8 +619,8 @@ class Contour(list):
             max_list = maxima(tuples_list)
             min_list = minima(tuples_list)
 
-            ## flagged cpitches are all cpitches that are in max_list
-            ## or min_list
+            # flagged cpitches are all cpitches that are in max_list
+            # or min_list
             flagged = list(set(utils.flatten([max_list, min_list])))
 
             not_flagged = []
@@ -639,40 +639,40 @@ class Contour(list):
             new_max_list = utils.remove_duplicate_tuples(maxima(max_list))
             new_min_list = utils.remove_duplicate_tuples(minima(min_list))
 
-            ## flagged cpitches are all cpitches that are in max_list
-            ## or min_list
+            # flagged cpitches are all cpitches that are in max_list
+            # or min_list
             flagged = list(set(utils.flatten([new_max_list, new_min_list])))
             flagged = sorted(flagged, key=lambda(x, y): y)
             not_flagged = []
-            ## fills not_flagged:
+            # fills not_flagged:
             for el in init_list:
                 if el not in flagged:
                     not_flagged.append(el)
 
             return new_max_list, new_min_list, flagged, not_flagged
 
-        ## returns list of cpitch/position tuples
+        # returns list of cpitch/position tuples
         cseg_pos_tuples = self.cps_position()
 
-        ## initial value (step 0)
+        # initial value (step 0)
         depth = 0
 
-        ## runs steps 1 and 2
+        # runs steps 1 and 2
         max_list, min_list, flagged, not_flagged = init_flag(cseg_pos_tuples)
 
         if not_flagged != []:
 
-            ## step 5 (first time)
+            # step 5 (first time)
             depth += 1
 
-            ## loop to run unflagged until finish unflagged cpitches
-            ## tests if there are unflagged cpitches (partial step 3)
+            # loop to run unflagged until finish unflagged cpitches
+            # tests if there are unflagged cpitches (partial step 3)
             while flag(max_list, min_list)[3] != []:
-                ## back to steps 6 and 7
+                # back to steps 6 and 7
                 r = flag(max_list, min_list)
                 max_list, min_list, flagged, not_flagged = r
 
-                ## increases depth (step 5)
+                # increases depth (step 5)
                 depth += 1
 
         sorted_flagged = sorted(flagged, key=lambda x: x[1])
@@ -680,7 +680,7 @@ class Contour(list):
 
         return [reduced, depth]
 
-    ## remove from Contour class
+    # remove from Contour class
     def interval(self):
         """Returns Friedmann (1985) CI, the distance between one
         element in a CC (normal_form cseg here), and a later element

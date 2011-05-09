@@ -67,7 +67,7 @@ def item_count(data):
     return sorted(counted_contours, key=lambda x: x[1], reverse=True)
 
 
-## FIXME: Remove function?
+# FIXME: Remove function?
 def abcm2ps(path, abc_filename):
     filename = abc_filename.split(".abc")[0]
     abc_file = path + "/" + abc_filename
@@ -164,7 +164,7 @@ def permut_list(numbers_list):
     return [list(x) for x in permutted]
 
 
-## FIXME: review, test and document these functions
+# FIXME: review, test and document these functions
 def product_list(vec):
     l = list(itertools.product(*vec))
     return map(lambda x: list(x), l)
@@ -196,4 +196,4 @@ def zero_to_plus_minus(vec):
     for subvec in vec:
         result.append(generate_plus_minus_1_list(subvec))
     return product_list(result)
-##
+#

@@ -20,7 +20,7 @@ def internal_diagonal_classes(cardinality, prime_algorithm="prime_form_marvin_la
     permut = sorted(utils.flatten(permut))
     permut = itertools.permutations(permut, cardinality)
 
-    ## collection
+    # collection
     coll = set()
 
     for el in permut:

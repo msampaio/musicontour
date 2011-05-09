@@ -330,13 +330,13 @@ def operations_comparison(cseg1, cseg2, prime_algorithm="prime_form_marvin_lapra
         for x in l1:
             for y in l2:
 
-                ## Tests if csegs are related by basic operations
+                # Tests if csegs are related by basic operations
                 if list(x)[3] == list(y)[3]:
                     if list(x)[2] == list(y)[2] == "original":
                         r = [[x, y]]
                         break
 
-                    ## Tests csegs with the same rotation factor.
+                    # Tests csegs with the same rotation factor.
                     elif list(x)[1] == list(y)[1] == 0:
                         if list(x)[2] == list(y)[2] == "translation":
                             r = [[x, y]]
@@ -347,8 +347,8 @@ def operations_comparison(cseg1, cseg2, prime_algorithm="prime_form_marvin_lapra
                     else:
                         r.append([x, y])
 
-        ## if csegs have different rotation factor, but are in prime
-        ## or normal form, break
+        # if csegs have different rotation factor, but are in prime
+        # or normal form, break
         result = []
         for (x, y) in r:
             if list(x)[2] or list(y)[2] == prime_algorithm or "translation":
@@ -440,7 +440,6 @@ def cseg_similarity_subsets_continuum(cseg, prime_algorithm="prime_form_sampaio"
     sorted by cseg similarity.
 
     >>> cseg_similarity_subsets_continuum(Contour([0, 1, 2, 3]))
-
     [[< 0 1 >, 0.58333333333333337],
     [< 0 1 2 >, 0.93333333333333335],
     [< 0 1 2 3 >, 1.0]]
