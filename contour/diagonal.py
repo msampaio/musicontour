@@ -72,6 +72,9 @@ class InternalDiagonal(list):
 
         'n' is the module of input factor. It's allowed to use factor
         numbers greater than internal diagonal size.
+
+        >>> InternalDiagonal([-1, 1, 1, -1]).rotation(2)
+        < + - - + >
         """
 
         n = factor % len(self)
@@ -80,7 +83,11 @@ class InternalDiagonal(list):
         return InternalDiagonal(subset)
 
     def retrograde(self):
-        """Returns internal diagonal retrograde."""
+        """Returns internal diagonal retrograde.
+
+        >>> InternalDiagonal([1, 1, -1]).retrograde()
+        < - + + >
+        """
 
         tmp = self[:]
         tmp.reverse()
@@ -89,15 +96,19 @@ class InternalDiagonal(list):
     def inversion(self):
         """Returns Internal diagonal inversion.
 
-        >>> InternalDiagonal([-1, 1, 1]).inversion
-        [1, -1, -1]
+        >>> InternalDiagonal([-1, 1, 1]).inversion()
+        < + - - >
         """
 
         return InternalDiagonal([(x * -1) for x in self])
 
     def subsets(self, n):
         """Returns adjacent and non-adjacent subsets of a given
-        contour."""
+        contour.
+
+        >>> InternalDiagonal([-1, 1, 1]).subsets(2)
+        [< - + >, < - + >, < + + >]
+        """
 
         int_d = self
         comb = itertools.combinations(int_d, n)
@@ -105,13 +116,21 @@ class InternalDiagonal(list):
 
     def all_subsets(self):
         """Returns adjacent and non-adjacent subsets of a given
-        contour."""
+        contour.
+
+        >>> InternalDiagonal([-1, 1, 1]).all_subsets()
+        [< - + >, < - + >, < + + >, < - + + >]
+        """
 
         sizes = range(2, len(self) + 1)
         return utils.flatten([self.subsets(x) for x in sizes])
 
     def subsets_adj(self, n):
-        """Returns adjacent n-elements subsets of a given contour."""
+        """Returns adjacent n-elements subsets of a given contour.
+
+        >>> InternalDiagonal([-1, 1, 1, 1]).subsets_adj(2)
+        [< - + >, < + + >, < + + >]
+        """
 
         int_d = self
         int_range = range(len(int_d) - (n - 1))
@@ -146,6 +165,9 @@ class InternalDiagonal(list):
 
         2) if there are more pluses at the end than the beginning,
         then rotate.
+
+        >>> InternalDiagonal([-1, 1, 1, 1]).prime_form()
+        < + + + - >
         """
 
         tmp = self

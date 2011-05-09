@@ -76,13 +76,21 @@ def abcm2ps(path, abc_filename):
 
 
 def double_replace(string):
-    """Replaces -1 by -, and 1 by +. Accepts string as input."""
+    """Replaces -1 by -, and 1 by +. Accepts string as input.
+
+    >>> double_replace('-1 1 -1 1')
+    '- + - +'
+    """
 
     return string.replace("-1", "-").replace("1", "+")
 
 
 def replace_list_to_plus_minus(list):
-    """Convert a list in a string and replace -1 by -, and 1 by +"""
+    """Convert a list in a string and replace -1 by -, and 1 by +
+
+    >>> replace_list_to_plus_minus([1, 1, -1, -1])
+    '+ + - -'
+    """
 
     return " ".join([double_replace(str(x)) for x in list])
 
@@ -104,14 +112,19 @@ def replace_plus_minus_to_list(string):
 def list_to_string(list):
     """Convert a list in a string.
 
-    Inputs [1, 2, 3] and outputs '1 2 3'
+    >>> list_to_string([1, 2, 3])
+    '1 2 3'
     """
 
     return " ".join([str(x) for x in list])
 
 
 def remove_adjacent(list):
-    """Removes duplicate adjacent elements from a list."""
+    """Removes duplicate adjacent elements from a list.
+
+    >>> remove_adjacent([0, 1, 1, 2, 3, 1, 4, 2, 2, 5])
+    [0, 1, 2, 3, 1, 4, 2, 5]
+    """
 
     groups = itertools.izip(list, list[1:])
     return [a for a, b in groups if a != b] + [list[-1]]
@@ -119,7 +132,11 @@ def remove_adjacent(list):
 
 def remove_duplicate_tuples(list_of_tuples):
     """Removes tuples that the first item is repeated in adjacent
-    tuples. The removed tuple is the second."""
+    tuples. The removed tuple is the second.
+
+    >>> remove_duplicate_tuples([(0, 1), (0, 2), (1, 3), (2, 4), (1, 5)])
+    [(0, 1), (1, 3), (2, 4), (1, 5)]
+    """
 
     prev = None
     tmp = []

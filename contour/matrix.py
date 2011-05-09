@@ -31,7 +31,13 @@ class ComparisonMatrix(list):
         return ComparisonMatrix(lines)
 
     def diagonal(self, n=1):
-        """Returns internal diagonal INTn of a Comparison Matrix."""
+        """Returns internal diagonal INTn of a Comparison Matrix.
+
+        >>> ComparisonMatrix([[0, 1, 1, 1, 1], [-1, 0, -1, 1, -1],
+            [-1, 1, 0, 1, 1], [-1, -1, -1, 0, -1],
+            [-1, 1, -1, 1, 0]]).diagonal(2)
+        < - + >
+        """
 
         if n < len(self):
             numbered_matrix = sorted(enumerate(self))[1:-n]
