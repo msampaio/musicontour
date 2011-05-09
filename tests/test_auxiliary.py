@@ -55,3 +55,7 @@ def test_comparison_1():
 def test_comparison_2():
     n = [5, 0]
     assert auxiliary.comparison(n) == -1
+
+
+def test_cseg_from_class_number():
+    assert auxiliary.cseg_from_class_number(4, 7) == [1, 0, 3, 2]

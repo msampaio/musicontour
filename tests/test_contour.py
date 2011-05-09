@@ -388,12 +388,10 @@ def test_prime_form_algorithm_test_1():
 def test_prime_form_algorithm_test_2():
     algorithm = "prime_form_marvin_laprade"
     fn = contour.prime_form_algorithm_test(5, algorithm)
-    assert fn == [[0, 1, 3, 2, 4], [0, 2, 1, 3, 4], [0, 2, 3, 1, 4],
-                  [0, 3, 1, 2, 4], [1, 0, 4, 2, 3], [1, 2, 0, 4, 3],
-                  [1, 2, 4, 0, 3], [1, 4, 0, 2, 3], [3, 0, 4, 2, 1],
-                  [3, 2, 0, 4, 1], [3, 2, 4, 0, 1], [3, 4, 0, 2, 1],
-                  [4, 1, 3, 2, 0], [4, 2, 1, 3, 0], [4, 2, 3, 1, 0],
-                  [4, 3, 1, 2, 0]]
+    assert fn == [[(5, 3), [0, 1, 3, 2, 4], [0, 2, 1, 3, 4]],
+                  [(5, 8), [0, 2, 3, 1, 4], [0, 3, 1, 2, 4]],
+                  [(5, 25), [1, 0, 4, 2, 3], [1, 2, 0, 4, 3]],
+                  [(5, 27), [1, 2, 4, 0, 3], [1, 4, 0, 2, 3]]]
 
 
 def test_prime_form_algorithm_test_3():

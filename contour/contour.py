@@ -999,11 +999,21 @@ def prime_form_algorithm_test(card, prime_form_algorithm="prime_form_sampaio"):
     lists = [auxiliary.permut_csegs(c) for c in range(2, card + 1)]
     lists = utils.flatten(lists)
 
+    coll = set()
+
+    for lst in lists:
+        cseg = Contour(lst)
+        if cseg.unique_prime_form_test(prime_form_algorithm) == False:
+            c_class, n_class, x, ri = cseg.segment_class()
+            coll.add((c_class, n_class))
+
+    classes = sorted(list(coll))
     result = []
 
-    for el in lists:
-        cseg = Contour(el)
-        if cseg.unique_prime_form_test(prime_form_algorithm) == False:
-            result.append(cseg)
+    if classes != []:
+        for cls in classes:
+            cseg = auxiliary.cseg_from_class_number(*cls)
+            ri = cseg.retrograde().inversion()
+            result.append([cls, cseg, ri])
 
     return result

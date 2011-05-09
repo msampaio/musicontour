@@ -114,3 +114,18 @@ def comparison(els):
 
     delta = interval(els)
     return 0 if abs(delta) == 0 else (delta) / abs(delta)
+
+
+def cseg_from_class_number(card, class_number, prime_algorithm="prime_form_sampaio"):
+    """Returns a cseg from a given cardinality and class
+    number. Sampaio Prime algorithm is default.
+
+    >>> cseg_from_class_number(4, 7)
+    < 1 0 3 2 >
+    """
+
+    card_classes = contour.build_classes_card(card, prime_algorithm)
+    for classes in card_classes:
+        cc, cn, cs, ri = classes
+        if card == cc and class_number == cn:
+            return contour.Contour(cs)
