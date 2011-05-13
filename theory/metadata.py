@@ -65,7 +65,7 @@ def __source_figure_add(filename):
 
     source, figure = get_source(filename)
 
-    ## inserts source and figure automatically
+    # inserts source and figure automatically
     im.info[source_key] = source
     im.info[figure_key] = figure
 
@@ -164,7 +164,7 @@ def add_from_doc(data_file, path_to_figures):
 def pretty_data_view(filename):
     """Prints metadata in google docs file order.
 
-    >>> metadata.pretty_data_view(''/tmp/marvin.ea87:relating.17-4.png')
+    >>> metadata.pretty_data_view('/tmp/marvin.ea87:relating.17-4.png')
     Contour_Source: marvin.ea87:relating
     Contour_Page: 252
     Contour_Figure: 17-4
