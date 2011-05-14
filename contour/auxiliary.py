@@ -7,6 +7,9 @@ import contour
 import utils
 
 
+notes = "c c# d d# e f f# g g# a a# b".split()
+
+
 def permut_csegs(cardinality):
     """Returns a list of possible normalized csegs of a given
     cardinality. Cseg are output as lists.

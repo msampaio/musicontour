@@ -6,8 +6,6 @@ import auxiliary as aux
 import music21
 import utils
 
-notes = "c c# d d# e f f# g g# a a# b".split()
-
 
 def notes_to_music21(notes_list, notes_measure=0):
     """Generates Music21 Part object from a given Music21 notation
@@ -62,7 +60,7 @@ def pitches_to_notes(pitches, offset=0):
     for pitch in pitches:
         p_class, octave = aux.octave_calculator(pitch)
         octave = octave + offset
-        result.append(notes[p_class] + str(octave))
+        result.append(aux.notes[p_class] + str(octave))
 
     return result
 
