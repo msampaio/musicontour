@@ -37,6 +37,18 @@ def test_cseg_string_to_Contour():
     assert auxiliary.cseg_string_to_Contour('< 0 1 2 >') == [0, 1, 2]
 
 
+def test_note_to_absolute_pitch_from_note_octave():
+    assert auxiliary.absolute_pitch_from_note_octave(1, 3) == 37
+
+
+def test_absolute_pitch_from_str():
+    assert auxiliary.absolute_pitch_from_str('d#4') == 51
+
+
+def test_notes_to_Contour():
+    assert auxiliary.notes_to_Contour('c4 d3 e5') == [1, 0, 2]
+
+
 def test_interval_1():
     n = [1, 5]
     assert auxiliary.interval(n) == 4

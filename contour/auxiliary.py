@@ -90,6 +90,44 @@ def cseg_string_to_Contour(cseg_string):
     return contour.Contour([int(x) for x in splitted])
 
 
+def absolute_pitch_from_note_octave(note, octave):
+    """Returns an absolute pitch from a given note and octave
+
+    >>> note_to_absolute_pitch(1, 4)
+    49
+    """
+
+    try:
+        return note + (octave * 12)
+    except:
+        pass
+
+
+def absolute_pitch_from_str(note_string, notes=notes):
+    """Returns an absolute pitch from a given string with a note.
+
+    >>> absolute_pitch('d#4')
+    51
+    """
+
+    note = notes.index(note_string[:-1])
+    octave = int(note_string[-1])
+
+    return absolute_pitch_from_note_octave(note, octave)
+
+
+def notes_to_Contour(notes_string):
+    """Returns Contour object from a given string with notes.
+
+    >>> notes_to_Contour('c4 d3 e5')
+    < 1 0 2 >
+    """
+
+    splt = notes_string.split()
+    cseg = contour.Contour([absolute_pitch_from_str(note) for note in splt])
+    return cseg.translation()
+
+
 def interval(els):
     """Returns Friedmann (1985) CI, the distance between one
     element in a CC (normal_form cseg here), and a later element
