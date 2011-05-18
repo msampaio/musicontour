@@ -123,12 +123,12 @@ Running
 
 6. Help on methods (q to quit)::
 
-        >>> help(foo.reduction_algorithm)
-        Help on method reduction_algorithm in module contour.contour:
+        >>> help(foo.reduction_morris)
+        Help on method reduction_morris in module contour.contour:
 
-        reduction_algorithm(self) method of contour.contour.Contour instance
+        reduction_morris(self) method of contour.contour.Contour instance
             Returns Morris (1993) contour reduction from a cseg, and
             its depth.
 
-            >>> Contour([0, 4, 3, 2, 5, 5, 1]).reduction_algorithm()
+            >>> Contour([0, 4, 3, 2, 5, 5, 1]).reduction_morris()
             [< 0 2 1 >, 2]

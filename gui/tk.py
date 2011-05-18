@@ -326,7 +326,7 @@ class App:
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         cseg_obj = contour.contour.Contour(cseg)
-        [reduced_c, depth] = cseg_obj.reduction_algorithm()
+        [reduced_c, depth] = cseg_obj.reduction_morris()
         reduced_c_print = contour.contour.Contour(reduced_c)
         text1 = "Morris Contour Reduction\n"
         text2 = "Original:{0}\n".format(cseg_obj)

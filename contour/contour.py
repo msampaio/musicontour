@@ -595,11 +595,11 @@ class Contour(list):
 
         return [(self[p], p) for p in range(len(self))]
 
-    def reduction_algorithm(self):
+    def reduction_morris(self):
         """Returns Morris (1993) contour reduction from a cseg, and
         its depth.
 
-        >>> Contour([0, 4, 3, 2, 5, 5, 1]).reduction_algorithm()
+        >>> Contour([0, 4, 3, 2, 5, 5, 1]).reduction_morris()
         [< 0 2 1 >, 2]
         """
 

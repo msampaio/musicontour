@@ -201,14 +201,14 @@ def test_cps_position():
                                    (7, 5), (3, 6), (12, 7), (3, 8), (7, 9)]
 
 
-def test_reduction_algorithm_1():
+def test_reduction_morris_1():
     cseg = Contour([0, 4, 3, 2, 5, 5, 1])
-    assert cseg.reduction_algorithm() == [[0, 2, 1], 2]
+    assert cseg.reduction_morris() == [[0, 2, 1], 2]
 
 
-def test_reduction_algorithm_2():
+def test_reduction_morris_2():
     cseg = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
-    assert cseg.reduction_algorithm() == [[2, 3, 0, 1], 3]
+    assert cseg.reduction_morris() == [[2, 3, 0, 1], 3]
 
 
 def test_maxima():
