@@ -9,6 +9,7 @@ import ImageChops
 import utils
 import contour
 import random
+import matplotlib.pyplot as pyplot
 
 name = "MusiContour"
 version = "0.2"
@@ -71,6 +72,35 @@ def contour_lines(*csegs):
     for [cseg, plot_color, legend] in csegs:
         __contour_lines(cseg, plot_color, legend)
     pylab.show()
+
+def contour_lines_save_multiple(*csegs):
+    """Saves csegs graphs in a svg format file for each cseg.
+
+    >>> c1 = Contour([1, 3, 0, 2])
+    >>> c2 = Contour([2, 0, 3, 1])
+    >>> contour([c1, 'g', 'main contour'], [c2, 'b', 'secondary contour'])
+    """
+
+    for [cseg, plot_color, legend] in csegs:
+        clear()
+        __contour_lines(cseg, plot_color, legend)
+        filename = ''.join([str(x) for x in cseg])
+        pyplot.savefig(filename + '.svg')
+
+
+def contour_lines_save_unique(*csegs):
+    """Saves csegs graphs in a unique svg format file for all csegs.
+
+    >>> c1 = Contour([1, 3, 0, 2])
+    >>> c2 = Contour([2, 0, 3, 1])
+    >>> contour([c1, 'g', 'main contour'], [c2, 'b', 'secondary contour'])
+    """
+
+    clear()
+    for [cseg, plot_color, legend] in csegs:
+        __contour_lines(cseg, plot_color, legend)
+
+    pyplot.savefig('cseg_output.svg')
 
 
 def pie(data, plot_title=""):
