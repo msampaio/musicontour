@@ -40,7 +40,7 @@ def __contour_lines(cseg, plot_color, custom_legend=""):
     pylab.ylabel('c-pitch')
     pylab.xticks(cseg_xticks)
     pylab.yticks(cseg_yticks)
-    p = pylab.plot(cseg, linewidth=2, marker='d', color=plot_color,
+    p = pylab.plot(cseg, linewidth=2, marker='o', color=plot_color,
          label='{0} {1}'.format(cseg, custom_legend))
     pylab.title(title_name, family='georgia', size='small')
     pylab.legend(prop=matplotlib.font_manager.FontProperties(size=10))
