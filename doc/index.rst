@@ -23,6 +23,8 @@ Documentation
 
 `Contents <contents.html>`_
 
+`MusiContour Cheat sheet <cheat-sheet.html>`_
+
 `General Index <genindex.html>`_
 
 .. _Genos: http://genos.mus.br
