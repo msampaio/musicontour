@@ -17,7 +17,7 @@ class App:
 
     def __init__(self, master):
 
-        ### widgets
+        # widgets
 
         font = 'sans 8 bold'
         font_par = ("arial", 9)
@@ -49,7 +49,7 @@ class App:
         self.secondary_entry.insert("end", "1")
         self.secondary_entry.get()
 
-        ## buttons
+        # buttons
         self.b_clear_main = Tkinter.Button(self.frame_clear, text="Main entry",
                                command=self.clear_main, width=9, font=font_par)
         self.b_clear_secondary = Tkinter.Button(self.frame_clear, text="Second. entry",
@@ -108,7 +108,7 @@ class App:
         self.b_operations_comparison = Tkinter.Button(self.frame_comparisons, text="Op. relations",
                                command=self.operations_comparison, width=13, font=font_par)
 
-        ## key bindings:
+        # key bindings:
         for x in [self.main_entry, master, self.secondary_entry]:
             x.bind("<Escape>", self.clear_plot)
             x.bind("<Control-Escape>", self.clear_output)
@@ -143,29 +143,29 @@ class App:
         master.columnconfigure(2, weight=1)
         master.columnconfigure(3, weight=1)
 
-        ## displacement
-        ## row 0
+        # displacement
+        # row 0
         self.initial.grid(row=0, column=0, columnspan=5)
 
-        ## output area
+        # output area
         self.text_output.grid(row=1, column=0, columnspan=4)
         self.text_scroll.grid(row=1, column=4, sticky=Tkinter.N + Tkinter.S)
 
-        ## entry area
+        # entry area
         self.frame_entry.grid(columnspan=2, rowspan=2)
         self.main_label.grid(row=2, column=0, sticky=Tkinter.E)
         self.main_entry.grid(row=2, column=1)
         self.secondary_label.grid(row=3, column=0, sticky=Tkinter.E)
         self.secondary_entry.grid(row=3, column=1)
 
-        ## clear area
+        # clear area
         self.frame_clear.grid(row=2, column=2, rowspan=2, columnspan=3, sticky=Tkinter.W)
         self.b_clear_main.grid(row=2, column=2)
         self.b_clear_output.grid(row=2, column=3)
         self.b_clear_secondary.grid(row=3, column=2)
         self.b_clear_plot.grid(row=3, column=3)
 
-        ## plot area
+        # plot area
         self.frame_plot.grid(row=4, column=0, rowspan=7, sticky=Tkinter.W)
         self.b_plot.grid(row=4, column=0)
         self.b_normal_form.grid(row=5, column=0)
@@ -175,19 +175,19 @@ class App:
         self.b_retrograde.grid(row=9, column=0)
         self.b_ret_inv.grid(row=10, column=0)
 
-        ## matrix area
+        # matrix area
         self.frame_matrix.grid(row=4, column=1, sticky=Tkinter.W)
         self.b_comparison_matrix.grid(row=4, column=1)
         self.b_internal.grid(row=5, column=1)
         self.b_csegs_from_int.grid(row=6, column=1)
 
-        ## subsets area
+        # subsets area
         self.frame_subsets.grid(row=4, column=2, rowspan=3, sticky=Tkinter.W)
         self.b_n_subsets.grid(row=4, column=2)
         self.b_all_subsets.grid(row=5, column=2)
         self.b_segment_classes.grid(row=6, column=2)
 
-        ## friedmann area
+        # friedmann area
         self.frame_friedmann.grid(row=4, column=3, rowspan=5, sticky=Tkinter.W)
         self.b_casv.grid(row=4, column=3)
         self.b_cis.grid(row=5, column=3)
@@ -195,14 +195,14 @@ class App:
         self.b_ccvi.grid(row=7, column=3)
         self.b_ccvii.grid(row=8, column=3)
 
-        ## comparisons area
+        # comparisons area
         self.frame_comparisons.grid(row=8, column=1, rowspan=3, sticky=Tkinter.W)
         self.b_compare.grid(row=8, column=1)
         self.b_all_embed.grid(row=9, column=1)
         self.b_operations_comparison.grid(row=10, column=1)
         self.b_reduction.grid(row=11, column=1)
 
-    ## functions
+    # functions
 
     def plot(self, event=None):
         get = self.main_entry.get()
