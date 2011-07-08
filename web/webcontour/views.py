@@ -22,9 +22,12 @@ def home(request):
 def contour(request):
     cont = request.session['contour']
     cseg = cc.Contour([int(x) for x in cont.strip().split()])
-    prime = cseg.prime_form_sampaio()
+    prime_s = cseg.prime_form_sampaio()
+    prime_ml = cseg.prime_form_marvin_laprade()
     normal = cseg.translation()
     cp.contour_lines_save_django([cseg, 'k', 'Original'],
-                                 [prime, 'r', 'Prime form'])
-    args = {'cseg': cseg, 'prime': prime, 'normal': normal}
+                                 [prime_ml, 'r', 'Prime form ML'],
+                                 [prime_s, 'b', 'Prime form S'])
+    args = {'cseg': cseg, 'prime_s': prime_s, 'prime_ml': prime_ml,
+            'normal': normal}
     return render(request, 'contour.html', args)
