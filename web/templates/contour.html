@@ -3,12 +3,23 @@
 {% block body %}
 <h2>MusiContour</h2>
 
+<table>
+  <tr>
+    <td>Original cseg</td>
+    <td>{{ cseg }}</td>
+  </tr>
+  <tr>
+    <td>Normal form</td>
+    <td>{{ normal }}</td>
+  </tr>
+  <tr>
+    <td>Prime form</td>
+    <td>{{ prime }}</td>
+  </tr>
+</table>
+
 <p>
-  Contour = <
-  {% for c in contour %}
-  {{ c }}
-  {% endfor %}
-  >
+  <img src='/media/cseg_output.png'>
 </p>
 
 <p><a href="/">Back</a></p>

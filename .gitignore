@@ -2,10 +2,11 @@
 *.tar.gz
 *.zip
 *~
+/web/data.db
+/web/media/cseg_output.png
 contour-module-*
 doc/_build/
 lab/*
 print/*.aux
 print/*.log
 print/*.pdf
-/web/data.db

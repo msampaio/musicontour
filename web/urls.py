@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
 import web.webcontour.views as views
+import settings
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -8,6 +9,7 @@ import web.webcontour.views as views
 urlpatterns = patterns('',
     (r'^$', views.home),
     (r'^contour/$', views.contour),
+    (r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.MEDIA_ROOT}),
     # Examples:
     # url(r'^$', 'web.views.home', name='home'),
     # url(r'^web/', include('web.foo.urls')),

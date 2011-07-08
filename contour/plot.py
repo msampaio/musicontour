@@ -103,6 +103,21 @@ def contour_lines_save_unique(*csegs):
     pyplot.savefig('cseg_output.svg')
 
 
+def contour_lines_save_django(*csegs):
+    """Saves csegs graphs in a unique svg format file for all csegs.
+
+    >>> c1 = Contour([1, 3, 0, 2])
+    >>> c2 = Contour([2, 0, 3, 1])
+    >>> contour([c1, 'g', 'main contour'], [c2, 'b', 'secondary contour'])
+    """
+
+    clear()
+    for [cseg, plot_color, legend] in csegs:
+        __contour_lines(cseg, plot_color, legend)
+
+    pyplot.savefig('media/cseg_output.png', dpi=50)
+
+
 def pie(data, plot_title=""):
     ax = pylab.axes([0.1, 0.1, 0.8, 0.8])
     pylab.figure(1, figsize=(6, 6))

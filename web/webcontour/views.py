@@ -2,7 +2,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, render
 from web.webcontour.forms import ContourForm
 from web.webcontour.models import Contour
-
+import contour.contour as cc
+import contour.plot as cp
 
 def home(request):
     if request.method == "POST":
@@ -20,6 +21,10 @@ def home(request):
 
 def contour(request):
     cont = request.session['contour']
-    contornos = [int(x) + 13 for x in cont.strip().split()]
-    args = {'contour': contornos}
+    cseg = cc.Contour([int(x) for x in cont.strip().split()])
+    prime = cseg.prime_form_sampaio()
+    normal = cseg.translation()
+    cp.contour_lines_save_django([cseg, 'k', 'Original'],
+                                 [prime, 'r', 'Prime form'])
+    args = {'cseg': cseg, 'prime': prime, 'normal': normal}
     return render(request, 'contour.html', args)
