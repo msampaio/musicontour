@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h1>MusiContour</h1>
+<p>Insert the contour</p>
+
+<form id="form-contorno" method="post" action="">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button>Submit</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h2>MusiContour</h2>
+
+<p>
+  {% for c in contour %}
+  {{ c }}
+  {% endfor %}
+</p>
+
+<a href="/">Back</a>
+{% endblock %}

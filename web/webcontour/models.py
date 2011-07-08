@@ -1,3 +1,4 @@
 from django.db import models
 
-# Create your models here.
+class Contour(models.Model):
+    cps = models.CharField(max_length=100)

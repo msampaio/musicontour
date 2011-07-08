@@ -8,3 +8,4 @@ lab/*
 print/*.aux
 print/*.log
 print/*.pdf
+/web/data.db

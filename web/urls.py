@@ -1,10 +1,13 @@
 from django.conf.urls.defaults import patterns, include, url
+import web.webcontour.views as views
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    (r'^$', views.home),
+    (r'^contour/$', views.contour),
     # Examples:
     # url(r'^$', 'web.views.home', name='home'),
     # url(r'^web/', include('web.foo.urls')),
