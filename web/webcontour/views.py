@@ -23,4 +23,3 @@ def contour(request):
     contornos = [int(x) + 13 for x in cont.strip().split()]
     args = {'contour': contornos}
     return render(request, 'contour.html', args)
-
