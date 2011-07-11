@@ -24,10 +24,16 @@ def contour(request):
     cseg = cc.Contour([int(x) for x in cont.strip().split()])
     prime_s = cseg.prime_form_sampaio()
     prime_ml = cseg.prime_form_marvin_laprade()
+    retrograde = cseg.retrograde()
+    inversion = cseg.inversion()
     normal = cseg.translation()
+    int_1 = cseg.internal_diagonals()
     cp.contour_lines_save_django([cseg, 'k', 'Original'],
                                  [prime_ml, 'r', 'Prime form ML'],
-                                 [prime_s, 'b', 'Prime form S'])
+                                 [prime_s, 'b', 'Prime form S'],
+                                 [retrograde, 'g', 'Retrograde'],
+                                 [inversion, 'y', 'Inversion'])
     args = {'cseg': cseg, 'prime_s': prime_s, 'prime_ml': prime_ml,
-            'normal': normal}
+            'retrograde': retrograde, 'inversion': inversion,
+            'normal': normal, 'int_1': int_1}
     return render(request, 'contour.html', args)
