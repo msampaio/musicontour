@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h2>MusiContour</h2>
+
+<table>
+  <tr>
+    <td>Original cseg</td>
+    <td>{{ cseg }}</td>
+  </tr>
+  <tr>
+    <td>{{ op_name }}</td>
+    <td>{{ op }}</td>
+  </tr>
+</table>
+
+<p>
+  <img src='/media/cseg_output.png'>
+</p>
+
+<p><a href="/">Back</a></p>
+{% endblock %}

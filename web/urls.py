@@ -9,6 +9,7 @@ import settings
 urlpatterns = patterns('',
     (r'^$', views.home),
     (r'^contour/$', views.contour),
+    (r'^operation/$', views.operation),
     (r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.MEDIA_ROOT}),
     # Examples:
     # url(r'^$', 'web.views.home', name='home'),

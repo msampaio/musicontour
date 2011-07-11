@@ -4,13 +4,18 @@ from web.webcontour.forms import ContourForm
 from web.webcontour.models import Contour
 import contour.contour as cc
 import contour.plot as cp
+import contour.auxiliary as ca
 
 def home(request):
     if request.method == "POST":
         form = ContourForm(request.POST)
         if form.is_valid():
             request.session['contour'] = form.cleaned_data['cps']
-            return HttpResponseRedirect('/contour/')
+            request.session['operation'] = form.cleaned_data['operation']
+            if form.cleaned_data['operation'] == 'all':
+                return HttpResponseRedirect('/contour/')
+            else:
+                return HttpResponseRedirect('/operation/')
     else:
         form = ContourForm()
 
@@ -37,3 +42,14 @@ def contour(request):
             'retrograde': retrograde, 'inversion': inversion,
             'normal': normal, 'int_1': int_1}
     return render(request, 'contour.html', args)
+
+
+def operation(request):
+    cont = request.session['contour']
+    operation = request.session['operation']
+    cseg = cc.Contour([int(x) for x in cont.strip().split()])
+    op = ca.apply_fn(cseg, operation)
+    cp.contour_lines_save_django([cseg, 'k', 'Original'],
+                                 [op, 'b', operation])
+    args = {'cseg': cseg, 'op_name': operation, 'op': op}
+    return render(request, 'operation.html', args)
