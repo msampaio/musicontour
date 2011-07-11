@@ -9,6 +9,6 @@ class Contour(models.Model):
                   ('retrograde', 'Retrograde'),
                   ('inversion', 'Inversion'))
 
-    cps = models.CharField(max_length=100, default='0 2 1 3 4 5')
+    cps = models.CharField(max_length=20, default='0 2 1 3 4 5')
     operation = models.CharField(max_length=30, choices=OP_CHOICES, default='all')
 
