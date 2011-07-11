@@ -1,42 +1,60 @@
 {% extends "base.html" %}
 
 {% block body %}
-<h2>MusiContour</h2>
 
-<table>
-  <tr>
-    <td>Original cseg</td>
-    <td>{{ cseg }}</td>
-  </tr>
-  <tr>
-    <td>Retrograde</td>
-    <td>{{ retrograde }}</td>
-  </tr>
-  <tr>
-    <td>Inversion</td>
-    <td>{{ inversion }}</td>
-  </tr>
-  <tr>
-    <td>Normal form</td>
-    <td>{{ normal }}</td>
-  </tr>
-  <tr>
-    <td>Prime form ML</td>
-    <td>{{ prime_ml }}</td>
-  </tr>
-  <tr>
-    <td>Prime form S</td>
-    <td>{{ prime_s }}</td>
-  </tr>
-  <tr>
-    <td>Internal diagonal 1</td>
-    <td>{{ int_1 }}</td>
-  </tr>
-</table>
+<div class="conteudo">
 
-<p>
-  <img src='/media/cseg_output.png'>
-</p>
+<div class="figure">
+    <img src='/media/cseg_output.png'>
+  </div>
 
-<p><a href="/">Back</a></p>
+  <table>
+    <tr>
+      <td>Original cseg</td>
+      <td>{{ cseg }}</td>
+    </tr>
+    <tr>
+      <td>Retrograde</td>
+      <td>{{ retrograde }}</td>
+    </tr>
+    <tr>
+      <td>Inversion</td>
+      <td>{{ inversion }}</td>
+    </tr>
+    <tr>
+      <td>Normal form</td>
+      <td>{{ normal }}</td>
+    </tr>
+    <tr>
+      <td>Prime form ML</td>
+      <td>{{ prime_ml }}</td>
+    </tr>
+    <tr>
+      <td>Prime form S</td>
+      <td>{{ prime_s }}</td>
+    </tr>
+    <tr>
+      <td>Internal diagonal 1</td>
+      <td>{{ int_1 }}</td>
+    </tr>
+    <tr>
+      <td>Morris Reduction</td>
+      <td>{{ reduction }}</td>
+    </tr>
+    <tr>
+      <td>Class Index I</td>
+      <td>{{ class_index_i }}</td>
+    </tr>
+    <tr>
+      <td>Class Index II</td>
+      <td>{{ class_index_ii }}</td>
+    </tr>
+    <tr>
+      <td>Symmetry Index</td>
+      <td>{{ symmetry_index }}</td>
+    </tr>
+  </table>
+
+  <p><a href="/">Back</a></p>
+</div>
 {% endblock %}
