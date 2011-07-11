@@ -115,7 +115,7 @@ def contour_lines_save_django(*csegs):
     for [cseg, plot_color, legend] in csegs:
         __contour_lines(cseg, plot_color, legend)
 
-    pyplot.savefig('media/cseg_output.png', dpi=50)
+    pyplot.savefig('media/cseg_output.png', dpi=53)
 
 
 def pie(data, plot_title=""):
