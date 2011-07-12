@@ -1,5 +1,7 @@
 # Django settings for web project.
 
+import os
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -39,9 +41,11 @@ USE_I18N = True
 # calendars according to the current locale
 USE_L10N = True
 
+MAINDIR = os.path.dirname(os.path.abspath( __file__ ))
+
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = '/home/marcos/src/MusiContour/web/media/'
+MEDIA_ROOT = os.path.join(MAINDIR, 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -99,7 +103,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'web.urls'
 
 TEMPLATE_DIRS = (
-    '/home/marcos/src/MusiContour/web/templates',
+    os.path.join(MAINDIR, 'templates'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
