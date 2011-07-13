@@ -108,14 +108,14 @@ def contour_lines_save_django(*csegs):
 
     >>> c1 = Contour([1, 3, 0, 2])
     >>> c2 = Contour([2, 0, 3, 1])
-    >>> contour([c1, 'g', 'main contour'], [c2, 'b', 'secondary contour'])
+    >>> contour_lines_save_django([c1, 'g', 'C1'], [c2, 'b', 'C2'])
     """
 
     clear()
     for [cseg, plot_color, legend] in csegs:
         __contour_lines(cseg, plot_color, legend)
 
-    pyplot.savefig('media/cseg_output.png', dpi=53)
+    pyplot.savefig('media/cseg_output.png', dpi=58)
 
 
 def pie(data, plot_title=""):
