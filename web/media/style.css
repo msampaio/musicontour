@@ -1,12 +1,12 @@
-/* ESTRUTURA */
+/* STRUCTURE */
 
-/* isso remove as margens superiores e inferiores */
+/* removes top and bottom margins */
 * {
     margin-top: 0;
     margin-bottom: 0;
     }
 
-/* necessario para o rodape */
+/* important to footer */
 html, body {
              height: 100%;
              }
@@ -14,9 +14,9 @@ html, body {
 .web {
        margin-left: auto;
        margin-right: auto;
-       width: 750px;
+       width: 800px;
 
-       /* configuracoes para ajustar o rodape: */
+       /* adjust the footer: */
        min-height: 100%;
        height: auto !important;
        height: 100%;
@@ -25,59 +25,16 @@ html, body {
        }
 
 .rodape, .push {
-                 /* necessario para o rodape */
-                 /* .push must be the same height as .footer */
-                 height: 20px;
-                 }
+    /* to the footer */
+    /* .push must be the same height as .footer */
+    height: 20px;
+}
 .push {
         padding-bottom: 20px;
  }
 
-.rodape {
-          width: 750px;
-          margin: 0 auto;
 
-          }
-
-.rodapeleft {
-              padding-top: 10px;
-              width: 370px;
-              float: left;
-}
-
-.rodaperight {
-               padding-top: 50px;
-               width: 370px;
-               float: right;
-}
-
-
-.twocolumnleft {
-                 width: 370px;
-                 float:left;
-             }
-
-.twocolumnright {
-               width: 370px;
-               float:right;
-             }
-
-.threecolumnleft {
-                   width: 244px;
-                   float:left;
-                   }
-
-.threecolumnright {
-               width: 244px;
-               float:right;
-             }
-
-.threecolumncenter {
-               width: 244px;
-             }
-
-
-/* PERFUMARIA */
+/* COLORS, ETC */
 
 body {
        background-color: #f0f0f0;
@@ -94,17 +51,6 @@ body {
     height: 60px;
 }
 
-.faixamenu {
-           /* background: url('ximg/barra-menu.png') repeat-x; */
-           width: 750px;
-           float: right;
-           text-align: right;
-           margin-top: 115px;
-           padding-top: 5px;
-           padding-bottom: 5px;
-           padding-right: 5px;
-           }
-
 a {
     color: #263f13;
     }
@@ -112,143 +58,6 @@ a {
 a:hover {
           color: #664d6b;
           }
-
-.itemmenu {
-            list-style: none;
-            text-align: right;
-            padding-right: 5px;
-            /* espacamento entre palavras do menu */
-            word-spacing: 5px;
-            font-size: 12px;
-        }
-
-.itemmenu li {
-           display: inline;
-           }
-
-.menu li a {
-             color: #ffffff;
-             text-decoration: none;
-             font-family: arial;
-             }
-
-.menu li a:hover {
-                   text-decoration: underline;
-                   color: #f3ff87;
-                   display: inline;
-                   }
-
-.menu li a.active {
-                    font-weight: bold;
-                    }
-
-.menu li a.active:hover {
-                         color: #676767;
-                         }
-
-.submenu {
-           display: none;
-           }
-
-.rodape {
-          background: url('../img-svg/09-750.png') repeat-x;
-          height: 20px;
-          }
-
-.rodape a {
-             color: #ffffff;
-             text-decoration: underline;
-             font-family: arial;
-             }
-
-h1 {
-     margin-left: 10px;
-     margin-right: 10px;
-     font-size: 18px;
-     font-weight: 100;
-     line-height: 22px;
-     text-align: left;
-     padding-top: 60px;
-     padding-bottom: 30px;
-     }
-
-h2 {
-     margin-left: 10px;
-     margin-right: 10px;
-     font-size: 15px;
-     font-weight: 100;
-     line-height: 22px;
-     text-align: left;
-     padding-top: 10px;
-     padding-bottom: 10px;
-     }
-
-.section h1 {
-              margin-left: 10px;
-              margin-right: 10px;
-              font-size: 15px;
-              font-weight: 100;
-              line-height: 22px;
-              text-align: left;
-              padding-top: 15px;
-              padding-bottom: 10px;
-              border-bottom: 1px solid #444;
-              }
-
-#biography h1 {
-                margin-top: 20px;
-                border-bottom: none;
-                }
-
-.section p {
-             margin-top: 15px;
-             }
-
-.section h2 {
-              margin-left: 10px;
-              margin-right: 10px;
-              font-size: 15px;
-              font-weight: 100;
-              line-height: 22px;
-              text-align: left;
-              padding-top: 10px;
-              padding-bottom: 10px;
-              }
-
-#master-s ul {
-               list-style-type: square;
-               }
-
-#disciplinas ul {
-               list-style-type: square;
-               }
-
-#cursos-de-curta-duracao ul {
-               list-style-type: square;
-               }
-
-#publications ul {
-               list-style-type: square;
-               }
-
-#master-s .first {
-                   line-height: 22px;
-                   padding-top: 0px;
-                   text-align: justify;
-                   }
-
-
-.rodape p {
-            font-size: 11px;
-            padding-left: 15px;
-            line-height: 15px;
-            color: #ffffff;
-            }
-
-.rodaperight {
-               padding-right: 10px;
-               text-align: right;
-               }
 
 .conteudo {
             margin-left: 10px;
@@ -276,27 +85,6 @@ h2 {
                text-align: justify;
               }
 
-.itemtitulo {
-              font-size: 16px;
-              padding-top: 15px;
-              border-bottom: 1px solid #444;
-        }
-
-.item {
-        font-size: 15px;
-        padding-top: 5px;
-        list-style: none;
-        }
-
-.item li {
-           text-align: justify;
-           }
-
-ul.item {
-          font-size: 12px;
-          line-height: 22px;
- }
-
 table {
         font-size: 13px;
         border-collapse: collapse;
@@ -322,12 +110,3 @@ a img {
                margin-bottom: 50px;
                float: right;
  }
-
-.line {
-        line-height: 22px;
-        font-size: 14px;
-        }
-
-.line-block {
-              padding-top: 15px;
-        }
