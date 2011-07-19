@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Contour(models.Model):
 
     OP_CHOICES = (('all', 'All operations'), ('translation', 'Normal form'),
@@ -11,4 +10,3 @@ class Contour(models.Model):
 
     cps = models.CharField(max_length=20, default='0 2 1 3 4 5')
     operation = models.CharField(max_length=30, choices=OP_CHOICES, default='all')
-

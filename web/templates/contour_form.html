@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<img src='/static/musicontour-logo.png'>
+
+<p>This app calculates and plot musical contour operations.</p>
+
+<p>Insert the contour segment (ex: 0 2 1 3 4 5)</p>
+
+<form id="form-contorno" method="post" action="">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button>Submit</button>
+</form>
+
+{% endblock %}

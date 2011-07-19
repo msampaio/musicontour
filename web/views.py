@@ -1,30 +1,34 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, render
-from web.webcontour.forms import ContourForm
-from web.webcontour.models import Contour
-import contour.contour as cc
-import contour.plot as cp
-import contour.auxiliary as ca
+from visimus.mcontour.forms import ContourForm
+from visimus.mcontour.models import Contour
+import MusiContour.contour.contour as cc
+import MusiContour.contour.plot as cp
+import MusiContour.contour.auxiliary as ca
 
-def home(request):
+
+def main_page(request):
+    return render(request, 'main_page.html', {})
+
+def contour_form(request):
     if request.method == "POST":
         form = ContourForm(request.POST)
         if form.is_valid():
             request.session['contour'] = form.cleaned_data['cps']
             request.session['operation'] = form.cleaned_data['operation']
             if form.cleaned_data['operation'] == 'all':
-                return HttpResponseRedirect('/contour/')
+                return HttpResponseRedirect('/musicontour/show_all/')
             else:
-                return HttpResponseRedirect('/operation/')
+                return HttpResponseRedirect('/musicontour/show_one/')
     else:
         form = ContourForm()
 
     args = {'form': form}
 
-    return render(request, 'home.html', args)
+    return render(request, 'contour_form.html', args)
 
 
-def contour(request):
+def contour_show_all(request):
     cont = request.session['contour']
     cseg = cc.Contour([int(x) for x in cont.strip().split()])
     round_ind = 2
@@ -54,10 +58,10 @@ def contour(request):
             'casv': casv, 'class_index_i': class_index_i,
             'class_index_ii': class_index_ii, 'symmetry_index': symmetry_index}
 
-    return render(request, 'contour.html', args)
+    return render(request, 'contour_show_all.html', args)
 
 
-def operation(request):
+def contour_show_one(request):
     cont = request.session['contour']
     operation = request.session['operation']
     cseg = cc.Contour([int(x) for x in cont.strip().split()])
@@ -65,4 +69,5 @@ def operation(request):
     cp.contour_lines_save_django([cseg, 'k', 'Original'],
                                  [op, 'b', operation])
     args = {'cseg': cseg, 'op_name': operation, 'op': op}
-    return render(request, 'operation.html', args)
+
+    return render(request, 'contour_show_one.html', args)

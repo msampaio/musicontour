@@ -1,5 +1,5 @@
 from django.forms.models import ModelForm
-from web.webcontour.models import Contour
+from visimus.mcontour.models import Contour
 
 
 class ContourForm(ModelForm):

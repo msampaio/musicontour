@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<img src='/static/musicontour-logo.png'>
+
+<p>Contour operation</p>
+
+<table>
+  <tr>
+    <td>Original cseg</td>
+    <td>{{ cseg }}</td>
+  </tr>
+  <tr>
+    <td>{{ op_name }}</td>
+    <td>{{ op }}</td>
+  </tr>
+</table>
+
+<img src='/static/tmp/cseg_output.png'>
+
+<p><a href="/">Back</a></p>
+
+{% endblock %}
