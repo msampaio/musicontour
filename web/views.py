@@ -17,9 +17,9 @@ def contour_form(request):
             request.session['contour'] = form.cleaned_data['cps']
             request.session['operation'] = form.cleaned_data['operation']
             if form.cleaned_data['operation'] == 'all':
-                return HttpResponseRedirect('/musicontour/show_all/')
+                return HttpResponseRedirect('/MusiContour/show_all/')
             else:
-                return HttpResponseRedirect('/musicontour/show_one/')
+                return HttpResponseRedirect('/MusiContour/show_one/')
     else:
         form = ContourForm()
 
