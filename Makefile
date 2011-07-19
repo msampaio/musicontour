@@ -5,6 +5,7 @@ SERVER = genos.mus.br:www/villa-lobos/download/
 SRC_DIR = contour
 TEST_DIR = tests
 GUI_DIR = gui
+WEB_DIR = web
 MAIN_FILE = MusiContour.py
 DIST_FILES = $(MAIN_FILE) $(GUI_DIR) $(SRC_DIR) COPYING README RELEASE
 
@@ -21,6 +22,8 @@ clean: clean-dist
 	rm -f $(TEST_DIR)/*.pyc
 	rm -f $(GUI_DIR)/*~
 	rm -f $(GUI_DIR)/*.pyc
+	rm -f $(WEB_DIR)/*~
+	rm -f $(WEB_DIR)/*.pyc
 
 tests:
 	py.test tests
