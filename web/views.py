@@ -14,7 +14,7 @@ def contour_form(request):
     if request.method == "POST":
         form = ContourForm(request.POST)
         if form.is_valid():
-            request.session['contour'] = form.cleaned_data['cps']
+            request.session['contour'] = form.cleaned_data['contour_points']
             request.session['operation'] = form.cleaned_data['operation']
             if form.cleaned_data['operation'] == 'all':
                 return HttpResponseRedirect('/MusiContour/show_all/')
