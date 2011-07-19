@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, render
-from visimus.mcontour.forms import ContourForm
-from visimus.mcontour.models import Contour
+from forms import ContourForm
+from models import Contour
 import MusiContour.contour.contour as cc
 import MusiContour.contour.plot as cp
 import MusiContour.contour.auxiliary as ca
