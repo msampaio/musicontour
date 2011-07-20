@@ -34,34 +34,20 @@ def validate_cps(str):
 
 class Operation(models.Model):
 
-    OP_CHOICES = (('translation', 'Normal form'),
-                  ('prime_form_sampaio', 'Prime form Sampaio'),
-                  ('prime_form_marvin_laprade', 'Prime form ML'),
-                  ('retrograde', 'Retrograde'),
-                  ('inversion', 'Inversion'))
-
-    CL_CHOICES = (('b', 'Blue'),
-                  ('k', 'Black'),
-                  ('y', 'Yellow'),
-                  ('g', 'Green'),
-                  ('r', 'Red'))
-
-    TP_CHOICES = (('g', 'Graphic'),
-                  ('d', 'Description'),
-                  ('c', 'Comparison'))
-
-    operation = models.CharField(max_length=30, choices=OP_CHOICES)
-    color = models.CharField(max_length=6, choices=CL_CHOICES)
-    op_type = models.CharField(max_length=15, choices=TP_CHOICES)
+    operation = models.CharField(max_length=30)
+    op_name = models.CharField(max_length=30)
+    op_color = models.CharField(max_length=6)
+    op_type = models.CharField(max_length=1)
 
     def __unicode__(self):
-        return self.operation
+        return self.op_name
 
 
 class Contour(models.Model):
 
     contour_points = models.CharField(max_length=20, default='0 2 1 3 4 5',
-                                      validators=[validate_cps])
+                                      validators=[validate_cps],
+                                      help_text='Input cseg contour points.')
     operation = models.ManyToManyField(Operation)
 
     def __unicode__(self):

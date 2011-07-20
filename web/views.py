@@ -35,11 +35,12 @@ def contour_show(request):
     ar = []
     for op_dic in ops_dic:
         operation = op_dic['operation']
-        color = op_dic['color']
+        op_name = op_dic['op_name']
+        op_color = op_dic['op_color']
         op = ca.apply_fn(cseg, operation)
         if op_dic['op_type'] == 'g':
-            graph.append([op, color, operation])
-        ar.append([operation, op])
+            graph.append([op, op_color, operation])
+        ar.append([op_name, op])
 
     cp.contour_lines_save_django(*graph)
 
