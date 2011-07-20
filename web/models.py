@@ -43,3 +43,6 @@ class Contour(models.Model):
     contour_points = models.CharField(max_length=20, default='0 2 1 3 4 5',
                                       validators=[validate_cps])
     operation = models.CharField(max_length=30, choices=OP_CHOICES, default='all')
+
+    def __unicode__(self):
+        return self.contour_points
