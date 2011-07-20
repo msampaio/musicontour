@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, render
-from forms import ContourForm
-from models import Contour
+from forms import ContourForm, OperationForm
+from models import Contour, Operation
 import MusiContour.contour.contour as cc
 import MusiContour.contour.plot as cp
 import MusiContour.contour.auxiliary as ca
@@ -16,10 +16,7 @@ def contour_form(request):
         if form.is_valid():
             request.session['contour'] = form.cleaned_data['contour_points']
             request.session['operation'] = form.cleaned_data['operation']
-            if form.cleaned_data['operation'] == 'all':
-                return HttpResponseRedirect('/MusiContour/show_all/')
-            else:
-                return HttpResponseRedirect('/MusiContour/show_one/')
+            return HttpResponseRedirect('/MusiContour/show/')
     else:
         form = ContourForm()
 
@@ -28,46 +25,24 @@ def contour_form(request):
     return render(request, 'contour_form.html', args)
 
 
-def contour_show_all(request):
+def contour_show(request):
     cont = request.session['contour']
+    ops_dic = request.session['operation'].values()
     cseg = cc.Contour([int(x) for x in cont.strip().split()])
-    round_ind = 2
 
-    prime_s = cseg.prime_form_sampaio()
-    prime_ml = cseg.prime_form_marvin_laprade()
-    retrograde = cseg.retrograde()
-    inversion = cseg.inversion()
-    normal = cseg.translation()
-    int_1 = cseg.internal_diagonals()
-    morris_reduction = cseg.reduction_morris()
-    casv = cseg.adjacency_series_vector()
-    cia = cseg.interval_array()
-    class_index_i = round(cseg.class_index_i(), round_ind)
-    class_index_ii = round(cseg.class_index_ii(), round_ind)
-    symmetry_index = round(cseg.symmetry_index(), round_ind)
+    args = {'cseg': cseg}
+    graph = [[cseg, 'k', 'Original']]
+    ar = []
+    for op_dic in ops_dic:
+        operation = op_dic['operation']
+        color = op_dic['color']
+        op = ca.apply_fn(cseg, operation)
+        if op_dic['op_type'] == 'g':
+            graph.append([op, color, operation])
+        ar.append([operation, op])
 
-    cp.contour_lines_save_django([cseg, 'k', 'Original'],
-                                 [prime_ml, 'r', 'Prime form ML'],
-                                 [prime_s, 'b', 'Prime form S'],
-                                 [retrograde, 'g', 'Retrograde'],
-                                 [inversion, 'y', 'Inversion'])
+    cp.contour_lines_save_django(*graph)
 
-    args = {'cseg': cseg, 'prime_s': prime_s, 'prime_ml': prime_ml,
-            'retrograde': retrograde, 'inversion': inversion,
-            'normal': normal, 'int_1': int_1, 'reduction': morris_reduction,
-            'casv': casv, 'class_index_i': class_index_i,
-            'class_index_ii': class_index_ii, 'symmetry_index': symmetry_index}
+    args = {'cseg': cseg, 'op_dicts': ar}
 
-    return render(request, 'contour_show_all.html', args)
-
-
-def contour_show_one(request):
-    cont = request.session['contour']
-    operation = request.session['operation']
-    cseg = cc.Contour([int(x) for x in cont.strip().split()])
-    op = ca.apply_fn(cseg, operation)
-    cp.contour_lines_save_django([cseg, 'k', 'Original'],
-                                 [op, 'b', operation])
-    args = {'cseg': cseg, 'op_name': operation, 'op': op}
-
-    return render(request, 'contour_show_one.html', args)
+    return render(request, 'contour_show.html', args)

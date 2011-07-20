@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<img src='/static/musicontour-logo.png' alt='MusiContour logo'>
+
+<p>Contour operation</p>
+
+<table>
+  <tr>
+    <td>Original cseg</td>
+    <td>{{ cseg }}</td>
+  </tr>
+  {% for op in op_dicts %}
+  <tr>
+    {% for el in op %}
+    <td>{{ el }}</td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+
+<img src='/static/tmp/cseg_output.png' alt='Operations on contour {{ cseg }}'>
+
+{% endblock %}

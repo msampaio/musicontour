@@ -32,17 +32,37 @@ def validate_cps(str):
     cps_positive(minimum)
 
 
-class Contour(models.Model):
+class Operation(models.Model):
 
-    OP_CHOICES = (('all', 'All operations'), ('translation', 'Normal form'),
+    OP_CHOICES = (('translation', 'Normal form'),
                   ('prime_form_sampaio', 'Prime form Sampaio'),
                   ('prime_form_marvin_laprade', 'Prime form ML'),
                   ('retrograde', 'Retrograde'),
                   ('inversion', 'Inversion'))
 
-    contour_points = models.CharField(max_length=20, default='0 2 1 3 4 5',
-                                      validators=[validate_cps])
-    operation = models.CharField(max_length=30, choices=OP_CHOICES, default='all')
+    CL_CHOICES = (('b', 'Blue'),
+                  ('k', 'Black'),
+                  ('y', 'Yellow'),
+                  ('g', 'Green'),
+                  ('r', 'Red'))
+
+    TP_CHOICES = (('g', 'Graphic'),
+                  ('d', 'Description'),
+                  ('c', 'Comparison'))
+
+    operation = models.CharField(max_length=30, choices=OP_CHOICES)
+    color = models.CharField(max_length=6, choices=CL_CHOICES)
+    op_type = models.CharField(max_length=15, choices=TP_CHOICES)
 
     def __unicode__(self):
-        return self.contour_points
+        return self.operation
+
+
+class Contour(models.Model):
+
+    contour_points = models.CharField(max_length=20, default='0 2 1 3 4 5',
+                                      validators=[validate_cps])
+    operation = models.ManyToManyField(Operation)
+
+    def __unicode__(self):
+        return self.contour_points, self.operation
