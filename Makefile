@@ -1,7 +1,7 @@
 PYTHON_FILES = $(wildcard *.py)
 VERSION = 0.2
 DIR = contour-module-$(VERSION)
-SERVER = genos.mus.br:www/villa-lobos/download/
+SERVER = genosmus.com:www/villa-lobos/download/
 SRC_DIR = contour
 TEST_DIR = tests
 GUI_DIR = gui

@@ -27,4 +27,4 @@ Documentation
 
 `General Index <genindex.html>`_
 
-.. _Genos: http://genos.mus.br
+.. _Genos: http://genosmus.com

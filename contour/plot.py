@@ -12,7 +12,7 @@ import random
 import matplotlib.pyplot as pyplot
 
 name = "MusiContour"
-version = "0.2"
+version = "0.3"
 program_name = "{0} v.{1}".format(name, version)
 
 
@@ -37,8 +37,8 @@ def __contour_lines(cseg, plot_color, custom_legend=""):
     pylab.axis()
 
     title_name = program_name + " --- Contour plotter"
-    pylab.xlabel('c-pitch position')
-    pylab.ylabel('c-pitch')
+    pylab.xlabel('c-point position')
+    pylab.ylabel('c-point value')
     pylab.xticks(cseg_xticks)
     pylab.yticks(cseg_yticks)
     p = pylab.plot(cseg, linewidth=2, marker='o', color=plot_color,
