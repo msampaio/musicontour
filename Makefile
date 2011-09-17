@@ -50,4 +50,4 @@ push: dist
 	rsync -a --progress contour-module-$(VERSION).zip contour-module-$(VERSION).tar.gz $(SERVER)
 
 upload:
-	python setup.py register sdist bdist upload
+	python setup.py register sdist upload
