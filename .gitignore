@@ -2,6 +2,9 @@
 *.tar.gz
 *.zip
 *~
+/MANIFEST
+/build
+/dist
 /web/data.db
 /web/media/cseg_output.png
 contour-module-*
