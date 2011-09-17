@@ -8,7 +8,7 @@ on musical contour relations has the support of `Francis Strappa
 <http://genosmus.com/pessoas/francis-strappa/>`_.
 
 MusiContour is the third name of the software that began as `Goiaba
-<github.com/mdsmus/goiaba>`_, than became the `Villa-Lobos
+<github.com/msampaio/goiaba>`_, than became the `Villa-Lobos
 <github.com/kroger/villa-lobos>`_ contour module, and now is again
 independent, as MusiContour.
 

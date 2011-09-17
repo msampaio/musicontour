@@ -14,20 +14,20 @@ Directly from repository
 Be sure that `Git <http://git-scm.com/>`_ is installed and clone the
 repo::
 
-   git clone https://mdsmus@github.com/mdsmus/MusiContour.git
+   git clone https://msampaio@github.com/msampaio/MusiContour.git
 
 From a tarball
 ~~~~~~~~~~~~~~
 
 Download tarball in
-https://github.com/mdsmus/MusiContour/tarball/master and unpack
+https://github.com/msampaio/MusiContour/tarball/master and unpack
 it. For example::
 
-    tar xf mdsmus-MusiContour-0.2-60-gbaba48c.tar.gz
+    tar xf msampaio-MusiContour-0.2-60-gbaba48c.tar.gz
 
 Rename directory to MusiContour::
 
-       mv mdsmus-MusiContour-0.2-60-gbaba48c MusiContour
+       mv msampaio-MusiContour-0.2-60-gbaba48c MusiContour
 
 
 Installing dependencies

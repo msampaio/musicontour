@@ -13,7 +13,7 @@ User releases
 ~~~~~~~~~~~~~
 
 MusiContour can be downloaded as tarballs or zipfiles at
-http://github.com/mdsmus/MusiContour/archives/master
+http://github.com/msampaio/MusiContour/archives/master
 
 Linux users
 ```````````
@@ -50,11 +50,11 @@ Source code
 ~~~~~~~~~~~
 
 The source code is available in
-http://github.com/mdsmus/MusiContour. It's possible to download a
-package in http://github.com/mdsmus/MusiContour/archives/master, or
+http://github.com/msampaio/MusiContour. It's possible to download a
+package in http://github.com/msampaio/MusiContour/archives/master, or
 to clone the repository::
 
- git clone git://github.com/mdsmus/contour-module.git
+ git clone git://github.com/msampaio/contour-module.git
 
 It's necessary to install these dependencies::
 
