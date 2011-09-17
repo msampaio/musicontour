@@ -1,6 +1,6 @@
 MusiContour: musical contour relations calculator
 
-by Marcos di Silva and Pedro Kröger (Genos Research Group [1])
+by Marcos da Silva Sampaio and Pedro Kröger (Genos Research Group [1])
 
 This is a software to calculate and plot musical contour relations
 operations. MusiContour can process contour related to parameters such
@@ -8,13 +8,13 @@ as pitch, duration, dynamics and chord density. This software provides
 Contour Theories functions [2].
 
 MusiContour had two names before its current one: Goiaba (2007), a
-software developed to process musical contours, during Marcos di Silva
-master's degree [3], and Villa-Lobos Contour module, a module of
-Villa-Lobos [4], and is now independent.
+software developed to process musical contours, during Marcos da Silva
+Sampaio master's degree [3], and Villa-Lobos Contour module, a module
+of Villa-Lobos [4], and is now independent.
 
-MusiContour is part of Marcos di Silva PhD project about musical
-contour relations. More information about these project is available
-in its wiki [5] and tasks manager [6], both in portuguese.
+MusiContour is part of Marcos da Silva Sampaio PhD project about
+musical contour relations. More information about these project is
+available in its wiki [5] and tasks manager [6], both in portuguese.
 
 Footnotes:
 [1] http://genosmus.com
