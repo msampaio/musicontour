@@ -5,7 +5,7 @@ from distutils.core import setup
 
 setup(
     name='MusiContour',
-    version='development',
+    version='0.3.1',
     author='Marcos da Silva Sampaio',
     author_email='marcos@sampaio.me',
     packages=['contour'],
@@ -15,7 +15,6 @@ setup(
     long_description=open('README').read(),
     platforms='Linux',
     install_requires=[
-        "python >= 2.7.1",
         "matplotlib >= 1.0.1",
         "music21 >= 0.3.7.a11"
     ],
