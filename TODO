@@ -1,6 +1,8 @@
 # -*- org -*-
 
 * main
+** improve visimus interface
+** removes plot module and gui package
 ** review comparison functions
    - all_contour_mutually_embed x prime/normal forms
 ** improve music21 connection
