@@ -6,9 +6,6 @@
 MusiContour
 ===========
 
-.. image:: figs/04231.png
-   :align: right
-
 MusiContour is a musical contour relations calculator, that plots and
 calculates mathematical operations on musical contours. MusiContour
 has a few `Contour Theories <contour-theories.html>`_ functions
@@ -16,7 +13,10 @@ implemented, like prime form, comparison matrix and internal
 diagonals.
 
 MusiContour is designed for Linux, but also runs in Windows. It's
-developed in Python.
+developed in Python. Next versions will be part of `Visimus
+<http://visimus.com>`_ Music Visualization toolkit.
+
+.. image:: figs/04231.png
 
 Documentation
 -------------
@@ -28,3 +28,5 @@ Documentation
 `General Index <genindex.html>`_
 
 .. _Genos: http://genos.mus.br
+
+.. _Visimus: http://visimus.com
