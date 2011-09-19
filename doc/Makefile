@@ -95,7 +95,7 @@ doctest:
 	      "results in _build/doctest/output.txt."
 
 sync:
-	rsync -a --progress --delete _build/html/ genos.mus.br:www/MusiContour/
+	rsync -a --progress --delete _build/html/ genosmus.com:www/MusiContour/
 
 %.png: %.ly
 	lilypond --png -o  $(basename $@) $<

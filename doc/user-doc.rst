@@ -11,4 +11,4 @@ User documentation
    cheat-sheet.rst
 
 The documentation is also available in PDF format, at
-http://genos.mus.br/MusiContour/pdf
+http://genosmus.com/MusiContour/pdf
