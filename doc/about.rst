@@ -1,7 +1,7 @@
 About
 =====
 
-MusiContour is developed by `Marcos di Silva
+MusiContour is developed by `Marcos da Silva Sampaio
 <http://marcosdisilva.net>`_ and `Pedro Kröger
 <http://pedrokroger.net/>`_ from `Genos Research Group`_. The research
 on musical contour relations has the support of `Francis Strappa
