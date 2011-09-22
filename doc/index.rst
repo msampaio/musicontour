@@ -18,6 +18,10 @@ developed in Python. Next versions will be part of `Visimus
 
 .. image:: figs/04231.png
 
+.. raw:: html
+
+    <iframe width="560" height="315" src="http://www.youtube.com/embed/uKman-qrFkc" frameborder="0" allowfullscreen></iframe>
+
 Documentation
 -------------
 
