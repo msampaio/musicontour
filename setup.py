@@ -15,8 +15,10 @@ setup(
     long_description=open('README').read(),
     platforms='Linux',
     install_requires=[
-        "matplotlib >= 1.0.1",
-        "music21 >= 0.3.7.a11"
+        "PIL",
+        "numpy",
+        "matplotlib",
+        "music21"
     ],
     classifiers=[
         'Development Status :: 4 - Beta',
