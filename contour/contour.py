@@ -711,21 +711,14 @@ class Contour(list):
         """Returns Morris (1987) a cseg COM-Matrix.
 
         >>> Contour([0, 1, 3, 2]).comparison_matrix()
-          | 0 1 3 2
-        -----------
-        0 | 0 + + +
-        1 | - 0 + +
-        3 | - - 0 -
-        2 | - - + 0
+        0 + + +
+        - 0 + +
+        - - 0 -
+        - - + 0
         """
 
-        size = len(self)
-        r_size = range(size)
-        m = [[a, b] for a in self for b in self]
-        n = [m[(i * size):((i + 1) * size)] for i in range(size)]
-        line = [self]
-        [line.append([auxiliary.comparison(x) for x in n[r]]) for r in r_size]
-        return matrix.ComparisonMatrix(line)
+        return matrix.ComparisonMatrix([[auxiliary.comparison([a, b]) for b in self] for a in self])
+
 
     def adjacency_series_vector(self):
         """Returns Friedmann (1985) CASV, a two digit summation of ups
