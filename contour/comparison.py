@@ -20,14 +20,7 @@ def single_cseg_similarity(cseg1, cseg2):
     cseg1_triangle = utils.flatten(cseg1.comparison_matrix().superior_triangle())
     cseg2_triangle = utils.flatten(cseg2.comparison_matrix().superior_triangle())
 
-    size = len(cseg1_triangle)
-
-    value = 0
-
-    for pos in range(size):
-        if cseg1_triangle[pos] == cseg2_triangle[pos]:
-            value += 1
-    return value / float(size)
+    return auxiliary.position_comparison(cseg1_triangle, cseg2_triangle)
 
 
 def cseg_similarity(cseg1, cseg2):
