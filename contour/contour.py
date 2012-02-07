@@ -6,7 +6,7 @@ import utils
 import auxiliary
 import diagonal
 import matrix
-
+import fuzzy
 
 class ContourError(Exception):
     pass
@@ -719,6 +719,29 @@ class Contour(list):
 
         return matrix.ComparisonMatrix([[auxiliary.comparison([a, b]) for b in self] for a in self])
 
+    def fuzzy_membership_matrix(self):
+        """Returns a Fuzzy membership matrix. Quinn (1997).
+
+        >>> Contour([0, 1, 3, 2]).fuzzy_membership_matrix()
+        0 1 1 1
+        0 0 1 1
+        0 0 0 0
+        0 0 1 0
+        """
+
+        return fuzzy.FuzzyMatrix([[fuzzy.membership([a, b]) for b in self] for a in self])
+
+    def fuzzy_comparison_matrix(self):
+        """Returns a Fuzzy comparison matrix. Quinn (1997).
+
+        >>> Contour([0, 1, 3, 2]).fuzzy_comparison_matrix()
+        0 1 1 1
+        -1 0 1 1
+        -1 -1 0 -1
+        -1 -1 1 0
+        """
+
+        return fuzzy.FuzzyMatrix([[fuzzy.comparison([a, b]) for b in self] for a in self])
 
     def adjacency_series_vector(self):
         """Returns Friedmann (1985) CASV, a two digit summation of ups

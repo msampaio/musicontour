@@ -3,7 +3,7 @@
 
 import contour
 
-def fuzzy_membership(els):
+def membership(els):
     """Returns Fuzzy membership value. 1 if (cps1, cps2) is element of
     ascent contours, 0, if not.
 
@@ -17,7 +17,7 @@ def fuzzy_membership(els):
         return 0
 
 
-def fuzzy_comparison(els):
+def comparison(els):
     """Returns fuzzy comparison.
 
     >>> fuzzy_comparison(3, 1)
@@ -26,36 +26,29 @@ def fuzzy_comparison(els):
 
     retrograde_els = els[:]
     retrograde_els.reverse()
-    return fuzzy_membership(els) - fuzzy_membership(retrograde_els)
+    return membership(els) - membership(retrograde_els)
 
 
-def fuzzy_membership_matrix(cseg):
-    """Returns fuzzy membership matrix.
+class FuzzyMatrix(list):
+    """Returns an objcect comparison matrix.
+    Input is a list of lists, each of them representing a line in
+    matrix:
 
-    >>> fuzzy_membership_matrix(Contour([0, 2, 1]))
-    [[0, 1, 1], [0, 0, 0], [0, 1, 0]]
+    >>> FuzzyMatrix([[0, 1, 1], [-1, 0, -1], [-1, 1, 0]])
     """
 
-    size = len(cseg)
-    r_size = range(size)
-    m = [[a, b] for a in cseg for b in cseg]
-    n = [m[(i * size):((i + 1) * size)] for i in range(size)]
-    line = []
-    [line.append([fuzzy_membership(x) for x in n[r]]) for r in r_size]
-    return line
+    def diagonal(self, n=1):
 
+        if n < len(self):
+            diagonal_size = len(self) - n
+            return [self[x][x + n] for x in range(diagonal_size)]
 
-def fuzzy_comparison_matrix(cseg):
-    """Returns fuzzy comparison matrix.
+    def superior_triangle(self, n=1):
 
-    >>> fuzzy_membership_matrix(Contour([0, 2, 1]))
-    [[0, 1, 1], [0, 0, 0], [0, 1, 0]]
-    """
+        if n < len(self):
+            return [line[i + n:] for i, line in enumerate(self) if line][:-n]
 
-    size = len(cseg)
-    r_size = range(size)
-    m = [[a, b] for a in cseg for b in cseg]
-    n = [m[(i * size):((i + 1) * size)] for i in range(size)]
-    line = []
-    [line.append([fuzzy_comparison(x) for x in n[r]]) for r in r_size]
-    return line
+    def __repr__(self):
+
+        return "\n".join([" ".join([str(row) for row in line]) for line in self])
+
