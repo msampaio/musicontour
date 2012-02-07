@@ -45,7 +45,8 @@ class ComparisonMatrix(list):
             return contour.diagonal.InternalDiagonal(r)
 
     def __repr__(self):
-
+        ## FIXME: To decide if represent 0, + and -, or complete
+        ## matrix, with first row and line with cseg.
         cseg = self[0]
         hline = "{0}".format("-" * ((len(cseg) * 2) + 3))
         cseg_str = utils.list_to_string(cseg)
