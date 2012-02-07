@@ -30,5 +30,4 @@ class ComparisonMatrix(list):
 
     def __repr__(self):
 
-        com_matrix_str = [str(utils.replace_list_to_plus_minus(line)) for i, line in enumerate(self)]
-        return "".join([x + "\n" for x in com_matrix_str])
+        return "\n".join([[str(utils.replace_list_to_plus_minus(line))] for line in self])
