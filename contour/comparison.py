@@ -7,40 +7,27 @@ import utils
 import auxiliary
 
 
-def __intern_diagon_sim(cseg1, cseg2, n):
-    """Returns the number of positions where cseg1 and cseg2 have the
-    same value in a n-internal diagonal."""
-
-    c1, c2 = contour.Contour(cseg1), contour.Contour(cseg2)
-    d1, d2 = c1.internal_diagonals(n), c2.internal_diagonals(n)
-    length = len(d1)
-    return sum([(1 if d1[i] == d2[i] else 0) for i in range(length)])
-
-
 def single_cseg_similarity(cseg1, cseg2):
     """Returns Marvin and Laprade (1987) CSIM(A, B) for a single
     cseg. It's a contour similarity function that measures similarity
     between two csegs of the same cardinality. The maximum similarity
     is 1, and minimum is 0.
 
-    'd' means the number of internal diagonals.
-
-    'triang_pos' is the number of positions in triangle above the zero
-    diagonal.
-
-    'similar pos' is the number of positions where cseg1 and cseg2
-    have the same value. This variable is calculated with the private
-    method __intern_diagon_sim().
-
     >>> single_cseg_similarity(Contour([0, 2, 3, 1]), Contour([3, 1, 0, 2]))
     0
     """
 
-    d = range(len(cseg1))
-    d.remove(0)
-    triangle_pos = sum(d)
-    similar_pos = sum([__intern_diagon_sim(cseg1, cseg2, n) for n in d])
-    return similar_pos / float(triangle_pos)
+    cseg1_triangle = utils.flatten(cseg1.comparison_matrix().superior_triangle())
+    cseg2_triangle = utils.flatten(cseg2.comparison_matrix().superior_triangle())
+
+    size = len(cseg1_triangle)
+
+    value = 0
+
+    for pos in range(size):
+        if cseg1_triangle[pos] == cseg2_triangle[pos]:
+            value += 1
+    return value / float(size)
 
 
 def cseg_similarity(cseg1, cseg2):
