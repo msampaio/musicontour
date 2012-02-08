@@ -411,24 +411,11 @@ class Contour(list):
         Returns all possible prime forms of a cseg with repeated
         elements."""
 
-        size = len(self)
-        d_list = []
-        range_size = range(1, size)
+        triangle = self.comparison_matrix().superior_triangle()
 
-        # generates a vector with all internal diagonals of self
-        [d_list.append(self.internal_diagonals(d)) for d in range_size]
+        tri_lists = utils.zero_to_plus_minus(triangle)
+        return sorted([matrix.matrix_from_triangle(tri).cseg() for tri in tri_lists])
 
-        # generates a vector with all possible zero substitutions
-        lists = utils.zero_to_plus_minus(d_list)
-
-        result = []
-
-        for lst in lists:
-            lst = [diagonal.InternalDiagonal(x) for x in lst]
-            # appends all possible csegs from each diagonal
-            result.append(diagonal.csegs_from_diagonals(lst))
-
-        return sorted([x for x in result if x])
 
     def prime_form_sampaio(self):
         """Runs Sampaio prime form algorithm.
