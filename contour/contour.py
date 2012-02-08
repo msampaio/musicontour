@@ -359,6 +359,7 @@ class Contour(list):
 
         return step3
 
+    ## FIXME: Use superior triangle instead of diagonals
     def __one_repeated_prime_form_marvin_laprade(self, signal):
         """Returns one of prime forms of a repeated cpitch cseg
         (Marvin and Laprade, 1987)."""
