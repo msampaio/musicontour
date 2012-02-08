@@ -2,6 +2,10 @@
 
 from contour.matrix import ComparisonMatrix
 
+def test_Com_matrix_cseg():
+    cm = ComparisonMatrix([[0, 1, 1, 1], [-1, 0, -1, 1], [-1, 1, 0, 1], [-1, -1, -1, 0]])
+    assert cm.cseg() == [0, 2, 1, 3]
+
 def test_Com_matrix_diagonal():
     cm = ComparisonMatrix([[0, 1, 1, 1], [-1, 0, -1, 1], [-1, 1, 0, 1], [-1, -1, -1, 0]])
     assert cm.diagonal() == [1, -1, 1]
