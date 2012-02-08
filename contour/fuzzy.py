@@ -76,6 +76,33 @@ class FuzzyMatrix(list):
 
         return [[el for r, el in enumerate(line) if l != r] for l, line in enumerate(self)]
 
+    def comparison(self):
+        """Returns a comparison matrix from an average matrix.
+
+        >>> FuzzyMatrix([[0.0, 0.0, 0.0, 0.0, 0.0],
+                         [1.0, 0.0, 1.0, 1.0, 0.66666666666666663],
+                         [1.0, 0.0, 0.0, 1.0, 0.33333333333333331],
+                         [1.0, 0.0, 0.0, 0.0, 0.0],
+                         [1.0, 0.33333333333333331, 0.33333333333333331, 1.0, 0.0]]).comparison()
+        [[0.0, -1.0, -1.0, -1.0, -1.0],
+        [1.0, 0.0, 1.0, 1.0, 0.3333333333333333],
+        [1.0, -1.0, 0.0, 1.0, 0.0],
+        [1.0, -1.0, -1.0, 0.0, -1.0],
+        [1.0, -0.3333333333333333, 0.0, 1.0, 0.0]]
+        """
+
+        def __comparison(matrix, a, b):
+            return matrix.item((x, y)) - matrix.item((y, x))
+
+        def __product(rsize, n):
+            return itertools.product(range(n, n + 1), rsize)
+
+        size = len(self)
+        rsize = range(size)
+        matrix = numpy.matrix(self)
+
+        return [[__comparison(matrix, x, y)  for x, y in __product(rsize, n)] for n in rsize]
+
     def __repr__(self):
 
         return "\n".join([" ".join([str(row) for row in line]) for line in self])
@@ -110,40 +137,12 @@ def average_matrix(*csegs):
     return [list(sum(a) / float(len(matrices))) for a in zip(*matrices)]
 
 
-def average_comparison(average_matrix):
-    """Returns a comparison matrix from an average matrix.
-
-    >>> average_comparison([[0.0, 0.0, 0.0, 0.0, 0.0],
-                            [1.0, 0.0, 1.0, 1.0, 0.66666666666666663],
-                            [1.0, 0.0, 0.0, 1.0, 0.33333333333333331],
-                            [1.0, 0.0, 0.0, 0.0, 0.0],
-                            [1.0, 0.33333333333333331, 0.33333333333333331, 1.0, 0.0]])
-    [[0.0, -1.0, -1.0, -1.0, -1.0],
-    [1.0, 0.0, 1.0, 1.0, 0.3333333333333333],
-    [1.0, -1.0, 0.0, 1.0, 0.0],
-    [1.0, -1.0, -1.0, 0.0, -1.0],
-    [1.0, -0.3333333333333333, 0.0, 1.0, 0.0]]
-    """
-
-    def __comparison(matrix, a, b):
-        return matrix.item((x, y)) - matrix.item((y, x))
-
-    def __product(rsize, n):
-        return itertools.product(range(n, n + 1), rsize)
-
-    size = len(average_matrix)
-    rsize = range(size)
-    matrix = numpy.matrix(average_matrix)
-
-    return [[__comparison(matrix, x, y)  for x, y in __product(rsize, n)] for n in rsize]
-
-
-def average_comparison_from_csegs(*csegs):
+def comparison_matrix_from_csegs(*csegs):
     """Returns a comparison matrix from a list of contours.
 
-    >>> average_comparison_from_csegs(Contour([3, 0, 1, 2, 1]),
-                                      Contour([4, 0, 1, 3, 2]),
-                                      Contour([4, 1, 2, 3, 0]))
+    >>> comparison_matrix_from_csegs(Contour([3, 0, 1, 2, 1]),
+                                     Contour([4, 0, 1, 3, 2]),
+                                     Contour([4, 1, 2, 3, 0]))
     [[0.0, -1.0, -1.0, -1.0, -1.0],
     [1.0, 0.0, 1.0, 1.0, 0.3333333333333333],
     [1.0, -1.0, 0.0, 1.0, 0.0],
@@ -151,4 +150,4 @@ def average_comparison_from_csegs(*csegs):
     [1.0, -0.3333333333333333, 0.0, 1.0, 0.0]]
     """
 
-    return average_comparison(average_matrix(*csegs))
+    return FuzzyMatrix(average_matrix(*csegs)).comparison()
