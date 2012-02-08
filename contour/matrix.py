@@ -67,3 +67,27 @@ class ComparisonMatrix(list):
     def __repr__(self):
 
         return "\n".join([str(utils.replace_list_to_plus_minus(line)) for line in self])
+
+
+def matrix_from_triangle(triangle):
+    """Returns a complete comparison matrix from a given superior
+    triangle.
+
+    >>> matrix_from_triangle([[1, 1, 1, 1], [1, 1, 1], [-1, -1], [1]])
+    0 + + + +
+    - 0 + + +
+    - - 0 - -
+    - - + 0 +
+    - - + - 0
+    """
+
+    matrix = []
+    for n in range(0, len(triangle) + 1):
+        line = []
+        for x in range(n):
+            line.append(triangle[x][n - x - 1] * -1)
+        line.append(0)
+        if n < len(triangle):
+            line.extend(triangle[n])
+        matrix.append(line)
+    return ComparisonMatrix(matrix)
