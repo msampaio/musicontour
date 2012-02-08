@@ -24,7 +24,7 @@ class ComparisonMatrix(list):
         < 0 2 1 >
         """
 
-        return contour.Contour([(len(self) - 1 - sum(row)) // 2 for row in self])
+        return contour.Contour([(len(self) - 1 - sum(row)) // 2 for row in self]).translation()
 
     def diagonal(self, n=1):
         """Returns a diagonal from Matrix. In main diagonal, n = 0.
