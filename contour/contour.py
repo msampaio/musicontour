@@ -415,8 +415,7 @@ class Contour(list):
         triangle = self.comparison_matrix().superior_triangle()
 
         tri_lists = utils.zero_to_plus_minus(triangle)
-        return sorted([matrix.matrix_from_triangle(tri).cseg() for tri in tri_lists])
-
+        return sorted([matrix.matrix_from_triangle(tri).cseg().prime_form_sampaio() for tri in tri_lists])
 
     def prime_form_sampaio(self):
         """Runs Sampaio prime form algorithm.
