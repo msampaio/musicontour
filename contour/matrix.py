@@ -30,4 +30,4 @@ class ComparisonMatrix(list):
 
     def __repr__(self):
 
-        return "\n".join([[str(utils.replace_list_to_plus_minus(line))] for line in self])
+        return "\n".join([str(utils.replace_list_to_plus_minus(line)) for line in self])
