@@ -4,6 +4,8 @@
 import contour
 import utils
 import auxiliary
+import numpy
+
 
 def membership(els):
     """Returns Fuzzy membership value. 1 if (cps1, cps2) is element of
@@ -89,3 +91,21 @@ def membership_similarity(cseg1, cseg2):
     fuzzy2 = utils.flatten(cseg2.fuzzy_membership_matrix().except_zero_diagonal())
 
     return auxiliary.position_comparison(fuzzy1, fuzzy2)
+
+
+def average_matrix(*csegs):
+    """Returns the matrix of an average contour from a list of
+    contours.
+
+    >>> average_matrix(Contour([3, 0, 1, 2, 1]), Contour([4, 0, 1, 3, 2]), Contour([4, 1, 2, 3, 0]))
+    [[0.0, 0.0, 0.0, 0.0, 0.0],
+    [1.0, 0.0, 1.0, 1.0, 0.66666666666666663],
+    [1.0, 0.0, 0.0, 1.0, 0.33333333333333331],
+    [1.0, 0.0, 0.0, 0.0, 0.0],
+    [1.0, 0.33333333333333331, 0.33333333333333331, 1.0, 0.0]]
+    """
+
+    matrices = [numpy.array(cseg.fuzzy_membership_matrix()) for cseg in csegs]
+    return [list(sum(a) / float(len(matrices))) for a in zip(*matrices)]
+
+
