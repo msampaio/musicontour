@@ -17,6 +17,9 @@ class ComparisonMatrix(list):
     - + 0
     """
 
+    def cseg(self):
+        return contour.Contour([(len(self) - 1 - sum(row)) // 2 for row in self])
+
     def diagonal(self, n=1):
 
         if n < len(self):
