@@ -18,15 +18,32 @@ class ComparisonMatrix(list):
     """
 
     def cseg(self):
+        """Returns a cseg from Matrix.
+
+        >>> ComparisonMatrix([[0, 1, 1], [-1, 0, -1], [-1, 1, 0]]).cseg()
+        < 0 2 1 >
+        """
+
         return contour.Contour([(len(self) - 1 - sum(row)) // 2 for row in self])
 
     def diagonal(self, n=1):
+        """Returns a diagonal from Matrix. In main diagonal, n = 0.
+
+        >>> ComparisonMatrix([[0, 1, 1], [-1, 0, -1], [-1, 1, 0]]).diagonal()
+        < + - >
+        """
 
         if n < len(self):
             diagonal_size = len(self) - n
-            return [self[x][x + n] for x in range(diagonal_size)]
+            return diagonal.InternalDiagonal([self[x][x + n] for x in range(diagonal_size)])
 
     def superior_triangle(self, n=1):
+        """Returns the right superior triangle from a matrix. The main
+        diagonal is excluded.
+
+        >>> ComparisonMatrix([[0, 1, 1], [-1, 0, -1], [-1, 1, 0]]).superior_triangle()
+        [[1, 1], [-1]]
+        """
 
         if n < len(self):
             return [line[i + n:] for i, line in enumerate(self) if line][:-n]
