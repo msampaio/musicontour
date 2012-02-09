@@ -152,3 +152,48 @@ def comparison_matrix_from_csegs(*csegs):
     """
 
     return FuzzyMatrix(average_matrix(*csegs)).comparison()
+
+
+def entry_numbers(cseg):
+    """Returns the entries to be compared in a fuzzy comparison
+    matrix. Quinn 1997, equation 6.2.
+
+    >>> entry_numbers(Contour([2, 0, 3, 1, 4]))
+    20
+    """
+    size = len(cseg)
+    return (size ** 2) - size
+
+
+def similarity_increment(el_1, el_2, entries_number):
+    """Returns increment for fuzzy retrofitting similarity comparison
+    function. Quinn 1997, equation 6.4.
+
+    el_1 = fuzzy comparison matrix entry for cseg 1
+    el_2 = fuzzy comparison matrix entry for cseg 2
+
+    >>> similarity_increment(0.8, 0.9, 2)
+    0.45
+    """
+
+    return (1 - abs(el_2 - el_1)) / float(entries_number)
+
+
+def similarity(cseg1, cseg2):
+    """Returns fuzzy ascent membership similarity between two csegs.
+    Quinn 1997, figure 11.
+
+    >>> similarity(Contour([4, 1, 2, 3, 0]), Contour([4, 0, 1, 3, 2]))
+    0.8
+    """
+
+    n = entry_numbers(cseg1)
+
+    ## fuzzy comparison matrix for csegs without zero main diagonal
+    m1 = cseg1.fuzzy_membership_matrix().except_zero_diagonal()
+    m2 = cseg2.fuzzy_membership_matrix().except_zero_diagonal()
+
+    ## cseg1 and cseg2 matrix entries pairs for each position
+    pairs = utils.flatten([zip(x, y) for x, y in zip(m1, m2)])
+
+    return sum([(1 / float(n)) for pair in pairs if pair[0] == pair[1]])
