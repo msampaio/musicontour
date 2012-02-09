@@ -220,6 +220,32 @@ def matrix_similarity_crisp(matrix1, matrix2):
     return sum([(1 / float(n)) for pair in pairs if pair[0] == pair[1]])
 
 
+def matrix_similarity_fuzzy(matrix1, matrix2):
+    """Returns fuzzy ascent membership similarity between two ascend
+    matrices. Quinn 1997, based on figure 11.
+
+    >>> matrix_similarity_fuzzy([[0, 0.8], [0, 0]], [[0, 0.9], [0, 0]])
+    0.95
+    """
+
+    size = len(matrix1[0])
+    rsize = range(size)
+
+    # number of compared entries
+    j = entry_numbers(size)
+
+    ## fuzzy comparison matrix without zero main diagonal
+    m1 = numpy.matrix(matrix1)
+    m2 = numpy.matrix(matrix2)
+
+    def __increment(m1, m2, j, x, y):
+        return (1 - abs(m1.item(x, y) - m2.item(x, y))) / float(j)
+
+    matrix_model = [(x, y) for x, y in itertools.product(rsize, rsize) if x != y]
+
+    return sum([__increment(m1, m2, j, x, y) for x, y in matrix_model])
+
+
 def similarity_crisp(cseg1, cseg2):
     """Returns crisp ascent membership similarity between two csegs.
     Quinn 1997, figure 11.
@@ -231,3 +257,16 @@ def similarity_crisp(cseg1, cseg2):
     m1 = cseg1.fuzzy_membership_matrix()
     m2 = cseg2.fuzzy_membership_matrix()
     return matrix_similarity_crisp(m1, m2)
+
+
+def similarity_fuzzy(cseg1, cseg2):
+    """Returns fuzzy ascent membership similarity between two csegs.
+    Quinn 1997, figure 11.
+
+    >>> similarity_fuzzy(Contour([4, 1, 2, 3, 0]), Contour([4, 0, 1, 3, 2]))
+    0.8
+    """
+
+    m1 = cseg1.fuzzy_membership_matrix()
+    m2 = cseg2.fuzzy_membership_matrix()
+    return matrix_similarity_fuzzy(m1, m2)
