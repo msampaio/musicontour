@@ -125,7 +125,7 @@ def test__similarity_increment():
     assert fuzzy.similarity_increment(0.8, 0.9, 2) == 0.45
 
 
-def test__matrix_similarity():
+def test__matrix_similarity_crisp():
     m1 = fuzzy.FuzzyMatrix([[0, 0, 0, 0, 0],
                             [1, 0, 1, 1, 0],
                             [1, 0, 0, 1, 0],
@@ -136,10 +136,10 @@ def test__matrix_similarity():
                             [1, 0, 0, 1, 1],
                             [1, 0, 0, 0, 0],
                             [1, 0, 0, 1, 0]])
-    assert fuzzy.matrix_similarity(m1, m2) == 0.8000000000000002
+    assert fuzzy.matrix_similarity_crisp(m1, m2) == 0.8000000000000002
 
 
-def test__similarity():
+def test__similarity_crisp():
     c1 = Contour([4, 1, 2, 3, 0])
     c2 = Contour([4, 0, 1, 3, 2])
-    assert fuzzy.similarity(c1, c2) == 0.8000000000000002
+    assert fuzzy.similarity_crisp(c1, c2) == 0.8000000000000002

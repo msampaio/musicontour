@@ -36,7 +36,7 @@ def comparison(els):
 
 
 class FuzzyMatrix(list):
-    """Returns an objcect comparison matrix.
+    """Returns an object fuzzy matrix.
     Input is a list of lists, each of them representing a line in
     matrix:
 
@@ -190,8 +190,8 @@ def similarity_increment(el_1, el_2, entries_number):
     return (1 - abs(el_2 - el_1)) / float(entries_number)
 
 
-def matrix_similarity(matrix1, matrix2):
-    """Returns fuzzy ascent membership similarity between two ascend
+def matrix_similarity_crisp(matrix1, matrix2):
+    """Returns crisp ascent membership similarity between two ascend
     matrices. Quinn 1997, based on figure 11.
 
     >>> m1 = fuzzy.FuzzyMatrix([[0, 0, 0, 0, 0],
@@ -204,7 +204,7 @@ def matrix_similarity(matrix1, matrix2):
                                 [1, 0, 0, 1, 1],
                                 [1, 0, 0, 0, 0],
                                 [1, 0, 0, 1, 0]])
-        matrix_similarity(m1, m2)
+        matrix_similarity_crisp(m1, m2)
     0.8
     """
 
@@ -220,12 +220,14 @@ def matrix_similarity(matrix1, matrix2):
     return sum([(1 / float(n)) for pair in pairs if pair[0] == pair[1]])
 
 
-def similarity(cseg1, cseg2):
-    """Returns fuzzy ascent membership similarity between two csegs.
+def similarity_crisp(cseg1, cseg2):
+    """Returns crisp ascent membership similarity between two csegs.
     Quinn 1997, figure 11.
 
-    >>> similarity(Contour([4, 1, 2, 3, 0]), Contour([4, 0, 1, 3, 2]))
+    >>> similarity_crisp(Contour([4, 1, 2, 3, 0]), Contour([4, 0, 1, 3, 2]))
     0.8
     """
 
-    return matrix_similarity(cseg1.fuzzy_membership_matrix(), cseg2.fuzzy_membership_matrix())
+    m1 = cseg1.fuzzy_membership_matrix()
+    m2 = cseg2.fuzzy_membership_matrix()
+    return matrix_similarity_crisp(m1, m2)
