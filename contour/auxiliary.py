@@ -169,3 +169,18 @@ def cseg_from_class_number(card, class_number, prime_algorithm="prime_form_sampa
         cc, cn, cs, ri = classes
         if card == cc and class_number == cn:
             return contour.Contour(cs)
+
+def position_comparison(list_1, list_2):
+    """Returns a similarity index based on the number of equal
+    elements in same positions in two lists.
+
+    >>> position_comparison([0, 1, 2, 3], [0, 1, 3, 2])
+    0.5
+    """
+
+    value = 0
+    size = len(list_1)
+    for pos in range(size):
+        if list_1[pos] == list_2[pos]:
+            value += 1
+    return value / float(size)

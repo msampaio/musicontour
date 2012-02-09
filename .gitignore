@@ -5,8 +5,6 @@
 /MANIFEST
 /build
 /dist
-/web/data.db
-/web/media/cseg_output.png
 contour-module-*
 doc/_build/
 lab/*

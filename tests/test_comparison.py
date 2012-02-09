@@ -4,78 +4,15 @@ import contour.comparison as comparison
 from contour.contour import Contour
 
 
-def test___intern_diagon_sim_1():
-    c1 = [0, 2, 3, 1]
-    c2 = [3, 1, 0, 2]
-    n1 = 1
-    assert comparison.__intern_diagon_sim(c1, c2, n1) == 0
-
-
-def test___intern_diagon_sim_2():
-    c1 = [0, 2, 3, 1]
-    c2 = [3, 1, 0, 2]
-    n2 = 2
-    assert comparison.__intern_diagon_sim(c1, c2, n2) == 0
-
-
-def test___intern_diagon_sim_3():
-    c1 = [0, 2, 3, 1]
-    c2 = [3, 1, 0, 2]
-    n3 = 3
-    assert comparison.__intern_diagon_sim(c1, c2, n3) == 0
-
-
-def test___intern_diagon_sim_4():
-    c1 = [0, 2, 3, 1]
-    c3 = [2, 0, 1, 3]
-    n1 = 1
-    assert comparison.__intern_diagon_sim(c1, c3, n1) == 1
-
-
-def test___intern_diagon_sim_5():
-    c1 = [0, 2, 3, 1]
-    c3 = [2, 0, 1, 3]
-    n2 = 2
-    assert comparison.__intern_diagon_sim(c1, c3, n2) == 0
-
-
-def test___intern_diagon_sim_6():
-    c1 = [0, 2, 3, 1]
-    c3 = [2, 0, 1, 3]
-    n3 = 3
-    assert comparison.__intern_diagon_sim(c1, c3, n3) == 1
-
-
-def test___intern_diagon_sim_7():
-    c1 = [0, 2, 3, 1]
-    c4 = [1, 3, 2, 0]
-    n1 = 1
-    assert comparison.__intern_diagon_sim(c1, c4, n1) == 2
-
-
-def test___intern_diagon_sim_8():
-    c1 = [0, 2, 3, 1]
-    c4 = [1, 3, 2, 0]
-    n2 = 2
-    assert comparison.__intern_diagon_sim(c1, c4, n2) == 2
-
-
-def test___intern_diagon_sim_9():
-    c1 = [0, 2, 3, 1]
-    c4 = [1, 3, 2, 0]
-    n3 = 3
-    assert comparison.__intern_diagon_sim(c1, c4, n3) == 0
-
-
 def test_single_cseg_similarity_1():
-    c1 = [0, 2, 3, 1]
-    c2 = [3, 1, 0, 2]
+    c1 = Contour([0, 2, 3, 1])
+    c2 = Contour([3, 1, 0, 2])
     assert comparison.single_cseg_similarity(c1, c2) == 0
 
 
 def test_single_cseg_similarity_2():
-    c3 = [1, 0, 4, 3, 2]
-    c4 = [3, 0, 4, 2, 1]
+    c3 = Contour([1, 0, 4, 3, 2])
+    c4 = Contour([3, 0, 4, 2, 1])
     assert comparison.single_cseg_similarity(c3, c4) == 0.8
 
 

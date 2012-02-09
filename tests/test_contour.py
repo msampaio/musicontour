@@ -258,19 +258,51 @@ def test_internal_diagonals_4():
 
 def test_comparison_matrix_1():
     cseg = Contour([0, 2, 3, 1])
-    assert cseg.comparison_matrix() == [[0, 2, 3, 1], [0, 1, 1, 1], [-1, 0, 1, -1],
+    assert cseg.comparison_matrix() == [[0, 1, 1, 1], [-1, 0, 1, -1],
                                         [-1, -1, 0, -1], [-1, 1, 1, 0]]
 
 
 def test_comparison_matrix_2():
     cseg = Contour([1, 2, 3, 0, 3, 1])
-    assert cseg.comparison_matrix() == [[1, 2, 3, 0, 3, 1],
-                                        [0, 1, 1, -1, 1, 0],
+    assert cseg.comparison_matrix() == [ [0, 1, 1, -1, 1, 0],
                                         [-1, 0, 1, -1, 1, -1],
                                         [-1, -1, 0, -1, 0, -1],
                                         [1, 1, 1, 0, 1, 1],
                                         [-1, -1, 0, -1, 0, -1],
                                         [0, 1, 1, -1, 1, 0]]
+
+
+def test_fuzzy_membership_matrix_1():
+    cseg = Contour([0, 2, 3, 1])
+    assert cseg.fuzzy_membership_matrix() == [[0, 1, 1, 1],
+                                              [0, 0, 1, 0],
+                                              [0, 0, 0, 0],
+                                              [0, 1, 1, 0]]
+
+
+def test_fuzzy_membership_matrix_2():
+    cseg = Contour([1, 2, 3, 0, 3, 1])
+    assert cseg.fuzzy_membership_matrix() == [[0, 1, 1, 0, 1, 0],
+                                              [0, 0, 1, 0, 1, 0],
+                                              [0, 0, 0, 0, 0, 0],
+                                              [1, 1, 1, 0, 1, 1],
+                                              [0, 0, 0, 0, 0, 0],
+                                              [0, 1, 1, 0, 1, 0]]
+
+def test_fuzzy_comparison_matrix_1():
+    cseg = Contour([0, 2, 3, 1])
+    assert cseg.fuzzy_comparison_matrix() == [[0, 1, 1, 1], [-1, 0, 1, -1],
+                                              [-1, -1, 0, -1], [-1, 1, 1, 0]]
+
+
+def test_fuzzy_comparison_matrix_2():
+    cseg = Contour([1, 2, 3, 0, 3, 1])
+    assert cseg.fuzzy_comparison_matrix() == [[0, 1, 1, -1, 1, 0],
+                                              [-1, 0, 1, -1, 1, -1],
+                                              [-1, -1, 0, -1, 0, -1],
+                                              [1, 1, 1, 0, 1, 1],
+                                              [-1, -1, 0, -1, 0, -1],
+                                              [0, 1, 1, -1, 1, 0]]
 
 
 def test_adjacency_series_vector_1():
