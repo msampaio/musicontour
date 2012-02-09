@@ -9,8 +9,9 @@ import itertools
 
 
 def membership(els):
-    """Returns Fuzzy membership value. 1 if (cps1, cps2) is element of
-    ascent contours, 0, if not.
+    """Returns Fuzzy membership value in ascent set: 1 if (cps1, cps2)
+    is element of ascent contours, 0, if not. Quinn 1997, equations
+    4.1, 4.2, and 4.3, and table 3.
 
     >>> fuzzy_membership(1, 3)
     1
@@ -23,7 +24,7 @@ def membership(els):
 
 
 def comparison(els):
-    """Returns fuzzy comparison.
+    """Returns fuzzy comparison. Quinn 1997, equation 4.4 and table 3.
 
     >>> fuzzy_comparison(3, 1)
     -1
