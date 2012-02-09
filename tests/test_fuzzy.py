@@ -114,11 +114,29 @@ def test__comparison__matrix_from_csegs():
 
 
 def test__entry_numbers():
-    assert fuzzy.entry_numbers(Contour([2, 0, 3, 1, 4])) == 20
+    assert fuzzy.entry_numbers(5) == 20
+
+
+def test__entry_numbers_cseg():
+    assert fuzzy.entry_numbers_cseg(Contour([2, 0, 3, 1, 4])) == 20
 
 
 def test__similarity_increment():
     assert fuzzy.similarity_increment(0.8, 0.9, 2) == 0.45
+
+
+def test__matrix_similarity():
+    m1 = fuzzy.FuzzyMatrix([[0, 0, 0, 0, 0],
+                            [1, 0, 1, 1, 0],
+                            [1, 0, 0, 1, 0],
+                            [1, 0, 0, 0, 0],
+                            [1, 1, 1, 1, 0]])
+    m2 = fuzzy.FuzzyMatrix([[0, 0, 0, 0, 0],
+                            [1, 0, 1, 1, 1],
+                            [1, 0, 0, 1, 1],
+                            [1, 0, 0, 0, 0],
+                            [1, 0, 0, 1, 0]])
+    assert fuzzy.matrix_similarity(m1, m2) == 0.8000000000000002
 
 
 def test__similarity():

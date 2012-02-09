@@ -154,15 +154,26 @@ def comparison_matrix_from_csegs(*csegs):
     return FuzzyMatrix(average_matrix(*csegs)).comparison()
 
 
-def entry_numbers(cseg):
+def entry_numbers(size):
     """Returns the entries to be compared in a fuzzy comparison
     matrix. Quinn 1997, equation 6.2.
 
-    >>> entry_numbers(Contour([2, 0, 3, 1, 4]))
+    >>> entry_numbers(5)
     20
     """
-    size = len(cseg)
+
     return (size ** 2) - size
+
+
+def entry_numbers_cseg(cseg):
+    """Returns the entries to be compared in a fuzzy comparison
+    matrix. Quinn 1997, equation 6.2.
+
+    >>> entry_numbers_cseg(Contour([2, 0, 3, 1, 4]))
+    20
+    """
+
+    return entry_numbers(len(cseg))
 
 
 def similarity_increment(el_1, el_2, entries_number):
@@ -179,6 +190,36 @@ def similarity_increment(el_1, el_2, entries_number):
     return (1 - abs(el_2 - el_1)) / float(entries_number)
 
 
+def matrix_similarity(matrix1, matrix2):
+    """Returns fuzzy ascent membership similarity between two ascend
+    matrices. Quinn 1997, based on figure 11.
+
+    >>> m1 = fuzzy.FuzzyMatrix([[0, 0, 0, 0, 0],
+                                [1, 0, 1, 1, 0],
+                                [1, 0, 0, 1, 0],
+                                [1, 0, 0, 0, 0],
+                                [1, 1, 1, 1, 0]])
+        m2 = fuzzy.FuzzyMatrix([[0, 0, 0, 0, 0],
+                                [1, 0, 1, 1, 1],
+                                [1, 0, 0, 1, 1],
+                                [1, 0, 0, 0, 0],
+                                [1, 0, 0, 1, 0]])
+        matrix_similarity(m1, m2)
+    0.8
+    """
+
+    n = entry_numbers(len(matrix1[0]))
+
+    ## fuzzy comparison matrix without zero main diagonal
+    m1 = matrix1.except_zero_diagonal()
+    m2 = matrix2.except_zero_diagonal()
+
+    ## matrix entries pairs for each position
+    pairs = utils.flatten([zip(x, y) for x, y in zip(m1, m2)])
+
+    return sum([(1 / float(n)) for pair in pairs if pair[0] == pair[1]])
+
+
 def similarity(cseg1, cseg2):
     """Returns fuzzy ascent membership similarity between two csegs.
     Quinn 1997, figure 11.
@@ -187,13 +228,4 @@ def similarity(cseg1, cseg2):
     0.8
     """
 
-    n = entry_numbers(cseg1)
-
-    ## fuzzy comparison matrix for csegs without zero main diagonal
-    m1 = cseg1.fuzzy_membership_matrix().except_zero_diagonal()
-    m2 = cseg2.fuzzy_membership_matrix().except_zero_diagonal()
-
-    ## cseg1 and cseg2 matrix entries pairs for each position
-    pairs = utils.flatten([zip(x, y) for x, y in zip(m1, m2)])
-
-    return sum([(1 / float(n)) for pair in pairs if pair[0] == pair[1]])
+    return matrix_similarity(cseg1.fuzzy_membership_matrix(), cseg2.fuzzy_membership_matrix())
