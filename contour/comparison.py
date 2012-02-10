@@ -7,13 +7,13 @@ import utils
 import auxiliary
 
 
-def single_cseg_similarity(cseg1, cseg2):
+def cseg_similarity(cseg1, cseg2):
     """Returns Marvin and Laprade (1987) CSIM(A, B) for a single
     cseg. It's a contour similarity function that measures similarity
     between two csegs of the same cardinality. The maximum similarity
     is 1, and minimum is 0.
 
-    >>> single_cseg_similarity(Contour([0, 2, 3, 1]), Contour([3, 1, 0, 2]))
+    >>> cseg_similarity(Contour([0, 2, 3, 1]), Contour([3, 1, 0, 2]))
     0
     """
 
@@ -23,19 +23,21 @@ def single_cseg_similarity(cseg1, cseg2):
     return auxiliary.position_comparison(cseg1_triangle, cseg2_triangle)
 
 
-def cseg_similarity(cseg1, cseg2):
-    """Returns Marvin and Laprade (1987) CSIM(A, B) with csegclasses
+def csegclass_similarity(cseg1, cseg2, prime_algorithm="prime_form_marvin_laprade"):
+    """Returns Marvin and Laprade (1987) CSIM(_A, _B) with csegclasses
     representatives comparison.
 
-    >>> cseg_similarity(Contour([0, 2, 3, 1]), Contour([3, 1, 0, 2]))
+    >>> csegclass_similarity(Contour([0, 2, 3, 1]), Contour([3, 1, 0, 2]))
     1
     """
 
+    cseg1_p = auxiliary.apply_fn(cseg1, prime_algorithm)
     representatives = cseg2.class_representatives()
-    csims = [single_cseg_similarity(cseg1, c) for c in representatives]
+    csims = [cseg_similarity(cseg1_p, c) for c in representatives]
     return sorted(csims, reverse=True)[0]
 
 
+## FIXME: review function to use: cseg_similarity or csegclass_similarity
 def cseg_similarity_matrix(csegs):
     """Returns a matrix with CSIM between multiple csegs.
 
@@ -49,7 +51,7 @@ def cseg_similarity_matrix(csegs):
     for a in csegs:
         line = []
         for b in csegs:
-            line.append(cseg_similarity(a, b))
+            line.append(csegclass_similarity(a, b))
         m.append(line)
     m.insert(0, csegs)
     return m
@@ -389,7 +391,7 @@ def cseg_similarity_continuum(cseg, prime_algorithm="prime_form_marvin_laprade")
 
         for (a, b, csegclass, d) in built_classes:
             csegclass = contour.Contour(csegclass)
-            csim = cseg_similarity(cseg, csegclass)
+            csim = csegclass_similarity(cseg, csegclass)
             csegclasses.append([csim, csegclass])
             similarity.append(csim)
 

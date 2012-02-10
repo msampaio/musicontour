@@ -4,28 +4,34 @@ import contour.comparison as comparison
 from contour.contour import Contour
 
 
-def test_single_cseg_similarity_1():
+def test_cseg_similarity_1():
     c1 = Contour([0, 2, 3, 1])
     c2 = Contour([3, 1, 0, 2])
-    assert comparison.single_cseg_similarity(c1, c2) == 0
-
-
-def test_single_cseg_similarity_2():
-    c3 = Contour([1, 0, 4, 3, 2])
-    c4 = Contour([3, 0, 4, 2, 1])
-    assert comparison.single_cseg_similarity(c3, c4) == 0.8
-
-
-def test_cseg_similarity_1():
-    cseg1 = Contour([0, 2, 3, 1])
-    cseg2 = Contour([3, 1, 0, 2])
-    assert comparison.cseg_similarity(cseg1, cseg2) == 1
+    assert comparison.cseg_similarity(c1, c2) == 0
 
 
 def test_cseg_similarity_2():
+    c3 = Contour([1, 0, 4, 3, 2])
+    c4 = Contour([3, 0, 4, 2, 1])
+    assert comparison.cseg_similarity(c3, c4) == 0.8
+
+
+def test_cseg_similarity_3():
+    cseg1 = Contour([0, 1, 2, 3, 4, 5, 6])
+    cseg2 = Contour([2, 6, 5, 4, 1, 0, 3])
+    assert comparison.cseg_similarity(cseg1, cseg2) == 0.2857142857142857
+
+
+def test_csegclass_similarity_1():
+    cseg1 = Contour([0, 2, 3, 1])
+    cseg2 = Contour([3, 1, 0, 2])
+    assert comparison.csegclass_similarity(cseg1, cseg2) == 1
+
+
+def test_csegclass_similarity_2():
     cseg1 = Contour([1, 0, 4, 3, 2])
     cseg2 = Contour([3, 0, 4, 2, 1])
-    assert comparison.cseg_similarity(cseg1, cseg2) == 0.6
+    assert comparison.csegclass_similarity(cseg1, cseg2) == 0.6
 
 
 def test_cseg_similarity_matrix():
