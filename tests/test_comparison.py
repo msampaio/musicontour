@@ -39,8 +39,8 @@ def test_cseg_similarity_matrix():
     cseg2 = Contour([3, 0, 4, 2, 1])
     fn = comparison.cseg_similarity_matrix([cseg1, cseg2])
     assert fn == [[[1, 0, 4, 3, 2], [3, 0, 4, 2, 1]],
-                  [1.0, 0.59999999999999998],
-                  [0.80000000000000004, 0.59999999999999998]]
+                  [1.0, 0.6],
+                  [0.8, 1.0]]
 
 
 def test_cseg_similarity_matrix_classes():
