@@ -211,14 +211,14 @@ def test_reduction_morris_2():
     assert cseg.reduction_morris() == [[2, 3, 0, 1], 3]
 
 
-def test_maxima():
+def test_maxima_pair():
     n = [(0, 0), (1, 1), (3, 2), (2, 3), (4, 4)]
-    assert contour.maxima(n) == [(0, 0), (3, 2), (4, 4)]
+    assert contour.maxima_pair(n) == [(0, 0), (3, 2), (4, 4)]
 
 
-def test_minima():
+def test_minima_pair():
     n = [(0, 0), (1, 1), (3, 2), (2, 3), (4, 4)]
-    assert contour.minima(n) == [(0, 0), (2, 3), (4, 4)]
+    assert contour.minima_pair(n) == [(0, 0), (2, 3), (4, 4)]
 
 
 def test_contour_rotation_classes():

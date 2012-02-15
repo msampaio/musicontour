@@ -167,10 +167,10 @@ def max_min(list_of_tuples, fn):
     return [x for x in m_list if x]
 
 
-def maxima(list_of_tuples):
+def maxima_pair(list_of_tuples):
     """Returns maxima (Morris, 1993) positions in a cseg.
 
-    >>> maxima([(0, 1), (1, 2), (2, 4), (4, 5), (3, 3)])
+    >>> maxima_pair([(0, 1), (1, 2), (2, 4), (4, 5), (3, 3)])
     [(0, 1), (4, 5), (3, 3)]
     """
 
@@ -186,10 +186,10 @@ def maxima(list_of_tuples):
     return max_min(list_of_tuples, maximum)
 
 
-def minima(list_of_tuples):
+def minima_pair(list_of_tuples):
     """Returns minima (Morris, 1993) positions in a cseg.
 
-    >>> minima([(0, 1), (1, 2), (2, 4), (4, 5), (3, 3)])
+    >>> minima_pair([(0, 1), (1, 2), (2, 4), (4, 5), (3, 3)])
     [(0, 1), (3, 3)]
     """
 
@@ -602,8 +602,8 @@ class Contour(list):
 
             It runs steps 1 and 2."""
 
-            max_list = maxima(tuples_list)
-            min_list = minima(tuples_list)
+            max_list = maxima_pair(tuples_list)
+            min_list = minima_pair(tuples_list)
 
             # flagged cpitches are all cpitches that are in max_list
             # or min_list
@@ -622,8 +622,8 @@ class Contour(list):
             It runs steps 6, and 7."""
 
             init_list = list(set(utils.flatten([max_list, min_list])))
-            new_max_list = utils.remove_duplicate_tuples(maxima(max_list))
-            new_min_list = utils.remove_duplicate_tuples(minima(min_list))
+            new_max_list = utils.remove_duplicate_tuples(maxima_pair(max_list))
+            new_min_list = utils.remove_duplicate_tuples(minima_pair(min_list))
 
             # flagged cpitches are all cpitches that are in max_list
             # or min_list
