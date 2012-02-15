@@ -212,12 +212,14 @@ def reduction_retention_3(els):
     True. (Bor, 2009).
     """
 
+    medial = els[1]
+
     if els[0] == None or els[2] == None:
-        return els[1]
-    elif els[0] < els[1] > els[2] or els[0] > els[1] < els[2]:
-        return els[1]
-    elif els[1] == els[2] and els[1] != els[0]:
-        return els[1]
+        return medial
+    elif els[0] < medial > els[2] or els[0] > medial < els[2]:
+        return medial
+    elif medial == els[2] and medial != els[0]:
+        return medial
 
 
 def reduction_retention_5(els):
@@ -230,12 +232,14 @@ def reduction_retention_5(els):
     right_max = max(els[-2:])
     right_min = min(els[-2:])
 
+    medial = els[2]
+
     if els[0] == els[1] == None or els[-1] == els[-2] == None:
-        return els[2]
-    elif left_max < els[2] > right_max or left_min > els[2] < left_min:
-        return els[2]
-    elif els[2] == els[3] and els[2] != els[1]:
-        return els[2]
+        return medial
+    elif left_max < medial > right_max or left_min > medial < left_min:
+        return medial
+    elif medial == els[3] and medial != els[1]:
+        return medial
 
 
 def contour_rotation_classes(cardinality):
