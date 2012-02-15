@@ -357,6 +357,46 @@ def test_reduction_retention_5_4():
     assert contour.reduction_retention_5(els) == None
 
 
+def test_reduction_retention_5_5():
+    els = [0, 2, 1, 4, 1]
+    assert contour.reduction_retention_5(els) == None
+
+
+def test_reduction_retention_5_6():
+    els = [1, 4, 1, 5, 3]
+    assert contour.reduction_retention_5(els) == 1
+
+
+def test_reduction_retention_5_7():
+    els = [3, 0, 4, 1, 4]
+    assert contour.reduction_retention_5(els) == 4
+
+
+def test_reduction_retention_5_8():
+    els = [4, 1, 4, 3, 5]
+    assert contour.reduction_retention_5(els) == None
+
+
+def test_reduction_retention_5_9():
+    els = [1, 0, 5, 2, 5]
+    assert contour.reduction_retention_5(els) == 5
+
+
+def test_reduction_retention_5_10():
+    els = [5, 2, 5, 3, 4]
+    assert contour.reduction_retention_5(els) == 5
+
+
+def test_reduction_retention_5_11():
+    els = [0, 3, 2, 4, 2]
+    assert contour.reduction_retention_5(els) == None
+
+
+def test_reduction_retention_5_12():
+    els = [2, 4, 2, 5, 1]
+    assert contour.reduction_retention_5(els) == None
+
+
 def test_contour_rotation_classes():
     assert contour.contour_rotation_classes(4) == [[0, 1, 2, 3],
                                                    [0, 1, 3, 2],
