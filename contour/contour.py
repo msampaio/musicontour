@@ -220,6 +220,24 @@ def reduction_retention_3(els):
         return els[1]
 
 
+def reduction_retention_5(els):
+    """Returns medial cps value if it is maxima or minima of a given
+    five consecutive cps list. (Bor, 2009).
+    """
+
+    left_max = max(els[0:2])
+    left_min = min(els[0:2])
+    right_max = max(els[-2:])
+    right_min = min(els[-2:])
+
+    if els[0] == els[1] == None or els[-1] == els[-2] == None:
+        return els[2]
+    elif left_max < els[2] > right_max or left_min > els[2] < left_min:
+        return els[2]
+    elif els[2] == els[3] and els[2] != els[1]:
+        return els[2]
+
+
 def contour_rotation_classes(cardinality):
     """Returns all rotation related contour classes of a given
     cardinality. Each cseg is rotation class representative.
@@ -714,6 +732,44 @@ class Contour(list):
         old = self
         while old.reduction_window_3() != old:
             old = old.reduction_window_3()
+        return old
+
+
+    def reduction_window_5(self):
+        """Returns a reduction in a single turn of 3-window reduction
+        algorithm. (Bor, 2009).
+
+        >>> Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5]).reduction_window_5()
+        < 7 10 0 3 1 8 2 5>
+        """
+
+        def _red_5(cseg, pos):
+
+            return reduction_retention_5(cseg[pos - 2:pos + 3])
+
+        cseg = self[:]
+        size = len(cseg)
+
+        cseg.insert(0, None)
+        cseg.insert(0, None)
+        cseg.append(None)
+        cseg.append(None)
+        prange = range(2, size + 2)
+
+        return Contour([_red_5(cseg, pos) for pos in prange if _red_5(cseg, pos) != None])
+
+
+    def reduction_window_5_recursive(self):
+        """Returns a reduction of 5-window reduction algorithm in
+        turns. (Bor, 2009).
+
+        >>> Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5]).reduction_window_5_recursive()
+        < 7 10 0 3 1 8 2 5>
+        """
+
+        old = self
+        while old.reduction_window_5() != old:
+            old = old.reduction_window_5()
         return old
 
 

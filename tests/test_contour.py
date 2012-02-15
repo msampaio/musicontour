@@ -227,6 +227,36 @@ def test_reduction_window_3_recursive_2():
     assert cseg.reduction_window_3_recursive() == [0, 3, 2]
 
 
+def test_reduction_window_5_1():
+    cseg = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
+    assert cseg.reduction_window_5() == [7, 10, 0, 1, 8, 2, 5]
+
+
+def test_reduction_window_5_2():
+    cseg = Contour([7, 10, 0, 1, 8, 2, 5])
+    assert cseg.reduction_window_5() == [7, 10, 0, 8, 5]
+
+
+def test_reduction_window_5_3():
+    cseg = Contour([7, 10, 0, 8, 5])
+    assert cseg.reduction_window_5() == [7, 10, 0, 5]
+
+
+def test_reduction_window_5_4():
+    cseg = Contour([0, 3, 3, 1, 2, 4])
+    assert cseg.reduction_window_5() == [0, 3, 1, 4]
+
+
+def test_reduction_window_5_5():
+    cseg = Contour([0, 3, 3, 1, 2])
+    assert cseg.reduction_window_5() == [0, 3, 1, 2]
+
+
+def test_reduction_window_5_recursive_1():
+    cseg = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
+    assert cseg.reduction_window_5_recursive() == [7, 10, 0, 5]
+
+
 def test_maxima_pair():
     n = [(0, 0), (1, 1), (3, 2), (2, 3), (4, 4)]
     assert contour.maxima_pair(n) == [(0, 0), (3, 2), (4, 4)]
@@ -305,6 +335,26 @@ def test_reduction_retention_3_13():
 def test_reduction_retention_3_14():
     els = [1, 0, None]
     assert contour.reduction_retention_3(els) == 0
+
+
+def test_reduction_retention_5_1():
+    els = [None, None, 0, 1, 2]
+    assert contour.reduction_retention_5(els) == 0
+
+
+def test_reduction_retention_5_2():
+    els = [0, 2, 1, None, None]
+    assert contour.reduction_retention_5(els) == 1
+
+
+def test_reduction_retention_5_3():
+    els = [None, 7, 10, 9, 0]
+    assert contour.reduction_retention_5(els) == 10
+
+
+def test_reduction_retention_5_4():
+    els = [7, 10, 9, 0, 2]
+    assert contour.reduction_retention_5(els) == None
 
 
 def test_contour_rotation_classes():
