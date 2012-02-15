@@ -205,6 +205,21 @@ def minima_pair(list_of_tuples):
     return max_min(list_of_tuples, minimum)
 
 
+def reduction_retention_3(els):
+    """Returns medial cps value if it is maxima or minima of a given
+    three consecutive cps list. Returns medial cps value also if
+    medial cps is equal to last cps and different form first, returns
+    True. (Bor, 2009).
+    """
+
+    if els[0] == None or els[2] == None:
+        return els[1]
+    elif els[0] < els[1] > els[2] or els[0] > els[1] < els[2]:
+        return els[1]
+    elif els[1] == els[2] and els[1] != els[0]:
+        return els[1]
+
+
 def contour_rotation_classes(cardinality):
     """Returns all rotation related contour classes of a given
     cardinality. Each cseg is rotation class representative.
@@ -665,6 +680,42 @@ class Contour(list):
         reduced = Contour(cps_position_to_cseg(sorted_flagged).translation())
 
         return [reduced, depth]
+
+    def reduction_window_3(self):
+        """Returns a reduction in a single turn of 3-window reduction
+        algorithm. (Bor, 2009).
+
+        >>> Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5]).reduction_window_3()
+        < 7 10 0 3 1 8 2 5>
+        """
+
+        def _red_3(cseg, pos):
+
+            return reduction_retention_3(cseg[pos - 1:pos + 2])
+
+        cseg = self[:]
+        size = len(cseg)
+
+        cseg.insert(0, None)
+        cseg.append(None)
+        prange = range(1, size + 1)
+        return Contour([_red_3(cseg, pos) for pos in prange if _red_3(cseg, pos) != None])
+
+
+    ## FIXME: Improves contour example.
+    def reduction_window_3_recursive(self):
+        """Returns a reduction of 3-window reduction algorithm in
+        turns. (Bor, 2009).
+
+        >>> Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5]).reduction_window_3_recursive()
+        < 7 10 0 3 1 8 2 5>
+        """
+
+        old = self
+        while old.reduction_window_3() != old:
+            old = old.reduction_window_3()
+        return old
+
 
     def interval_succession(self):
         """Return Friedmann (1985) CIS, a series which indicates the

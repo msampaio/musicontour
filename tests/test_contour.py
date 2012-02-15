@@ -211,6 +211,22 @@ def test_reduction_morris_2():
     assert cseg.reduction_morris() == [[2, 3, 0, 1], 3]
 
 
+def test_reduction_window_3_1():
+    cseg = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
+    assert cseg.reduction_window_3() == [7, 10, 0, 3, 1, 8, 2, 5]
+
+
+## FIXME: Improves contour example.
+def test_reduction_window_3_recursive_1():
+    cseg = Contour([0, 3, 3, 1, 2])
+    assert cseg.reduction_window_3_recursive() == [0, 3, 1, 2]
+
+
+def test_reduction_window_3_recursive_2():
+    cseg = Contour([0, 1, 1, 3, 2])
+    assert cseg.reduction_window_3_recursive() == [0, 3, 2]
+
+
 def test_maxima_pair():
     n = [(0, 0), (1, 1), (3, 2), (2, 3), (4, 4)]
     assert contour.maxima_pair(n) == [(0, 0), (3, 2), (4, 4)]
@@ -219,6 +235,76 @@ def test_maxima_pair():
 def test_minima_pair():
     n = [(0, 0), (1, 1), (3, 2), (2, 3), (4, 4)]
     assert contour.minima_pair(n) == [(0, 0), (2, 3), (4, 4)]
+
+
+def test_reduction_retention_3_1():
+    els = [0, 0, 0]
+    assert contour.reduction_retention_3(els) == None
+
+
+def test_reduction_retention_3_2():
+    els = [0, 0, 1]
+    assert contour.reduction_retention_3(els) == None
+
+
+def test_reduction_retention_3_3():
+    els = [1, 1, 0]
+    assert contour.reduction_retention_3(els) == None
+
+
+def test_reduction_retention_3_4():
+    els = [0, 1, 0]
+    assert contour.reduction_retention_3(els) == 1
+
+
+def test_reduction_retention_3_5():
+    els = [1, 0, 1]
+    assert contour.reduction_retention_3(els) == 0
+
+
+def test_reduction_retention_3_6():
+    els = [1, 0, 0]
+    assert contour.reduction_retention_3(els) == 0
+
+
+def test_reduction_retention_3_7():
+    els = [0, 1, 1]
+    assert contour.reduction_retention_3(els) == 1
+
+
+def test_reduction_retention_3_8():
+    els = [None, 0, 0]
+    assert contour.reduction_retention_3(els) == 0
+
+
+def test_reduction_retention_3_9():
+    els = [None, 0, 1]
+    assert contour.reduction_retention_3(els) == 0
+
+
+def test_reduction_retention_3_10():
+    els = [None, 1, 0]
+    assert contour.reduction_retention_3(els) == 1
+
+
+def test_reduction_retention_3_11():
+    els = [None, 1, 2]
+    assert contour.reduction_retention_3(els) == 1
+
+
+def test_reduction_retention_3_12():
+    els = [0, 0, None]
+    assert contour.reduction_retention_3(els) == 0
+
+
+def test_reduction_retention_3_13():
+    els = [0, 1, None]
+    assert contour.reduction_retention_3(els) == 1
+
+
+def test_reduction_retention_3_14():
+    els = [1, 0, None]
+    assert contour.reduction_retention_3(els) == 0
 
 
 def test_contour_rotation_classes():
