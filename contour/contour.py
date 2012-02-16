@@ -227,25 +227,22 @@ def reduction_retention_5(els):
     five consecutive cps list. (Bor, 2009).
     """
 
-    els_max = max(els)
-    els_min = min(els)
-    left_max = max(els[0:2])
-    left_min = min(els[0:2])
-    right_max = max(els[-2:])
-    right_min = min(els[-2:])
-
     medial = els[2]
 
+    els_max = max(els)
+    els_min = min([x for x in els if x != None])
+
+    ## retain if medial is the first or last el
     if els[0] == els[1] == None or els[-1] == els[-2] == None:
         return medial
-    elif left_max < medial > right_max or left_min > medial < left_min:
+    ## repeatitions. Do not retain if medial is the second consecutive
+    ## repeated cps
+    elif medial == els[1]:
+        return None
+    ## retain if medial is max or min
+    elif medial == els_max or medial == els_min:
         return medial
-    elif medial == els[3] and medial != els[1]:
-        return medial
-    elif medial == els[0] and medial == els_max or medial == els_min:
-        return medial
-    elif medial == els[4] and medial == els_max or medial == els_min:
-        return medial
+
 
 def contour_rotation_classes(cardinality):
     """Returns all rotation related contour classes of a given
