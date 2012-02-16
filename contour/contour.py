@@ -728,7 +728,6 @@ class Contour(list):
         prange = range(1, size + 1)
         return Contour([_red_3(cseg, pos) for pos in prange if _red_3(cseg, pos) != None])
 
-
     ## FIXME: Improves contour example.
     def reduction_window_3_recursive(self):
         """Returns a reduction of 3-window reduction algorithm in
@@ -742,7 +741,6 @@ class Contour(list):
         while old.reduction_window_3() != old:
             old = old.reduction_window_3()
         return old
-
 
     def reduction_window_5(self):
         """Returns a reduction in a single turn of 3-window reduction
@@ -767,7 +765,6 @@ class Contour(list):
 
         return Contour([_red_5(cseg, pos) for pos in prange if _red_5(cseg, pos) != None])
 
-
     def reduction_window_5_recursive(self):
         """Returns a reduction of 5-window reduction algorithm in
         turns. (Bor, 2009).
@@ -781,7 +778,6 @@ class Contour(list):
             old = old.reduction_window_5()
         return old
 
-
     def reduction_bor_35(self):
         """Returns reduction contour and its depth with a 3-window
         followed by a 5-window reduction algorithm. R35 (Bor, 2009).
@@ -791,7 +787,6 @@ class Contour(list):
         """
 
         return [self.reduction_window_3().reduction_window_5(), 2]
-
 
     def reduction_bor_355(self):
         """Returns reduction contour and its depth with a 3-window
@@ -803,7 +798,6 @@ class Contour(list):
         """
 
         return [self.reduction_window_3().reduction_window_5().reduction_window_5(), 3]
-
 
     def reduction_bor_555(self):
         """Returns reduction contour and its depth with a 5-window
