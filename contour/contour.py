@@ -782,6 +782,39 @@ class Contour(list):
         return old
 
 
+    def reduction_bor_35(self):
+        """Returns reduction contour and its depth with a 3-window
+        followed by a 5-window reduction algorithm. R35 (Bor, 2009).
+
+        >>> Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5]).reduction_bor_35()
+        [< 7 10 0 8 5>, 2]
+        """
+
+        return [self.reduction_window_3().reduction_window_5(), 2]
+
+
+    def reduction_bor_355(self):
+        """Returns reduction contour and its depth with a 3-window
+        followed by a 5-window reduction algorithm twice. R355 (Bor,
+        2009).
+
+        >>> Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5]).reduction_bor_355()
+        [< 7 10 0 5>, 3]
+        """
+
+        return [self.reduction_window_3().reduction_window_5().reduction_window_5(), 3]
+
+
+    def reduction_bor_555(self):
+        """Returns reduction contour and its depth with a 5-window
+        reduction algorithm three times. R555 (Bor, 2009).
+
+        >>> Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5]).reduction_bor_555()
+        [< 7 10 0 5>, 3]
+        """
+
+        return [self.reduction_window_5().reduction_window_5().reduction_window_5(), 3]
+
     def interval_succession(self):
         """Return Friedmann (1985) CIS, a series which indicates the
         order of Contour Intervals in a given CC (normal form cseg

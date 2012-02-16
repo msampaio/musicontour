@@ -257,6 +257,21 @@ def test_reduction_window_5_recursive_1():
     assert cseg.reduction_window_5_recursive() == [7, 10, 0, 5]
 
 
+def test_reduction_bor_35_1():
+    cseg = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
+    assert cseg.reduction_bor_35() == [[7, 10, 0, 8, 5], 2]
+
+
+def test_reduction_bor_355_1():
+    cseg = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
+    assert cseg.reduction_bor_355() == [[7, 10, 0, 5], 3]
+
+
+def test_reduction_bor_555_1():
+    cseg = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
+    assert cseg.reduction_bor_555() == [[7, 10, 0, 5], 3]
+
+
 def test_maxima_pair():
     n = [(0, 0), (1, 1), (3, 2), (2, 3), (4, 4)]
     assert contour.maxima_pair(n) == [(0, 0), (3, 2), (4, 4)]
