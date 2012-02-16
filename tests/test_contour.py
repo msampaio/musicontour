@@ -271,6 +271,11 @@ def test_reduction_bor_35_1():
     assert cseg.reduction_bor_35() == [[7, 10, 0, 8, 5], 2]
 
 
+def test_reduction_bor_53_1():
+    cseg = Contour([12, 10, 13, 11, 7, 9, 8, 6, 3, 5, 4, 1, 0, 2])
+    assert cseg.reduction_bor_53() == [[12, 10, 13, 0, 2], 2]
+
+
 def test_reduction_bor_355_1():
     cseg = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
     assert cseg.reduction_bor_355() == [[7, 10, 0, 5], 3]

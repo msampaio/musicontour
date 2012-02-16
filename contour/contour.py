@@ -785,6 +785,16 @@ class Contour(list):
 
         return [self.reduction_window_3().reduction_window_5(), 2]
 
+    def reduction_bor_53(self):
+        """Returns reduction contour and its depth with a 5-window
+        followed by a 3-window reduction algorithm. R35 (Bor, 2009).
+
+        >>> Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5]).reduction_bor_53()
+        [< 7 10 0 8 5>, 2]
+        """
+
+        return [self.reduction_window_5().reduction_window_3(), 2]
+
     def reduction_bor_355(self):
         """Returns reduction contour and its depth with a 3-window
         followed by a 5-window reduction algorithm twice. R355 (Bor,
