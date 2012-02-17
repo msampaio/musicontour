@@ -180,40 +180,6 @@ def permut_list(numbers_list):
     return [list(x) for x in permutted]
 
 
-# FIXME: review, test and document these functions
-def product_list(vec):
-    l = list(itertools.product(*vec))
-    return map(lambda x: list(x), l)
-
-
-def cartesian(a, b):
-    ret = []
-    for x in a:
-        for y in b:
-            ret.append(x + y)
-    return ret
-
-
-def generate_plus_minus_1_list(vec):
-    if len(vec) == 0:
-        return [[]]
-    else:
-        begin = vec[0:-1]
-        last = vec[-1]
-        if (last == 0):
-            last = [[-1], [1]]
-        else:
-            last = [[last]]
-        return cartesian(generate_plus_minus_1_list(begin), last)
-
-
-def zero_to_plus_minus(vec):
-    result = []
-    for subvec in vec:
-        result.append(generate_plus_minus_1_list(subvec))
-    return product_list(result)
-#
-
 def with_index(seq):
     """Returns a generator from a sequence."""
 
