@@ -48,7 +48,7 @@ class ComparisonMatrix(list):
         if n < len(self):
             return [line[i + n:] for i, line in enumerate(self) if line][:-n]
 
-    def display(self):
+    def show(self):
         """Returns matrix with a matrix with cseg in a visual way.
 
         >>> ComparisonMatrix([[0, 1, 1, 1], [-1, 0, -1, 1], [-1, 1, 0, 1], [-1, -1, -1, 0]]).display()
