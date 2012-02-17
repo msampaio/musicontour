@@ -28,3 +28,13 @@ def test_matrix_from_triangle():
                                                 [-1, -1, 1, 0, 1],
                                                 [-1, -1, 1, -1, 0]]
 
+
+def test_triangle_zero_replace():
+    triangle = [[1, 0, 1, 1], [1, 0, 1], [1, 0], [1]]
+    assert matrix.triangle_zero_replace(triangle, -1) == [[1, -1, 1, 1], [1, -1, 1],
+                                                          [1, -1], [1]]
+
+
+def test_triangle_zero_replace_to_cseg():
+    triangle = [[1, 1, 1, 1], [1, 0, 1], [-1, 0], [1]]
+    assert matrix.triangle_zero_replace_to_cseg(triangle) == [[0, 1, 3, 2, 4], [0, 2, 4, 1, 3]]

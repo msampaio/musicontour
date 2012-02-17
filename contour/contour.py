@@ -402,28 +402,20 @@ class Contour(list):
 
         return step3
 
-    ## FIXME: Use superior triangle instead of diagonals
-    def __one_repeated_prime_form_marvin_laprade(self, signal):
-        """Returns one of prime forms of a repeated cpitch cseg
-        (Marvin and Laprade, 1987)."""
+    def __repeated_prime_generic(self, prime_algorithm):
+        """Returns prime forms of a repeated cpitch cseg calculated
+        with a given prime_algorithm.
+        """
 
-        size = len(self)
-        diagonals_list = []
+        triangle = self.comparison_matrix().superior_triangle()
+        csegs = matrix.triangle_zero_replace_to_cseg(triangle)
 
-        for d in range(1, size):
-            # substitutes zeros for a given signal
-            int_d = self.internal_diagonals(d).zero_to_signal(signal)
-            diagonals_list.append(diagonal.InternalDiagonal(int_d))
-
-        return diagonal.csegs_from_diagonals(diagonals_list)
+        return sorted([auxiliary.apply_fn(t, prime_algorithm) for t in csegs])
 
     def __repeated_prime_form_marvin_laprade(self):
         """Returns prime forms of a repeated cpitch cseg."""
 
-        signals = [-1, 1]
-
-        r = [self.__one_repeated_prime_form_marvin_laprade(s) for s in signals]
-        return sorted(r)
+        return self.__repeated_prime_generic("prime_form_marvin_laprade")
 
     def prime_form_marvin_laprade(self):
         """Returns the prime form of a given contour (Marvin and
@@ -455,10 +447,7 @@ class Contour(list):
         Returns all possible prime forms of a cseg with repeated
         elements."""
 
-        triangle = self.comparison_matrix().superior_triangle()
-
-        tri_lists = utils.zero_to_plus_minus(triangle)
-        return sorted([matrix.matrix_from_triangle(tri).cseg().prime_form_sampaio() for tri in tri_lists])
+        return self.__repeated_prime_generic("prime_form_sampaio")
 
     def prime_form_sampaio(self):
         """Runs Sampaio prime form algorithm.

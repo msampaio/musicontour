@@ -90,3 +90,6 @@ def test_permut_list():
     lst = [1, 2, 3]
     assert utils.permut_list(lst) == [[1, 2, 3], [1, 3, 2], [2, 1, 3],
                                       [2, 3, 1], [3, 1, 2], [3, 2, 1]]
+
+def test_replace_all():
+    assert utils.replace_all([0, 3, 2, 0], -1) == [-1, 3, 2, -1]

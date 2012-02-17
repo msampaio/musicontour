@@ -96,7 +96,17 @@ def test_prime_form_marvin_laprade_3():
     assert cseg.prime_form_marvin_laprade() == [0, 2, 1, 3, 4]
 
 
+def test_prime_form_marvin_laprade_4():
+    cseg = Contour([0, 1, 2, 3, 2])
+    assert cseg.prime_form_marvin_laprade() == [[0, 1, 2, 4, 3], [0, 1, 3, 4, 2]]
+
+
 def test_prime_form_marvin_laprade_5():
+    cseg = Contour([1, 2, 3, 0, 3, 1])
+    assert cseg.prime_form_marvin_laprade() == [[1, 3, 4, 0, 5, 2], [1, 4, 0, 5, 3, 2]]
+
+
+def test_prime_form_marvin_laprade_6():
     cseg = Contour([0, 1, 2, 1, 2])
     assert cseg.prime_form_marvin_laprade() == [[0, 1, 3, 2, 4], [0, 2, 4, 1, 3]]
 
@@ -123,8 +133,7 @@ def test_prime_form_sampaio_3():
 
 def test_prime_form_sampaio_5():
     cseg = Contour([0, 1, 2, 1, 2])
-    assert cseg.prime_form_sampaio() == [[0, 1, 3, 2, 4], [0, 1, 4, 2, 3],
-                                         [0, 2, 3, 1, 4], [0, 2, 4, 1, 3]]
+    assert cseg.prime_form_sampaio() == [[0, 1, 3, 2, 4], [0, 2, 4, 1, 3]]
 
 
 def test_unique_prime_form_test_1():

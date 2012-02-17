@@ -91,3 +91,28 @@ def matrix_from_triangle(triangle):
             line.extend(triangle[n])
         matrix.append(line)
     return ComparisonMatrix(matrix)
+
+
+def triangle_zero_replace(triangle, replacement):
+    """Returns a triangle with zeros replaced by the given replacement factor.
+
+    >>> triangle_zero_replace([[1, 0, 1, 1], [1, 0, 1], [1, 0], [1]], -1)
+    [[1, -1, 1, 1], [1, -1, 1], [1, -1], [1]]
+    """
+
+    return [contour.utils.replace_all(row, replacement) for row in triangle]
+
+
+def triangle_zero_replace_to_cseg(triangle):
+    """Returns two csegs obtained by zero to 1/-1 replacement.
+
+    >>> triangle_zero_replace_to_cseg([[1, 1, 1, 1], [1, 0, 1], [-1, 0], [1])
+    [< 0 1 3 2 4 >, < 0 2 4 1 3 >]
+    """
+
+    pair = []
+    for r in [1, -1]:
+        new_triangle = triangle_zero_replace(triangle, r)
+        new_matrix = matrix_from_triangle(new_triangle)
+        pair.append(new_matrix.cseg())
+    return pair
