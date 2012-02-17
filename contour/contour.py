@@ -340,18 +340,21 @@ class Contour(list):
         C_0 == C_-1
         c_1 == C_-2
         c_2 != C_-3
-        So the function returns cpitch position: 2.
+        So, the function returns cpitch position: 2.
         """
 
         for position in range(len(self) / 2):
             if self[position] != self[(position * -1) - 1]:
                 return position
 
-    def __prime_form_marvin_laprade_step_2(self):
+    def __prime_form_marvin_laprade_step_2(self, position):
         """Runs Marvin and Laprade (1987) second step of prime form
         algorithm.
 
         If (n - 1) - last pitch < first pitch, invert.
+
+        position: the first cps position that its value is different
+        for its symmetric (cf. unequal_edges).
         """
 
         cseg = self
@@ -359,7 +362,6 @@ class Contour(list):
 
         # if first and last cps are equal, the second must be compared
         # to penultimate cps and so on to break the "tie".
-        position = cseg.__unequal_edges()
         false_first = cseg[position]
         false_last = cseg[(position * -1) - 1]
 
@@ -368,15 +370,17 @@ class Contour(list):
 
         return cseg
 
-    def __prime_form_marvin_laprade_step_3(self):
+    def __prime_form_marvin_laprade_step_3(self, position):
         """Runs Marvin and Laprade (1987) third step of prime form
         algorithm.
 
         If last cpitch < first cpitch, retrograde.
+
+        position: the first cps position that its value is different
+        for its symmetric (cf. unequal_edges).
         """
 
         cseg = self
-        position = cseg.__unequal_edges()
 
         if cseg[(position * -1) - 1] < cseg[position]:
             cseg = cseg.retrograde()
@@ -387,10 +391,14 @@ class Contour(list):
         """Returns the prime form of a given contour (Marvin and
         Laprade, 1987)."""
 
+        # the first cps position that its value is different for its
+        # symmetric (cf. unequal_edges).
+        position = self.__unequal_edges()
+
         # step 1: translate if necessary
         step1 = Contour(self).translation()
-        step2 = step1.__prime_form_marvin_laprade_step_2()
-        step3 = step2.__prime_form_marvin_laprade_step_3()
+        step2 = step1.__prime_form_marvin_laprade_step_2(position)
+        step3 = step2.__prime_form_marvin_laprade_step_3(position)
 
         return step3
 
