@@ -333,18 +333,19 @@ class Contour(list):
         return Contour([sorted(set(self)).index(x) for x in self])
 
     def __unequal_edges(self):
-        """Compares first and last cpitches and
-        increases/decreases until get different values. For example,
-        a cseg [0, 3, 1, 4, 2, 3, 0] are compared like:
-        0 != 0 F
-        3 != 3 F
-        1 != 2 V
+        """Returns the first cps position with different value from
+        its symmetric. For instance, given a cseg C [0, 3, 1, 4, 2, 3,
+        0], the first cps with different value for its symmetric is
+        C_2 = 1.
+        C_0 == C_-1
+        c_1 == C_-2
+        c_2 != C_-3
         So the function returns cpitch position: 2.
         """
 
-        for x in range(len(self) / 2):
-            if self[x] != self[(x * -1) - 1]:
-                return x
+        for position in range(len(self) / 2):
+            if self[position] != self[(position * -1) - 1]:
+                return position
 
     def __prime_form_marvin_laprade_step_2(self):
         """Runs Marvin and Laprade (1987) second step of prime form
@@ -353,15 +354,19 @@ class Contour(list):
         If (n - 1) - last pitch < first pitch, invert.
         """
 
-        tmp = self
+        cseg = self
+        n = len(cseg)
 
-        length = len(tmp)
-        x = tmp.__unequal_edges()
+        # if first and last cps are equal, the second must be compared
+        # to penultimate cps and so on to break the "tie".
+        position = cseg.__unequal_edges()
+        false_first = cseg[position]
+        false_last = cseg[(position * -1) - 1]
 
-        if ((length - 1) - tmp[(x * -1) - 1]) < tmp[x]:
-            tmp = tmp.inversion()
+        if ((n - 1) - false_last) < false_first:
+            cseg = cseg.inversion()
 
-        return tmp
+        return cseg
 
     def __prime_form_marvin_laprade_step_3(self):
         """Runs Marvin and Laprade (1987) third step of prime form
@@ -370,24 +375,21 @@ class Contour(list):
         If last cpitch < first cpitch, retrograde.
         """
 
-        tmp = self
-        x = tmp.__unequal_edges()
+        cseg = self
+        position = cseg.__unequal_edges()
 
-        if tmp[(x * -1) - 1] < tmp[x]:
-            tmp = tmp.retrograde()
+        if cseg[(position * -1) - 1] < cseg[position]:
+            cseg = cseg.retrograde()
 
-        return tmp
+        return cseg
 
     def __non_repeated_prime_form_marvin_laprade(self):
         """Returns the prime form of a given contour (Marvin and
         Laprade, 1987)."""
 
-        tmp = Contour(self[:])
-
         # step 1: translate if necessary
-        tmp = Contour(tmp.translation())
-
-        step2 = tmp.__prime_form_marvin_laprade_step_2()
+        step1 = Contour(self).translation()
+        step2 = step1.__prime_form_marvin_laprade_step_2()
         step3 = step2.__prime_form_marvin_laprade_step_3()
 
         return step3
