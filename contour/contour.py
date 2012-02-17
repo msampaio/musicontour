@@ -311,9 +311,7 @@ class Contour(list):
         < 3 2 1 0 >
         """
 
-        tmp = self[:]
-        tmp.reverse()
-        return Contour(tmp)
+        return Contour(self[::-1])
 
     def inversion(self):
         """Returns contour inversion.
@@ -322,8 +320,7 @@ class Contour(list):
         < 3 0 2 1 >
         """
 
-        maxim = max(self)
-        return Contour([(maxim - cps) for cps in self])
+        return Contour([(max(self) - cps) for cps in self])
 
     def translation(self):
         """Returns the normal form (Marvin 1987) of a given contour.
@@ -333,8 +330,7 @@ class Contour(list):
         < 2 1 3 0 >
         """
 
-        sorted_contour = sorted(list(set(self)))
-        return Contour([sorted_contour.index(x) for x in self])
+        return Contour([sorted(set(self)).index(x) for x in self])
 
     def __unequal_edges(self):
         """Compares first and last cpitches and
@@ -346,10 +342,8 @@ class Contour(list):
         So the function returns cpitch position: 2.
         """
 
-        tmp = self
-
-        for x in range(len(tmp) / 2):
-            if tmp[x] != tmp[(x * -1) - 1]:
+        for x in range(len(self) / 2):
+            if self[x] != self[(x * -1) - 1]:
                 return x
 
     def __prime_form_marvin_laprade_step_2(self):
@@ -498,9 +492,9 @@ class Contour(list):
         [< 0 1 3 4 >, < 0 2 1 3 >, < 0 2 1 4 >, < 0 2 3 4 >, < 2 1 3 4 >]
         """
 
-        cseg = self
-        r = [Contour(list(x)) for x in itertools.combinations(cseg, n)]
-        return sorted(r)
+        n_combinations = itertools.combinations(self, n)
+
+        return sorted([Contour(list(x)) for x in n_combinations])
 
     def subsets_normal(self, n):
         """Returns adjacent and non-adjacent subsets of a given
@@ -560,7 +554,7 @@ class Contour(list):
 
         return dic
 
-    def all_subsets(self, prime_algorithm="prime_form_sampaio"):
+    def all_subsets(self):
         """Returns adjacent and non-adjacent subsets of a given
         contour.
 
