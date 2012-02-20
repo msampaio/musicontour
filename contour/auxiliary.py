@@ -141,21 +141,6 @@ def interval(els):
     return el2 - el1
 
 
-def comparison(els):
-    """Returns Morris (1987) comparison [COM(a, b)] for two
-    c-pitches.
-
-    This function calls interval(), but in contour theory there is no
-    relation between them. This calling reason is only to reduce code.
-
-    >>> comparison([4, 0])
-    -1
-    """
-
-    delta = interval(els)
-    return 0 if abs(delta) == 0 else (delta) / abs(delta)
-
-
 def cseg_from_class_number(card, class_number, prime_algorithm="prime_form_sampaio"):
     """Returns a cseg from a given cardinality and class
     number. Sampaio Prime algorithm is default.

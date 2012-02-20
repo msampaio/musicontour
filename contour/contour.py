@@ -844,7 +844,7 @@ class Contour(list):
         - - + 0
         """
 
-        return matrix.ComparisonMatrix([[auxiliary.comparison([a, b]) for b in self] for a in self])
+        return matrix.ComparisonMatrix([[cmp(b, a) for b in self] for a in self])
 
     def fuzzy_membership_matrix(self):
         """Returns a Fuzzy membership matrix. Quinn (1997).
