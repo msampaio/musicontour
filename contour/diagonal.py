@@ -88,9 +88,9 @@ class InternalDiagonal(list):
         < - + + >
         """
 
-        tmp = self[:]
-        tmp.reverse()
-        return InternalDiagonal(tmp)
+        diagonal = self[:]
+        diagonal.reverse()
+        return InternalDiagonal(diagonal)
 
     def inversion(self):
         """Returns Internal diagonal inversion.
