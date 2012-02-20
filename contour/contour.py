@@ -820,22 +820,15 @@ class Contour(list):
     def internal_diagonals(self, n=1):
         """Returns Morris (1987) int_n. The first internal diagonal
         (int_1) is the same of Friedmann (1985, 1987) contour
-        adjacency series (CC).
+        adjacency series (CAS).
 
         >>> Contour([0, 1, 3, 2]).internal_diagonals()
         < + + - >
         """
 
-        def __int_d(subset):
-            """Returns a contour comparison from a given subset.
-            """
-
-            a, b = subset[0], subset[-1]
-            return auxiliary.comparison([a, b])
-
-        subsets = self.subsets_adj(n + 1)
-
-        return diagonal.InternalDiagonal([__int_d(s) for s in subsets])
+        matrix = self.comparison_matrix()
+        int_d = [row[i + n] for i, row in enumerate(matrix[:-n])]
+        return diagonal.InternalDiagonal([x for x in int_d if x != 0])
 
     def comparison_matrix(self):
         """Returns Morris (1987) a cseg COM-Matrix.
