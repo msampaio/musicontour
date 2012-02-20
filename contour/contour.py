@@ -812,7 +812,11 @@ class Contour(list):
     def interval_succession(self):
         """Return Friedmann (1985) CIS, a series which indicates the
         order of Contour Intervals in a given CC (normal form cseg
-        here)."""
+        here).
+
+        >>> Contour([1, 2, 3, 5, 4, 0]).interval_succession()
+        [1, 1, 2, -1, -4]
+        """
 
         subsets = self.subsets_adj(2)
         return [auxiliary.interval([x[0], x[-1]]) for x in subsets]
@@ -889,7 +893,7 @@ class Contour(list):
     def interval_array(self):
         """Return Friedmann (1985) CIA, an ordered series of numbers
         that indicates the multiplicity of each Contour Interval type
-        in a given CC (normal form cseg here). For cseg [0, 1, 3, 2],
+        in a given CC (normal form cseg here). For cseg < 0 1 3 2 >,
         there are 2 instances of type +1 CI, 2 type +2 CI, 1. CIA =
         ([2, 2, 1], [1, 0, 0])
 
