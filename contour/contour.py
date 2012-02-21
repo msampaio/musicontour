@@ -831,8 +831,8 @@ class Contour(list):
         """
 
         matrix = self.comparison_matrix()
-        int_d = [row[i + n] for i, row in enumerate(matrix[:-n])]
-        return diagonal.InternalDiagonal([x for x in int_d if x != 0])
+        int_d = [x for x in itertools.imap(cmp, matrix, itertools.islice(matrix, n, None)) if x != 0]
+        return diagonal.InternalDiagonal(int_d)
 
     def comparison_matrix(self):
         """Returns Morris (1987) a cseg COM-Matrix.
