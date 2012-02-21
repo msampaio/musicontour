@@ -73,6 +73,12 @@ def test_contour_embed_1():
     assert comparison.contour_embed(a, b) == 0.5
 
 
+def test_contour_embed_2():
+    a = [0, 2, 1, 3, 4]
+    b = [0, 1, 2]
+    assert comparison.contour_embed(a, b) == 0.7
+
+
 def test_contour_similarity_compare_1():
     a = [0, 2, 1, 3]
     b = [0, 1, 2]
