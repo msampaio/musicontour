@@ -111,8 +111,8 @@ def subsets_embed_number(cseg1, cseg2):
 
 def contour_embed(cseg1, cseg2):
     """Returns similarity between contours with different
-    cardinalities. 1 for greater similarity. Marvin and Laprade
-    (1987).
+    cardinalities. 1 for greater similarity. (CEMB(a,b)). Marvin and
+    Laprade (1987).
 
     >>> contour_embed(Contour([0, 1, 2, 3]), Contour([0, 1, 2]))
     1.0
