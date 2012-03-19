@@ -2,6 +2,67 @@
 
 Release Notes
 
+* MusiContour, development version, status in Mar 18th, 2012
+
+This is a snapshot of development version of MusiContour. These are
+the features
+
+** Musical Contour Relations Theories operations implemented:
+*** Retrograde
+*** Inversion
+*** Rotation
+*** Normal form (translation)
+*** Prime form (Marvin and Laprade)
+*** Prime form (Sampaio)
+*** Comparison Matrix
+*** Internal Diagonal
+*** Subsets
+*** Contour segments for an internal diagonal
+*** Contour segment / Friedmann Contour class (CC)
+*** Contour Adjacency Series Vector (CASV)
+*** Contour Interval Succession (CIS)
+*** Contour Interval Array (CIA)
+*** Contour Class Vector I (CCVI)
+*** Contour Class Vector II (CCVII)
+*** Csegclasses table
+*** Prime form consistency test (Sampaio)
+*** Maxima
+*** Minima
+*** Morris reduction algorithm
+*** Window-3 reduction algorithm
+*** Window-5 reduction algorithm
+*** Window-35 reduction algorithm
+*** Window-53 reduction algorithm
+*** Window-355 reduction algorithm
+*** Window-555 reduction algorithm
+*** Fuzzy membership matrix
+*** Fuzzy comparison matrix
+*** Contour class index I (Sampaio)
+*** Contour class index II (Sampaio)
+*** RI Identity test (Sampaio)
+*** Symmetry Index (Sampaio)
+*** Csegclass representatives (Sampaio)
+*** Cseg Rotation class (Sampaio)
+*** Fuzzy membership comparison
+*** Fuzzy membership similarity
+*** Fuzzy average matrix
+*** Fuzzy crisp similarity
+*** Fuzzy fuzzy similarity
+*** Cseg similarity (CSIM)
+*** Csegclass similarity (CSIM)
+*** Contour embed (CEMB)
+*** Csubseg mutually embed (CMEMB)
+*** All contour mutually embed (ACMEMB)
+*** Diagonal rotation
+*** Diagonal retrograde
+*** Diagonal inversion
+*** Diagonal subsets
+*** Diagonal prime form (Sampaio)
+*** Cseg from diagonals (Sampaio)
+*** Contour csegclass number from cseg (Sampaio)
+*** Operations comparison (Sampaio)
+*** Similarity continuum (Sampaio)
+*** Cseg plot (Sampaio)
 * Villa-Lobos Contour Module, release 0.1, May 4th 2010
 
 This is the first release and has these features:
