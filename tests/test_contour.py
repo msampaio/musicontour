@@ -261,14 +261,10 @@ def test_reduction_window_5_5():
     assert cseg.reduction_window_5() == [0, 3, 1, 2]
 
 
-def test_reduction_window_5_5():
-    cseg = Contour([0, 3, 3, 1, 2])
-    assert cseg.reduction_window_5() == [0, 3, 1, 2]
-
-
 def test_reduction_window_5_6():
     cseg = Contour([12, 10, 13, 11, 7, 9, 8, 6, 3, 5, 4, 1, 0, 2])
     assert cseg.reduction_window_5() == [12, 10, 13, 7, 3, 0, 2]
+
 
 def test_reduction_window_5_recursive_1():
     cseg = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
