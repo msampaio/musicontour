@@ -22,7 +22,7 @@ Villa-Lobos Contour Module, release 0.2, November 11th 2010
 This is the second release and it has these features:
 
 - Contour theories operations implemented:
- - All Embed Contour Comparison
+ - All Embedded Contour Comparison
  - Morris Contour Reduction Algorithm
  - Contour classes table
 - Other operation implemented:

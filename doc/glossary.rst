@@ -67,10 +67,10 @@ Glossary
         Contour space. The abstraction of musical elements ordered
         from low to high disregarding their absolute values.
 
-    Embed Contour
+    Embedded Contour
         A numeric measure for similarity between csegs with different
-        cardinality. A embed contour has its comparison matrix embed
-        in bigger contour.
+        cardinality. A embedded contour has its comparison matrix
+        embedded in bigger contour.
 
     Internal Diagonal
         The diagonals above zero main diagonal in a Comparison

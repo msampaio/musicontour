@@ -50,9 +50,9 @@ the features
 *** Fuzzy fuzzy similarity
 *** Cseg similarity (CSIM)
 *** Csegclass similarity (CSIM)
-*** Contour embed (CEMB)
-*** Csubseg mutually embed (CMEMB)
-*** All contour mutually embed (ACMEMB)
+*** Contour embedded (CEMB)
+*** Csubseg mutually embedded (CMEMB)
+*** All contour mutually embedded (ACMEMB)
 *** Diagonal rotation
 *** Diagonal retrograde
 *** Diagonal inversion

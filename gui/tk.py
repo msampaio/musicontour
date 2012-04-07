@@ -101,8 +101,8 @@ class App:
 
         self.b_compare = Tkinter.Button(self.frame_comparisons, text="Contour comparison",
                                command=self.compare, width=13, font=font_par)
-        self.b_all_embed = Tkinter.Button(self.frame_comparisons, text="Embed comparison",
-                               command=self.all_embed, width=13, font=font_par)
+        self.b_all_embedded = Tkinter.Button(self.frame_comparisons, text="Embedded comparison",
+                               command=self.all_embedded, width=13, font=font_par)
         self.b_reduction = Tkinter.Button(self.frame_comparisons, text="Contour reduction",
                                command=self.reduction, width=13, font=font_par)
         self.b_operations_comparison = Tkinter.Button(self.frame_comparisons, text="Op. relations",
@@ -128,7 +128,7 @@ class App:
             x.bind("<S>", self.all_subsets)
             x.bind("<c>", self.csegs_from_int)
             x.bind("<C>", self.compare)
-            x.bind("<E>", self.all_embed)
+            x.bind("<E>", self.all_embedded)
             x.bind("<o>", self.operations_comparison)
 
             x.bind("<a>", self.casv)
@@ -198,7 +198,7 @@ class App:
         # comparisons area
         self.frame_comparisons.grid(row=8, column=1, rowspan=3, sticky=Tkinter.W)
         self.b_compare.grid(row=8, column=1)
-        self.b_all_embed.grid(row=9, column=1)
+        self.b_all_embedded.grid(row=9, column=1)
         self.b_operations_comparison.grid(row=10, column=1)
         self.b_reduction.grid(row=11, column=1)
 
@@ -460,15 +460,15 @@ class App:
         self.text_output.insert(Tkinter.END, text2)
         self.text_output.insert(Tkinter.END, "\n")
 
-    def all_embed(self, event=None):
+    def all_embedded(self, event=None):
         get1 = self.main_entry.get()
         get2 = self.secondary_entry.get()
         cseg1 = [int(x) for x in get1.split(' ') if x]
         cseg2 = [int(x) for x in get2.split(' ') if x]
         cseg1_p = contour.contour.Contour(cseg1)
         cseg2_p = contour.contour.Contour(cseg2)
-        result = contour.comparison.all_contour_mutually_embed(cseg1_p, cseg2_p)
-        text1 = "All mutually embed contour comparison: {0:.2f}\n".format(result)
+        result = contour.comparison.all_contour_mutually_embedded(cseg1_p, cseg2_p)
+        text1 = "All mutually embedded contour comparison: {0:.2f}\n".format(result)
         text2 = "Cseg 1: {0}\nCseg 2: {1}".format(cseg1_p, cseg2_p)
         self.text_output.insert(Tkinter.END, text1)
         self.text_output.insert(Tkinter.END, text2)

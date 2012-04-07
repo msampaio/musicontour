@@ -49,41 +49,41 @@ def test_cseg_similarity_matrix_classes():
                   [0.66666666666666663, 1.0]]
 
 
-def test_subsets_embed_total_number_1():
+def test_subsets_embedded_total_number_1():
     c1 = [0, 1, 2, 3]
     c2 = [1, 0, 2]
-    assert comparison.subsets_embed_total_number(c1, c2) == 4
+    assert comparison.subsets_embedded_total_number(c1, c2) == 4
 
 
-def test_subsets_embed_total_number_2():
+def test_subsets_embedded_total_number_2():
     c3 = [0, 1, 3, 2]
     c4 = [1, 0, 2]
-    assert comparison.subsets_embed_total_number(c3, c4) == 4
+    assert comparison.subsets_embedded_total_number(c3, c4) == 4
 
 
-def test_subsets_embed_number_1():
+def test_subsets_embedded_number_1():
     a = [0, 2, 1, 3]
     b = [0, 1, 2]
-    assert comparison.subsets_embed_number(a, b) == 2
+    assert comparison.subsets_embedded_number(a, b) == 2
 
 
-def test_contour_embed_1():
+def test_contour_embedded_1():
     a = [0, 2, 1, 3]
     b = [0, 1, 2]
-    assert comparison.contour_embed(a, b) == 0.5
+    assert comparison.contour_embedded(a, b) == 0.5
 
 
-def test_contour_embed_2():
+def test_contour_embedded_2():
     a = [0, 2, 1, 3, 4]
     b = [0, 1, 2]
-    assert comparison.contour_embed(a, b) == 0.7
+    assert comparison.contour_embedded(a, b) == 0.7
 
 
 def test_contour_similarity_compare_1():
     a = [0, 2, 1, 3]
     b = [0, 1, 2]
     fn = comparison.cseg_similarity_compare(a, b)
-    assert fn == ["Cseg embed", 0.5]
+    assert fn == ["Cseg embedded", 0.5]
 
 
 def test_contour_similarity_compare_2():
@@ -93,55 +93,55 @@ def test_contour_similarity_compare_2():
     assert fn == ["Cseg similarity", 5 / 6.0]
 
 
-def test___csubseg_mutually_embed_1():
+def test___csubseg_mutually_embedded_1():
     a = [1, 0, 4, 3, 2]
     b = [2, 0, 1, 4, 3]
-    assert comparison.__csubseg_mutually_embed(3, a, b) == [16, 20]
+    assert comparison.__csubseg_mutually_embedded(3, a, b) == [16, 20]
 
 
-def test___csubseg_mutually_embed_2():
+def test___csubseg_mutually_embedded_2():
     a = [1, 0, 4, 3, 2]
     b = [2, 0, 1, 4, 3]
-    assert comparison.__csubseg_mutually_embed(4, a, b) == [5, 10]
+    assert comparison.__csubseg_mutually_embedded(4, a, b) == [5, 10]
 
 
-def test_csubseg_mutually_embed_1():
+def test_csubseg_mutually_embedded_1():
     n = 3
     a = [1, 0, 4, 3, 2]
     b = [2, 0, 1, 4, 3]
-    assert comparison.csubseg_mutually_embed(n, a, b) == 0.8
+    assert comparison.csubseg_mutually_embedded(n, a, b) == 0.8
 
 
-def test_csubseg_mutually_embed_2():
+def test_csubseg_mutually_embedded_2():
     n = 4
     a = [1, 0, 4, 3, 2]
     b = [2, 0, 1, 4, 3]
-    assert comparison.csubseg_mutually_embed(n, a, b) == 0.5
+    assert comparison.csubseg_mutually_embedded(n, a, b) == 0.5
 
 
-def test__all_contour_mutually_embed():
+def test__all_contour_mutually_embedded():
     cseg1 = Contour([0, 1, 2, 3])
     cseg2 = Contour([0, 1, 2])
-    fn = comparison.__all_contour_mutually_embed(cseg1, cseg2)
+    fn = comparison.__all_contour_mutually_embedded(cseg1, cseg2)
     assert fn == 0.93333333333333335
 
 
-def test_all_contour_mutually_embed_1():
+def test_all_contour_mutually_embedded_1():
     cseg1 = Contour([0, 1, 2, 3])
     cseg2 = Contour([0, 2, 1, 3])
-    assert comparison.all_contour_mutually_embed(cseg1, cseg2) == 17.0 / 22
+    assert comparison.all_contour_mutually_embedded(cseg1, cseg2) == 17.0 / 22
 
 
-def test_all_contour_mutually_embed_2():
+def test_all_contour_mutually_embedded_2():
     cseg1 = Contour([0, 1, 2, 3])
     cseg2 = Contour([0, 2, 1, 3, 4])
-    assert comparison.all_contour_mutually_embed(cseg1, cseg2) == 29.0 / 37
+    assert comparison.all_contour_mutually_embedded(cseg1, cseg2) == 29.0 / 37
 
 
-def test_all_contour_mutually_embed_3():
+def test_all_contour_mutually_embedded_3():
     cseg1 = Contour([0, 2, 1, 3])
     cseg2 = Contour([0, 2, 1, 3, 4])
-    assert comparison.all_contour_mutually_embed(cseg1, cseg2) == 33.0 / 37
+    assert comparison.all_contour_mutually_embedded(cseg1, cseg2) == 33.0 / 37
 
 
 def test_operations_comparison():
