@@ -116,10 +116,12 @@ def membership_similarity(cseg1, cseg2):
     0.8
     """
 
-    fuzzy1 = utils.flatten(cseg1.fuzzy_membership_matrix().except_zero_diagonal())
-    fuzzy2 = utils.flatten(cseg2.fuzzy_membership_matrix().except_zero_diagonal())
+    def aux(cseg):
+        f_matrix = cseg.fuzzy_membership_matrix()
+        f_comparison_matrix = f_matrix.comparison()
+        return utils.flatten(f_comparison_matrix.except_zero_diagonal())
 
-    return auxiliary.position_comparison(fuzzy1, fuzzy2)
+    return auxiliary.position_comparison(*[aux(cseg) for cseg in [cseg1, cseg2]])
 
 
 def average_matrix(*csegs):
