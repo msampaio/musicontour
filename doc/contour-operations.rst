@@ -9,6 +9,8 @@ implemented in MusiContour:
 Retrogression
 -------------
 
+[Morris, 1987]
+
 Reverse :term:`cseg <Cseg>`.
 
 For instance::
