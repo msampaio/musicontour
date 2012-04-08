@@ -60,6 +60,8 @@ Thus::
 Rotation
 --------
 
+[Morris, 1987]
+
 In rotation the :term:`cseg <Cseg>` is split and the primer
 :term:`cpitches <Cpitch>` become the last ones. It accepts a rotation
 parameter.
