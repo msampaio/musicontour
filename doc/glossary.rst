@@ -39,7 +39,8 @@ Glossary
     Contour Equivalence Classes
         Two csegs have equivalent class if they have the same
         comparison Matrix, or if they are related by identity,
-        translation, retrograde, inversion and retrograde-inversion.
+        translation, retrogression, inversion and
+        retrograded-inversion.
 
     Contour Interval (CI)
         Diference between two cpitch values in a cseg.

@@ -69,9 +69,9 @@ class App:
                                    command=self.inversion, width=9, font=font_par)
         self.b_rotation = Tkinter.Button(self.frame_plot, text="Rotation",
                                command=self.rotation, width=9, font=font_par)
-        self.b_retrograde = Tkinter.Button(self.frame_plot, text="Retrograde",
-                                    command=self.retrograde, width=9, font=font_par)
-        self.b_ret_inv = Tkinter.Button(self.frame_plot, text="Retrograde inv.",
+        self.b_retrogression = Tkinter.Button(self.frame_plot, text="Retrogression",
+                                    command=self.retrogression, width=9, font=font_par)
+        self.b_ret_inv = Tkinter.Button(self.frame_plot, text="Retrograded inv.",
                                  command=self.ret_inv, width=9, font=font_par)
 
         self.b_comparison_matrix = Tkinter.Button(self.frame_matrix, text="COM Matrix",
@@ -117,7 +117,7 @@ class App:
             x.bind("<Return>", self.plot)
             x.bind("<p>", self.prime_form)
             x.bind("<n>", self.normal_form)
-            x.bind("<r>", self.retrograde)
+            x.bind("<r>", self.retrogression)
             x.bind("<R>", self.rotation)
             x.bind("<i>", self.inversion)
             x.bind("<I>", self.ret_inv)
@@ -172,7 +172,7 @@ class App:
         self.b_prime_form.grid(row=6, column=0)
         self.b_inversion.grid(row=7, column=0)
         self.b_rotation.grid(row=8, column=0)
-        self.b_retrograde.grid(row=9, column=0)
+        self.b_retrogression.grid(row=9, column=0)
         self.b_ret_inv.grid(row=10, column=0)
 
         # matrix area
@@ -249,17 +249,17 @@ class App:
         self.text_output.insert(Tkinter.END, "\n")
         contour.plot.contour_lines([normal_form, plot_color, "Normal form"])
 
-    def retrograde(self, event=None):
+    def retrogression(self, event=None):
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         plot_color = 'm'
-        retrograde = contour.contour.Contour(cseg).retrograde()
-        result = contour.contour.Contour(retrograde)
-        text = "Retrograde: "
+        retrogression = contour.contour.Contour(cseg).retrogression()
+        result = contour.contour.Contour(retrogression)
+        text = "Retrogression: "
         self.text_output.insert(Tkinter.END, text)
         self.text_output.insert(Tkinter.END, result)
         self.text_output.insert(Tkinter.END, "\n")
-        contour.plot.contour_lines([retrograde, plot_color, "Retrograde"])
+        contour.plot.contour_lines([retrogression, plot_color, "Retrogression"])
 
     def inversion(self, event=None):
         get = self.main_entry.get()
@@ -277,7 +277,7 @@ class App:
         get = self.main_entry.get()
         cseg = [int(x) for x in get.split(' ') if x]
         plot_color = 'c'
-        ret = contour.contour.Contour(cseg).retrograde()
+        ret = contour.contour.Contour(cseg).retrogression()
         ret_inv = contour.contour.Contour(ret).inversion()
         result = contour.contour.Contour(ret_inv)
         text = "Ret. Inv.: "

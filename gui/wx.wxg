@@ -96,7 +96,7 @@
                     <id></id>
                     <label>Ret/Inv</label>
                     <type>0</type>
-                    <short_help>Retrograde inversion</short_help>
+                    <short_help>Retrograded inversion</short_help>
                     <long_help></long_help>
                     <bitmap1></bitmap1>
                     <bitmap2></bitmap2>

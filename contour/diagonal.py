@@ -81,10 +81,10 @@ class InternalDiagonal(list):
         subset.extend(self[0:n])
         return InternalDiagonal(subset)
 
-    def retrograde(self):
+    def retrogression(self):
         """Returns internal diagonal retrograde.
 
-        >>> InternalDiagonal([1, 1, -1]).retrograde()
+        >>> InternalDiagonal([1, 1, -1]).retrogression()
         < - + + >
         """
 
@@ -174,7 +174,7 @@ class InternalDiagonal(list):
         if self.count(-1) > self.count(1):
             tmp = self.inversion()
 
-        return sorted([tmp, tmp.retrograde()], reverse=True)[0]
+        return sorted([tmp, tmp.retrogression()], reverse=True)[0]
 
     def __repr__(self):
         data = [utils.double_replace(str(x)) for x in self[:]]

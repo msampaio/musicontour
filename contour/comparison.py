@@ -255,7 +255,7 @@ def operations_comparison(cseg1, cseg2, prime_algorithm="prime_form_marvin_lapra
     """
 
     operations = ["translation", prime_algorithm, "inversion",
-                  "retrograde", "reduction_morris", "internal_diagonals"]
+                  "retrogression", "reduction_morris", "internal_diagonals"]
 
     def all_rotations(cseg):
         """Returns all possible rotations of a given cseg.

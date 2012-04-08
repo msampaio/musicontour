@@ -4,10 +4,10 @@ Contour Operations
 Contour theories provides many contour operations. Eight of them are
 implemented in MusiContour:
 
-.. index:: Retrograde
+.. index:: Retrogression
 
-Retrograde
-----------
+Retrogression
+-------------
 
 Reverse :term:`cseg <Cseg>`.
 
@@ -15,7 +15,7 @@ For instance::
 
  A < 0 1 2 3 >
 
- Retrograde(A) = < 3 2 1 0 >
+ Retrogression(A) = < 3 2 1 0 >
 
 .. figure:: lily/retrograde.png
 
@@ -118,7 +118,7 @@ For instance::
  B < 1 2 0 4 >
  1) Translation(B) = B' < 1 2 0 3>
  2) Invertion(B') = B'' < 2 1 3 0 >
- 3) Retrograde(B'') = < 0 3 1 2 >
+ 3) Retrogression(B'') = < 0 3 1 2 >
 
 In this example, A and B have the same prime form::
 
@@ -468,7 +468,7 @@ Operations Comparison
 ---------------------
 
 Operations Relations returns Translation, Prime form, Inversion,
-Retrograde, Morris Reduction and Internal Diagonals operations
+Retrogression, Morris Reduction and Internal Diagonals operations
 relations between two csegs. For instance, two csegs C1 < 0 1 2 3 >,
 and C2 < 9 5 3 1 > have these operations relations::
 
@@ -478,12 +478,12 @@ and C2 < 9 5 3 1 > have these operations relations::
            prime_form(< 9 5 3 1 >) = original(< 0 1 2 3 >)
            prime_form(< 9 5 3 1 >) = translation(< 0 1 2 3 >)
            prime_form(< 9 5 3 1 >) = prime_form(< 0 1 2 3 >)
-           original(< 0 1 2 3 >) = retrograde(< 9 5 3 1 >)
-           retrograde(< 9 5 3 1 >) = translation(< 0 1 2 3 >)
-           retrograde(< 9 5 3 1 >) = prime_form(< 0 1 2 3 >)
-           translation(< 9 5 3 1 >) = retrograde(< 0 1 2 3 >)
+           original(< 0 1 2 3 >) = retrogression(< 9 5 3 1 >)
+           retrogression(< 9 5 3 1 >) = translation(< 0 1 2 3 >)
+           retrogression(< 9 5 3 1 >) = prime_form(< 0 1 2 3 >)
+           translation(< 9 5 3 1 >) = retrogression(< 0 1 2 3 >)
            translation(< 9 5 3 1 >) = inversion(< 0 1 2 3 >)
-           retrograde(< 0 1 2 3 >) = original(< 9 5 3 1 >)
+           retrogression(< 0 1 2 3 >) = original(< 9 5 3 1 >)
            inversion(< 0 1 2 3 >) = original(< 9 5 3 1 >)
 
 .. index:: Morris Contour Reduction Algorithm

@@ -24,7 +24,7 @@ def permut_csegs(cardinality):
 def apply_fn(cseg, fn):
     """Apply a method to a contour.
 
-    >>> apply_fn(Contour([0, 1, 2]), 'retrograde')
+    >>> apply_fn(Contour([0, 1, 2]), 'retrogression')
     < 2 1 0 >
     """
 

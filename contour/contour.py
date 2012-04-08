@@ -304,10 +304,10 @@ class Contour(list):
         subset.extend(self[0:n])
         return Contour(subset)
 
-    def retrograde(self):
+    def retrogression(self):
         """Returns contour retrograde.
 
-        >>> Contour([0, 1, 2, 3]).retrograde()
+        >>> Contour([0, 1, 2, 3]).retrogression()
         < 3 2 1 0 >
         """
 
@@ -383,7 +383,7 @@ class Contour(list):
         cseg = self
 
         if cseg[(position * -1) - 1] < cseg[position]:
-            cseg = cseg.retrograde()
+            cseg = cseg.retrogression()
 
         return cseg
 
@@ -1014,7 +1014,7 @@ class Contour(list):
         """Returns contour segment class of a given cseg.
 
         Output format is: (cardinality, number, cseg_class, identity
-        under retrograde inversion), like (3, 1, (0, 1, 2), True).
+        under retrograded inversion), like (3, 1, (0, 1, 2), True).
 
         >>> Contour([0, 1, 3, 2]).segment_class()
         (4, 2, < 0 1 3 2 >, False)
@@ -1028,14 +1028,15 @@ class Contour(list):
                 return r
 
     def ri_identity_test(self):
-        """Returns True if cseg have identity under retrograde inversion.
+        """Returns True if cseg have identity under retrograded
+        inversion.
 
         >>> Contour([0, 1, 3, 2]).ri_identity_test()
         False
         """
 
         i = Contour(self).inversion()
-        ri = Contour(i).retrograde()
+        ri = Contour(i).retrogression()
         return self == ri
 
     def symmetry_index(self):
@@ -1051,7 +1052,7 @@ class Contour(list):
         """
 
         cseg = self
-        ri = self.retrograde().inversion()
+        ri = self.retrogression().inversion()
         size_half = round(len(cseg) / 2.0)
         int_size_half = int(size_half)
         half_cseg = cseg[:int_size_half]
@@ -1066,7 +1067,7 @@ class Contour(list):
 
     def class_representatives(self, prime_algorithm="prime_form_sampaio"):
         """Returns the four csegclass representatives (Marvin and
-        Laprade 1987, p. 237): prime, inversion, and retrograde
+        Laprade 1987, p. 237): prime, inversion, and retrograded
         inversion.
 
         >>> Contour([0, 1, 3, 2]).class_representatives()
@@ -1075,8 +1076,8 @@ class Contour(list):
 
         p = auxiliary.apply_fn(Contour(self), prime_algorithm)
         i = Contour(self).inversion()
-        r = Contour(self).retrograde()
-        ri = Contour(i).retrograde()
+        r = Contour(self).retrogression()
+        ri = Contour(i).retrogression()
 
         return [p, i, r, ri]
 
@@ -1091,8 +1092,8 @@ class Contour(list):
 
         t = self.translation()
         i = t.inversion()
-        r = t.retrograde()
-        ri = i.retrograde()
+        r = t.retrogression()
+        ri = i.retrogression()
 
         return [t, i, r, ri]
 
@@ -1155,7 +1156,7 @@ def prime_form_algorithm_test(card, prime_form_algorithm="prime_form_sampaio"):
     if classes != []:
         for cls in classes:
             cseg = auxiliary.cseg_from_class_number(*cls)
-            ri = cseg.retrograde().inversion()
+            ri = cseg.retrogression().inversion()
             result.append([cls, cseg, ri])
 
     return result
