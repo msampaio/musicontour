@@ -1123,20 +1123,20 @@ class Contour(list):
 
         return sorted([Contour(list(x)) for x in list(result)])
 
-    def ternary_symmetrical(self):
-        """Returns Ternary Symmetrical Contour Description, by
-        Polansky and Bassein (1992). The comparison between c-points
-        returns 0, 1, or 2 if the second c-point is lower, equal or
-        higher than the first, respectively. Ternary symmetrical
-        returns a list with comparison of all combinations of c-points.
+    def base_three_representation(self):
+        """Returns Base three Contour Description, by Polansky and
+        Bassein (1992). The comparison between c-points returns 0, 1,
+        or 2 if the second c-point is lower, equal or higher than the
+        first, respectively. This method returns a list with
+        comparison of all combinations of c-points.
 
-        >>> Contour([0, 1, 3, 2]).ternary_symmetrical()
+        >>> Contour([0, 1, 3, 2]).base_three_representation()
         [[2, 2, 2], [2, 2], 0]
         """
 
         combinations = itertools.combinations(self, 2)
 
-        def ternary_comparison(a, b):
+        def base_three_comparison(a, b):
             """Returns comparison in base three (0, 1, 2)."""
             comparison = cmp(b, a)
             if comparison == -1:
@@ -1161,7 +1161,7 @@ class Contour(list):
                 n += i
             return result
 
-        ternary = [ternary_comparison(a, b) for a, b in combinations]
+        ternary = [base_three_comparison(a, b) for a, b in combinations]
 
         return aux_list(ternary, self)
 
