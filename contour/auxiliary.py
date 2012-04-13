@@ -204,7 +204,7 @@ def ternary_to_base_3(seq):
     return [ternary_to_base_3_single(el) for el in seq]
 
 
-def base_3_to_ternary_single(seq):
+def base_3_to_ternary(seq):
     """Returns a comparison in ternary symmetrical representation of a
     sequence of elements (Polansky and Bassein 1992)
 
@@ -212,4 +212,7 @@ def base_3_to_ternary_single(seq):
     [1, 1, -1]
     """
 
-    return [base_3_to_ternary(el) for el in seq]
+    if seq == int:
+        return base_3_to_ternary_single(seq)
+    else:
+        return [base_3_to_ternary_single(el) for el in seq]
