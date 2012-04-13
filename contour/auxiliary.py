@@ -169,3 +169,47 @@ def position_comparison(list_1, list_2):
         if list_1[pos] == list_2[pos]:
             value += 1
     return value / float(size)
+
+
+def ternary_to_base_3_single(el):
+    """Returns a comparison in base-3 representation of a single
+    element (Polansky and Bassein 1992)
+
+    >>> ternary_to_base_3_single(-1)
+    0
+    """
+
+    return [-1, 0, 1].index(el)
+
+
+def base_3_to_ternary_single(el):
+    """Returns a comparison in ternary symmetrical representation of a
+    single element (Polansky and Bassein 1992)
+
+    >>> base_3_to_ternary_single(2)
+    1
+    """
+
+    return [-1, 0, 1][el]
+
+
+def ternary_to_base_3(seq):
+    """Returns a comparison in base-3 representation of a sequence of
+    elements (Polansky and Bassein 1992)
+
+    >>> ternary_to_base_3([0, 1, -1])
+    [1, 2, 0]
+    """
+
+    return [ternary_to_base_3_single(el) for el in seq]
+
+
+def base_3_to_ternary_single(seq):
+    """Returns a comparison in ternary symmetrical representation of a
+    sequence of elements (Polansky and Bassein 1992)
+
+    >>> base_3_to_ternary([2, 2, 0])
+    [1, 1, -1]
+    """
+
+    return [base_3_to_ternary(el) for el in seq]
