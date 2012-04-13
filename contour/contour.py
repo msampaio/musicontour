@@ -1138,21 +1138,15 @@ class Contour(list):
 
         def base_three_comparison(a, b):
             """Returns comparison in base three (0, 1, 2)."""
-            comparison = cmp(b, a)
-            if comparison == -1:
-                return 0
-            elif comparison == 0:
-                return 1
-            else:
-                return 2
+            return auxiliary.ternary_to_base_3_single(cmp(b, a))
 
-        def aux_list(ternary, self):
+        def aux_list(base_3, self):
             size = len(self)
             r_size = range(size - 1, 0, -1)
             result = []
             n = 0
             for i in r_size:
-                seq = ternary[n:n + i]
+                seq = base_3[n:n + i]
                 if seq != []:
                     if len(seq) == 1:
                         result.append(seq[0])
