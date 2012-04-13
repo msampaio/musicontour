@@ -1192,3 +1192,20 @@ def prime_form_algorithm_test(card, prime_form_algorithm="prime_form_sampaio"):
             result.append([cls, cseg, ri])
 
     return result
+
+
+def possible_cseg(base_3):
+    """Returns a cseg from a base 3 sequence, if the cseg is possible
+    (Polansky and Bassein 1992).
+
+    >>> possible_cseg([2, 2, 2])
+    < 0 1 2 >
+    """
+
+    seq = utils.flatten(base_3)
+    size = len(seq)
+    for x in itertools.product(range(size), repeat=3):
+        cseg = Contour(x)
+        if utils.flatten(cseg.base_three_representation()) == seq:
+            return Contour(x)
+    return "Impossible cseg"

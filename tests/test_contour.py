@@ -664,3 +664,11 @@ def test_prime_form_algorithm_test_2():
 def test_prime_form_algorithm_test_3():
     algorithm = "prime_form_sampaio"
     assert contour.prime_form_algorithm_test(6, algorithm) == []
+
+
+def test_possible_cseg_1():
+    assert contour.possible_cseg([[2, 2], [2]]) == Contour([0, 1, 2])
+
+
+def test_possible_cseg_2():
+    assert contour.possible_cseg([[0, 2], [1]]) == "Impossible cseg"
