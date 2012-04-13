@@ -1131,7 +1131,7 @@ class Contour(list):
         comparison of all combinations of c-points.
 
         >>> Contour([0, 1, 3, 2]).base_three_representation()
-        [[2, 2, 2], [2, 2], 0]
+        [[2, 2, 2], [2, 2], [0]]
         """
 
         combinations = itertools.combinations(self, 2)
@@ -1147,11 +1147,7 @@ class Contour(list):
             n = 0
             for i in r_size:
                 seq = base_3[n:n + i]
-                if seq != []:
-                    if len(seq) == 1:
-                        result.append(seq[0])
-                    else:
-                        result.append(seq)
+                result.append(seq)
                 n += i
             return result
 

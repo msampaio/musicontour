@@ -624,27 +624,27 @@ def test_rotated_representatives_2():
 
 def test_base_three_representation_1():
     cseg = Contour([0, 1])
-    assert cseg.base_three_representation() == [2]
+    assert cseg.base_three_representation() == [[2]]
 
 
 def test_base_three_representation_2():
     cseg = Contour([1, 0])
-    assert cseg.base_three_representation() == [0]
+    assert cseg.base_three_representation() == [[0]]
 
 
 def test_base_three_representation_3():
     cseg = Contour([0, 1, 0])
-    assert cseg.base_three_representation() == [[2, 1], 0]
+    assert cseg.base_three_representation() == [[2, 1], [0]]
 
 
 def test_base_three_representation_4():
     cseg = Contour([0, 1, 2])
-    assert cseg.base_three_representation() == [[2, 2], 2]
+    assert cseg.base_three_representation() == [[2, 2], [2]]
 
 
 def test_base_three_representation_5():
     cseg = Contour([0, 2, 1])
-    assert cseg.base_three_representation() == [[2, 2], 0]
+    assert cseg.base_three_representation() == [[2, 2], [0]]
 
 
 def test_prime_form_algorithm_test_1():
