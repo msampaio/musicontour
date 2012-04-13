@@ -1123,6 +1123,48 @@ class Contour(list):
 
         return sorted([Contour(list(x)) for x in list(result)])
 
+    def ternary_symmetrical(self):
+        """Returns Ternary Symmetrical Contour Description, by
+        Polansky and Bassein (1992). The comparison between c-points
+        returns 0, 1, or 2 if the second c-point is lower, equal or
+        higher than the first, respectively. Ternary symmetrical
+        returns a list with comparison of all combinations of c-points.
+
+        >>> Contour([0, 1, 3, 2]).ternary_symmetrical()
+        [[2, 2, 2], [2, 2], 0]
+        """
+
+        combinations = itertools.combinations(self, 2)
+
+        def ternary_comparison(a, b):
+            """Returns comparison in base three (0, 1, 2)."""
+            comparison = cmp(b, a)
+            if comparison == -1:
+                return 0
+            elif comparison == 0:
+                return 1
+            else:
+                return 2
+
+        def aux_list(ternary, self):
+            size = len(self)
+            r_size = range(size - 1, 0, -1)
+            result = []
+            n = 0
+            for i in r_size:
+                seq = ternary[n:n + i]
+                if seq != []:
+                    if len(seq) == 1:
+                        result.append(seq[0])
+                    else:
+                        result.append(seq)
+                n += i
+            return result
+
+        ternary = [ternary_comparison(a, b) for a, b in combinations]
+
+        return aux_list(ternary, self)
+
     def __repr__(self):
         return "< {0} >".format(" ".join([str(x) for x in self[:]]))
 
