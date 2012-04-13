@@ -61,9 +61,9 @@ def test_rotation_4():
     assert cseg.rotation(20) == [9, 9, 2, 1, 1, 4]
 
 
-def test_retrograde():
+def test_retrogression():
     cseg = Contour([1, 4, 9, 9, 2, 1])
-    assert cseg.retrograde() == [1, 2, 9, 9, 4, 1]
+    assert cseg.retrogression() == [1, 2, 9, 9, 4, 1]
 
 
 def test_inversion():
