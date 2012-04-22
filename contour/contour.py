@@ -821,6 +821,39 @@ class Contour(list):
         subsets = self.subsets_adj(2)
         return [auxiliary.interval([x[0], x[-1]]) for x in subsets]
 
+    def absolute_intervals_sum(self):
+        """Return the sum of absolute intervals in a cseg.
+
+        >>> Contour([0, 1, 3, 2]).absolute_intervals_sum()
+        4
+        """
+
+        return sum(map(abs, self.interval_succession()))
+
+    def absolute_intervals_average(self):
+        """Return an average value of absolute intervals sum. The
+        result is divided by cseg size.
+
+        >>> Contour([0, 1, 2, 3]).absolute_intervals_average()
+        0.75
+        """
+
+        size = len(self) * 1.0
+        return self.absolute_intervals_sum() / size
+
+
+    def absolute_intervals_index(self):
+        """Return an index value of absolute intervals sum. The
+        result is divided by the number of all possible leaps in cseg.
+
+        >>> Contour([0, 1, 2, 3]).absolute_intervals_index()
+        0.5
+        """
+
+        n = sum(range(len(self))) * 1.0
+        return self.absolute_intervals_sum() / n
+
+
     def internal_diagonals(self, n=1):
         """Returns Morris (1987) int_n. The first internal diagonal
         (int_1) is the same of Friedmann (1985, 1987) contour

@@ -442,6 +442,18 @@ def test_interval_succession():
     assert cseg.interval_succession() == [1, 2, -1]
 
 
+def test_absolute_intervals_sum():
+    assert Contour([0, 1, 3, 2]).absolute_intervals_sum() == 4
+
+
+def absolute_intervals_average():
+    assert Contour([0, 1, 2, 3]).absolute_intervals_average() == 0.75
+
+
+def absolute_intervals_index():
+    assert Contour([0, 1, 2, 3]).absolute_intervals_index() == 0.5
+
+
 def test_internal_diagonals_1():
     cseg = Contour([0, 2, 3, 1])
     n = 1
