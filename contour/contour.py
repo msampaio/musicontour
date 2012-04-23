@@ -818,8 +818,7 @@ class Contour(list):
         [1, 1, 2, -1, -4]
         """
 
-        subsets = self.subsets_adj(2)
-        return [auxiliary.interval([x[0], x[-1]]) for x in subsets]
+        return [b - a for a, b in zip(self, self[1:])]
 
     def absolute_intervals_sum(self):
         """Return the sum of absolute intervals in a cseg.
