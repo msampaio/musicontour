@@ -126,7 +126,7 @@ def contour_embedded(cseg1, cseg2):
 
     embedded_times = subsets_embedded_number(cseg, n_csubseg)
     total_subsets = subsets_embedded_total_number(cseg, csubseg)
-    return 1.0 * embedded_times / total_subsets
+    return float(embedded_times) / total_subsets
 
 
 def cseg_similarity_compare(cseg1, cseg2):
@@ -208,7 +208,7 @@ def csubseg_mutually_embedded(cardinality, cseg1, cseg2):
     """
 
     [a, b] = __csubseg_mutually_embedded(cardinality, cseg1, cseg2)
-    return 1.0 * a / b
+    return float(a) / b
 
 
 def __all_contour_mutually_embedded(cseg1, cseg2):
@@ -226,7 +226,7 @@ def __all_contour_mutually_embedded(cseg1, cseg2):
     for i in range(2, max(len(cseg1), len(cseg2)) + 1):
         incidence += __csubseg_mutually_embedded(i, cseg1, cseg2)[0]
         total += __csubseg_mutually_embedded(i, cseg1, cseg2)[1]
-    return 1.0 * incidence / total
+    return float(incidence) / total
 
 
 def all_contour_mutually_embedded(cseg1, cseg2):

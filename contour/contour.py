@@ -838,9 +838,8 @@ class Contour(list):
         0.75
         """
 
-        size = len(self) * 1.0
+        size = float(len(self))
         return self.absolute_intervals_sum() / size
-
 
     def absolute_intervals_index(self):
         """Return an index value of absolute intervals sum. The
@@ -850,9 +849,8 @@ class Contour(list):
         0.5
         """
 
-        n = sum(range(len(self))) * 1.0
+        n = float(sum(range(len(self))))
         return self.absolute_intervals_sum() / n
-
 
     def internal_diagonals(self, n=1):
         """Returns Morris (1987) int_n. The first internal diagonal
@@ -1015,9 +1013,9 @@ class Contour(list):
         if ups == downs:
             return 0
         elif ups > downs:
-            return ups * 1.0 / total
+            return float(ups) / total
         else:
-            return downs * -1.0 / total
+            return float(downs) * -1 / total
 
     def class_index_i(self):
         """Returns a general upward/downward decimal index, that -1.0
