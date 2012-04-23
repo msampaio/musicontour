@@ -101,9 +101,9 @@ class FuzzyMatrix(list):
         size = len(self)
         rsize = range(size)
         matrix = numpy.matrix(self)
-        result = [[__comparison(matrix, x, y)  for x, y in __product(rsize, n)] for n in rsize]
 
-        return FuzzyMatrix(result)
+        fm = [[__comparison(matrix, x, y)  for x, y in __product(rsize, n)] for n in rsize]
+        return FuzzyMatrix(fm)
 
     def __repr__(self):
 
