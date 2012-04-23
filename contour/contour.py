@@ -849,8 +849,22 @@ class Contour(list):
         0.5
         """
 
-        n = float(sum(range(len(self))))
-        return self.absolute_intervals_sum() / n
+        def highest(seq):
+            pool = deque(sorted(seq))
+            temp = deque([pool.popleft(), pool.pop()])
+            try:
+                while pool:
+                    if temp[0] < temp[-1]:
+                        temp.append(pool.popleft())
+                        temp.appendleft(pool.pop())
+                    else:
+                        temp.append(pool.pop())
+                        temp.appendleft(pool.popleft())
+            except IndexError:
+                pass
+            return comparisons(list(temp))
+
+        return self.absolute_intervals_sum() / highest(self)
 
     def internal_diagonals(self, n=1):
         """Returns Morris (1987) int_n. The first internal diagonal
