@@ -26,7 +26,7 @@ clean: clean-dist
 	rm -f $(WEB_DIR)/*.pyc
 
 tests:
-	py.test tests
+	python -m unittest discover -p 'test_*.py'
 
 dist: tar zip
 

@@ -1,95 +1,69 @@
 # -*- coding: utf-8 -*-
 
+import unittest
 import contour.utils as utils
 
 
-def test_flatten():
-    assert utils.flatten([[0, 1], [2, 3]]) == [0, 1, 2, 3]
+class TestUtils(unittest.TestCase):
+    def test_flatten(self):
+        result = utils.flatten([[0, 1], [2, 3]])
+        self.assertEqual(result, [0, 1, 2, 3])
 
+    def test_filter_int(self):
+        self.assertEqual(utils.filter_int(2), 2)
+        self.assertEqual(utils.filter_int('a'), '')
+        self.assertEqual(utils.filter_int(set()), '')
+        self.assertEqual(utils.filter_int({}), '')
+        self.assertEqual(utils.filter_int([1, 2]), '')
 
-def test_filter_int_1():
-    assert utils.filter_int(2) == 2
+    def test_percent(self):
+        n = [[(1, 0), 10], [(0, 1), 11]]
+        self.assertEqual(utils.percent(n), [[(1, 0), '47.62'], [(0, 1), '52.38']])
 
+    def test_item_count(self):
+        n = [[0, 1], [2, 3], [4, 5]]
+        self.assertEqual(utils.item_count(n), [[(0, 1), 1], [(4, 5), 1], [(2, 3), 1]])
 
-def test_filter_int_2():
-    assert utils.filter_int('a') == ''
+    def test_double_replace(self):
+        self.assertEqual(utils.double_replace("0 1 -1 1 0"), "0 + - + 0")
 
+    def test_replace_list_to_plus_minus(self):
+        n = [0, 1, 1, -1, -1]
+        self.assertEqual(utils.replace_list_to_plus_minus(n), "0 + + - -")
 
-def test_filter_int_3():
-    assert utils.filter_int(set()) == ''
+    def test_replace_plus_minus_to_list(self):
+        n = "0 + + - -"
+        self.assertEqual(utils.replace_plus_minus_to_list(n), [0, 1, 1, -1, -1])
 
+    def test_list_to_string(self):
+        self.assertEqual(utils.list_to_string([1, 2, 3]), "1 2 3")
 
-def test_filter_int_4():
-    assert utils.filter_int({}) == ''
+    def test_remove_adjacent(self):
+        self.assertEqual(utils.remove_adjacent([1, 4, 9, 9, 2, 1]), [1, 4, 9, 2, 1])
+        self.assertEqual(utils.remove_adjacent([0, 1, 1, 2, 3]), [0, 1, 2, 3])
+        self.assertEqual(utils.remove_adjacent([1, 4, 9, 9, 2, 4]), [1, 4, 9, 2, 4])
 
+    def test_remove_duplicate_tuples(self):
+        n = [(5, 0), (4, 1), (4, 2), (9, 3), (7, 4), (9, 5), (5, 6)]
+        result = [(5, 0), (4, 1), (9, 3), (7, 4), (9, 5), (5, 6)]
+        self.assertEqual(utils.remove_duplicate_tuples(n), result)
 
-def test_filter_int_5():
-    assert utils.filter_int([1, 2]) == ''
+    def test_pretty_as_cseg(self):
+        self.assertEqual(utils.pretty_as_cseg([1, 3, 5, 4]), '< 1 3 5 4 >')
 
+    def test_greatest_first(self):
+        result = utils.greatest_first([0, 1], [3, 2, 1])
+        self.assertEqual(result, [[3, 2, 1], [0, 1]])
 
-def test_percent():
-    n = [[(1, 0), 10], [(0, 1), 11]]
-    assert utils.percent(n) == [[(1, 0), '47.62'], [(0, 1), '52.38']]
+    def test_permut_list(self):
+        seq = [1, 2, 3]
+        result = [seq, [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
+        self.assertEqual(utils.permut_list(seq), result)
 
+    def test_replace_all(self):
+        list1 = [0, 3, 2, 0]
+        self.assertEqual(utils.replace_all(list1, -1), [-1, 3, 2, -1])
+        self.assertEqual(utils.replace_all(list1, "a"), ["a", 3, 2, "a"])
 
-def test_item_count():
-    n = [[0, 1], [2, 3], [4, 5]]
-    assert utils.item_count(n) == [[(0, 1), 1], [(4, 5), 1], [(2, 3), 1]]
-
-
-def test_double_replace():
-    assert utils.double_replace("0 1 -1 1 0") == "0 + - + 0"
-
-
-def test_replace_list_to_plus_minus():
-    n = [0, 1, 1, -1, -1]
-    assert utils.replace_list_to_plus_minus(n) == "0 + + - -"
-
-
-def test_replace_plus_minus_to_list():
-    n = "0 + + - -"
-    assert utils.replace_plus_minus_to_list(n) == [0, 1, 1, -1, -1]
-
-
-def test_list_to_string():
-    assert utils.list_to_string([1, 2, 3]) == "1 2 3"
-
-
-def test_remove_adjacent_1():
-    n = [1, 4, 9, 9, 2, 1]
-    assert utils.remove_adjacent(n) == [1, 4, 9, 2, 1]
-
-
-def test_remove_adjacent_2():
-    n = [0, 1, 1, 2, 3]
-    assert utils.remove_adjacent(n) == [0, 1, 2, 3]
-
-
-def test_remove_adjacent_3():
-    n = [1, 4, 9, 9, 2, 4]
-    assert utils.remove_adjacent(n) == [1, 4, 9, 2, 4]
-
-
-def test_remove_duplicate_tuples():
-    n = [(5, 0), (4, 1), (4, 2), (9, 3), (7, 4), (9, 5), (5, 6)]
-    assert utils.remove_duplicate_tuples(n) == [(5, 0), (4, 1), (9, 3),
-                                                (7, 4), (9, 5), (5, 6)]
-
-
-def test_pretty_as_cseg():
-    n = [1, 3, 5, 4]
-    assert utils.pretty_as_cseg(n) == '< 1 3 5 4 >'
-
-
-def test_greatest_first():
-    n1, n2 = [0, 1], [3, 2, 1]
-    assert utils.greatest_first(n1, n2) == [[3, 2, 1], [0, 1]]
-
-
-def test_permut_list():
-    lst = [1, 2, 3]
-    assert utils.permut_list(lst) == [[1, 2, 3], [1, 3, 2], [2, 1, 3],
-                                      [2, 3, 1], [3, 1, 2], [3, 2, 1]]
-
-def test_replace_all():
-    assert utils.replace_all([0, 3, 2, 0], -1) == [-1, 3, 2, -1]
+if __name__ == '__main__':
+    unittest.main()
