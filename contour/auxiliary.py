@@ -77,6 +77,16 @@ def octave_calculator(pitch):
     return (p_class, octave)
 
 
+def simple_contour(*args):
+    """Returns a Contour object from given args.
+
+    >>> simple_contour(0, 1, 2)
+    < 0 1 2 >
+    """
+
+    return contour.Contour(list(args))
+
+
 def cseg_string_to_Contour(cseg_string):
     """Returns a Contour object from a cseg string:
 
