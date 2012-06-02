@@ -12,7 +12,7 @@ setup(
     url='http://pypi.python.org/pypi/MusiContour/',
     license='COPYING',
     description='This app calculates and plot musical contour operations.',
-    long_description=open('README').read(),
+    long_description=open('README.markdown').read(),
     platforms='Linux',
     install_requires=[
         "PIL",
