@@ -1,11 +1,11 @@
-MusiContour: musical contour relations calculator
+# MusiContour: musical contour relations calculator
 
-by Marcos da Silva Sampaio and Pedro Kröger (Genos Research Group [1])
+### by Marcos da Silva Sampaio and Pedro Kröger (Genos Research Group [1][1])
 
 This is a software to calculate and plot musical contour relations
 operations. MusiContour can process contour related to parameters such
 as pitch, duration, dynamics and chord density. This software provides
-Contour Theories functions [2].
+Contour Theories functions [2][2].
 
 MusiContour had two names before its current one: Goiaba (2007), a
 software developed to process musical contours, during Marcos da Silva
@@ -18,9 +18,9 @@ available in [5], in portuguese.
 
 Footnotes:
 
-[1] http://genosmus.com
+[1]: http://genosmus.com
 
-[2] Find more about Contour Theories in:﻿
+[2]: Find more about Contour Theories in:﻿
 
 * Friedmann, Michael L. 1985. A Methodology for the Discussion of
   Contour: its Application to Schoenberg's Music. Journal of Music
@@ -50,11 +50,11 @@ Footnotes:
   process musical contours. In Proceedings of the 12th Brazilian
   Symposium on Computer Music, 203-206. Recife, Brazil.
 
-[3] http://marcosdisilva.net/en/research
+[3]: http://marcosdisilva.net/en/research
 
-[4] http://github.com/kroger/villa-lobos
+[4]: http://github.com/kroger/villa-lobos
 
-[5] http://genosmus.com/pesquisa/contornos
+[5]: http://genosmus.com/pesquisa/contornos
 
 Keywords: Musical contour, contour in music, melodic contour,
-          computational musicology, contour theory, contorno melódico.
+computational musicology, contour theory, contorno melódico.
