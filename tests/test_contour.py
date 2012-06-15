@@ -165,6 +165,7 @@ class TestUtils(unittest.TestCase):
         cseg1 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
         cseg2 = Contour([7, 10, 0, 3, 1, 8, 2, 5])
         cseg3 = Contour([5, 7, 0, 3, 1, 6, 2, 4])
+        self.assertEqual(cseg1.reduction_window_3(False), cseg2)
         self.assertEqual(cseg1.reduction_window_3(True), cseg3)
 
     def test_reduction_window_3_recursive(self):
