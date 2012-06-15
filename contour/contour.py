@@ -775,7 +775,7 @@ class Contour(list):
             old = old.reduction_window_5(translation)
         return old
 
-    def reduction_bor(self, windows=3):
+    def reduction_bor(self, windows=3, translation=True):
         """Returns reduction contour and its depth with given windows
         sequence (Bor, 2009).
 
@@ -785,9 +785,9 @@ class Contour(list):
 
         def window_fn(cseg, window):
             if window == '3':
-                return cseg.reduction_window_3()
+                return cseg.reduction_window_3(translation)
             elif window == '5':
-                return cseg.reduction_window_5()
+                return cseg.reduction_window_5(translation)
             else:
                 print "Windows Error"
 
