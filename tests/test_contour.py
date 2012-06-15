@@ -199,6 +199,16 @@ class TestUtils(unittest.TestCase):
         cseg2 = Contour([7, 10, 0, 5])
         self.assertEqual(cseg1.reduction_window_5_recursive(False), cseg2)
 
+    # def test_reduction_bor(self):
+    #     cseg1 = Contour([0, 6, 1, 4, 3, 5, 2])
+    #     cseg2 = Contour([0, 2, 1])
+    #     cseg3 = Contour([0, 3, 2, 1])
+    #     cseg4 = Contour([12, 10, 13, 11, 7, 9, 8, 6, 3, 5, 4, 1, 0, 2])
+    #     cseg5 = Contour([12, 10, 13, 0, 2])
+    #     self.assertEqual(cseg1.reduction_bor(53), [cseg2, 2])
+    #     self.assertEqual(cseg1.reduction_bor(35), [cseg3, 2])
+    #     self.assertEqual(cseg4.reduction_bor(53, False), [cseg5, 2])
+
     def test_reduction_bor_35(self):
         cseg1 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
         cseg2 = Contour([7, 10, 0, 8, 5])
