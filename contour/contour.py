@@ -705,20 +705,23 @@ class Contour(list):
         def _red(cseg, pos, n):
             return reduction_retention(cseg[pos - n:pos + 1 + n])
 
-        cseg = self[:]
-        size = len(cseg)
-        n = window_size / 2
+        if window_size % 2 == 0:
+            print "Window size must be an even number."
+        else:
+            cseg = self[:]
+            size = len(cseg)
+            n = window_size / 2
 
-        for i in range(n):
-            cseg.insert(0, None)
-            cseg.append(None)
+            for i in range(n):
+                cseg.insert(0, None)
+                cseg.append(None)
 
-        prange = range(n, size + n)
+            prange = range(n, size + n)
 
-        reduced = Contour([_red(cseg, pos, n) for pos in prange if _red(cseg, pos, n) != None])
-        if translation == True:
-            reduced = reduced.translation()
-        return reduced
+            reduced = Contour([_red(cseg, pos, n) for pos in prange if _red(cseg, pos, n) != None])
+            if translation == True:
+                reduced = reduced.translation()
+            return reduced
 
     def reduction_window_recursive(self, window_size=3, translation=True):
         """Returns a reduction of n-window reduction algorithm in all
