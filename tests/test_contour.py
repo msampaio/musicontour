@@ -161,21 +161,7 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(cseg1.reduction_morris(), [cseg2, 2])
         self.assertEqual(cseg3.reduction_morris(), [cseg4, 3])
 
-    def test_reduction_window_3(self):
-        cseg1 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
-        cseg2 = Contour([7, 10, 0, 3, 1, 8, 2, 5])
-        cseg3 = Contour([5, 7, 0, 3, 1, 6, 2, 4])
-        self.assertEqual(cseg1.reduction_window_3(False), cseg2)
-        self.assertEqual(cseg1.reduction_window_3(True), cseg3)
-
-    def test_reduction_window_3_recursive(self):
-        cseg1, cseg2 = Contour([0, 3, 3, 1, 2]), Contour([0, 3, 1, 2])
-        # FIXME: Improves contour example.
-        cseg3, cseg4 = Contour([0, 1, 1, 3, 2]), Contour([0, 3, 2])
-        self.assertEqual(cseg1.reduction_window_3_recursive(False), cseg2)
-        self.assertEqual(cseg3.reduction_window_3_recursive(False), cseg4)
-
-    def test_reduction_window_5(self):
+    def test_reduction_window(self):
         cseg1 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
         cseg2 = Contour([7, 10, 0, 1, 8, 2, 5])
         cseg3 = Contour([7, 10, 0, 8, 5])
@@ -187,50 +173,37 @@ class TestUtils(unittest.TestCase):
         cseg9 = Contour([12, 10, 13, 11, 7, 9, 8, 6, 3, 5, 4, 1, 0, 2])
         cseg10 = Contour([12, 10, 13, 7, 3, 0, 2])
         cseg11 = Contour([0, 2, 1, 3])
-        self.assertEqual(cseg1.reduction_window_5(False), cseg2)
-        self.assertEqual(cseg2.reduction_window_5(False), cseg3)
-        self.assertEqual(cseg3.reduction_window_5(False), cseg4)
-        self.assertEqual(cseg5.reduction_window_5(False), cseg6)
-        self.assertEqual(cseg7.reduction_window_5(False), cseg8)
-        self.assertEqual(cseg9.reduction_window_5(False), cseg10)
-        self.assertEqual(cseg5.reduction_window_5(True), cseg11)
+        self.assertEqual(cseg1.reduction_window(3, False), Contour([7, 10, 0, 3, 1, 8, 2, 5]))
+        self.assertEqual(cseg1.reduction_window(3, True), Contour([5, 7, 0, 3, 1, 6, 2, 4]))
+        self.assertEqual(cseg1.reduction_window(5, False), cseg2)
+        self.assertEqual(cseg2.reduction_window(5, False), cseg3)
+        self.assertEqual(cseg3.reduction_window(5, False), cseg4)
+        self.assertEqual(cseg5.reduction_window(5, False), cseg6)
+        self.assertEqual(cseg7.reduction_window(5, False), cseg8)
+        self.assertEqual(cseg9.reduction_window(5, False), cseg10)
+        self.assertEqual(cseg5.reduction_window(5, True), cseg11)
 
-    def test_reduction_window_5_recursive(self):
-        cseg1 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
-        cseg2 = Contour([7, 10, 0, 5])
-        self.assertEqual(cseg1.reduction_window_5_recursive(False), cseg2)
+    def test_reduction_window_recursive(self):
+        cseg1 = Contour([0, 3, 3, 1, 2])
+        # FIXME: Improves contour example.
+        cseg2 = Contour([0, 1, 1, 3, 2])
+        cseg3 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
+        self.assertEqual(cseg1.reduction_window_recursive(3, False), [Contour([0, 3, 1, 2]), 1])
+        self.assertEqual(cseg2.reduction_window_recursive(3, True), [Contour([0, 2, 1]), 2])
+        self.assertEqual(cseg3.reduction_window_recursive(5, False), [Contour([7, 10, 0, 5]), 3])
 
     def test_reduction_bor(self):
         cseg1 = Contour([0, 6, 1, 4, 3, 5, 2])
-        cseg2 = Contour([0, 2, 1])
-        cseg3 = Contour([0, 3, 2, 1])
-        cseg4 = Contour([12, 10, 13, 11, 7, 9, 8, 6, 3, 5, 4, 1, 0, 2])
-        cseg5 = Contour([12, 10, 13, 0, 2])
-        self.assertEqual(cseg1.reduction_bor(53), [cseg2, 2])
-        self.assertEqual(cseg1.reduction_bor(35), [cseg3, 2])
-        self.assertEqual(cseg4.reduction_bor(53, False), [cseg5, 2])
-
-    def test_reduction_bor_35(self):
-        cseg1 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
-        cseg2 = Contour([7, 10, 0, 8, 5])
-        cseg3 = Contour([2, 4, 0, 3, 1])
-        self.assertEqual(cseg1.reduction_bor_35(False), [cseg2, 2])
-        self.assertEqual(cseg1.reduction_bor_35(True), [cseg3, 2])
-
-    def test_reduction_bor_53(self):
-        cseg1 = Contour([12, 10, 13, 11, 7, 9, 8, 6, 3, 5, 4, 1, 0, 2])
-        cseg2 = Contour([12, 10, 13, 0, 2])
-        self.assertEqual(cseg1.reduction_bor_53(False), [cseg2, 2])
-
-    def test_reduction_bor_355(self):
-        cseg1 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
-        cseg2 = Contour([7, 10, 0, 5])
-        self.assertEqual(cseg1.reduction_bor_355(False), [cseg2, 3])
-
-    def test_reduction_bor_555(self):
-        cseg1 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
-        cseg2 = Contour([7, 10, 0, 5])
-        self.assertEqual(cseg1.reduction_bor_555(False), [cseg2, 3])
+        cseg2 = Contour([12, 10, 13, 11, 7, 9, 8, 6, 3, 5, 4, 1, 0, 2])
+        cseg3 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
+        self.assertEqual(cseg1.reduction_bor(53), [Contour([0, 2, 1]), 2])
+        self.assertEqual(cseg1.reduction_bor(35), [Contour([0, 3, 2, 1]), 2])
+        self.assertEqual(cseg2.reduction_bor(53, False), [Contour([12, 10, 13, 0, 2]), 2])
+        self.assertEqual(cseg3.reduction_bor(35, False), [Contour([7, 10, 0, 8, 5]), 2])
+        self.assertEqual(cseg3.reduction_bor(35, True), [Contour([2, 4, 0, 3, 1]), 2])
+        self.assertEqual(cseg2.reduction_bor(53, False), [Contour([12, 10, 13, 0, 2]), 2])
+        self.assertEqual(cseg3.reduction_bor(355, False), [Contour([7, 10, 0, 5]), 3])
+        self.assertEqual(cseg3.reduction_bor(555, True), [Contour([2, 3, 0, 1]), 3])
 
     def test_maxima_pair(self):
         n = [(0, 0), (1, 1), (3, 2), (2, 3), (4, 4)]
@@ -240,35 +213,33 @@ class TestUtils(unittest.TestCase):
         n = [(0, 0), (1, 1), (3, 2), (2, 3), (4, 4)]
         self.assertEqual(contour.minima_pair(n), [(0, 0), (2, 3), (4, 4)])
 
-    def test_reduction_retention_3(self):
-        self.assertEqual(contour.reduction_retention_3([0, 0, 0]), None)
-        self.assertEqual(contour.reduction_retention_3([0, 0, 1]), None)
-        self.assertEqual(contour.reduction_retention_3([1, 1, 0]), None)
-        self.assertEqual(contour.reduction_retention_3([0, 1, 0]), 1)
-        self.assertEqual(contour.reduction_retention_3([1, 0, 1]), 0)
-        self.assertEqual(contour.reduction_retention_3([1, 0, 0]), 0)
-        self.assertEqual(contour.reduction_retention_3([0, 1, 1]), 1)
-        self.assertEqual(contour.reduction_retention_3([None, 0, 0]), 0)
-        self.assertEqual(contour.reduction_retention_3([None, 0, 1]), 0)
-        self.assertEqual(contour.reduction_retention_3([None, 1, 0]), 1)
-        self.assertEqual(contour.reduction_retention_3([None, 1, 2]), 1)
-        self.assertEqual(contour.reduction_retention_3([0, 0, None]), 0)
-        self.assertEqual(contour.reduction_retention_3([0, 1, None]), 1)
-        self.assertEqual(contour.reduction_retention_3([1, 0, None]), 0)
-
-    def test_reduction_retention_5(self):
-        self.assertEqual(contour.reduction_retention_5([None, None, 0, 1, 2]), 0)
-        self.assertEqual(contour.reduction_retention_5([0, 2, 1, None, None]), 1)
-        self.assertEqual(contour.reduction_retention_5([None, 7, 10, 9, 0]), 10)
-        self.assertEqual(contour.reduction_retention_5([7, 10, 9, 0, 2]), None)
-        self.assertEqual(contour.reduction_retention_5([0, 2, 1, 4, 1]), None)
-        self.assertEqual(contour.reduction_retention_5([1, 4, 1, 5, 3]), 1)
-        self.assertEqual(contour.reduction_retention_5([3, 0, 4, 1, 4]), 4)
-        self.assertEqual(contour.reduction_retention_5([4, 1, 4, 3, 5]), None)
-        self.assertEqual(contour.reduction_retention_5([1, 0, 5, 2, 5]), 5)
-        self.assertEqual(contour.reduction_retention_5([5, 2, 5, 3, 4]), 5)
-        self.assertEqual(contour.reduction_retention_5([0, 3, 2, 4, 2]), None)
-        self.assertEqual(contour.reduction_retention_5([2, 4, 2, 5, 1]), None)
+    def test_reduction_retention(self):
+        self.assertEqual(contour.reduction_retention([0, 0, 0]), None)
+        self.assertEqual(contour.reduction_retention([0, 0, 1]), None)
+        self.assertEqual(contour.reduction_retention([1, 1, 0]), None)
+        self.assertEqual(contour.reduction_retention([0, 1, 0]), 1)
+        self.assertEqual(contour.reduction_retention([1, 0, 1]), 0)
+        self.assertEqual(contour.reduction_retention([1, 0, 0]), 0)
+        self.assertEqual(contour.reduction_retention([0, 1, 1]), 1)
+        self.assertEqual(contour.reduction_retention([None, 0, 0]), 0)
+        self.assertEqual(contour.reduction_retention([None, 0, 1]), 0)
+        self.assertEqual(contour.reduction_retention([None, 1, 0]), 1)
+        self.assertEqual(contour.reduction_retention([None, 1, 2]), 1)
+        self.assertEqual(contour.reduction_retention([0, 0, None]), 0)
+        self.assertEqual(contour.reduction_retention([0, 1, None]), 1)
+        self.assertEqual(contour.reduction_retention([1, 0, None]), 0)
+        self.assertEqual(contour.reduction_retention([None, None, 0, 1, 2]), 0)
+        self.assertEqual(contour.reduction_retention([0, 2, 1, None, None]), 1)
+        self.assertEqual(contour.reduction_retention([None, 7, 10, 9, 0]), 10)
+        self.assertEqual(contour.reduction_retention([7, 10, 9, 0, 2]), None)
+        self.assertEqual(contour.reduction_retention([0, 2, 1, 4, 1]), None)
+        self.assertEqual(contour.reduction_retention([1, 4, 1, 5, 3]), 1)
+        self.assertEqual(contour.reduction_retention([3, 0, 4, 1, 4]), 4)
+        self.assertEqual(contour.reduction_retention([4, 1, 4, 3, 5]), None)
+        self.assertEqual(contour.reduction_retention([1, 0, 5, 2, 5]), 5)
+        self.assertEqual(contour.reduction_retention([5, 2, 5, 3, 4]), 5)
+        self.assertEqual(contour.reduction_retention([0, 3, 2, 4, 2]), None)
+        self.assertEqual(contour.reduction_retention([2, 4, 2, 5, 1]), None)
 
     def test_contour_rotation_classes(self):
         result = [Contour([0, 1, 2, 3]), Contour([0, 1, 3, 2]), Contour([0, 2, 1, 3])]
