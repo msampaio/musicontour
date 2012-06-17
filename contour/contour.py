@@ -769,7 +769,11 @@ class Contour(list):
             else:
                 i += 1
 
-        return [Contour(seq), depth + 1]
+        seq = Contour(seq)
+        if translation == True:
+            seq = seq.translation()
+
+        return [seq, depth + 1]
 
     def interval_succession(self):
         """Return Friedmann (1985) CIS, a series which indicates the
