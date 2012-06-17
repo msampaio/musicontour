@@ -28,19 +28,19 @@ def filter_int(item):
         return ''
 
 
-def percent(list):
-    """Outputs percentuals from a list.
+def percent(seq):
+    """Outputs percentuals from a sequence.
 
     >>> percent()[[(1, 0), 10], [(0, 1), 11]]
     [[(1, 0), '47.62'], [(0, 1), '52.38']]
     """
 
-    sigma = sum(x[1] for x in list)
-    return [[n[0], "%.2f" % (float(n[1]) * 100 / sigma)] for n in list]
+    sigma = sum(x[1] for x in seq)
+    return [[n[0], "%.2f" % (float(n[1]) * 100 / sigma)] for n in seq]
 
 
-def lists_printing(list):
-    """Prints a list of two items lists.
+def lists_printing(seq):
+    """Prints a sequence of two items sequences.
 
     >>> lists_printing([[0, 1], [2, 3], [4, 5]])
     0 - 1 %
@@ -48,7 +48,7 @@ def lists_printing(list):
     4 - 5 %
     """
 
-    for n in list:
+    for n in seq:
         print("{0} - {1} %".format(n[0], n[1]))
 
 
@@ -84,14 +84,14 @@ def double_replace(string):
     return string.replace("-1", "-").replace("1", "+")
 
 
-def replace_list_to_plus_minus(list):
-    """Convert a list in a string and replace -1 by -, and 1 by +
+def replace_list_to_plus_minus(seq):
+    """Convert a sequence in a string and replace -1 by -, and 1 by +
 
     >>> replace_list_to_plus_minus([1, 1, -1, -1])
     '+ + - -'
     """
 
-    return " ".join([double_replace(str(x)) for x in list])
+    return " ".join([double_replace(str(x)) for x in seq])
 
 
 def replace_plus_minus_to_list(string):
@@ -108,25 +108,25 @@ def replace_plus_minus_to_list(string):
     return [int(x) for x in partial2.split(" ") if x]
 
 
-def list_to_string(list):
-    """Convert a list in a string.
+def list_to_string(seq):
+    """Convert a sequence in a string.
 
     >>> list_to_string([1, 2, 3])
     '1 2 3'
     """
 
-    return " ".join([str(x) for x in list])
+    return " ".join([str(x) for x in seq])
 
 
-def remove_adjacent(list):
-    """Removes duplicate adjacent elements from a list.
+def remove_adjacent(seq):
+    """Removes duplicate adjacent elements from a sequence.
 
     >>> remove_adjacent([0, 1, 1, 2, 3, 1, 4, 2, 2, 5])
     [0, 1, 2, 3, 1, 4, 2, 5]
     """
 
-    groups = itertools.izip(list, list[1:])
-    return [a for a, b in groups if a != b] + [list[-1]]
+    groups = itertools.izip(seq, seq[1:])
+    return [a for a, b in groups if a != b] + [seq[-1]]
 
 
 def remove_duplicate_tuples(list_of_tuples):
@@ -146,27 +146,27 @@ def remove_duplicate_tuples(list_of_tuples):
     return tmp
 
 
-def pretty_as_cseg(list):
+def pretty_as_cseg(seq):
     """Prints like cseg, used in Contour theories.
 
     >>> pretty_as_cseg([1, 3, 5, 4])
     < 1 3 5 4 >
     """
 
-    return "< " + list_to_string(list) + " >"
+    return "< " + list_to_string(seq) + " >"
 
 
-def greatest_first(list1, list2):
-    """Returns greatest list first.
+def greatest_first(seq1, seq2):
+    """Returns greatest sequence first.
 
     >>> greatest_first([0, 1], [3, 2, 1])
     [[3, 2, 1], [0, 1]]
     """
 
-    if len(list1) > len(list2):
-        return [list1, list2]
+    if len(seq1) > len(seq2):
+        return [seq1, seq2]
     else:
-        return [list2, list1]
+        return [seq2, seq1]
 
 
 def permut_list(numbers_list):
