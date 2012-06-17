@@ -759,15 +759,15 @@ class Contour(list):
 
         reduced, depth = self.reduction_bor(windows, translation)
         if self == reduced: depth = 0
-
         seq = reduced[:]
+        i = 2
 
-        for i in range(2, len(seq) - 1):
-            if i + 1 < len(seq):
-                for j in range(0, i - 1):
-                    if seq[i] == seq[j] and seq[i + 1] == seq[j + 1]:
-                        seq.pop(i)
-                        seq.pop(i)
+        while i < len(seq) - 1:
+            if seq[i] == seq[i - 2] and seq[i + 1] == seq[i - 1]:
+                seq.pop(i)
+                seq.pop(i)
+            else:
+                i += 1
 
         return [Contour(seq), depth + 1]
 
