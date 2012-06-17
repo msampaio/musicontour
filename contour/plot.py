@@ -4,8 +4,8 @@
 import pylab
 import matplotlib
 import PIL
-import Image
-import ImageChops
+from PIL import Image
+from PIL import ImageChops
 import utils
 import contour
 import random
