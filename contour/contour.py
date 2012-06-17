@@ -752,6 +752,25 @@ class Contour(list):
             cseg = cseg.reduction_window(window, translation)
         return [cseg, len(win_vals)]
 
+    def reduction_sampaio(self, windows=3, translation=True):
+        """Returns reduction contour and its depth with given windows
+        sequence. (Sampaio, ?)
+        """
+
+        reduced, depth = self.reduction_bor(windows, translation)
+        if self == reduced: depth = 0
+
+        seq = reduced[:]
+
+        for i in range(2, len(seq) - 1):
+            if i + 1 < len(seq):
+                for j in range(0, i - 1):
+                    if seq[i] == seq[j] and seq[i + 1] == seq[j + 1]:
+                        seq.pop(i)
+                        seq.pop(i)
+
+        return [Contour(seq), depth + 1]
+
     def interval_succession(self):
         """Return Friedmann (1985) CIS, a series which indicates the
         order of Contour Intervals in a given CC (normal form cseg
