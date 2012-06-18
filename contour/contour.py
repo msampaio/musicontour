@@ -1161,7 +1161,7 @@ class Contour(list):
 
         return aux_list(ternary, self)
 
-    def oscilation(self):
+    def oscillation(self):
         """Returns number of direction changes of a given
         cseg. (Schmuckler, 1999).
         """
@@ -1169,12 +1169,12 @@ class Contour(list):
         int_1 = self.internal_diagonals()
         return sum([1 for i in range(len(int_1) - 1) if int_1[i] != int_1[i + 1]])
 
-    def oscilation_index(self):
+    def oscillation_index(self):
         """Returns index of direction changes of a given
         cseg. (Schmuckler, 1999).
         """
 
-        return self.oscilation() / float(len(self) - 1)
+        return self.oscillation() / float(len(self) - 1)
 
     def __repr__(self):
         return "< {0} >".format(" ".join([str(x) for x in self[:]]))

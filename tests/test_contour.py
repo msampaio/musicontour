@@ -375,16 +375,16 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(cseg1.rotated_representatives(), result1)
         self.assertEqual(cseg2.rotated_representatives(), result2)
 
-    def test_oscilation(self):
-        self.assertEqual(Contour([0, 1]).oscilation(), 0)
-        self.assertEqual(Contour([0, 1, 0]).oscilation(), 1)
-        self.assertEqual(Contour([0, 1, 0, 2]).oscilation(), 2)
+    def test_oscillation(self):
+        self.assertEqual(Contour([0, 1]).oscillation(), 0)
+        self.assertEqual(Contour([0, 1, 0]).oscillation(), 1)
+        self.assertEqual(Contour([0, 1, 0, 2]).oscillation(), 2)
 
-    def test_oscilation_index(self):
-        self.assertEqual(Contour([0, 1]).oscilation_index(), 0)
-        self.assertEqual(Contour([0, 1, 0]).oscilation_index(), 0.5)
-        self.assertEqual(Contour([0, 1, 0, 2, 0]).oscilation_index(), 0.75)
-        self.assertEqual(Contour([0, 1, 2, 3, 0]).oscilation_index(), 0.25)
+    def test_oscillation_index(self):
+        self.assertEqual(Contour([0, 1]).oscillation_index(), 0)
+        self.assertEqual(Contour([0, 1, 0]).oscillation_index(), 0.5)
+        self.assertEqual(Contour([0, 1, 0, 2, 0]).oscillation_index(), 0.75)
+        self.assertEqual(Contour([0, 1, 2, 3, 0]).oscillation_index(), 0.25)
 
     def test_prime_form_algorithm_test(self):
         algorithm1 = "prime_form_marvin_laprade"
