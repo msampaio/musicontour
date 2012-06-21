@@ -113,13 +113,18 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(cseg.subsets_prime(4), result)
 
     def test_subsets_normal(self):
-        cseg = Contour([0, 3, 1, 4, 2])
-        result = {(0, 1, 3, 2): [[0, 1, 4, 2]],
-                  (0, 2, 1, 3): [[0, 3, 1, 4]],
-                  (0, 2, 3, 1): [[0, 3, 4, 2]],
-                  (0, 3, 1, 2): [[0, 3, 1, 2]],
-                  (2, 0, 3, 1): [[3, 1, 4, 2]]}
-        self.assertEqual(cseg.subsets_normal(4), result)
+        cseg1 = Contour([0, 3, 1, 4, 2])
+        result1 = {(0, 1, 3, 2): [[0, 1, 4, 2]],
+                   (0, 2, 1, 3): [[0, 3, 1, 4]],
+                   (0, 2, 3, 1): [[0, 3, 4, 2]],
+                   (0, 3, 1, 2): [[0, 3, 1, 2]],
+                   (2, 0, 3, 1): [[3, 1, 4, 2]]}
+        cseg2 = Contour([0, 1, 2, 0])
+        result2 = {(0, 1, 0): [[0, 1, 0], [0, 2, 0]],
+                   (0, 1, 2): [[0, 1, 2]],
+                   (1, 2, 0): [[1, 2, 0]]}
+        self.assertEqual(cseg1.subsets_normal(4), result1)
+        self.assertEqual(cseg2.subsets_normal(3), result2)
 
     def test_all_subsets(self):
         cseg = Contour([2, 8, 12, 9])
@@ -136,11 +141,17 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(cseg.all_subsets_prime(), result)
 
     def test_all_subsets_normal(self):
-        cseg = Contour([2, 8, 7])
-        result = {(0, 1): [[2, 7], [2, 8]],
-                  (0, 2, 1): [[2, 8, 7]],
-                  (1, 0): [[8, 7]]}
-        self.assertEqual(cseg.all_subsets_normal(), result)
+        cseg1 = Contour([2, 8, 7])
+        result1 = {(0, 1): [[2, 7], [2, 8]],
+                   (0, 2, 1): [[2, 8, 7]],
+                   (1, 0): [[8, 7]]}
+        cseg2 = Contour([2, 8, 2])
+        result2 = {(0, 0): [[2, 2]],
+                   (0, 1): [[2, 8]],
+                   (0, 1, 0): [[2, 8, 2]],
+                   (1, 0): [[8, 2]]}
+        self.assertEqual(cseg1.all_subsets_normal(), result1)
+        self.assertEqual(cseg2.all_subsets_normal(), result2)
 
     def test_subsets_adj(self):
         cseg = Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
