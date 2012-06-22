@@ -241,8 +241,8 @@ def all_contour_mutually_embedded(cseg1, cseg2):
     0.93333333333333335
     """
 
-    representatives = cseg2.class_representatives()
-    acmembs = [__all_contour_mutually_embedded(cseg1, c) for c in representatives]
+    four_forms = cseg2.class_four_forms()
+    acmembs = [__all_contour_mutually_embedded(cseg1, c) for c in four_forms]
     return sorted(acmembs, reverse=True)[0]
 
 
