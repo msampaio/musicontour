@@ -10,6 +10,8 @@ import utils
 import contour
 import random
 import matplotlib.pyplot as pyplot
+from matplotlib.ticker import MultipleLocator
+
 
 name = "MusiContour"
 version = "0.3"
@@ -28,23 +30,37 @@ def __contour_lines(cseg, plot_color, custom_legend=""):
     http://matplotlib.sourceforge.net/examples/pylab_examples/unicode_demo.html
     """
 
-    cseg_yticks = range((min(cseg)), (max(cseg) + 1))
-    cseg_xticks = range(len(cseg))
+    matplotlib.rcParams.update({'font.size': 14,
+                                'lines.linewidth': 3,
+                                'lines.linestyle': '-',
+                                'lines.marker': 'o',
+                                'figure.figsize': (5, 5),
+                                'grid.color': '0.7',
+                                'grid.linewidth': 0.1,
+                                'grid.linestyle': '-',
+                                'xtick.minor.size': 1,
+                                'xtick.major.size': 1,
+                                })
 
-    pylab.figure(num=1, figsize=(5, 5))
+    title_name = program_name + " - Contour plotter"
 
-    pylab.grid(color='b', linestyle='-', linewidth=.1)
-    pylab.axis()
+    fig = pylab.figure(num=1)
+    ax = fig.add_subplot(111)
+    pylab.grid()
+    ax.xaxis.set_major_locator(MultipleLocator(1.0))
+    ax.yaxis.set_major_locator(MultipleLocator(1.0))
 
-    title_name = program_name + " --- Contour plotter"
     pylab.xlabel('c-point position')
     pylab.ylabel('c-point value')
-    pylab.xticks(cseg_xticks)
-    pylab.yticks(cseg_yticks)
-    p = pylab.plot(cseg, linewidth=2, marker='o', color=plot_color,
-         label='{0} {1}'.format(cseg, custom_legend))
+
     pylab.title(title_name, family='georgia', size='small')
-    pylab.legend(prop=matplotlib.font_manager.FontProperties(size=10), loc='best')
+
+    if custom_legend == None:
+        p = ax.plot(cseg, color=plot_color)
+    else:
+        p = ax.plot(cseg, color=plot_color, label='{0} {1}'.format(cseg, custom_legend))
+        ax.legend(loc='best')
+
     return p
 
 
@@ -72,6 +88,7 @@ def contour_lines(*csegs):
     for [cseg, plot_color, legend] in csegs:
         __contour_lines(cseg, plot_color, legend)
     pylab.show()
+
 
 def contour_lines_save_multiple(*csegs):
     """Saves csegs graphs in a svg format file for each cseg.
