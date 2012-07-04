@@ -657,16 +657,24 @@ class Contour(MutableSequence):
         return seq
 
     def flag(self):
-        # morris algorithm steps 1 and 2
+        """Returns steps and 2 of Morris contour reduction algorithm
+        (1993). Returns maxima and minima lists of a given contour
+        object.
+        """
 
+        # morris algorithm steps 1 and 2
         max_list = self.max_min_list(maxima)
         min_list = self.max_min_list(minima)
 
         return max_list, min_list
 
     def all_flagged(self, max_list, min_list):
-        # morris algorithm step 3 and 4
+        """Returns steps 3 and 4 of Morris contour reduction algorithm
+        (1993). Returns original contour if all cpoints are flagged,
+        and maxima and minima lists if there are unflagged cpoints.
+        """
 
+        # morris algorithm step 3 and 4
         flagged = []
         flagged.extend(max_list)
         flagged.extend(min_list)
@@ -683,6 +691,12 @@ class Contour(MutableSequence):
 
 
     def reduction_morris(self):
+        """Returns Morris (1993) contour reduction from a cseg, and
+        its depth.
+
+        >>> Contour([0, 4, 3, 2, 5, 5, 1]).reduction_morris()
+        [< 0 2 1 >, 2]
+        """
 
         def aux_remove(seq, fn):
 
