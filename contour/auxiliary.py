@@ -21,14 +21,14 @@ def permut_csegs(cardinality):
     return utils.permut_list(base)
 
 
-def apply_fn(cseg, fn):
-    """Apply a method to a contour.
+def apply_fn(obj, fn):
+    """Apply a method to a contour object.
 
     >>> apply_fn(Contour([0, 1, 2]), 'retrogression')
     < 2 1 0 >
     """
 
-    return apply(getattr(contour.Contour(cseg), fn))
+    return apply(getattr(contour.Contour(obj.cseg), fn))
 
 
 def absolute_pitches(cseg, pitch_set):
