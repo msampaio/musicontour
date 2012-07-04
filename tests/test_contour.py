@@ -211,6 +211,7 @@ class TestUtils(unittest.TestCase):
         cseg1, cseg2 = Contour([0, 4, 3, 2, 5, 5, 1]), Contour([0, 2, 1])
         cseg3, cseg4 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5]), Contour([2, 3, 0, 1])
         self.assertEqual(cseg1.reduction_morris(), [cseg2, 2])
+        self.assertEqual(cseg2.reduction_morris(), [cseg2, 0])
         self.assertEqual(cseg3.reduction_morris(), [cseg4, 3])
 
     # def test_reduction_window(self):
