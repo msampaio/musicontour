@@ -745,8 +745,8 @@ class Contour(MutableSequence):
 
             data = [cpoint for cpoint in obj if cpoint in max_list or cpoint in min_list]
 
-            # step 9. End. N is the "depth" of the original contour C.
-            return [Contour(data).translation(), n]
+        # step 9. End. N is the "depth" of the original contour C.
+        return [Contour(data).translation(), n]
 
     def reduction_window(self, window_size=3, translation=True):
         """Returns a reduction in a single turn of n-window reduction
