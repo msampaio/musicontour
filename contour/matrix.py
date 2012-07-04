@@ -115,4 +115,4 @@ def triangle_zero_replace_to_cseg(triangle):
         new_triangle = triangle_zero_replace(triangle, r)
         new_matrix = matrix_from_triangle(new_triangle)
         pair.append(new_matrix.cseg())
-    return [contour.Contour(x) for x in pair]
+    return pair

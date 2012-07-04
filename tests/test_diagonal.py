@@ -73,7 +73,7 @@ class TestUtils(unittest.TestCase):
     def test_csegs_from_diagonals(self):
         d = [InternalDiagonal([1, -1, 1, -1]), InternalDiagonal([1, 1, 1]),
              InternalDiagonal([1, 1]), InternalDiagonal([1])]
-        self.assertEqual(diagonal.csegs_from_diagonals(d), Contour([0, 2, 1, 4, 3]))
+        self.assertEqual(diagonal.csegs_from_diagonals(d), [0, 2, 1, 4, 3])
 
 if __name__ == '__main__':
     unittest.main()

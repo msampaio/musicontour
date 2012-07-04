@@ -197,7 +197,7 @@ def csegs_from_diagonals(diagonals_list):
 
             # appends a set with each possible cseg from internal diagonal
             # to coll
-            s = set([tuple(x.cseg) for x in diagonal.csegs(n + 1)])
+            s = set([tuple(x) for x in diagonal.csegs(n + 1)])
             coll.append(s)
 
         # make the intersection among csegs from internal diagonals

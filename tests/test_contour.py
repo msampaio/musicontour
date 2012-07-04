@@ -2,7 +2,6 @@
 
 import unittest
 import contour.contour as contour
-from contour.contour import ContourPoint
 from contour.contour import Contour
 from contour.matrix import ComparisonMatrix
 from contour.diagonal import InternalDiagonal
@@ -11,18 +10,8 @@ from contour.fuzzy import FuzzyMatrix
 
 class TestUtils(unittest.TestCase):
 
-    def test_logical_contour_point(self):
-        self.assertEqual(ContourPoint(0, 0), ContourPoint(0, 0))
-        self.assertNotEqual(ContourPoint(0, 0), ContourPoint(0, 1))
-        self.assertNotEqual(ContourPoint(0, 0), ContourPoint(1, 0))
-
-    def test_logical_contour(self):
+    def test_logical(self):
         self.assertNotEqual(Contour([0, 1, 2]), Contour([0, 1]))
-        self.assertEqual(Contour([0, 1, 2]), Contour([0, 1, 2]))
-        self.assertNotEqual(Contour([0, 1, 2]), Contour([0, 2, 1]))
-
-    def test_contour(self):
-        self.assertEqual(Contour([ContourPoint(0, 0), ContourPoint(1, 1)]), Contour([0, 1]))
 
     def test_build_classes_card(self):
         fn = contour.build_classes_card
@@ -100,6 +89,7 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(cseg5.prime_form_sampaio(), cseg6)
         self.assertEqual(cseg7.prime_form_sampaio(), [cseg6, cseg8])
 
+
     def test_unique_prime_form_test(self):
         cseg1 = Contour([0, 2, 1, 3, 4])
         algorithm1 = "prime_form_marvin_laprade"
@@ -110,102 +100,71 @@ class TestUtils(unittest.TestCase):
 
     def test_subsets(self):
         cseg = Contour([2, 8, 12, 9])
-        self.assertEqual(cseg.subsets(2), [Contour([2, 8]), Contour([2, 9]), Contour([2, 12]), Contour([8, 9]), Contour([8, 12]), Contour([12, 9])])
-        self.assertEqual(cseg.subsets(3), [Contour([2, 8, 9]), Contour([2, 8, 12]), Contour([2, 12, 9]), Contour([8, 12, 9])])
+        self.assertEqual(cseg.subsets(2), [[2, 8], [2, 9], [2, 12], [8, 9], [8, 12], [12, 9]])
+        self.assertEqual(cseg.subsets(3), [[2, 8, 9], [2, 8, 12], [2, 12, 9], [8, 12, 9]])
 
     def test_subsets_prime(self):
         cseg = Contour([0, 3, 1, 4, 2])
-        result = {(0, 1, 3, 2): [Contour([0, 1, 4, 2])],
-                  (0, 2, 1, 3): [Contour([0, 3, 1, 4])],
-                  (0, 2, 3, 1): [Contour([0, 3, 4, 2])],
-                  (0, 3, 1, 2): [Contour([0, 3, 1, 2])],
-                  (1, 3, 0, 2): [Contour([3, 1, 4, 2])]}
+        result = {(0, 1, 3, 2): [[0, 1, 4, 2]],
+                  (0, 2, 1, 3): [[0, 3, 1, 4]],
+                  (0, 2, 3, 1): [[0, 3, 4, 2]],
+                  (0, 3, 1, 2): [[0, 3, 1, 2]],
+                  (1, 3, 0, 2): [[3, 1, 4, 2]]}
         self.assertEqual(cseg.subsets_prime(4), result)
 
     def test_subsets_normal(self):
         cseg1 = Contour([0, 3, 1, 4, 2])
-        result1 = {(0, 1, 3, 2): [Contour([0, 1, 4, 2])],
-                   (0, 2, 1, 3): [Contour([0, 3, 1, 4])],
-                   (0, 2, 3, 1): [Contour([0, 3, 4, 2])],
-                   (0, 3, 1, 2): [Contour([0, 3, 1, 2])],
-                   (2, 0, 3, 1): [Contour([3, 1, 4, 2])]}
+        result1 = {(0, 1, 3, 2): [[0, 1, 4, 2]],
+                   (0, 2, 1, 3): [[0, 3, 1, 4]],
+                   (0, 2, 3, 1): [[0, 3, 4, 2]],
+                   (0, 3, 1, 2): [[0, 3, 1, 2]],
+                   (2, 0, 3, 1): [[3, 1, 4, 2]]}
         cseg2 = Contour([0, 1, 2, 0])
-        result2 = {(0, 1, 0): [Contour([0, 1, 0]), Contour([0, 2, 0])],
-                   (0, 1, 2): [Contour([0, 1, 2])],
-                   (1, 2, 0): [Contour([1, 2, 0])]}
+        result2 = {(0, 1, 0): [[0, 1, 0], [0, 2, 0]],
+                   (0, 1, 2): [[0, 1, 2]],
+                   (1, 2, 0): [[1, 2, 0]]}
         self.assertEqual(cseg1.subsets_normal(4), result1)
         self.assertEqual(cseg2.subsets_normal(3), result2)
 
     def test_all_subsets(self):
         cseg = Contour([2, 8, 12, 9])
-        result = [Contour([2, 8]), Contour([2, 9]), Contour([2, 12]),
-                  Contour([8, 9]), Contour([8, 12]), Contour([12, 9]),
-                  Contour([2, 8, 9]), Contour([2, 8, 12]), Contour([2, 12, 9]),
-                  Contour([8, 12, 9]), Contour([2, 8, 12, 9])]
+        result = [[2, 8], [2, 9], [2, 12], [8, 9], [8, 12], [12, 9],
+                  [2, 8, 9], [2, 8, 12], [2, 12, 9], [8, 12, 9],
+                  [2, 8, 12, 9]]
+
         self.assertEqual(cseg.all_subsets(), result)
 
     def test_all_subsets_prime(self):
         cseg = Contour([2, 8, 12])
-        result = {(0, 1): [Contour([2, 8]), Contour([2, 12]), Contour([8, 12])],
-                  (0, 1, 2): [Contour([2, 8, 12])]}
+        result = {(0, 1): [[2, 8], [2, 12], [8, 12]],
+                  (0, 1, 2): [[2, 8, 12]]}
         self.assertEqual(cseg.all_subsets_prime(), result)
 
     def test_all_subsets_normal(self):
         cseg1 = Contour([2, 8, 7])
-        result1 = {(0, 1): [Contour([2, 7]), Contour([2, 8])],
-                   (0, 2, 1): [Contour([2, 8, 7])],
-                   (1, 0): [Contour([8, 7])]}
+        result1 = {(0, 1): [[2, 7], [2, 8]],
+                   (0, 2, 1): [[2, 8, 7]],
+                   (1, 0): [[8, 7]]}
         cseg2 = Contour([2, 8, 2])
-        result2 = {(0, 0): [Contour([2, 2])],
-                   (0, 1): [Contour([2, 8])],
-                   (0, 1, 0): [Contour([2, 8, 2])],
-                   (1, 0): [Contour([8, 2])]}
+        result2 = {(0, 0): [[2, 2]],
+                   (0, 1): [[2, 8]],
+                   (0, 1, 0): [[2, 8, 2]],
+                   (1, 0): [[8, 2]]}
         self.assertEqual(cseg1.all_subsets_normal(), result1)
         self.assertEqual(cseg2.all_subsets_normal(), result2)
 
     def test_subsets_adj(self):
         cseg = Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
-        result = [Contour([2, 8, 12, 9]), Contour([8, 12, 9, 5]), Contour([12, 9, 5, 7]),
-                  Contour([9, 5, 7, 3]), Contour([5, 7, 3, 12]), Contour([7, 3, 12, 3]),
-                  Contour([3, 12, 3, 7])]
+        result = [[2, 8, 12, 9], [8, 12, 9, 5], [12, 9, 5, 7],
+                  [9, 5, 7, 3], [5, 7, 3, 12], [7, 3, 12, 3],
+                  [3, 12, 3, 7]]
         self.assertEqual(cseg.subsets_adj(4), result)
 
-    def test_max_min_list(self):
-        self.assertEqual(Contour([0, 3, 2, 1]).max_min_list(contour.maxima), [ContourPoint(0, 0),
-                                                                              ContourPoint(1, 3),
-                                                                              ContourPoint(3, 1)])
-
-    def test_flag(self):
-        cseg = Contour([0, 4, 3, 2, 5, 5, 1])
-        result = ([ContourPoint(0, 0),
-                   ContourPoint(1, 4),
-                   ContourPoint(4, 5),
-                   ContourPoint(5, 5),
-                   ContourPoint(6, 1)],
-                  [ContourPoint(0, 0),
-                   ContourPoint(3, 2),
-                   ContourPoint(6, 1)])
-        self.assertEqual(cseg.flag(), result)
-
-    def test_all_flagged(self):
-        cseg = Contour([0, 4, 3, 2, 5, 5, 1])
-        max_list = ([ContourPoint(0, 0),
-                     ContourPoint(1, 4),
-                     ContourPoint(4, 5),
-                     ContourPoint(5, 5),
-                     ContourPoint(6, 1)])
-        min_list = ([ContourPoint(0, 0),
-                     ContourPoint(3, 2),
-                     ContourPoint(6, 1)])
-        result = (False, ([ContourPoint(0, 0),
-                           ContourPoint(1, 4),
-                           ContourPoint(4, 5),
-                           ContourPoint(5, 5),
-                           ContourPoint(6, 1)],
-                          [ContourPoint(0, 0),
-                           ContourPoint(3, 2),
-                           ContourPoint(6, 1)]))
-        self.assertEqual(cseg.all_flagged(max_list, min_list), result)
+    def test_cps_position(self):
+        cseg = Contour([2, 8, 12, 9, 5, 7, 3, 12, 3, 7])
+        result = [(2, 0), (8, 1), (12, 2), (9, 3), (5, 4),
+                  (7, 5), (3, 6), (12, 7), (3, 8), (7, 9)]
+        self.assertEqual(cseg.cps_position(), result)
 
     def test_reduction_morris(self):
         cseg1, cseg2 = Contour([0, 4, 3, 2, 5, 5, 1]), Contour([0, 2, 1])
@@ -213,57 +172,63 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(cseg1.reduction_morris(), [cseg2, 2])
         self.assertEqual(cseg3.reduction_morris(), [cseg4, 3])
 
-    # def test_reduction_window(self):
-    #     cseg1 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
-    #     cseg2 = Contour([7, 10, 0, 1, 8, 2, 5])
-    #     cseg3 = Contour([7, 10, 0, 8, 5])
-    #     cseg4 = Contour([7, 10, 0, 5])
-    #     cseg5 = Contour([0, 3, 3, 1, 2, 4])
-    #     cseg6 = Contour([0, 3, 1, 4])
-    #     cseg7 = Contour([0, 3, 3, 1, 2])
-    #     cseg8 = Contour([0, 3, 1, 2])
-    #     cseg9 = Contour([12, 10, 13, 11, 7, 9, 8, 6, 3, 5, 4, 1, 0, 2])
-    #     cseg10 = Contour([12, 10, 13, 7, 3, 0, 2])
-    #     cseg11 = Contour([0, 2, 1, 3])
-    #     cseg12 = Contour([0, 6, 1, 4, 3, 5, 2])
-    #     self.assertEqual(cseg1.reduction_window(3, False), Contour([7, 10, 0, 3, 1, 8, 2, 5]))
-    #     self.assertEqual(cseg1.reduction_window(3, True), Contour([5, 7, 0, 3, 1, 6, 2, 4]))
-    #     self.assertEqual(cseg1.reduction_window(5, False), cseg2)
-    #     self.assertEqual(cseg2.reduction_window(5, False), cseg3)
-    #     self.assertEqual(cseg3.reduction_window(5, False), cseg4)
-    #     self.assertEqual(cseg5.reduction_window(5, False), cseg6)
-    #     self.assertEqual(cseg7.reduction_window(5, False), cseg8)
-    #     self.assertEqual(cseg9.reduction_window(5, False), cseg10)
-    #     self.assertEqual(cseg5.reduction_window(5, True), cseg11)
-    #     self.assertEqual(cseg12.reduction_window(3, False), Contour([0, 6, 5, 2]))
+    def test_reduction_window(self):
+        cseg1 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
+        cseg2 = Contour([7, 10, 0, 1, 8, 2, 5])
+        cseg3 = Contour([7, 10, 0, 8, 5])
+        cseg4 = Contour([7, 10, 0, 5])
+        cseg5 = Contour([0, 3, 3, 1, 2, 4])
+        cseg6 = Contour([0, 3, 1, 4])
+        cseg7 = Contour([0, 3, 3, 1, 2])
+        cseg8 = Contour([0, 3, 1, 2])
+        cseg9 = Contour([12, 10, 13, 11, 7, 9, 8, 6, 3, 5, 4, 1, 0, 2])
+        cseg10 = Contour([12, 10, 13, 7, 3, 0, 2])
+        cseg11 = Contour([0, 2, 1, 3])
+        self.assertEqual(cseg1.reduction_window(3, False), Contour([7, 10, 0, 3, 1, 8, 2, 5]))
+        self.assertEqual(cseg1.reduction_window(3, True), Contour([5, 7, 0, 3, 1, 6, 2, 4]))
+        self.assertEqual(cseg1.reduction_window(5, False), cseg2)
+        self.assertEqual(cseg2.reduction_window(5, False), cseg3)
+        self.assertEqual(cseg3.reduction_window(5, False), cseg4)
+        self.assertEqual(cseg5.reduction_window(5, False), cseg6)
+        self.assertEqual(cseg7.reduction_window(5, False), cseg8)
+        self.assertEqual(cseg9.reduction_window(5, False), cseg10)
+        self.assertEqual(cseg5.reduction_window(5, True), cseg11)
 
-    # def test_reduction_window_recursive(self):
-    #     cseg1 = Contour([0, 3, 3, 1, 2])
-    #     # FIXME: Improves contour example.
-    #     cseg2 = Contour([0, 1, 1, 3, 2])
-    #     cseg3 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
-    #     self.assertEqual(cseg1.reduction_window_recursive(3, False), [Contour([0, 3, 1, 2]), 1])
-    #     self.assertEqual(cseg2.reduction_window_recursive(3, True), [Contour([0, 2, 1]), 2])
-    #     self.assertEqual(cseg3.reduction_window_recursive(5, False), [Contour([7, 10, 0, 5]), 3])
+    def test_reduction_window_recursive(self):
+        cseg1 = Contour([0, 3, 3, 1, 2])
+        # FIXME: Improves contour example.
+        cseg2 = Contour([0, 1, 1, 3, 2])
+        cseg3 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
+        self.assertEqual(cseg1.reduction_window_recursive(3, False), [Contour([0, 3, 1, 2]), 1])
+        self.assertEqual(cseg2.reduction_window_recursive(3, True), [Contour([0, 2, 1]), 2])
+        self.assertEqual(cseg3.reduction_window_recursive(5, False), [Contour([7, 10, 0, 5]), 3])
 
-    # def test_reduction_bor(self):
-    #     cseg1 = Contour([0, 6, 1, 4, 3, 5, 2])
-    #     cseg2 = Contour([12, 10, 13, 11, 7, 9, 8, 6, 3, 5, 4, 1, 0, 2])
-    #     cseg3 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
-    #     self.assertEqual(cseg1.reduction_bor(53), [Contour([0, 2, 1]), 2])
-    #     self.assertEqual(cseg1.reduction_bor(35), [Contour([0, 3, 2, 1]), 2])
-    #     self.assertEqual(cseg2.reduction_bor(53, False), [Contour([12, 10, 13, 0, 2]), 2])
-    #     self.assertEqual(cseg3.reduction_bor(35, False), [Contour([7, 10, 0, 8, 5]), 2])
-    #     self.assertEqual(cseg3.reduction_bor(35, True), [Contour([2, 4, 0, 3, 1]), 2])
-    #     self.assertEqual(cseg2.reduction_bor(53, False), [Contour([12, 10, 13, 0, 2]), 2])
-    #     self.assertEqual(cseg3.reduction_bor(355, False), [Contour([7, 10, 0, 5]), 3])
-    #     self.assertEqual(cseg3.reduction_bor(555, True), [Contour([2, 3, 0, 1]), 3])
+    def test_reduction_bor(self):
+        cseg1 = Contour([0, 6, 1, 4, 3, 5, 2])
+        cseg2 = Contour([12, 10, 13, 11, 7, 9, 8, 6, 3, 5, 4, 1, 0, 2])
+        cseg3 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
+        self.assertEqual(cseg1.reduction_bor(53), [Contour([0, 2, 1]), 2])
+        self.assertEqual(cseg1.reduction_bor(35), [Contour([0, 3, 2, 1]), 2])
+        self.assertEqual(cseg2.reduction_bor(53, False), [Contour([12, 10, 13, 0, 2]), 2])
+        self.assertEqual(cseg3.reduction_bor(35, False), [Contour([7, 10, 0, 8, 5]), 2])
+        self.assertEqual(cseg3.reduction_bor(35, True), [Contour([2, 4, 0, 3, 1]), 2])
+        self.assertEqual(cseg2.reduction_bor(53, False), [Contour([12, 10, 13, 0, 2]), 2])
+        self.assertEqual(cseg3.reduction_bor(355, False), [Contour([7, 10, 0, 5]), 3])
+        self.assertEqual(cseg3.reduction_bor(555, True), [Contour([2, 3, 0, 1]), 3])
 
-    # def test_reduction_sampaio(self):
-    #     cseg1 = Contour([0, 1, 0, 1, 0])
-    #     cseg2 = Contour([1, 3, 0, 2, 1, 2, 1, 3, 0])
-    #     self.assertEqual(cseg1.reduction_sampaio(), [Contour([0, 1, 0]), 1])
-    #     self.assertEqual(cseg2.reduction_sampaio(), [Contour([1, 3, 0, 2, 1, 3, 0]), 1])
+    def test_reduction_sampaio(self):
+        cseg1 = Contour([0, 1, 0, 1, 0])
+        cseg2 = Contour([1, 3, 0, 2, 1, 2, 1, 3, 0])
+        self.assertEqual(cseg1.reduction_sampaio(), [Contour([0, 1, 0]), 1])
+        self.assertEqual(cseg2.reduction_sampaio(), [Contour([1, 3, 0, 2, 1, 3, 0]), 1])
+
+    def test_maxima_pair(self):
+        n = [(0, 0), (1, 1), (3, 2), (2, 3), (4, 4)]
+        self.assertEqual(contour.maxima_pair(n), [(0, 0), (3, 2), (4, 4)])
+
+    def test_minima_pair(self):
+        n = [(0, 0), (1, 1), (3, 2), (2, 3), (4, 4)]
+        self.assertEqual(contour.minima_pair(n), [(0, 0), (2, 3), (4, 4)])
 
     def test_reduction_retention(self):
         self.assertEqual(contour.reduction_retention([0, 0, 0]), None)
@@ -293,9 +258,9 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(contour.reduction_retention([0, 3, 2, 4, 2]), None)
         self.assertEqual(contour.reduction_retention([2, 4, 2, 5, 1]), None)
 
-    # def test_contour_rotation_classes(self):
-    #     result = [Contour([0, 1, 2, 3]), Contour([0, 1, 3, 2]), Contour([0, 2, 1, 3])]
-    #     self.assertEqual(contour.contour_rotation_classes(4), result)
+    def test_contour_rotation_classes(self):
+        result = [Contour([0, 1, 2, 3]), Contour([0, 1, 3, 2]), Contour([0, 2, 1, 3])]
+        self.assertEqual(contour.contour_rotation_classes(4), result)
 
     def test_interval_succession(self):
         self.assertEqual(Contour([0, 1, 3, 2]).interval_succession(), [1, 2, -1])
@@ -330,34 +295,34 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(cseg1.comparison_matrix(), result1)
         self.assertEqual(cseg2.comparison_matrix(), result2)
 
-    # def test_fuzzy_membership_matrix(self):
-    #     cseg1 = Contour([0, 2, 3, 1])
-    #     cseg2 = Contour([1, 2, 3, 0, 3, 1])
-    #     result1 = FuzzyMatrix([[0, 1, 1, 1],
-    #                            [0, 0, 1, 0],
-    #                            [0, 0, 0, 0],
-    #                            [0, 1, 1, 0]])
-    #     result2 = FuzzyMatrix([[0, 1, 1, 0, 1, 0],
-    #                            [0, 0, 1, 0, 1, 0],
-    #                            [0, 0, 0, 0, 0, 0],
-    #                            [1, 1, 1, 0, 1, 1],
-    #                            [0, 0, 0, 0, 0, 0],
-    #                            [0, 1, 1, 0, 1, 0]])
-    #     self.assertEqual(cseg1.fuzzy_membership_matrix(), result1)
-    #     self.assertEqual(cseg2.fuzzy_membership_matrix(), result2)
+    def test_fuzzy_membership_matrix(self):
+        cseg1 = Contour([0, 2, 3, 1])
+        cseg2 = Contour([1, 2, 3, 0, 3, 1])
+        result1 = FuzzyMatrix([[0, 1, 1, 1],
+                               [0, 0, 1, 0],
+                               [0, 0, 0, 0],
+                               [0, 1, 1, 0]])
+        result2 = FuzzyMatrix([[0, 1, 1, 0, 1, 0],
+                               [0, 0, 1, 0, 1, 0],
+                               [0, 0, 0, 0, 0, 0],
+                               [1, 1, 1, 0, 1, 1],
+                               [0, 0, 0, 0, 0, 0],
+                               [0, 1, 1, 0, 1, 0]])
+        self.assertEqual(cseg1.fuzzy_membership_matrix(), result1)
+        self.assertEqual(cseg2.fuzzy_membership_matrix(), result2)
 
-    # def test_fuzzy_comparison_matrix(self):
-    #     cseg1 = Contour([0, 2, 3, 1])
-    #     cseg2 = Contour([1, 2, 3, 0, 3, 1])
-    #     result1 = FuzzyMatrix([[0, 1, 1, 1], [-1, 0, 1, -1], [-1, -1, 0, -1], [-1, 1, 1, 0]])
-    #     result2 =  FuzzyMatrix([[0, 1, 1, -1, 1, 0],
-    #                             [-1, 0, 1, -1, 1, -1],
-    #                             [-1, -1, 0, -1, 0, -1],
-    #                             [1, 1, 1, 0, 1, 1],
-    #                             [-1, -1, 0, -1, 0, -1],
-    #                             [0, 1, 1, -1, 1, 0]])
-    #     self.assertEqual(cseg1.fuzzy_comparison_matrix(), result1)
-    #     self.assertEqual(cseg2.fuzzy_comparison_matrix(), result2)
+    def test_fuzzy_comparison_matrix(self):
+        cseg1 = Contour([0, 2, 3, 1])
+        cseg2 = Contour([1, 2, 3, 0, 3, 1])
+        result1 = FuzzyMatrix([[0, 1, 1, 1], [-1, 0, 1, -1], [-1, -1, 0, -1], [-1, 1, 1, 0]])
+        result2 =  FuzzyMatrix([[0, 1, 1, -1, 1, 0],
+                                [-1, 0, 1, -1, 1, -1],
+                                [-1, -1, 0, -1, 0, -1],
+                                [1, 1, 1, 0, 1, 1],
+                                [-1, -1, 0, -1, 0, -1],
+                                [0, 1, 1, -1, 1, 0]])
+        self.assertEqual(cseg1.fuzzy_comparison_matrix(), result1)
+        self.assertEqual(cseg2.fuzzy_comparison_matrix(), result2)
 
     def test_adjacency_series_vector(self):
         self.assertEqual(Contour([0, 2, 3, 1]).adjacency_series_vector(), [2, 1])
@@ -378,9 +343,9 @@ class TestUtils(unittest.TestCase):
     def test_class_index_ii(self):
         self.assertEqual(Contour([0, 1, 3, 2]).class_index_ii(), 5.0 / 6)
 
-    # def test_segment_class(self):
-    #     self.assertEqual(Contour([2, 1, 4]).segment_class(), (3, 2, [0, 2, 1], False))
-    #     self.assertEqual(Contour([3, 1, 0]).segment_class(), (3, 1, [0, 1, 2], True))
+    def test_segment_class(self):
+        self.assertEqual(Contour([2, 1, 4]).segment_class(), (3, 2, [0, 2, 1], False))
+        self.assertEqual(Contour([3, 1, 0]).segment_class(), (3, 1, [0, 1, 2], True))
 
     def test_ri_identity_test(self):
         self.assertEqual(Contour([0, 1, 3, 2]).ri_identity_test(), False)
@@ -432,16 +397,16 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(Contour([0, 1, 0, 2, 0]).oscillation_index(), 0.75)
         self.assertEqual(Contour([0, 1, 2, 3, 0]).oscillation_index(), 0.25)
 
-    # def test_prime_form_algorithm_test(self):
-    #     algorithm1 = "prime_form_marvin_laprade"
-    #     algorithm2 = "prime_form_sampaio"
-    #     result = [[(5, 3), [0, 1, 3, 2, 4], [0, 2, 1, 3, 4]],
-    #                [(5, 8), [0, 2, 3, 1, 4], [0, 3, 1, 2, 4]],
-    #                [(5, 25), [1, 0, 4, 2, 3], [1, 2, 0, 4, 3]],
-    #                [(5, 27), [1, 2, 4, 0, 3], [1, 4, 0, 2, 3]]]
-    #     self.assertEqual(contour.prime_form_algorithm_test(4, algorithm1), [])
-    #     self.assertEqual(contour.prime_form_algorithm_test(5, algorithm1), result)
-    #     self.assertEqual(contour.prime_form_algorithm_test(6, algorithm2), [])
+    def test_prime_form_algorithm_test(self):
+        algorithm1 = "prime_form_marvin_laprade"
+        algorithm2 = "prime_form_sampaio"
+        result = [[(5, 3), [0, 1, 3, 2, 4], [0, 2, 1, 3, 4]],
+                   [(5, 8), [0, 2, 3, 1, 4], [0, 3, 1, 2, 4]],
+                   [(5, 25), [1, 0, 4, 2, 3], [1, 2, 0, 4, 3]],
+                   [(5, 27), [1, 2, 4, 0, 3], [1, 4, 0, 2, 3]]]
+        self.assertEqual(contour.prime_form_algorithm_test(4, algorithm1), [])
+        self.assertEqual(contour.prime_form_algorithm_test(5, algorithm1), result)
+        self.assertEqual(contour.prime_form_algorithm_test(6, algorithm2), [])
 
     def test_base_three_representation(self):
         self.assertEqual(Contour([0, 1]).base_three_representation(), [[2]])
