@@ -831,9 +831,11 @@ class Contour(MutableSequence):
         sequence. (Sampaio, ?)
         """
 
+        # calculate initial reduced by Bor algorithm
         reduced, depth = self.reduction_bor(windows, translation)
+
         if self == reduced: depth = 0
-        seq = reduced[:]
+        seq = copy(reduced).cseg
         i = 2
 
         while i < len(seq) - 1:
