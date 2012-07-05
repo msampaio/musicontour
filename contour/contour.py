@@ -821,8 +821,9 @@ class Contour(MutableSequence):
         """
 
         win_vals = [int(x) for x in str(windows)]
+        obj_cseg = copy(self)
         for window in win_vals:
-            obj_cseg = self.reduction_window(window, translation)
+            obj_cseg = obj_cseg.reduction_window(window, translation)
         return [obj_cseg, len(win_vals)]
 
     def reduction_sampaio(self, windows=3, translation=True):
