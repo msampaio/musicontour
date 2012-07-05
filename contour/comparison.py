@@ -3,9 +3,10 @@
 
 import math
 import contour
+from contour import Contour
 import utils
 import auxiliary
-
+from collections import Counter
 
 def cseg_similarity(cseg1, cseg2):
     """Returns Marvin and Laprade (1987) CSIM(A, B) for a single
@@ -67,7 +68,7 @@ def cseg_similarity_matrix_classes(card, prime_algorithm="prime_form_sampaio"):
     """
 
     classes_lst = contour.build_classes_card(card, prime_algorithm)
-    classes = [contour.Contour(list(cseg)) for (a, b, cseg, c) in classes_lst]
+    classes = [Contour(cseg) for (a, b, cseg, c) in classes_lst]
 
     return cseg_similarity_matrix(classes)
 
@@ -102,9 +103,10 @@ def subsets_embedded_number(cseg1, cseg2):
 
     cseg, csubseg = utils.greatest_first(cseg1, cseg2)
 
-    dic = contour.Contour(cseg).subsets_normal(len(csubseg))
-    if tuple(csubseg) in dic:
-        return len(dic[tuple(csubseg)])
+    dic = Contour(cseg).subsets_normal(len(csubseg))
+    tup = tuple(csubseg.cseg)
+    if tup in dic:
+        return len(dic[tup])
     else:
         return 0
 
@@ -120,7 +122,7 @@ def contour_embedded(cseg1, cseg2):
 
     cseg, csubseg = utils.greatest_first(cseg1, cseg2)
 
-    n_csubseg = contour.Contour(csubseg).translation()
+    n_csubseg = Contour(csubseg).translation()
     cseg_size = len(cseg)
     csubseg_size = len(csubseg)
 
@@ -174,8 +176,8 @@ def __csubseg_mutually_embedded(cardinality, cseg1, cseg2):
     """
 
     try:
-        cseg1_s = contour.Contour(cseg1).subsets_normal(cardinality)
-        cseg2_s = contour.Contour(cseg2).subsets_normal(cardinality)
+        cseg1_s = Contour(cseg1).subsets_normal(cardinality)
+        cseg2_s = Contour(cseg2).subsets_normal(cardinality)
         cseg1_t = 0
         cseg2_t = 0
 
@@ -246,174 +248,26 @@ def all_contour_mutually_embedded(cseg1, cseg2):
     return sorted(acmembs, reverse=True)[0]
 
 
-def operations_comparison(cseg1, cseg2, prime_algorithm="prime_form_marvin_laprade"):
-    """Returns contour operations relations between two given csegs.
-
-    >>> operations_comparison(Contour([0, 1, 2, 3]), Contour([3, 1, 2, 0]))
-    [[(< 0 1 2 3 >, 2, 'internal_diagonals', < + - + >),
-    (< 3 1 2 0 >, 1, 'internal_diagonals', < + - + >)]]
-    """
-
-    operations = ["translation", prime_algorithm, "inversion",
-                  "retrogression", "reduction_morris", "internal_diagonals"]
-
-    def all_rotations(cseg):
-        """Returns all possible rotations of a given cseg.
-
-        >>> all_rotations(Contour([0, 1, 2])
-        [(< 0, 1, 2>, 0, < 0, 1, 2 >),
-        (< 0, 1, 2 >, 1, < 1, 2, 0 >),
-        (< 0, 1, 2 >, 2, < 2, 0, 1 >)]
-        """
-
-        s = len(cseg)
-        return [(cseg, factor, cseg.rotation(factor)) for factor in range(s)]
-
-    def all_op(cseg, factor, rotated):
-        """Returns all operations defined in variable 'operations' of
-        a given tuple (original cseg, rotation factor, and rotated
-        cseg)."""
-
-        def __append_op(lst, cseg, factor, op):
-            """Appends cseg, factor, and operation data to a given
-            list.
-            """
-
-            lst.append((cseg, factor, op, auxiliary.apply_fn(rotated, op)))
-
-        r = []
-        r.append((cseg, factor, "original", rotated))
-        [__append_op(r, cseg, factor, op) for op in operations]
-
-        return r
-
-    def all_op_all_rot(cseg):
-        """Returns a list with all operations of all rotations of a
-        given cseg."""
-
-        r = []
-        for (c, factor, rotated) in all_rotations(cseg):
-            r.append(all_op(c, factor, rotated))
-
-        return utils.flatten(r)
-
-    def compare_csegs(cseg1, cseg2, prime_algorithm):
-        """Returns a list of operations that csegs are related. If
-        csegs are related by original, prime or normal form, only the
-        first relations is returned. The test order is 'original',
-        'normal form', and 'prime form'."""
-
-        l1 = all_op_all_rot(cseg1)
-        l2 = all_op_all_rot(cseg2)
-
-        r = []
-
-        for x in l1:
-            for y in l2:
-
-                # Tests if csegs are related by basic operations
-                if list(x)[3] == list(y)[3]:
-                    if list(x)[2] == list(y)[2] == "original":
-                        r = [[x, y]]
-                        break
-
-                    # Tests csegs with the same rotation factor.
-                    elif list(x)[1] == list(y)[1] == 0:
-                        if list(x)[2] == list(y)[2] == "translation":
-                            r = [[x, y]]
-                            break
-                        elif list(x)[2] == list(y)[2] == prime_algorithm:
-                            r = [[x, y]]
-                            break
-                    else:
-                        r.append([x, y])
-
-        # if csegs have different rotation factor, but are in prime
-        # or normal form, break
-        result = []
-        for (x, y) in r:
-            if list(x)[2] or list(y)[2] == prime_algorithm or "translation":
-                result = [[x, y]]
-                break
-            else:
-                result.append([x, y])
-
-        return result
-
-    return compare_csegs(cseg1, cseg2, prime_algorithm)
-
-
-def pretty_operations_comparison(cseg1, cseg2, prime_algorithm="prime_form_marvin_laprade"):
-    """Prints a pretty result for operations comparison.
-
-    >>> c1, c2 = Contour([0, 1, 2, 3]), Contour([3, 1, 2, 0])
-    >>> pretty_operations_comparison(c1, c2)
-    '< 0 1 2 3 > [rot1] (internal_diagonals): < + - + >\n' +
-    '< 3 1 2 0 > [rot1] (internal_diagonals)\n'
-    """
-
-    r = []
-    op_data = operations_comparison(cseg1, cseg2, prime_algorithm)
-
-    for [(c1, f1, o1, r1), (c2, f2, o2, r2)] in op_data:
-        els = c1, f2, o1, r1, c2, f2, o2
-        r.append("{0} [rot{1}] ({2}): {3}\n{4} [rot{5}] ({6})\n".format(*els))
-    if r == []:
-        return "No operation similarity."
-    else:
-        return "\n".join(r)
-
-
-def cseg_similarity_continuum(cseg, prime_algorithm="prime_form_marvin_laprade"):
+def cseg_similarity_continuum(obj_cseg, prime_algorithm="prime_form_marvin_laprade"):
     """Returns all csegs with the same cardinality of the given one
     sorted by cseg similarity.
 
     >>> cseg_similarity_continuum(Contour([1, 0, 3, 2]))
     [[0.5, [< 0 2 1 3 >, < 0 3 2 1 >]],
-    [0.66666666666666663, [< 0 1 2 3 >, < 0 2 3 1 >, < 0 3 1 2 >]],
-    [0.83333333333333337, [< 0 1 3 2 >, < 1 3 0 2 >]],
-    [1.0, [< 1 0 3 2 >]]]
+     [0.66666666666666663, [< 0 1 2 3 >, < 0 2 3 1 >, < 0 3 1 2 >]],
+     [0.83333333333333337, [< 0 1 3 2 >, < 1 3 0 2 >]],
+     [1.0, [< 1 0 3 2 >]]]
     """
 
-    size = len(cseg)
-    built_classes = contour.build_classes_card(size, prime_algorithm)
+    all_csegs = [Contour(el) for el in auxiliary.permut_csegs(obj_cseg.size)]
 
-    def cseg_similarity_lists(built_classes):
-        """Returns a tuple with two lists:
-        1. cseg similarity (CSIM) and csegclass, and
-        2. all cseg similarity in previous list.
-
-        Accepts built classes with one cardinality
-        """
-
-        csegclasses = []
-        similarity = []
-
-        for (a, b, csegclass, d) in built_classes:
-            csegclass = contour.Contour(csegclass)
-            csim = csegclass_similarity(cseg, csegclass)
-            csegclasses.append([csim, csegclass])
-            similarity.append(csim)
-
-        return csegclasses, sorted(list(set(similarity)))
-
-    def grouped_cseg_similarity_lists((csegclasses, similarity)):
-        """Returns csegclasses grouped by cseg similarity. Accepts
-        lists provided by cseg_similarity_lists function.
-        """
-
-        result = []
-
-        for similarity_index in similarity:
-            simil_index = []
-            for csegclass in sorted(csegclasses):
-                if csegclass[0] == similarity_index:
-                    simil_index.append(csegclass[1])
-            result.append([similarity_index, simil_index])
-
-        return result
-
-    return grouped_cseg_similarity_lists(cseg_similarity_lists(built_classes))
+    dic = Counter()
+    for cseg_ob in all_csegs:
+        csim = cseg_similarity(obj_cseg, cseg_ob)
+        if csim not in dic:
+            dic[csim] = []
+        dic[csim].append(cseg_ob)
+    return [[k, dic[k]] for k in sorted(dic)]
 
 
 def cseg_similarity_subsets_continuum(cseg, prime_algorithm="prime_form_sampaio"):
@@ -431,7 +285,7 @@ def cseg_similarity_subsets_continuum(cseg, prime_algorithm="prime_form_sampaio"
     result = []
 
     for subset in subsets:
-        prime = contour.Contour(subset)
+        prime = Contour(subset)
         acmemb = all_contour_mutually_embedded(cseg, prime)
         result.append([prime, acmemb])
 
