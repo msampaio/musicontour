@@ -241,11 +241,11 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(cseg3.reduction_bor(355, False), [Contour([7, 10, 0, 5]), 3])
         self.assertEqual(cseg3.reduction_bor(555, True), [Contour([2, 3, 0, 1]), 3])
 
-    # def test_reduction_sampaio(self):
-    #     cseg1 = Contour([0, 1, 0, 1, 0])
-    #     cseg2 = Contour([1, 3, 0, 2, 1, 2, 1, 3, 0])
-    #     self.assertEqual(cseg1.reduction_sampaio(), [Contour([0, 1, 0]), 1])
-    #     self.assertEqual(cseg2.reduction_sampaio(), [Contour([1, 3, 0, 2, 1, 3, 0]), 1])
+    def test_reduction_sampaio(self):
+        cseg1 = Contour([0, 1, 0, 1, 0])
+        cseg2 = Contour([1, 3, 0, 2, 1, 2, 1, 3, 0])
+        self.assertEqual(cseg1.reduction_sampaio(), [Contour([0, 1, 0]), 1])
+        self.assertEqual(cseg2.reduction_sampaio(), [Contour([1, 3, 0, 2, 1, 3, 0]), 1])
 
     def test_reduction_retention(self):
         self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 0), CP(2, 0)]), None)
