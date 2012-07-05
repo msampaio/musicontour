@@ -361,9 +361,9 @@ class TestUtils(unittest.TestCase):
     def test_class_index_ii(self):
         self.assertEqual(Contour([0, 1, 3, 2]).class_index_ii(), 5.0 / 6)
 
-    # def test_segment_class(self):
-    #     self.assertEqual(Contour([2, 1, 4]).segment_class(), (3, 2, [0, 2, 1], False))
-    #     self.assertEqual(Contour([3, 1, 0]).segment_class(), (3, 1, [0, 1, 2], True))
+    def test_segment_class(self):
+        self.assertEqual(Contour([2, 1, 4]).segment_class(), (3, 2, Contour([0, 2, 1]), False))
+        self.assertEqual(Contour([3, 1, 0]).segment_class(), (3, 1, Contour([0, 1, 2]), True))
 
     def test_ri_identity_test(self):
         self.assertEqual(Contour([0, 1, 3, 2]).ri_identity_test(), False)
