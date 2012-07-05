@@ -68,7 +68,7 @@ def cseg_similarity_matrix_classes(card, prime_algorithm="prime_form_sampaio"):
     """
 
     classes_lst = contour.build_classes_card(card, prime_algorithm)
-    classes = [contour.Contour(list(cseg)) for (a, b, cseg, c) in classes_lst]
+    classes = [Contour(cseg) for (a, b, cseg, c) in classes_lst]
 
     return cseg_similarity_matrix(classes)
 
@@ -103,7 +103,7 @@ def subsets_embedded_number(cseg1, cseg2):
 
     cseg, csubseg = utils.greatest_first(cseg1, cseg2)
 
-    dic = contour.Contour(cseg).subsets_normal(len(csubseg))
+    dic = Contour(cseg).subsets_normal(len(csubseg))
     if tuple(csubseg) in dic:
         return len(dic[tuple(csubseg)])
     else:
@@ -121,7 +121,7 @@ def contour_embedded(cseg1, cseg2):
 
     cseg, csubseg = utils.greatest_first(cseg1, cseg2)
 
-    n_csubseg = contour.Contour(csubseg).translation()
+    n_csubseg = Contour(csubseg).translation()
     cseg_size = len(cseg)
     csubseg_size = len(csubseg)
 
@@ -175,8 +175,8 @@ def __csubseg_mutually_embedded(cardinality, cseg1, cseg2):
     """
 
     try:
-        cseg1_s = contour.Contour(cseg1).subsets_normal(cardinality)
-        cseg2_s = contour.Contour(cseg2).subsets_normal(cardinality)
+        cseg1_s = Contour(cseg1).subsets_normal(cardinality)
+        cseg2_s = Contour(cseg2).subsets_normal(cardinality)
         cseg1_t = 0
         cseg2_t = 0
 
@@ -391,7 +391,7 @@ def cseg_similarity_continuum(cseg, prime_algorithm="prime_form_marvin_laprade")
         similarity = []
 
         for (a, b, csegclass, d) in built_classes:
-            csegclass = contour.Contour(csegclass)
+            csegclass = Contour(csegclass)
             csim = csegclass_similarity(cseg, csegclass)
             csegclasses.append([csim, csegclass])
             similarity.append(csim)
@@ -432,7 +432,7 @@ def cseg_similarity_subsets_continuum(cseg, prime_algorithm="prime_form_sampaio"
     result = []
 
     for subset in subsets:
-        prime = contour.Contour(subset)
+        prime = Contour(subset)
         acmemb = all_contour_mutually_embedded(cseg, prime)
         result.append([prime, acmemb])
 
