@@ -3,6 +3,7 @@
 
 import math
 import contour
+from contour import Contour
 import utils
 import auxiliary
 
