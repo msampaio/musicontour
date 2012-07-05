@@ -6,7 +6,7 @@ import contour
 from contour import Contour
 import utils
 import auxiliary
-
+from collections import Counter
 
 def cseg_similarity(cseg1, cseg2):
     """Returns Marvin and Laprade (1987) CSIM(A, B) for a single
@@ -366,56 +366,26 @@ def pretty_operations_comparison(cseg1, cseg2, prime_algorithm="prime_form_marvi
         return "\n".join(r)
 
 
-def cseg_similarity_continuum(cseg, prime_algorithm="prime_form_marvin_laprade"):
+def cseg_similarity_continuum(obj_cseg, prime_algorithm="prime_form_marvin_laprade"):
     """Returns all csegs with the same cardinality of the given one
     sorted by cseg similarity.
 
     >>> cseg_similarity_continuum(Contour([1, 0, 3, 2]))
     [[0.5, [< 0 2 1 3 >, < 0 3 2 1 >]],
-    [0.66666666666666663, [< 0 1 2 3 >, < 0 2 3 1 >, < 0 3 1 2 >]],
-    [0.83333333333333337, [< 0 1 3 2 >, < 1 3 0 2 >]],
-    [1.0, [< 1 0 3 2 >]]]
+     [0.66666666666666663, [< 0 1 2 3 >, < 0 2 3 1 >, < 0 3 1 2 >]],
+     [0.83333333333333337, [< 0 1 3 2 >, < 1 3 0 2 >]],
+     [1.0, [< 1 0 3 2 >]]]
     """
 
-    size = len(cseg)
-    built_classes = contour.build_classes_card(size, prime_algorithm)
+    all_csegs = [Contour(el) for el in auxiliary.permut_csegs(obj_cseg.size)]
 
-    def cseg_similarity_lists(built_classes):
-        """Returns a tuple with two lists:
-        1. cseg similarity (CSIM) and csegclass, and
-        2. all cseg similarity in previous list.
-
-        Accepts built classes with one cardinality
-        """
-
-        csegclasses = []
-        similarity = []
-
-        for (a, b, csegclass, d) in built_classes:
-            csegclass = Contour(csegclass)
-            csim = csegclass_similarity(cseg, csegclass)
-            csegclasses.append([csim, csegclass])
-            similarity.append(csim)
-
-        return csegclasses, sorted(list(set(similarity)))
-
-    def grouped_cseg_similarity_lists((csegclasses, similarity)):
-        """Returns csegclasses grouped by cseg similarity. Accepts
-        lists provided by cseg_similarity_lists function.
-        """
-
-        result = []
-
-        for similarity_index in similarity:
-            simil_index = []
-            for csegclass in sorted(csegclasses):
-                if csegclass[0] == similarity_index:
-                    simil_index.append(csegclass[1])
-            result.append([similarity_index, simil_index])
-
-        return result
-
-    return grouped_cseg_similarity_lists(cseg_similarity_lists(built_classes))
+    dic = Counter()
+    for cseg_ob in all_csegs:
+        csim = cseg_similarity(obj_cseg, cseg_ob)
+        if csim not in dic:
+            dic[csim] = []
+        dic[csim].append(cseg_ob)
+    return [[k, dic[k]] for k in sorted(dic)]
 
 
 def cseg_similarity_subsets_continuum(cseg, prime_algorithm="prime_form_sampaio"):
