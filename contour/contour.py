@@ -301,9 +301,8 @@ class Contour(MutableSequence):
 
         cseg = self.cseg
         n = factor % self.size
-        subset = cseg[n:]
-        subset.extend(cseg[0:n])
-        return Contour(subset)
+
+        return Contour(cseg[n:] + cseg[:n])
 
     def retrogression(self):
         """Returns contour retrograde.
