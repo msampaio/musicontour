@@ -759,16 +759,19 @@ class Contour(MutableSequence):
         # step 9. End. N is the "depth" of the original contour C.
         return [Contour(data).translation(), n]
 
-    def reduction_window(self, window_size=3, translation=True):
+    def reduction_window(self, window_size=3, translation=True, reposition=True):
         """Returns a reduction in a single turn of n-window reduction
-        algorithm. (Bor, 2009).
+        algorithm. (Bor, 2009). If translation is true, the method
+        returns a translated object. If reposition is true, the method
+        returns an object with positions from 0 to n - 1, where n is
+        cseg cardinality.
 
         >>> Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5]).reduction_window(3, False)
         < 7 10 0 3 1 8 2 5>
         """
 
-        def _red(pairs, pos, n):
-            return reduction_retention(pairs[pos - n:pos + 1 + n])
+        def _red(pairs, pos, window_size):
+            return reduction_retention(pairs[pos:pos + window_size])
 
         if window_size % 2 == 0:
             print "Window size must be an even number."
@@ -780,11 +783,18 @@ class Contour(MutableSequence):
                 pairs.insert(0, None)
                 pairs.append(None)
 
-            prange = range(n, self.size + n)
+            size = len(pairs)
+            last = size - window_size + 1
+            prange = range(0, last)
 
-            reduced = Contour([_red(pairs, pos, n) for pos in prange if _red(pairs, pos, n) != None])
+            reduced = Contour([_red(pairs, pos, window_size) for pos in prange if _red(pairs, pos, window_size)])
+
             if translation == True:
                 reduced = reduced.translation()
+
+            if reposition == True:
+                reduced = Contour(reduced.cseg)
+
             return reduced
 
     def reduction_window_recursive(self, window_size=3, translation=True):
