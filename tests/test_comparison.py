@@ -43,25 +43,25 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(comparison.subsets_embedded_total_number(cseg1, cseg2), 4)
         self.assertEqual(comparison.subsets_embedded_total_number(cseg3, cseg4), 4)
 
-    # def test_subsets_embedded_number(self):
-    #     cseg1 = Contour([0, 2, 1, 3])
-    #     cseg2 = Contour([0, 1, 2])
-    #     self.assertEqual(comparison.subsets_embedded_number(cseg1, cseg2), 2)
+    def test_subsets_embedded_number(self):
+        cseg1 = Contour([0, 2, 1, 3])
+        cseg2 = Contour([0, 1, 2])
+        self.assertEqual(comparison.subsets_embedded_number(cseg1, cseg2), 2)
 
-    # def test_contour_embedded(self):
-    #     cseg1 = Contour([0, 2, 1, 3])
-    #     cseg2 = Contour([0, 1, 2])
-    #     cseg3 = Contour([0, 2, 1, 3, 4])
-    #     cseg4 = Contour([0, 1, 2])
-    #     self.assertEqual(comparison.contour_embedded(cseg1, cseg2), 0.5)
-    #     self.assertEqual(comparison.contour_embedded(cseg3, cseg4), 0.7)
+    def test_contour_embedded(self):
+        cseg1 = Contour([0, 2, 1, 3])
+        cseg2 = Contour([0, 1, 2])
+        cseg3 = Contour([0, 2, 1, 3, 4])
+        cseg4 = Contour([0, 1, 2])
+        self.assertEqual(comparison.contour_embedded(cseg1, cseg2), 0.5)
+        self.assertEqual(comparison.contour_embedded(cseg3, cseg4), 0.7)
 
-    # def test_contour_similarity_compare(self):
-    #     cseg1 = Contour([0, 2, 1, 3])
-    #     cseg2 = Contour([0, 1, 2])
-    #     cseg3 = Contour([0, 1, 2, 4])
-    #     self.assertEqual(comparison.cseg_similarity_compare(cseg1, cseg2), ["Cseg embedded", 0.5])
-    #     self.assertEqual(comparison.cseg_similarity_compare(cseg1, cseg3), ["Cseg similarity", 5 / 6.0])
+    def test_contour_similarity_compare(self):
+        cseg1 = Contour([0, 2, 1, 3])
+        cseg2 = Contour([0, 1, 2])
+        cseg3 = Contour([0, 1, 2, 4])
+        self.assertEqual(comparison.cseg_similarity_compare(cseg1, cseg2), ["Cseg embedded", 0.5])
+        self.assertEqual(comparison.cseg_similarity_compare(cseg1, cseg3), ["Cseg similarity", 5 / 6.0])
 
     def test_csubseg_mutually_embedded(self):
         cseg1 = Contour([1, 0, 4, 3, 2])
@@ -101,11 +101,11 @@ class TestUtils(unittest.TestCase):
     #               [1.0, [Contour([1, 0, 3, 2])]]]
     #     self.assertEqual(comparison.cseg_similarity_continuum(Contour([1, 0, 3, 2])), result)
 
-    # def test_cseg_similarity_subsets_continuum(self):
-    #     result = [[Contour([0, 1]), 0.58333333333333337],
-    #               [Contour([0, 1, 2]), 0.93333333333333335],
-    #               [Contour([0, 1, 2, 3]), 1.0]]
-    #     self.assertEqual(comparison.cseg_similarity_subsets_continuum(Contour([0, 1, 2, 3])), result)
+    def test_cseg_similarity_subsets_continuum(self):
+        result = [[Contour([0, 1]), 0.58333333333333337],
+                  [Contour([0, 1, 2]), 0.93333333333333335],
+                  [Contour([0, 1, 2, 3]), 1.0]]
+        self.assertEqual(comparison.cseg_similarity_subsets_continuum(Contour([0, 1, 2, 3])), result)
 
 if __name__ == '__main__':
     unittest.main()
