@@ -104,8 +104,9 @@ def subsets_embedded_number(cseg1, cseg2):
     cseg, csubseg = utils.greatest_first(cseg1, cseg2)
 
     dic = Contour(cseg).subsets_normal(len(csubseg))
-    if tuple(csubseg) in dic:
-        return len(dic[tuple(csubseg)])
+    tup = tuple(csubseg.cseg)
+    if tup in dic:
+        return len(dic[tup])
     else:
         return 0
 
