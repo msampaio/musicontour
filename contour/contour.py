@@ -944,7 +944,7 @@ class Contour(MutableSequence):
         0 0 1 0
         """
 
-        return fuzzy.FuzzyMatrix([[fuzzy.membership([a, b]) for b in self] for a in self])
+        return fuzzy.FuzzyMatrix([[fuzzy.membership([a.value, b.value]) for b in self] for a in self])
 
     def fuzzy_comparison_matrix(self):
         """Returns a Fuzzy comparison matrix. Quinn (1997).
@@ -956,7 +956,7 @@ class Contour(MutableSequence):
         -1 -1 1 0
         """
 
-        return fuzzy.FuzzyMatrix([[fuzzy.comparison([a, b]) for b in self] for a in self])
+        return fuzzy.FuzzyMatrix([[fuzzy.comparison([a.value, b.value]) for b in self] for a in self])
 
     def adjacency_series_vector(self):
         """Returns Friedmann (1985) CASV, a two digit summation of ups
