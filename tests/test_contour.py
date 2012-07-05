@@ -255,6 +255,7 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(contour.reduction_retention([CP(0, 1), CP(1, 0), CP(2, 1)]), CP(1, 0))
         self.assertEqual(contour.reduction_retention([CP(0, 1), CP(1, 0), CP(2, 0)]), CP(1, 0))
         self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 1), CP(2, 1)]), CP(1, 1))
+        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 2), CP(2, 1)]), CP(1, 2))
         self.assertEqual(contour.reduction_retention([None, CP(1, 0), CP(2, 0)]), CP(1, 0))
         self.assertEqual(contour.reduction_retention([None, CP(1, 0), CP(2, 1)]), CP(1, 0))
         self.assertEqual(contour.reduction_retention([None, CP(1, 1), CP(2, 0)]), CP(1, 1))
