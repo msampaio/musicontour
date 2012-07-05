@@ -257,9 +257,9 @@ def contour_rotation_classes(cardinality):
     for el in s:
         obj_cseg = Contour(el)
         all_el = [Contour(x) for x in obj_cseg.rotated_representatives()]
-        result.append(sorted(all_el)[0])
+        result.append(sort_cseg_seq(all_el)[0])
 
-    return sorted(result)
+    return sort_cseg_seq(result)
 
 
 class ContourPoint():
