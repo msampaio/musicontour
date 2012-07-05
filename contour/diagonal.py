@@ -26,8 +26,8 @@ def internal_diagonal_classes(cardinality, prime_algorithm="prime_form_marvin_la
         int_d = auxiliary.apply_fn(InternalDiagonal(el), prime_algorithm)
         coll.add(tuple(int_d))
 
-    r = sorted([InternalDiagonal(list(x)) for x in list(coll)], reverse=True)
-    return r
+
+    return sorted([InternalDiagonal(x) for x in list(coll)], reverse=True)
 
 
 class InternalDiagonal(list):
@@ -38,6 +38,9 @@ class InternalDiagonal(list):
     >>> InternalDiagonal([-1, 1, 1])
     < - + + >
     """
+
+    def size(self):
+        return len(self)
 
     def csegs(self, d=1):
         """Returns all csegs in normal form that have the given
@@ -52,17 +55,15 @@ class InternalDiagonal(list):
             from a given tuple and diagonal number.
             """
 
-            cseg = contour.Contour(list(x))
+            cseg = contour.Contour(x)
             int_d = cseg.internal_diagonals(d)
             if int_d == original:
                 return cseg
 
         size = len(self) + d
         permut = auxiliary.permut_csegs(size)
-        r = []
-        [r.append(__cseg(self, x, d)) for x in permut if __cseg(self, x, d)]
 
-        return r
+        return [__cseg(self, x, d) for x in permut if __cseg(self, x, d)]
 
     def rotation(self, factor=1):
         """Rotates an internal diagonal around a factor.
@@ -76,10 +77,8 @@ class InternalDiagonal(list):
         < + - - + >
         """
 
-        n = factor % len(self)
-        subset = self[n:]
-        subset.extend(self[0:n])
-        return InternalDiagonal(subset)
+        return InternalDiagonal(utils.rotation(self, factor))
+
 
     def retrogression(self):
         """Returns internal diagonal retrograde.
@@ -89,8 +88,7 @@ class InternalDiagonal(list):
         """
 
         diagonal = self[:]
-        diagonal.reverse()
-        return InternalDiagonal(diagonal)
+        return InternalDiagonal(self.diagonal[::-1])
 
     def inversion(self):
         """Returns Internal diagonal inversion.
@@ -99,7 +97,7 @@ class InternalDiagonal(list):
         < + - - >
         """
 
-        return InternalDiagonal([(x * -1) for x in self])
+        return InternalDiagonal(map(utils.negative, self))
 
     def subsets(self, n):
         """Returns adjacent and non-adjacent subsets of a given
@@ -111,7 +109,7 @@ class InternalDiagonal(list):
 
         int_d = self
         comb = itertools.combinations(int_d, n)
-        return sorted([InternalDiagonal(list(x)) for x in comb])
+        return sorted([InternalDiagonal(x) for x in comb])
 
     def all_subsets(self):
         """Returns adjacent and non-adjacent subsets of a given
@@ -169,12 +167,12 @@ class InternalDiagonal(list):
         < + + + - >
         """
 
-        tmp = self
+        diagonal = self
 
         if self.count(-1) > self.count(1):
-            tmp = self.inversion()
+            diagonal = self.inversion()
 
-        return sorted([tmp, tmp.retrogression()], reverse=True)[0]
+        return sorted([diagonal, diagonal.retrogression()], reverse=True)[0]
 
     def __repr__(self):
         data = [utils.double_replace(str(x)) for x in self[:]]
@@ -203,6 +201,6 @@ def csegs_from_diagonals(diagonals_list):
         # make the intersection among csegs from internal diagonals
         [coll[0].intersection_update(coll[x]) for x in range(len(coll))]
 
-        return contour.Contour(list(list(coll[0])[0]))
+        return contour.Contour(list(coll[0])[0])
     except:
         pass

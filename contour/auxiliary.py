@@ -5,7 +5,6 @@ import itertools
 import contour
 import utils
 
-
 notes = "c c# d d# e f f# g g# a a# b".split()
 
 
@@ -137,20 +136,6 @@ def notes_to_Contour(notes_string):
     return cseg.translation()
 
 
-def interval(els):
-    """Returns Friedmann (1985) CI, the distance between one
-    element in a CC (normal_form cseg here), and a later element
-    as signified by +, - and a number (without + here). For
-    example, in cseg = [0, 2, 1], CI(0, 2) = 2, e CI(2, 1) = -1.
-
-    >>> interval([4, 0])
-    -4
-    """
-
-    el1, el2 = els
-    return el2 - el1
-
-
 def cseg_from_class_number(card, class_number, prime_algorithm="prime_form_sampaio"):
     """Returns a cseg from a given cardinality and class
     number. Sampaio Prime algorithm is default.
@@ -164,6 +149,7 @@ def cseg_from_class_number(card, class_number, prime_algorithm="prime_form_sampa
         cc, cn, cs, ri = classes
         if card == cc and class_number == cn:
             return contour.Contour(cs)
+
 
 def position_comparison(list_1, list_2):
     """Returns a similarity index based on the number of equal

@@ -200,3 +200,30 @@ def replace_all(seq, replacement):
         if elem == 0:
             new_seq[i] = replacement
     return new_seq
+
+
+def negative(num):
+    return num * -1
+
+def addition(a, b):
+    return a + b
+
+def difference(a, b):
+    return b - a
+
+def multiplication(a, b):
+    return a * b
+
+def quotient(a, b):
+    try:
+        return b / float(a)
+    except:
+        print "Number error"
+
+def seq_operation(fn, seq):
+    return [fn(a, b) for a, b in zip(seq, seq[1:])]
+
+
+def rotation(obj, factor):
+    n = factor % obj.size()
+    return obj[n:] + obj[:n]

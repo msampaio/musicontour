@@ -17,6 +17,11 @@ class ComparisonMatrix(list):
     - + 0
     """
 
+    def size(self):
+        """Returns cseg size."""
+
+        return len(self)
+
     def cseg(self):
         """Returns a cseg from Matrix.
 
@@ -24,7 +29,7 @@ class ComparisonMatrix(list):
         < 0 2 1 >
         """
 
-        return contour.Contour([(len(self) - 1 - sum(row)) // 2 for row in self]).translation()
+        return contour.Contour([(self.size() - 1 - sum(row)) // 2 for row in self]).translation()
 
     def diagonal(self, n=1):
         """Returns a diagonal from Matrix. In main diagonal, n = 0.
@@ -33,8 +38,8 @@ class ComparisonMatrix(list):
         < + - >
         """
 
-        if n < len(self):
-            diagonal_size = len(self) - n
+        if n < self.size():
+            diagonal_size = self.size() - n
             return diagonal.InternalDiagonal([self[x][x + n] for x in range(diagonal_size)])
 
     def superior_triangle(self, n=1):
@@ -45,7 +50,7 @@ class ComparisonMatrix(list):
         [[1, 1], [-1]]
         """
 
-        if n < len(self):
+        if n < self.size():
             return [line[i + n:] for i, line in enumerate(self) if line][:-n]
 
     def show(self):
@@ -60,7 +65,7 @@ class ComparisonMatrix(list):
 
         cseg = self.cseg()
         first_line = "  | {0}\n".format(" ".join([str(x) for x in cseg]))
-        second_line = "---" + ("-" * len(self) * 2) + "\n"
+        second_line = "---" + ("-" * self.size() * 2) + "\n"
         other_lines = "\n".join([__lines(el, line, cseg) for el, line in enumerate(self)])
         return first_line + second_line + other_lines
 
@@ -85,7 +90,7 @@ def matrix_from_triangle(triangle):
     for n in range(0, len(triangle) + 1):
         line = []
         for x in range(n):
-            line.append(triangle[x][n - x - 1] * -1)
+            line.append(utils.negative(triangle[x][n - x - 1]))
         line.append(0)
         if n < len(triangle):
             line.extend(triangle[n])

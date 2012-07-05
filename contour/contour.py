@@ -339,7 +339,7 @@ class Contour(MutableSequence):
 
         return self.pairs[position]
 
-    def __repetition_cpitch_test(self):
+    def repetition_cpitch_test(self):
         """Tests if cseg has repeated elements."""
 
         return self.size == len(set([x for x in self.cseg]))
@@ -393,7 +393,7 @@ class Contour(MutableSequence):
 
         cseg = self.cseg
         for position in range(self.size / 2):
-            if cseg[position] != cseg[(position * -1) - 1]:
+            if cseg[position] != cseg[utils.negative(position) - 1]:
                 return position
 
     def __prime_form_marvin_laprade_step_2(self, position):
@@ -412,7 +412,7 @@ class Contour(MutableSequence):
         # to penultimate cps and so on to break the "tie".
 
         false_first = self.cpoint(position).value
-        false_last = self.cpoint((position * -1) -1).value
+        false_last = self.cpoint(utils.negative(position) -1).value
 
         if ((self.size - 1) - false_last) < false_first:
             reduced = self.inversion()
@@ -474,7 +474,7 @@ class Contour(MutableSequence):
         """
 
         cseg = self.cseg
-        if self.__repetition_cpitch_test():
+        if self.repetition_cpitch_test():
             return self.__non_repeated_prime_form_marvin_laprade()
         else:
             # Returns prime forms of a repeated cpitch cseg.
@@ -493,7 +493,7 @@ class Contour(MutableSequence):
         cseg = self.cseg
 
         # tests if cseg has repeated elements
-        if self.__repetition_cpitch_test():
+        if self.repetition_cpitch_test():
             # Returns Sampaio prime form algorithm for non repeated
             # c-pitches csegs.
 
@@ -860,7 +860,7 @@ class Contour(MutableSequence):
         """
 
         cseg = self.cseg
-        return [b - a for a, b in zip(cseg, cseg[1:])]
+        return utils.seq_operation(utils.difference, cseg)
 
     def absolute_intervals_sum(self):
         """Return the sum of absolute intervals in a cseg.
@@ -879,8 +879,7 @@ class Contour(MutableSequence):
         0.75
         """
 
-        size = float(self.size)
-        return self.absolute_intervals_sum() / size
+        return self.absolute_intervals_sum() / float(self.size)
 
     def absolute_intervals_index(self):
         """Return an index value of absolute intervals sum. The
@@ -998,19 +997,19 @@ class Contour(MutableSequence):
         """
 
         up_intervals = range(1, self.size)
-        down_intervals = [-x for x in up_intervals]
+        down_intervals = map(utils.negative, up_intervals)
         ups_list = []
         downs_list = []
 
-        for x in itertools.combinations(self.cseg, 2):
-            y = auxiliary.interval(x)
-            if y > 0:
-                ups_list.append(y)
-            elif y < 0:
-                downs_list.append(y)
+        for cpoints in itertools.combinations(self.cseg, 2):
+            interval = utils.difference(*cpoints)
+            if interval > 0:
+                ups_list.append(interval)
+            elif interval < 0:
+                downs_list.append(interval)
 
-        ups = [ups_list.count(x) for x in up_intervals]
-        downs = [downs_list.count(x) for x in down_intervals]
+        ups = [ups_list.count(up_i) for up_i in up_intervals]
+        downs = [downs_list.count(down_i) for down_i in down_intervals]
 
         return ups, downs
 
@@ -1052,7 +1051,7 @@ class Contour(MutableSequence):
         [5, 1]
         """
 
-        return [sum(x) for x in self.interval_array()]
+        return [sum(intervals) for intervals in self.interval_array()]
 
     def __class_index(self, vector_method):
         """Returns a general upward/downward decimal index, that -1.0
@@ -1069,9 +1068,9 @@ class Contour(MutableSequence):
         if ups == downs:
             return 0
         elif ups > downs:
-            return float(ups) / total
+            return ups / float(total)
         else:
-            return float(downs) * -1 / total
+            return utils.negative(downs) / float(total)
 
     def class_index_i(self):
         """Returns a general upward/downward decimal index, that -1.0
@@ -1109,7 +1108,7 @@ class Contour(MutableSequence):
 
         prime_form = auxiliary.apply_fn(self, prime_algorithm)
         cseg_classes = utils.flatten(build_classes(self.size, prime_algorithm))
-        for (cardinality, number, cseg_class, ri_identity) in cseg_classes:
+        for cardinality, number, cseg_class, ri_identity in cseg_classes:
             if tuple(prime_form.cseg) == cseg_class:
                 r = cardinality, number, Contour(list(cseg_class)), ri_identity
                 return r

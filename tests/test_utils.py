@@ -65,5 +65,35 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(utils.replace_all(list1, -1), [-1, 3, 2, -1])
         self.assertEqual(utils.replace_all(list1, "a"), ["a", 3, 2, "a"])
 
+    def test_negative(self):
+        self.assertEqual(utils.negative(-2), 2)
+        self.assertEqual(utils.negative(0), 0)
+        self.assertEqual(utils.negative(2), -2)
+
+    def test_addition(self):
+        self.assertEqual(utils.addition(-1, 1), 0)
+        self.assertEqual(utils.addition(1, 2), 3)
+
+    def test_difference(self):
+        self.assertEqual(utils.difference(-1, 1), 2)
+        self.assertEqual(utils.difference(1, 1), 0)
+        self.assertEqual(utils.difference(1, 3), 2)
+
+    def test_multiplication(self):
+        self.assertEqual(utils.multiplication(-2, 3), -6)
+        self.assertEqual(utils.multiplication(0, 2), 0)
+        self.assertEqual(utils.multiplication(2, 4), 8)
+
+    def test_quotient(self):
+        self.assertEqual(utils.quotient(-2, 3), -1.5)
+        self.assertEqual(utils.quotient(0, 2), None)
+        self.assertEqual(utils.quotient(2, 4), 2)
+
+    def test_seq_operation(self):
+        self.assertEqual(utils.seq_operation(utils.addition, [2, 3, 7]), [5, 10])
+        self.assertEqual(utils.seq_operation(utils.difference, [2, 3, 7]), [1, 4])
+        self.assertEqual(utils.seq_operation(utils.multiplication, [2, 3, 7]), [6, 21])
+        self.assertEqual(utils.seq_operation(utils.quotient, [2, 3, 7]), [1.5, 7/float(3)])
+
 if __name__ == '__main__':
     unittest.main()
