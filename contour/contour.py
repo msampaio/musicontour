@@ -255,14 +255,10 @@ class ContourPoint():
         self.pair = (position, value)
 
     def __eq__(self, other):
-        x_position, x_value = self.pair
-        y_position, y_value = other.pair
-        return all([x_position == y_position, x_value == y_value])
+        return self.pair == other.pair
 
     def __ne__(self, other):
-        x_position, x_value = self.pair
-        y_position, y_value = other.pair
-        return any([x_position != y_position, x_value != y_value])
+        return not self.__eq__(other)
 
     def __repr__(self):
         return "< Position: {0}, Value: {1} >".format(self.position, self.value)
@@ -1247,30 +1243,13 @@ class Contour(MutableSequence):
         return "< {0} >".format(" ".join([str(x) for x in self.cseg]))
 
     def __eq__(self, other):
-        try:
-            if len(self.pairs) == len(other.pairs):
-                result = []
-                for x, y in zip(self.pairs, other.pairs):
-                    result.append(x.position == y.position)
-                    result.append(x.value == y.value)
-                return all(result)
-            else:
-                return False
-        except:
+        if len(self.pairs) == len(other.pairs):
+            return all(x == y for x, y in zip(self.pairs, other.pairs))
+        else:
             return False
 
     def __ne__(self, other):
-        try:
-            if len(self.pairs) == len(other.pairs):
-                result = []
-                for x, y in zip(self.pairs, other.pairs):
-                    result.append(x.position != y.position)
-                    result.append(x.value != y.value)
-                return any(result)
-            else:
-                return True
-        except:
-            return True
+        return not self.__eq__(other)
 
     def __delitem__(self, i):
         del self.pairs[i]
