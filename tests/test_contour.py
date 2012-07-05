@@ -2,7 +2,7 @@
 
 import unittest
 import contour.contour as contour
-from contour.contour import ContourPoint
+from contour.contour import ContourPoint as CP
 from contour.contour import Contour
 from contour.matrix import ComparisonMatrix
 from contour.diagonal import InternalDiagonal
@@ -12,9 +12,9 @@ from contour.fuzzy import FuzzyMatrix
 class TestUtils(unittest.TestCase):
 
     def test_logical_contour_point(self):
-        self.assertEqual(ContourPoint(0, 0), ContourPoint(0, 0))
-        self.assertNotEqual(ContourPoint(0, 0), ContourPoint(0, 1))
-        self.assertNotEqual(ContourPoint(0, 0), ContourPoint(1, 0))
+        self.assertEqual(CP(0, 0), CP(0, 0))
+        self.assertNotEqual(CP(0, 0), CP(0, 1))
+        self.assertNotEqual(CP(0, 0), CP(1, 0))
 
     def test_logical_contour(self):
         self.assertNotEqual(Contour([0, 1, 2]), Contour([0, 1]))
@@ -22,7 +22,7 @@ class TestUtils(unittest.TestCase):
         self.assertNotEqual(Contour([0, 1, 2]), Contour([0, 2, 1]))
 
     def test_contour(self):
-        self.assertEqual(Contour([ContourPoint(0, 0), ContourPoint(1, 1)]), Contour([0, 1]))
+        self.assertEqual(Contour([CP(0, 0), CP(1, 1)]), Contour([0, 1]))
 
     def test_build_classes_card(self):
         fn = contour.build_classes_card
@@ -171,40 +171,21 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(cseg.subsets_adj(4), result)
 
     def test_max_min_list(self):
-        self.assertEqual(Contour([0, 3, 2, 1]).max_min_list(contour.maxima), [ContourPoint(0, 0),
-                                                                              ContourPoint(1, 3),
-                                                                              ContourPoint(3, 1)])
+        self.assertEqual(Contour([0, 3, 2, 1]).max_min_list(contour.maxima), [CP(0, 0), CP(1, 3), CP(3, 1)])
 
     def test_flag(self):
         cseg = Contour([0, 4, 3, 2, 5, 5, 1])
-        result = ([ContourPoint(0, 0),
-                   ContourPoint(1, 4),
-                   ContourPoint(4, 5),
-                   ContourPoint(5, 5),
-                   ContourPoint(6, 1)],
-                  [ContourPoint(0, 0),
-                   ContourPoint(3, 2),
-                   ContourPoint(6, 1)])
+        result = ([CP(0, 0), CP(1, 4), CP(4, 5), CP(5, 5), CP(6, 1)],
+                   [CP(0, 0), CP(3, 2), CP(6, 1)])
         self.assertEqual(cseg.flag(), result)
 
     def test_all_flagged(self):
         cseg = Contour([0, 4, 3, 2, 5, 5, 1])
-        max_list = ([ContourPoint(0, 0),
-                     ContourPoint(1, 4),
-                     ContourPoint(4, 5),
-                     ContourPoint(5, 5),
-                     ContourPoint(6, 1)])
-        min_list = ([ContourPoint(0, 0),
-                     ContourPoint(3, 2),
-                     ContourPoint(6, 1)])
-        result = (False, ([ContourPoint(0, 0),
-                           ContourPoint(1, 4),
-                           ContourPoint(4, 5),
-                           ContourPoint(5, 5),
-                           ContourPoint(6, 1)],
-                          [ContourPoint(0, 0),
-                           ContourPoint(3, 2),
-                           ContourPoint(6, 1)]))
+        max_list = ([CP(0, 0), CP(1, 4), CP(4, 5), CP(5, 5),
+                     CP(6, 1)])
+        min_list = ([CP(0, 0), CP(3, 2), CP(6, 1)])
+        result = (False, ([CP(0, 0), CP(1, 4), CP(4, 5), CP(5, 5), CP(6, 1)],
+                          [CP(0, 0), CP(3, 2), CP(6, 1)]))
         self.assertEqual(cseg.all_flagged(max_list, min_list), result)
 
     def test_reduction_morris(self):
@@ -267,32 +248,32 @@ class TestUtils(unittest.TestCase):
     #     self.assertEqual(cseg2.reduction_sampaio(), [Contour([1, 3, 0, 2, 1, 3, 0]), 1])
 
     def test_reduction_retention(self):
-        self.assertEqual(contour.reduction_retention([0, 0, 0]), None)
-        self.assertEqual(contour.reduction_retention([0, 0, 1]), None)
-        self.assertEqual(contour.reduction_retention([1, 1, 0]), None)
-        self.assertEqual(contour.reduction_retention([0, 1, 0]), 1)
-        self.assertEqual(contour.reduction_retention([1, 0, 1]), 0)
-        self.assertEqual(contour.reduction_retention([1, 0, 0]), 0)
-        self.assertEqual(contour.reduction_retention([0, 1, 1]), 1)
-        self.assertEqual(contour.reduction_retention([None, 0, 0]), 0)
-        self.assertEqual(contour.reduction_retention([None, 0, 1]), 0)
-        self.assertEqual(contour.reduction_retention([None, 1, 0]), 1)
-        self.assertEqual(contour.reduction_retention([None, 1, 2]), 1)
-        self.assertEqual(contour.reduction_retention([0, 0, None]), 0)
-        self.assertEqual(contour.reduction_retention([0, 1, None]), 1)
-        self.assertEqual(contour.reduction_retention([1, 0, None]), 0)
-        self.assertEqual(contour.reduction_retention([None, None, 0, 1, 2]), 0)
-        self.assertEqual(contour.reduction_retention([0, 2, 1, None, None]), 1)
-        self.assertEqual(contour.reduction_retention([None, 7, 10, 9, 0]), 10)
-        self.assertEqual(contour.reduction_retention([7, 10, 9, 0, 2]), None)
-        self.assertEqual(contour.reduction_retention([0, 2, 1, 4, 1]), None)
-        self.assertEqual(contour.reduction_retention([1, 4, 1, 5, 3]), 1)
-        self.assertEqual(contour.reduction_retention([3, 0, 4, 1, 4]), 4)
-        self.assertEqual(contour.reduction_retention([4, 1, 4, 3, 5]), None)
-        self.assertEqual(contour.reduction_retention([1, 0, 5, 2, 5]), 5)
-        self.assertEqual(contour.reduction_retention([5, 2, 5, 3, 4]), 5)
-        self.assertEqual(contour.reduction_retention([0, 3, 2, 4, 2]), None)
-        self.assertEqual(contour.reduction_retention([2, 4, 2, 5, 1]), None)
+        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 0), CP(2, 0)]), None)
+        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 0), CP(2, 1)]), None)
+        self.assertEqual(contour.reduction_retention([CP(0, 1), CP(1, 1), CP(2, 0)]), None)
+        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 1), CP(2, 0)]), CP(1, 1))
+        self.assertEqual(contour.reduction_retention([CP(0, 1), CP(1, 0), CP(2, 1)]), CP(1, 0))
+        self.assertEqual(contour.reduction_retention([CP(0, 1), CP(1, 0), CP(2, 0)]), CP(1, 0))
+        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 1), CP(2, 1)]), CP(1, 1))
+        self.assertEqual(contour.reduction_retention([None, CP(1, 0), CP(2, 0)]), CP(1, 0))
+        self.assertEqual(contour.reduction_retention([None, CP(1, 0), CP(2, 1)]), CP(1, 0))
+        self.assertEqual(contour.reduction_retention([None, CP(1, 1), CP(2, 0)]), CP(1, 1))
+        self.assertEqual(contour.reduction_retention([None, CP(1, 1), CP(2, 2)]), CP(1, 1))
+        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 0), None]), CP(1, 0))
+        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 1), None]), CP(1, 1))
+        self.assertEqual(contour.reduction_retention([CP(0, 1), CP(1, 0), None]), CP(1, 0))
+        self.assertEqual(contour.reduction_retention([None, None, CP(2, 0), CP(3, 1), CP(4, 2)]), CP(2, 0))
+        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 2), CP(2, 1), None, None]), CP(2, 1))
+        self.assertEqual(contour.reduction_retention([None, CP(1, 7), CP(2, 10), CP(3, 9), CP(4, 0)]), CP(2, 10))
+        self.assertEqual(contour.reduction_retention([CP(0, 7), CP(1, 10), CP(2, 9), CP(3, 0), CP(4, 2)]), None)
+        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 2), CP(2, 1), CP(3, 4), CP(4, 1)]), None)
+        self.assertEqual(contour.reduction_retention([CP(0, 1), CP(1, 4), CP(2, 1), CP(3, 5), CP(4, 3)]), CP(2, 1))
+        self.assertEqual(contour.reduction_retention([CP(0, 3), CP(1, 0), CP(2, 4), CP(3, 1), CP(4, 4)]), CP(2, 4))
+        self.assertEqual(contour.reduction_retention([CP(0, 4), CP(1, 1), CP(2, 4), CP(3, 3), CP(4, 5)]), None)
+        self.assertEqual(contour.reduction_retention([CP(0, 1), CP(1, 0), CP(2, 5), CP(3, 2), CP(4, 5)]), CP(2, 5))
+        self.assertEqual(contour.reduction_retention([CP(0, 5), CP(1, 2), CP(2, 5), CP(3, 3), CP(4, 4)]), CP(2, 5))
+        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 3), CP(2, 2), CP(3, 4), CP(4, 2)]), None)
+        self.assertEqual(contour.reduction_retention([CP(0, 2), CP(1, 4), CP(2, 2), CP(3, 5), CP(4, 1)]), None)
 
     # def test_contour_rotation_classes(self):
     #     result = [Contour([0, 1, 2, 3]), Contour([0, 1, 3, 2]), Contour([0, 2, 1, 3])]
