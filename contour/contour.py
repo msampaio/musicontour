@@ -178,7 +178,7 @@ def sort_cseg_seq(cseg_objs):
     return [x[1] for x in result]
 
 
-def reduction_retention(els):
+def reduction_retention(cpoints):
     """Returns medial cps value if it is maxima or minima of a given
     list with an even number of consecutive cps. (Bor, 2009)
 
@@ -186,27 +186,42 @@ def reduction_retention(els):
     2
     """
 
-    size = len(els)
+    def aux_max_min(cpoints, fn):
+        result = []
+        for pair in cpoints:
+            try:
+                result.append(pair.value)
+            except:
+                pass
+        return fn(result)
+
+    def aux_cond(seq):
+        try:
+            return list(set(seq)) == [None]
+        except:
+            return False
+
+    size = len(cpoints)
     if size % 2 == 0:
-        print "Error. 'els' must be a sequence with an even number of elements."
+        print "Error. 'cpoints' must be a sequence with an even number of elements."
     else:
-        els_max = max(els)
-        els_min = min([x for x in els if x != None])
+        cpoints_max = aux_max_min(cpoints, max)
+        cpoints_min = aux_max_min(cpoints, min)
 
         medial_pos = size / 2
-        medial = els[medial_pos]
-        left_seq = els[:medial_pos]
-        right_seq = els[medial_pos + 1:]
+        medial = cpoints[medial_pos]
+        left_seq = cpoints[:medial_pos]
+        right_seq = cpoints[medial_pos + 1:]
 
         ## retain if medial is the first or last el
-        if list(set(left_seq)) == [None] or list(set(right_seq)) == [None]:
+        if aux_cond(left_seq) or aux_cond(right_seq):
             return medial
         ## repeations. Do not retain if medial is the second consecutive
         ## repeated cps
-        elif medial == els[medial_pos - 1]:
+        elif medial.value == cpoints[medial_pos - 1].value:
             return None
         ## retain if medial is max or min
-        elif medial == els_max or medial == els_min:
+        elif medial.value == cpoints_max or medial.value == cpoints_min:
             return medial
         else:
             return None
@@ -752,22 +767,22 @@ class Contour(MutableSequence):
         < 7 10 0 3 1 8 2 5>
         """
 
-        def _red(cseg, pos, n):
-            return reduction_retention(cseg[pos - n:pos + 1 + n])
+        def _red(pairs, pos, n):
+            return reduction_retention(pairs[pos - n:pos + 1 + n])
 
         if window_size % 2 == 0:
             print "Window size must be an even number."
         else:
-            cseg = self.cseg[:]
+            pairs = copy(self.pairs)
             n = window_size / 2
 
             for i in range(n):
-                cseg.insert(0, None)
-                cseg.append(None)
+                pairs.insert(0, None)
+                pairs.append(None)
 
             prange = range(n, self.size + n)
 
-            reduced = Contour([_red(cseg, pos, n) for pos in prange if _red(cseg, pos, n) != None])
+            reduced = Contour([_red(pairs, pos, n) for pos in prange if _red(pairs, pos, n) != None])
             if translation == True:
                 reduced = reduced.translation()
             return reduced
