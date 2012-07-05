@@ -1111,7 +1111,7 @@ class Contour(MutableSequence):
         prime_form = auxiliary.apply_fn(self, prime_algorithm)
         cseg_classes = utils.flatten(build_classes(self.size, prime_algorithm))
         for (cardinality, number, cseg_class, ri_identity) in cseg_classes:
-            if tuple(prime_form) == cseg_class:
+            if tuple(prime_form.cseg) == cseg_class:
                 r = cardinality, number, Contour(list(cseg_class)), ri_identity
                 return r
 
@@ -1326,7 +1326,7 @@ def prime_form_algorithm_test(card, prime_form_algorithm="prime_form_sampaio"):
     if classes != []:
         for cls in classes:
             cseg = auxiliary.cseg_from_class_number(*cls)
-            ri = cseg.retrogression().inversion()
+            ri = Contour(cseg).retrogression().inversion()
             result.append([cls, cseg, ri])
 
     return result

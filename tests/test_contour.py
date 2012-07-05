@@ -415,16 +415,16 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(Contour([0, 1, 0, 2, 0]).oscillation_index(), 0.75)
         self.assertEqual(Contour([0, 1, 2, 3, 0]).oscillation_index(), 0.25)
 
-    # def test_prime_form_algorithm_test(self):
-    #     algorithm1 = "prime_form_marvin_laprade"
-    #     algorithm2 = "prime_form_sampaio"
-    #     result = [[(5, 3), [0, 1, 3, 2, 4], [0, 2, 1, 3, 4]],
-    #                [(5, 8), [0, 2, 3, 1, 4], [0, 3, 1, 2, 4]],
-    #                [(5, 25), [1, 0, 4, 2, 3], [1, 2, 0, 4, 3]],
-    #                [(5, 27), [1, 2, 4, 0, 3], [1, 4, 0, 2, 3]]]
-    #     self.assertEqual(contour.prime_form_algorithm_test(4, algorithm1), [])
-    #     self.assertEqual(contour.prime_form_algorithm_test(5, algorithm1), result)
-    #     self.assertEqual(contour.prime_form_algorithm_test(6, algorithm2), [])
+    def test_prime_form_algorithm_test(self):
+        algorithm1 = "prime_form_marvin_laprade"
+        algorithm2 = "prime_form_sampaio"
+        result = [[(5, 3), Contour([0, 1, 3, 2, 4]), Contour([0, 2, 1, 3, 4])],
+                   [(5, 8), Contour([0, 2, 3, 1, 4]), Contour([0, 3, 1, 2, 4])],
+                   [(5, 25), Contour([1, 0, 4, 2, 3]), Contour([1, 2, 0, 4, 3])],
+                   [(5, 27), Contour([1, 2, 4, 0, 3]), Contour([1, 4, 0, 2, 3])]]
+        self.assertEqual(contour.prime_form_algorithm_test(4, algorithm1), [])
+        self.assertEqual(contour.prime_form_algorithm_test(5, algorithm1), result)
+        self.assertEqual(contour.prime_form_algorithm_test(6, algorithm2), [])
 
     def test_base_three_representation(self):
         self.assertEqual(Contour([0, 1]).base_three_representation(), [[2]])
