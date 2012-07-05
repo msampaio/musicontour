@@ -228,18 +228,18 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(cseg2.reduction_window_recursive(3, True), [Contour([0, 2, 1]), 2])
         self.assertEqual(cseg3.reduction_window_recursive(5, False), [Contour([7, 10, 0, 5]), 3])
 
-    # def test_reduction_bor(self):
-    #     cseg1 = Contour([0, 6, 1, 4, 3, 5, 2])
-    #     cseg2 = Contour([12, 10, 13, 11, 7, 9, 8, 6, 3, 5, 4, 1, 0, 2])
-    #     cseg3 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
-    #     self.assertEqual(cseg1.reduction_bor(53), [Contour([0, 2, 1]), 2])
-    #     self.assertEqual(cseg1.reduction_bor(35), [Contour([0, 3, 2, 1]), 2])
-    #     self.assertEqual(cseg2.reduction_bor(53, False), [Contour([12, 10, 13, 0, 2]), 2])
-    #     self.assertEqual(cseg3.reduction_bor(35, False), [Contour([7, 10, 0, 8, 5]), 2])
-    #     self.assertEqual(cseg3.reduction_bor(35, True), [Contour([2, 4, 0, 3, 1]), 2])
-    #     self.assertEqual(cseg2.reduction_bor(53, False), [Contour([12, 10, 13, 0, 2]), 2])
-    #     self.assertEqual(cseg3.reduction_bor(355, False), [Contour([7, 10, 0, 5]), 3])
-    #     self.assertEqual(cseg3.reduction_bor(555, True), [Contour([2, 3, 0, 1]), 3])
+    def test_reduction_bor(self):
+        cseg1 = Contour([0, 6, 1, 4, 3, 5, 2])
+        cseg2 = Contour([12, 10, 13, 11, 7, 9, 8, 6, 3, 5, 4, 1, 0, 2])
+        cseg3 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
+        self.assertEqual(cseg1.reduction_bor(53), [Contour([0, 2, 1]), 2])
+        self.assertEqual(cseg1.reduction_bor(35), [Contour([0, 3, 2, 1]), 2])
+        self.assertEqual(cseg2.reduction_bor(53, False), [Contour([12, 10, 13, 0, 2]), 2])
+        self.assertEqual(cseg3.reduction_bor(35, False), [Contour([7, 10, 0, 8, 5]), 2])
+        self.assertEqual(cseg3.reduction_bor(35, True), [Contour([2, 4, 0, 3, 1]), 2])
+        self.assertEqual(cseg2.reduction_bor(53, False), [Contour([12, 10, 13, 0, 2]), 2])
+        self.assertEqual(cseg3.reduction_bor(355, False), [Contour([7, 10, 0, 5]), 3])
+        self.assertEqual(cseg3.reduction_bor(555, True), [Contour([2, 3, 0, 1]), 3])
 
     # def test_reduction_sampaio(self):
     #     cseg1 = Contour([0, 1, 0, 1, 0])
