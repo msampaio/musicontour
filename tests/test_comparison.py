@@ -23,17 +23,17 @@ class TestUtils(unittest.TestCase):
         cseg2 = Contour([3, 1, 0, 2])
         self.assertEqual(comparison.csegclass_similarity(cseg1, cseg2), 1)
 
-    # def test_cseg_similarity_matrix(self):
-    #     cseg1 = Contour([1, 0, 4, 3, 2])
-    #     cseg2 = Contour([3, 0, 4, 2, 1])
-    #     result = [[[1, 0, 4, 3, 2], [3, 0, 4, 2, 1]],
-    #               [1.0, 0.6], [0.8, 1.0]]
-    #     self.assertEqual(comparison.cseg_similarity_matrix([cseg1, cseg2]), result)
+    def test_cseg_similarity_matrix(self):
+        cseg1 = Contour([1, 0, 4, 3, 2])
+        cseg2 = Contour([3, 0, 4, 2, 1])
+        result = [[Contour([1, 0, 4, 3, 2]), Contour([3, 0, 4, 2, 1])],
+                  [1.0, 0.8], [0.8, 1.0]]
+        self.assertEqual(comparison.cseg_similarity_matrix([cseg1, cseg2]), result)
 
-    # def test_cseg_similarity_matrix_classes(self):
-    #     result = [[[0, 1, 2], [0, 2, 1]], [1.0, 0.66666666666666663],
-    #               [0.66666666666666663, 1.0]]
-    #     self.assertEqual(comparison.cseg_similarity_matrix_classes(3), result)
+    def test_cseg_similarity_matrix_classes(self):
+        result = [[Contour([0, 1, 2]), Contour([0, 2, 1])], [1.0, 0.66666666666666663],
+                  [0.66666666666666663, 1.0]]
+        self.assertEqual(comparison.cseg_similarity_matrix_classes(3), result)
 
     def test_subsets_embedded_total_number(self):
         cseg1 = Contour([0, 1, 2, 3])
