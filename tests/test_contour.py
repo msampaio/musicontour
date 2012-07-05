@@ -313,34 +313,34 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(cseg1.comparison_matrix(), result1)
         self.assertEqual(cseg2.comparison_matrix(), result2)
 
-    # def test_fuzzy_membership_matrix(self):
-    #     cseg1 = Contour([0, 2, 3, 1])
-    #     cseg2 = Contour([1, 2, 3, 0, 3, 1])
-    #     result1 = FuzzyMatrix([[0, 1, 1, 1],
-    #                            [0, 0, 1, 0],
-    #                            [0, 0, 0, 0],
-    #                            [0, 1, 1, 0]])
-    #     result2 = FuzzyMatrix([[0, 1, 1, 0, 1, 0],
-    #                            [0, 0, 1, 0, 1, 0],
-    #                            [0, 0, 0, 0, 0, 0],
-    #                            [1, 1, 1, 0, 1, 1],
-    #                            [0, 0, 0, 0, 0, 0],
-    #                            [0, 1, 1, 0, 1, 0]])
-    #     self.assertEqual(cseg1.fuzzy_membership_matrix(), result1)
-    #     self.assertEqual(cseg2.fuzzy_membership_matrix(), result2)
+    def test_fuzzy_membership_matrix(self):
+        cseg1 = Contour([0, 2, 3, 1])
+        cseg2 = Contour([1, 2, 3, 0, 3, 1])
+        result1 = FuzzyMatrix([[0, 1, 1, 1],
+                               [0, 0, 1, 0],
+                               [0, 0, 0, 0],
+                               [0, 1, 1, 0]])
+        result2 = FuzzyMatrix([[0, 1, 1, 0, 1, 0],
+                               [0, 0, 1, 0, 1, 0],
+                               [0, 0, 0, 0, 0, 0],
+                               [1, 1, 1, 0, 1, 1],
+                               [0, 0, 0, 0, 0, 0],
+                               [0, 1, 1, 0, 1, 0]])
+        self.assertEqual(cseg1.fuzzy_membership_matrix(), result1)
+        self.assertEqual(cseg2.fuzzy_membership_matrix(), result2)
 
-    # def test_fuzzy_comparison_matrix(self):
-    #     cseg1 = Contour([0, 2, 3, 1])
-    #     cseg2 = Contour([1, 2, 3, 0, 3, 1])
-    #     result1 = FuzzyMatrix([[0, 1, 1, 1], [-1, 0, 1, -1], [-1, -1, 0, -1], [-1, 1, 1, 0]])
-    #     result2 =  FuzzyMatrix([[0, 1, 1, -1, 1, 0],
-    #                             [-1, 0, 1, -1, 1, -1],
-    #                             [-1, -1, 0, -1, 0, -1],
-    #                             [1, 1, 1, 0, 1, 1],
-    #                             [-1, -1, 0, -1, 0, -1],
-    #                             [0, 1, 1, -1, 1, 0]])
-    #     self.assertEqual(cseg1.fuzzy_comparison_matrix(), result1)
-    #     self.assertEqual(cseg2.fuzzy_comparison_matrix(), result2)
+    def test_fuzzy_comparison_matrix(self):
+        cseg1 = Contour([0, 2, 3, 1])
+        cseg2 = Contour([1, 2, 3, 0, 3, 1])
+        result1 = FuzzyMatrix([[0, 1, 1, 1], [-1, 0, 1, -1], [-1, -1, 0, -1], [-1, 1, 1, 0]])
+        result2 =  FuzzyMatrix([[0, 1, 1, -1, 1, 0],
+                                [-1, 0, 1, -1, 1, -1],
+                                [-1, -1, 0, -1, 0, -1],
+                                [1, 1, 1, 0, 1, 1],
+                                [-1, -1, 0, -1, 0, -1],
+                                [0, 1, 1, -1, 1, 0]])
+        self.assertEqual(cseg1.fuzzy_comparison_matrix(), result1)
+        self.assertEqual(cseg2.fuzzy_comparison_matrix(), result2)
 
     def test_adjacency_series_vector(self):
         self.assertEqual(Contour([0, 2, 3, 1]).adjacency_series_vector(), [2, 1])
