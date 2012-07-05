@@ -93,13 +93,32 @@ class TestUtils(unittest.TestCase):
     #                  '< 3 1 2 0 > [rot1] (internal_diagonals)\n'
     #     self.assertEqual(comparison.pretty_operations_comparison(cseg1, cseg2), result)
 
-    # def test_cseg_similarity_continuum(self):
-    #     result = [[0.5, [Contour([0, 2, 1, 3]), Contour([0, 3, 2, 1])]],
-    #               [0.66666666666666663, [Contour([0, 1, 2, 3]), Contour([0, 2, 3, 1]),
-    #                                      Contour([0, 3, 1, 2])]],
-    #               [0.83333333333333337, [Contour([0, 1, 3, 2]), Contour([1, 3, 0, 2])]],
-    #               [1.0, [Contour([1, 0, 3, 2])]]]
-    #     self.assertEqual(comparison.cseg_similarity_continuum(Contour([1, 0, 3, 2])), result)
+    def test_cseg_similarity_continuum(self):
+        result = [[0.0, [Contour([2, 3, 0, 1])]],
+                  [0.16666666666666666, [Contour([1, 3, 0, 2]),
+                                         Contour([2, 3, 1, 0]),
+                                         Contour([3, 2, 0, 1])]],
+                  [0.3333333333333333, [Contour([0, 3, 1, 2]),
+                                        Contour([1, 2, 0, 3]),
+                                        Contour([1, 3, 2, 0]),
+                                        Contour([3, 1, 0, 2]),
+                                        Contour([3, 2, 1, 0])]],
+                  [0.5, [Contour([0, 2, 1, 3]),
+                         Contour([0, 3, 2, 1]),
+                         Contour([1, 2, 3, 0]),
+                         Contour([2, 1, 0, 3]),
+                         Contour([3, 0, 1, 2]),
+                         Contour([3, 1, 2, 0])]],
+                  [0.6666666666666666, [Contour([0, 1, 2, 3]),
+                                        Contour([0, 2, 3, 1]),
+                                        Contour([2, 0, 1, 3]),
+                                        Contour([2, 1, 3, 0]),
+                                        Contour([3, 0, 2, 1])]],
+                  [0.8333333333333334, [Contour([0, 1, 3, 2]),
+                                        Contour([1, 0, 2, 3]),
+                                        Contour([2, 0, 3, 1])]],
+                  [1.0, [Contour([1, 0, 3, 2])]]]
+        self.assertEqual(comparison.cseg_similarity_continuum(Contour([1, 0, 3, 2])), result)
 
     def test_cseg_similarity_subsets_continuum(self):
         result = [[Contour([0, 1]), 0.58333333333333337],
