@@ -276,9 +276,9 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 3), CP(2, 2), CP(3, 4), CP(4, 2)]), None)
         self.assertEqual(contour.reduction_retention([CP(0, 2), CP(1, 4), CP(2, 2), CP(3, 5), CP(4, 1)]), None)
 
-    # def test_contour_rotation_classes(self):
-    #     result = [Contour([0, 1, 2, 3]), Contour([0, 1, 3, 2]), Contour([0, 2, 1, 3])]
-    #     self.assertEqual(contour.contour_rotation_classes(4), result)
+    def test_contour_rotation_classes(self):
+        result = [Contour([0, 1, 2, 3]), Contour([0, 1, 3, 2]), Contour([0, 2, 1, 3])]
+        self.assertEqual(contour.contour_rotation_classes(4), result)
 
     def test_interval_succession(self):
         self.assertEqual(Contour([0, 1, 3, 2]).interval_succession(), [1, 2, -1])
