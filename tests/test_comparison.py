@@ -80,19 +80,6 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(comparison.all_contour_mutually_embedded(cseg2, cseg3), 33.0 / 37)
         self.assertEqual(comparison.all_contour_mutually_embedded(cseg4, cseg5), 0.8)
 
-    # def test_operations_comparison(self):
-    #     cseg1, cseg2 = Contour([0, 1, 2, 3]), Contour([3, 1, 2, 0])
-    #     result = [[(Contour([0, 1, 2, 3]), 2, 'internal_diagonals', InternalDiagonal([1, -1, 1])),
-    #                (Contour([3, 1, 2, 0]), 1, 'internal_diagonals', InternalDiagonal([1, -1, 1]))]]
-    #     self.assertEqual(comparison.operations_comparison(cseg1, cseg2), result)
-
-    # def test_pretty_operations_comparison(self):
-    #     cseg1 = Contour([0, 1, 2, 3])
-    #     cseg2 = Contour([3, 1, 2, 0])
-    #     result = '< 0 1 2 3 > [rot1] (internal_diagonals): < + - + >\n' + \
-    #                  '< 3 1 2 0 > [rot1] (internal_diagonals)\n'
-    #     self.assertEqual(comparison.pretty_operations_comparison(cseg1, cseg2), result)
-
     def test_cseg_similarity_continuum(self):
         result = [[0.0, [Contour([2, 3, 0, 1])]],
                   [0.16666666666666666, [Contour([1, 3, 0, 2]),
