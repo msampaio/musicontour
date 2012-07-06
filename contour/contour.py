@@ -5,6 +5,7 @@ import itertools
 import collections
 from collections import MutableSequence
 from copy import copy
+import operator
 import utils
 import auxiliary
 import diagonal
@@ -176,6 +177,19 @@ def sort_cseg_seq(cseg_objs):
 
     result = sorted([(cseg_obj.cseg, cseg_obj) for cseg_obj in cseg_objs])
     return [x[1] for x in result]
+
+
+def repeated_cps_value_group(pairs):
+    """Returns sequences of adjacent cpoints with repeated values.
+    (Morris 1993)
+
+    >>> Contour([0, 2, 2, 2, 1])
+    [< Position: 1, Value: 2 >, < Position: 2, Value: 2 >, < Position: 3, Value: 2 >]
+    """
+
+    pairs = [(pair.position, pair.value) for pair in pairs]
+    group = [list(items) for key, items in itertools.groupby(pairs, key=operator.itemgetter(1))]
+    return [[ContourPoint(*seq) for seq in subseq] for subseq in group]
 
 
 def reduction_retention(cpoints):
