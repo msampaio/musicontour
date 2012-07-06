@@ -351,7 +351,10 @@ class Contour(MutableSequence):
     def cpoint(self, position):
         """Returns ContourPoint in a given position."""
 
-        return self.pairs[position]
+        try:
+            return self.pairs[position]
+        except:
+            print "This contour object doesn't have position", position
 
     def repetition_cpitch_test(self):
         """Tests if cseg has repeated elements."""
@@ -681,7 +684,7 @@ class Contour(MutableSequence):
         return seq
 
     def flag(self):
-        """Returns steps and 2 of Morris contour reduction algorithm
+        """Returns steps 1 and 2 of Morris contour reduction algorithm
         (1993). Returns maxima and minima lists of a given contour
         object.
         """
