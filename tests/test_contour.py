@@ -73,6 +73,19 @@ class TestUtils(unittest.TestCase):
     def test_translation(self):
         self.assertEqual(Contour([1, 4, 9, 9, 2, 1]).translation(), Contour([0, 2, 3, 3, 1, 0]))
 
+    def test_cpoint(self):
+        self.assertEqual(Contour([1, 4, 9, 9, 2, 1]).cpoint(2), CP(2, 9))
+
+    def test_repetition_cpitch_test(self):
+        self.assertEqual(Contour([0, 1, 0]).repetition_cpitch_test(), False)
+        self.assertEqual(Contour([0, 1, 1, 0]).repetition_cpitch_test(), False)
+        self.assertEqual(Contour([0, 1, 2]).repetition_cpitch_test(), True)
+
+    def test_remove_repeated_adjacent_cps(self):
+        self.assertEqual(Contour([0, 1, 1, 0]).remove_repeated_adjacent_cps(), Contour([CP(0, 0), CP(1, 1), CP(3, 0)]))
+        self.assertEqual(Contour([0, 1, 1, 0]).remove_repeated_adjacent_cps(False), [CP(0, 0), CP(1, 1), CP(3, 0)])
+        self.assertEqual(Contour([0, 2, 1, 1]).remove_repeated_adjacent_cps(False, True), [CP(0, 0), CP(1, 2), CP(3, 1)])
+
     def test_prime_form_marvin_laprade(self):
         cseg01, cseg02 = Contour([1, 4, 9, 2]), Contour([0, 2, 3, 1])
         cseg03, cseg04 = Contour([5, 7, 9, 1]), Contour([0, 3, 2, 1])
