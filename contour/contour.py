@@ -713,6 +713,37 @@ class Contour(MutableSequence):
             # step 4
             return False, (max_list, min_list)
 
+        def __reduction_step6_7(self, m_list, algorithm):
+
+            m_list = Contour(m_list).max_min_list(fn)
+
+            first = self.pairs[0]
+            last = self.pairs[-1]
+
+            group = repeated_cps_value_group(m_list)
+
+            r = []
+            for seq in group:
+                if len(seq) == 1:
+                    r.append(seq[0])
+                else:
+                    if first in seq and last in seq:
+                        r.append(first)
+                        r.append(last)
+                    elif first in seq and last not in seq:
+                        r.append(first)
+                    elif last in seq and first not in seq:
+                        r.append(last)
+                    else:
+                        # difference between morris and schultz.
+                        if algorithm == 'Morris':
+                            # Morris algorithm retains only one of the maximas
+                            r.append(seq[0])
+                        else:
+                            # Schultz algorithm retains all maximas
+                            [r.append(pair) for pair in seq]
+
+            return r
 
     def reduction_morris(self):
         """Returns Morris (1993) contour reduction from a cseg, and
