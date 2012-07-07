@@ -246,7 +246,7 @@ class TestUtils(unittest.TestCase):
         cseg2 = Contour([12, 10, 13, 11, 7, 9, 8, 6, 3, 5, 4, 1, 0, 2])
         cseg3 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
         self.assertEqual(cseg1.reduction_bor(53), [Contour([0, 2, 1]), 2])
-        self.assertEqual(cseg1.reduction_bor(35), [Contour([0, 3, 2, 1]), 2])
+        self.assertEqual(cseg1.reduction_bor(35), [Contour([0, 3, 2, 1]), 1])
         self.assertEqual(cseg2.reduction_bor(53, False), [Contour([12, 10, 13, 0, 2]), 2])
         self.assertEqual(cseg3.reduction_bor(35, False), [Contour([7, 10, 0, 8, 5]), 2])
         self.assertEqual(cseg3.reduction_bor(35, True), [Contour([2, 4, 0, 3, 1]), 2])

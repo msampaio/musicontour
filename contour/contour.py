@@ -869,9 +869,13 @@ class Contour(MutableSequence):
 
         win_vals = [int(x) for x in str(windows)]
         obj_cseg = copy(self)
+        depth = 0
         for window in win_vals:
-            obj_cseg = obj_cseg.reduction_window(window, translation)
-        return [obj_cseg, len(win_vals)]
+            new_obj = obj_cseg.reduction_window(window, translation)
+            if obj_cseg != new_obj:
+                depth += 1
+            obj_cseg = new_obj
+        return [obj_cseg, depth]
 
     def reduction_sampaio(self, windows=3, translation=True):
         """Returns reduction contour and its depth with given windows
@@ -881,7 +885,6 @@ class Contour(MutableSequence):
         # calculate initial reduced by Bor algorithm
         reduced, depth = self.reduction_bor(windows, translation)
 
-        if self == reduced: depth = 0
         seq = copy(reduced).cseg
         i = 2
 
@@ -893,10 +896,17 @@ class Contour(MutableSequence):
                 i += 1
 
         seq = Contour(seq)
+
+        # increase depth value only if original cseg is reduced
+        if self == seq:
+            depth = 0
+        elif depth == 0 and self != seq:
+            depth = 1
+
         if translation == True:
             seq = seq.translation()
 
-        return [seq, depth + 1]
+        return [seq, depth]
 
     def interval_succession(self):
         """Return Friedmann (1985) CIS, a series which indicates the
