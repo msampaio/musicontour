@@ -278,13 +278,15 @@ def contour_rotation_classes(cardinality):
 
 class ContourPoint():
 
-    def __init__(self, position, value):
+    def __init__(self, position, value, maxima=False, minima=False):
         self.position = position
         self.value = value
         self.cpoint = (position, value)
+        self.maxima = maxima
+        self.minima = minima
 
     def __eq__(self, other):
-        return self.cpoint == other.cpoint
+        return all([self.cpoint == other.cpoint, self.maxima == other.maxima, self.minima == other.minima])
 
     def __ne__(self, other):
         return not self.__eq__(other)

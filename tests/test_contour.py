@@ -15,6 +15,8 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(CP(0, 0), CP(0, 0))
         self.assertNotEqual(CP(0, 0), CP(0, 1))
         self.assertNotEqual(CP(0, 0), CP(1, 0))
+        self.assertNotEqual(CP(0, 0, True), CP(0, 0))
+        self.assertNotEqual(CP(0, 0, False, True), CP(0, 0))
 
     def test_logical_contour(self):
         self.assertNotEqual(Contour([0, 1, 2]), Contour([0, 1]))
