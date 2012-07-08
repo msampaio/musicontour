@@ -278,6 +278,31 @@ def contour_rotation_classes(cardinality):
 
 class ContourPoint():
 
+    def flag(self, fn):
+        """Returns a flagged cpoint with maxima, minima or both."""
+
+        cpoint = copy(self)
+        if fn == maxima:
+            cpoint.maxima = True
+        elif fn == minima:
+            cpoint.minima = True
+        elif fn == 'Both':
+            cpoint.maxima = cpoint.minima = True
+        return cpoint
+
+    def unflag(self, fn):
+        """Returns a cpoint with unflagged attribute maxima, minima or
+        both."""
+
+        cpoint = copy(self)
+        if fn == maxima:
+            cpoint.maxima = False
+        elif fn == minima:
+            cpoint.minima = False
+        elif fn == 'Both':
+            cpoint.maxima = cpoint.minima = False
+        return cpoint
+
     def __init__(self, position, value, maxima=False, minima=False):
         self.position = position
         self.value = value

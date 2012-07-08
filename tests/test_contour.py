@@ -15,8 +15,22 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(CP(0, 0), CP(0, 0))
         self.assertNotEqual(CP(0, 0), CP(0, 1))
         self.assertNotEqual(CP(0, 0), CP(1, 0))
+
+    def test_contour_point(self):
         self.assertNotEqual(CP(0, 0, True), CP(0, 0))
         self.assertNotEqual(CP(0, 0, False, True), CP(0, 0))
+
+    def test_cpoint_flag(self):
+        self.assertEqual(CP(0, 0).flag(contour.maxima), CP(0, 0, True))
+        self.assertEqual(CP(0, 0).flag(contour.minima), CP(0, 0, False, True))
+        self.assertEqual(CP(0, 0).flag('Both'), CP(0, 0, True, True))
+
+    def test_cpoint_unflag(self):
+        self.assertEqual(CP(0, 0, True).unflag(contour.maxima), CP(0, 0))
+        self.assertEqual(CP(0, 0, True, True).unflag(contour.maxima), CP(0, 0, False, True))
+        self.assertEqual(CP(0, 0, True, True).unflag(contour.minima), CP(0, 0, True, False))
+        self.assertEqual(CP(0, 0, False, True).unflag(contour.minima), CP(0, 0, False, False))
+        self.assertEqual(CP(0, 0, True, True).unflag('Both'), CP(0, 0, False, False))
 
     def test_logical_contour(self):
         self.assertNotEqual(Contour([0, 1, 2]), Contour([0, 1]))
