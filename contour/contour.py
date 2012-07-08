@@ -179,7 +179,7 @@ def sort_cseg_seq(cseg_objs):
     return [x[1] for x in result]
 
 
-def repeated_cps_value_group(pairs):
+def repeated_cps_value_group(cpoints):
     """Returns sequences of adjacent cpoints with repeated values.
     (Morris 1993)
 
@@ -187,8 +187,8 @@ def repeated_cps_value_group(pairs):
     [< Position: 1, Value: 2 >, < Position: 2, Value: 2 >, < Position: 3, Value: 2 >]
     """
 
-    pairs = [(pair.position, pair.value) for pair in pairs]
-    group = [list(items) for key, items in itertools.groupby(pairs, key=operator.itemgetter(1))]
+    cpoints = [(cpoint.position, cpoint.value) for cpoint in cpoints]
+    group = [list(items) for key, items in itertools.groupby(cpoints, key=operator.itemgetter(1))]
     return [[ContourPoint(*seq) for seq in subseq] for subseq in group]
 
 
@@ -202,9 +202,9 @@ def reduction_retention(cpoints):
 
     def aux_max_min(cpoints, fn):
         result = []
-        for pair in cpoints:
+        for cpoint in cpoints:
             try:
-                result.append(pair.value)
+                result.append(cpoint.value)
             except:
                 pass
         return fn(result)
@@ -281,10 +281,10 @@ class ContourPoint():
     def __init__(self, position, value):
         self.position = position
         self.value = value
-        self.pair = (position, value)
+        self.cpoint = (position, value)
 
     def __eq__(self, other):
-        return self.pair == other.pair
+        return self.cpoint == other.cpoint
 
     def __ne__(self, other):
         return not self.__eq__(other)
@@ -352,7 +352,7 @@ class Contour(MutableSequence):
         """Returns ContourPoint in a given position."""
 
         try:
-            return self.pairs[position]
+            return self.cpoints[position]
         except:
             print "This contour object doesn't have position", position
 
@@ -364,38 +364,38 @@ class Contour(MutableSequence):
     def remove_repeated_adjacent_cps(self, obj_cseg=True, morris_rule=False):
         """Remove adjacent repeated cpoints in a given cseg."""
 
-        pairs = copy(self.pairs)
+        cpoints = copy(self.cpoints)
 
-        new_pairs = [pairs[0]]
+        new_cpoints = [cpoints[0]]
 
         # remove non-repeated adjacent cpoint. keep the first, remove
         # repetition
-        for pair in pairs:
-            if pair.value != new_pairs[-1].value:
-                new_pairs.append(pair)
+        for cpoint in cpoints:
+            if cpoint.value != new_cpoints[-1].value:
+                new_cpoints.append(cpoint)
 
         # Rule for Morris reduction algorithm
         if morris_rule == True:
-            first = pairs[-1]
-            last = pairs[-1]
+            first = cpoints[-1]
+            last = cpoints[-1]
 
             # step 6.3, 7.3. if both the first and last cpitch in the
             # string, flag (only) both the first and lat pitch of C
             if self.size == 3:
-                new_pairs == [first, last]
+                new_cpoints == [first, last]
             else:
 
                 # step 6.2, 7.2. if one pitch in the string is the
                 # first or last pitch of C, flag only it
-                new_last = new_pairs[-1]
+                new_last = new_cpoints[-1]
                 if new_last.value == last.value:
-                    new_pairs.remove(new_last)
-                    new_pairs.append(last)
+                    new_cpoints.remove(new_last)
+                    new_cpoints.append(last)
 
         if obj_cseg == True:
-            return Contour(new_pairs)
+            return Contour(new_cpoints)
         else:
-            return new_pairs
+            return new_cpoints
 
     def __unequal_edges(self):
         """Returns the first cps position with different value from
@@ -674,13 +674,13 @@ class Contour(MutableSequence):
         """
 
         def aux(obj_cseg, i, fn):
-            cpoints = obj_cseg.pairs[i:i + 3]
+            cpoints = obj_cseg.cpoints[i:i + 3]
             return fn(cpoints[0].value, cpoints[1].value, cpoints[2].value)
 
         seq = []
-        seq.append(self.pairs[0])
-        seq.extend([self.pairs[i + 1] for i in range(0, self.size - 2) if aux(self, i, fn)])
-        seq.append(self.pairs[-1])
+        seq.append(self.cpoints[0])
+        seq.extend([self.cpoints[i + 1] for i in range(0, self.size - 2) if aux(self, i, fn)])
+        seq.append(self.cpoints[-1])
         return seq
 
     def flag(self):
@@ -706,11 +706,11 @@ class Contour(MutableSequence):
         flagged.extend(max_list)
         flagged.extend(min_list)
 
-        unflagged = [cpoint for cpoint in self.pairs if cpoint not in flagged]
+        unflagged = [cpoint for cpoint in self.cpoints if cpoint not in flagged]
 
         if len(unflagged) == 0:
             # step 3 True, go to step 9
-            return True, [cpoint for cpoint in self.pairs if cpoint not in unflagged]
+            return True, [cpoint for cpoint in self.cpoints if cpoint not in unflagged]
         else:
             # step 3 False, go to step 3.
             # step 4
@@ -720,8 +720,8 @@ class Contour(MutableSequence):
 
             m_list = Contour(m_list).max_min_list(fn)
 
-            first = self.pairs[0]
-            last = self.pairs[-1]
+            first = self.cpoints[0]
+            last = self.cpoints[-1]
 
             group = repeated_cps_value_group(m_list)
 
@@ -744,7 +744,7 @@ class Contour(MutableSequence):
                             r.append(seq[0])
                         else:
                             # Schultz algorithm retains all maximas
-                            [r.append(pair) for pair in seq]
+                            [r.append(cpoint) for cpoint in seq]
 
             return r
 
@@ -817,24 +817,24 @@ class Contour(MutableSequence):
         < 7 10 0 3 1 8 2 5>
         """
 
-        def _red(pairs, pos, window_size):
-            return reduction_retention(pairs[pos:pos + window_size])
+        def _red(cpoints, pos, window_size):
+            return reduction_retention(cpoints[pos:pos + window_size])
 
         if window_size % 2 == 0:
             print "Window size must be an even number."
         else:
-            pairs = copy(self.pairs)
+            cpoints = copy(self.cpoints)
             n = window_size / 2
 
             for i in range(n):
-                pairs.insert(0, None)
-                pairs.append(None)
+                cpoints.insert(0, None)
+                cpoints.append(None)
 
-            size = len(pairs)
+            size = len(cpoints)
             last = size - window_size + 1
             prange = range(0, last)
 
-            reduced = Contour([_red(pairs, pos, window_size) for pos in prange if _red(pairs, pos, window_size)])
+            reduced = Contour([_red(cpoints, pos, window_size) for pos in prange if _red(cpoints, pos, window_size)])
 
             if translation == True:
                 reduced = reduced.translation()
@@ -1309,26 +1309,26 @@ class Contour(MutableSequence):
 
         return self.oscillation() / float(self.size - 1)
 
-    def __init__(self, pairs):
+    def __init__(self, cpoints):
 
-        if all([isinstance(item, ContourPoint) for item in pairs]):
-            self.pairs = pairs
+        if all([isinstance(item, ContourPoint) for item in cpoints]):
+            self.cpoints = cpoints
         else:
             try:
-                self.pairs = [ContourPoint(pos, val) for pos, val in enumerate(pairs)]
+                self.cpoints = [ContourPoint(pos, val) for pos, val in enumerate(cpoints)]
             except:
-                raise ContourExeption("Don't know how to handle the input: " + pairs)
+                raise ContourExeption("Don't know how to handle the input: " + cpoints)
 
-        self.cseg = [pair.value for pair in self.pairs]
-        self.positions = [pair.position for pair in self.pairs]
+        self.cseg = [cpoint.value for cpoint in self.cpoints]
+        self.positions = [cpoint.position for cpoint in self.cpoints]
         self.size = len(self.cseg)
 
     def __repr__(self):
         return "< {0} >".format(" ".join([str(x) for x in self.cseg]))
 
     def __eq__(self, other):
-        if len(self.pairs) == len(other.pairs):
-            return all(x == y for x, y in zip(self.pairs, other.pairs))
+        if len(self.cpoints) == len(other.cpoints):
+            return all(x == y for x, y in zip(self.cpoints, other.cpoints))
         else:
             return False
 
@@ -1336,22 +1336,22 @@ class Contour(MutableSequence):
         return not self.__eq__(other)
 
     def __delitem__(self, i):
-        del self.pairs[i]
+        del self.cpoints[i]
 
     def __getitem__(self, i):
-        return self.pairs[i]
+        return self.cpoints[i]
 
     def __len__(self):
-        return len(self.pairs)
+        return len(self.cpoints)
 
     def __setitem__(self, i, value):
-        self.pairs[i] = value
+        self.cpoints[i] = value
 
     def __add__(self, other):
-        return Contour(self.pairs + other.pairs)
+        return Contour(self.cpoints + other.cpoints)
 
     def insert(self, i, value):
-        self.pairs.insert(i, value)
+        self.cpoints.insert(i, value)
 
 def prime_form_algorithm_test(card, prime_form_algorithm="prime_form_sampaio"):
     """Returns contour classes with two prime forms from a given
