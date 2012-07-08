@@ -199,6 +199,13 @@ class TestUtils(unittest.TestCase):
                   Contour([3, 12, 3, 7])]
         self.assertEqual(cseg.subsets_adj(4), result)
 
+    def test_cpoint_replace(self):
+        cp1 = CP(0, 0)
+        cp2 = CP(1, 3)
+        cseg = Contour([cp1, cp2])
+        cp3 = CP(1, 3, True)
+        self.assertEqual(cseg.cpoint_replace(cp2, cp3), Contour([cp1, cp3]))
+
     def test_max_min_list(self):
         self.assertEqual(Contour([0, 3, 2, 1]).max_min_list(contour.maxima), [CP(0, 0), CP(1, 3), CP(3, 1)])
 

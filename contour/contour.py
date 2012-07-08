@@ -690,6 +690,13 @@ class Contour(MutableSequence):
 
         return [Contour(self.cseg[i:i + n]) for i in range(self.size - (n - 1))]
 
+    def cpoint_replace(self, old, new):
+        """Replace a cpoint in a contour object by a given cpoint."""
+
+        obj_cseg = copy(self)
+        obj_cseg[obj_cseg.index(old)] = new
+        return obj_cseg
+
     def max_min_list(self, fn):
         """Returns a maxima or minima list of a given cseg. (Morris,
         1993)
