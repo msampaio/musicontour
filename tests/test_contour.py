@@ -15,6 +15,7 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(CP(0, 0), CP(0, 0))
         self.assertNotEqual(CP(0, 0), CP(0, 1))
         self.assertNotEqual(CP(0, 0), CP(1, 0))
+        self.assertNotEqual(CP(0, 0), None)
 
     def test_contour_point(self):
         self.assertNotEqual(CP(0, 0, True), CP(0, 0))
@@ -36,6 +37,7 @@ class TestUtils(unittest.TestCase):
         self.assertNotEqual(Contour([0, 1, 2]), Contour([0, 1]))
         self.assertEqual(Contour([0, 1, 2]), Contour([0, 1, 2]))
         self.assertNotEqual(Contour([0, 1, 2]), Contour([0, 2, 1]))
+        self.assertNotEqual(Contour([0, 1, 2]), None)
 
     def test_contour(self):
         self.assertEqual(Contour([CP(0, 0), CP(1, 1)]), Contour([0, 1]))

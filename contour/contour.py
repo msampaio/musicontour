@@ -311,7 +311,12 @@ class ContourPoint():
         self.minima = minima
 
     def __eq__(self, other):
-        return all([self.cpoint == other.cpoint, self.maxima == other.maxima, self.minima == other.minima])
+        if not isinstance(other, ContourPoint):
+            return False
+        try:
+            return all([self.cpoint == other.cpoint, self.maxima == other.maxima, self.minima == other.minima])
+        except AttributeError:
+            return False
 
     def __ne__(self, other):
         return not self.__eq__(other)
@@ -1361,9 +1366,12 @@ class Contour(MutableSequence):
         return "< {0} >".format(" ".join([str(x) for x in self.cseg]))
 
     def __eq__(self, other):
-        if len(self.cpoints) == len(other.cpoints):
-            return all(x == y for x, y in zip(self.cpoints, other.cpoints))
-        else:
+        if not isinstance(other, Contour):
+            return False
+        try:
+            if len(self.cpoints) == len(other.cpoints):
+                return all(x == y for x, y in zip(self.cpoints, other.cpoints))
+        except AttributeError:
             return False
 
     def __ne__(self, other):
