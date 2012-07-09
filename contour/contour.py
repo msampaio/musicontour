@@ -725,6 +725,33 @@ class Contour(MutableSequence):
             flagged_cpoint = cpoint.flag(flag)
         return obj_cseg.cpoint_replace(cpoint, flagged_cpoint)
 
+    def max_min_flag(self):
+        """Returns contour object with flagged maxima and minima
+        (Morris, 1993).
+
+        >>> Contour([0, 1, 2]).max_min_flag()
+        < 0 1 2 >
+        """
+
+        def fn_test(cpoints, i, fn):
+            return fn(*[cp.value for cp in cpoints[i - 1:i + 2]])
+
+        obj_cseg = copy(self)
+        cpoints = obj_cseg.cpoints
+
+        # first and last are flagged by default (Morris, 1993)
+        obj_cseg = obj_cseg.cpoint_flag(cpoints[0], 'Both')
+        obj_cseg = obj_cseg.cpoint_flag(cpoints[-1], 'Both')
+
+        # flag maxima/minima
+        for fn in maxima, minima:
+            for i in range(1, len(cpoints) - 1):
+                if fn_test(cpoints, i, fn):
+                    cpoint = cpoints[i]
+                    obj_cseg = obj_cseg.cpoint_flag(cpoint, fn)
+
+        return obj_cseg
+
     def max_min_list(self, fn):
         """Returns a maxima or minima list of a given cseg. (Morris,
         1993)
