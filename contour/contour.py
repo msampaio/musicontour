@@ -16,6 +16,7 @@ import fuzzy
 class ContourPointException(Exception):
     pass
 
+
 class ContourException(Exception):
     pass
 
@@ -103,7 +104,7 @@ def pretty_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
             sections.append("\n" + " ".ljust(1) + "Csegclass".ljust(18) +
                   "Prime form".ljust(20) + "INT(1)\n")
             card = a
-        if d == True:
+        if d:
             ri = "*"
         else:
             ri = " "
@@ -195,8 +196,9 @@ def repeated_cps_value_group(cpoints):
     # make list only if there are repeated adjacent cpoints values
     if obj_cseg.repetition_adjacent_cpitch_test():
         pairs = [(cpoint.position, cpoint.value) for cpoint in cpoints]
-        group = [list(items) for key, items in itertools.groupby(pairs, key=operator.itemgetter(1))]
-        return [[obj_cseg.cpoint(seq[0]) for seq in subseq] for subseq in group]
+        grouped = itertools.groupby(pairs, key=operator.itemgetter(1))
+        group = [list(items[1]) for items in grouped]
+        return [[obj_cseg.cpoint(subseq[0]) for subseq in seq] for seq in group]
     else:
         return cpoints
 
@@ -264,7 +266,8 @@ def contour_rotation_classes(cardinality):
 
     for el in universe:
         obj_cseg = Contour(el)
-        all_el = set([tuple(x.cseg) for x in obj_cseg.rotated_representatives()])
+        representatives = obj_cseg.rotated_representatives()
+        all_el = set([tuple(x.cseg) for x in representatives])
         r = 0
         # tests if an operation in cseg's all operation is already in
         # s set
@@ -429,7 +432,7 @@ class Contour(MutableSequence):
                 new_cpoints.append(cpoint)
 
         # Rule for Morris reduction algorithm
-        if morris_rule == True:
+        if morris_rule:
             first = cpoints[-1]
             last = cpoints[-1]
 
@@ -446,7 +449,7 @@ class Contour(MutableSequence):
                     new_cpoints.remove(new_last)
                     new_cpoints.append(last)
 
-        if obj_cseg == True:
+        if obj_cseg:
             return Contour(new_cpoints)
         else:
             return new_cpoints
@@ -483,7 +486,7 @@ class Contour(MutableSequence):
         # to penultimate cps and so on to break the "tie".
 
         false_first = self.cpoint(position).value
-        false_last = self.cpoint(utils.negative(position) -1).value
+        false_last = self.cpoint(utils.negative(position) - 1).value
 
         if ((self.size - 1) - false_last) < false_first:
             reduced = self.inversion()
@@ -503,7 +506,7 @@ class Contour(MutableSequence):
         reduced = self
 
         false_first = self.cpoint(position).value
-        false_last = self.cpoint((position * -1) -1).value
+        false_last = self.cpoint(utils.negative(position) - 1).value
 
         if false_last < false_first:
             reduced = self.retrogression()
@@ -535,7 +538,6 @@ class Contour(MutableSequence):
 
         return [auxiliary.apply_fn(c, prime_algorithm) for c in csegs]
 
-
     def prime_form_marvin_laprade(self):
         """Returns the prime form of a given contour (Marvin and
         Laprade, 1987).
@@ -560,8 +562,6 @@ class Contour(MutableSequence):
         >>> Contour([0, 2, 1, 3, 4]).prime_form_sampaio()
         < 0 1 3 2 4 >
         """
-
-        cseg = self.cseg
 
         # tests if cseg has repeated elements
         if not self.repetition_cpitch_test():
@@ -657,13 +657,13 @@ class Contour(MutableSequence):
         dic = {}
 
         for obj_cseg in subsets:
-            processed = tuple(auxiliary.apply_fn(obj_cseg, prime_algorithm).cseg)
-            if processed in dic:
-                z = dic[processed]
+            process = tuple(auxiliary.apply_fn(obj_cseg, prime_algorithm).cseg)
+            if process in dic:
+                z = dic[process]
                 z.append(obj_cseg)
-                dic[processed] = z
+                dic[process] = z
             else:
-                dic[processed] = [obj_cseg]
+                dic[process] = [obj_cseg]
 
         return dic
 
@@ -715,7 +715,8 @@ class Contour(MutableSequence):
         [< 0 1 3 >, < 1 3 2 >]
         """
 
-        return [Contour(self.cseg[i:i + n]) for i in range(self.size - (n - 1))]
+        irange = range(self.size - (n - 1))
+        return [Contour(self.cseg[i:i + n]) for i in irange]
 
     def cpoint_replace(self, old, new):
         """Replace a cpoint in a contour object by a given cpoint."""
@@ -732,7 +733,7 @@ class Contour(MutableSequence):
         given flag. Flag must be maxima, minima or 'Both'."""
 
         obj_cseg = deepcopy(self)
-        if unflag == True:
+        if unflag:
             flagged_cpoint = cpoint.unflag(flag)
         else:
             flagged_cpoint = cpoint.flag(flag)
@@ -769,7 +770,9 @@ class Contour(MutableSequence):
         """Returns a contour object with all unflagged cpoints
         removed. (Morris, 1993)
 
-        >>> Contour([ContourPoint(0, 1, True, True), ContourPoint(1, 1), ContourPoint(2, 2, True, True)])
+        >>> Contour([ContourPoint(0, 1, True, True),
+                     ContourPoint(1, 1),
+                     ContourPoint(2, 2, True, True)])
         < 0 2 >
         """
 
@@ -787,7 +790,7 @@ class Contour(MutableSequence):
         """
 
         def add(cpoint, new_cpoints, fn=None):
-            if fn != None:
+            if fn is not None:
                 cpoint = cpoint.unflag(fn)
             new_cpoints.append(cpoint)
 
@@ -828,7 +831,8 @@ class Contour(MutableSequence):
         if max_min_list.repetition_adjacent_cpitch_test():
             repeated_group = repeated_cps_value_group(max_min_list)
             new_cpoints = aux_remove(repeated_group, extremes, maxima)
-            new_cpoints = aux_remove(repeated_cps_value_group(new_cpoints), extremes, minima)
+            new_repeated = repeated_cps_value_group(new_cpoints)
+            new_cpoints = aux_remove(new_repeated, extremes, minima)
         else:
             new_cpoints = max_min_list
 
@@ -872,16 +876,18 @@ class Contour(MutableSequence):
         and maxima and minima lists if there are unflagged cpoints.
         """
 
+        cpoints = self.cpoints
+
         # morris algorithm step 3 and 4
         flagged = []
         flagged.extend(max_list)
         flagged.extend(min_list)
 
-        unflagged = [cpoint for cpoint in self.cpoints if cpoint not in flagged]
+        unflagged = [cpoint for cpoint in cpoints if cpoint not in flagged]
 
         if len(unflagged) == 0:
             # step 3 True, go to step 9
-            return True, [cpoint for cpoint in self.cpoints if cpoint not in unflagged]
+            return True, [cpoint for cpoint in cpoints if cpoint not in unflagged]
         else:
             # step 3 False, go to step 3.
             # step 4
@@ -961,7 +967,7 @@ class Contour(MutableSequence):
         # step 4. Delete all non-flagged pitches in C
         r, data = obj.all_flagged(max_list, min_list)
 
-        if r == False:
+        if not r:
             # step 5. N is incremented by 1.
             n += 1
             max_list, min_list = data
@@ -1007,10 +1013,10 @@ class Contour(MutableSequence):
 
             reduced = Contour([_red(cpoints, pos, window_size) for pos in prange if _red(cpoints, pos, window_size)])
 
-            if translation == True:
+            if translation:
                 reduced = reduced.translation()
 
-            if reposition == True:
+            if reposition:
                 reduced = Contour(reduced.cseg)
 
             return reduced
@@ -1074,7 +1080,7 @@ class Contour(MutableSequence):
         elif depth == 0 and self != seq:
             depth = 1
 
-        if translation == True:
+        if translation:
             seq = seq.translation()
 
         return [seq, depth]
@@ -1145,7 +1151,8 @@ class Contour(MutableSequence):
         """
 
         matrix = self.comparison_matrix()
-        int_d = [x for x in itertools.imap(cmp, matrix, itertools.islice(matrix, n, None)) if x != 0]
+        int_m = itertools.imap(cmp, matrix, itertools.islice(matrix, n, None))
+        int_d = [x for x in int_m if x != 0]
         return diagonal.InternalDiagonal(int_d)
 
     def comparison_matrix(self):
@@ -1159,7 +1166,8 @@ class Contour(MutableSequence):
         """
 
         cseg = self.cseg
-        return matrix.ComparisonMatrix([[cmp(b, a) for b in cseg] for a in cseg])
+        cm = [[cmp(b, a) for b in cseg] for a in cseg]
+        return matrix.ComparisonMatrix(cm)
 
     def fuzzy_membership_matrix(self):
         """Returns a Fuzzy membership matrix. Quinn (1997).
@@ -1171,7 +1179,7 @@ class Contour(MutableSequence):
         0 0 1 0
         """
 
-        return fuzzy.FuzzyMatrix([[fuzzy.membership([a.value, b.value]) for b in self] for a in self])
+        return fuzzy.FuzzyMatrix(utils.make_matrix(fuzzy.membership, self))
 
     def fuzzy_comparison_matrix(self):
         """Returns a Fuzzy comparison matrix. Quinn (1997).
@@ -1183,7 +1191,7 @@ class Contour(MutableSequence):
         -1 -1 1 0
         """
 
-        return fuzzy.FuzzyMatrix([[fuzzy.comparison([a.value, b.value]) for b in self] for a in self])
+        return fuzzy.FuzzyMatrix(utils.make_matrix(fuzzy.comparison, self))
 
     def adjacency_series_vector(self):
         """Returns Friedmann (1985) CASV, a two digit summation of ups
@@ -1547,7 +1555,7 @@ def prime_form_algorithm_test(card, prime_form_algorithm="prime_form_sampaio"):
 
     for lst in lists:
         cseg = Contour(lst)
-        if cseg.unique_prime_form_test(prime_form_algorithm) == False:
+        if not cseg.unique_prime_form_test(prime_form_algorithm):
             c_class, n_class, x, ri = cseg.segment_class()
             coll.add((c_class, n_class))
 

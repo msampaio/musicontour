@@ -203,7 +203,7 @@ def replace_all(seq, replacement):
 
 
 def negative(num):
-    return num * -1
+    return num * - 1
 
 def addition(a, b):
     return a + b
@@ -227,3 +227,7 @@ def seq_operation(fn, seq):
 def rotation(obj, factor):
     n = factor % obj.size()
     return obj[n:] + obj[:n]
+
+
+def make_matrix(fn, obj):
+    return [[fn([a.value, b.value]) for b in obj] for a in obj]
