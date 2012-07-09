@@ -11,3 +11,4 @@ lab/*
 print/*.aux
 print/*.log
 print/*.pdf
+/tmp/*
