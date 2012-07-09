@@ -190,9 +190,10 @@ def repeated_cps_value_group(cpoints):
     [< Position: 1, Value: 2 >, < Position: 2, Value: 2 >, < Position: 3, Value: 2 >]
     """
 
-    cpoints = [(cpoint.position, cpoint.value) for cpoint in cpoints]
-    group = [list(items) for key, items in itertools.groupby(cpoints, key=operator.itemgetter(1))]
-    return [[ContourPoint(*seq) for seq in subseq] for subseq in group]
+    obj_cseg = Contour(cpoints)
+    pairs = [(cpoint.position, cpoint.value) for cpoint in cpoints]
+    group = [list(items) for key, items in itertools.groupby(pairs, key=operator.itemgetter(1))]
+    return [[obj_cseg.cpoint(seq[0]) for seq in subseq] for subseq in group]
 
 
 def reduction_retention(cpoints):

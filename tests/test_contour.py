@@ -99,6 +99,15 @@ class TestUtils(unittest.TestCase):
         cseg2 = Contour([0, 1])
         self.assertEqual(contour.sort_cseg_seq([cseg1, cseg2]), [cseg2, cseg1])
 
+    def test_repeated_cps_value_group(self):
+        cp1 = CP(0, 0, True, True)
+        cp2 = CP(1, 1)
+        cp3 = CP(2, 3, True)
+        cp4 = CP(3, 3, True)
+        cp5 = CP(4, 2, True, True)
+        cpoints = [cp1, cp2, cp3, cp4, cp5]
+        self.assertEqual(contour.repeated_cps_value_group(cpoints), [[cp1], [cp2], [cp3, cp4], [cp5]])
+
     def test_rotation(self):
         self.assertEqual(Contour([1, 4, 9, 9, 2, 1]).rotation(), Contour([4, 9, 9, 2, 1, 1]))
         self.assertEqual(Contour([1, 4, 9, 9, 2, 1]).rotation(1), Contour([4, 9, 9, 2, 1, 1]))
