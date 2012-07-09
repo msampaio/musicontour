@@ -94,6 +94,11 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(contour.minima(0, 2, 1), False)
         self.assertEqual(contour.minima(1, 2, 0), False)
 
+    def test_sort_cseg_seq(self):
+        cseg1 = Contour([1, 0])
+        cseg2 = Contour([0, 1])
+        self.assertEqual(contour.sort_cseg_seq([cseg1, cseg2]), [cseg2, cseg1])
+
     def test_rotation(self):
         self.assertEqual(Contour([1, 4, 9, 9, 2, 1]).rotation(), Contour([4, 9, 9, 2, 1, 1]))
         self.assertEqual(Contour([1, 4, 9, 9, 2, 1]).rotation(1), Contour([4, 9, 9, 2, 1, 1]))
