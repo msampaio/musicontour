@@ -191,9 +191,14 @@ def repeated_cps_value_group(cpoints):
     """
 
     obj_cseg = Contour(cpoints)
-    pairs = [(cpoint.position, cpoint.value) for cpoint in cpoints]
-    group = [list(items) for key, items in itertools.groupby(pairs, key=operator.itemgetter(1))]
-    return [[obj_cseg.cpoint(seq[0]) for seq in subseq] for subseq in group]
+
+    # make list only if there are repeated adjacent cpoints values
+    if obj_cseg.repetition_adjacent_cpitch_test():
+        pairs = [(cpoint.position, cpoint.value) for cpoint in cpoints]
+        group = [list(items) for key, items in itertools.groupby(pairs, key=operator.itemgetter(1))]
+        return [[obj_cseg.cpoint(seq[0]) for seq in subseq] for subseq in group]
+    else:
+        return cpoints
 
 
 def reduction_retention(cpoints):
