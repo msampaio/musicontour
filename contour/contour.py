@@ -708,8 +708,11 @@ class Contour(MutableSequence):
         """Replace a cpoint in a contour object by a given cpoint."""
 
         obj_cseg = copy(self)
-        obj_cseg[obj_cseg.index(old)] = new
-        return obj_cseg
+        try:
+            obj_cseg[obj_cseg.index(old)] = new
+            return obj_cseg
+        except:
+            raise IndexError("Given old cpoint doesn't belong to given contour object")
 
     def max_min_list(self, fn):
         """Returns a maxima or minima list of a given cseg. (Morris,
