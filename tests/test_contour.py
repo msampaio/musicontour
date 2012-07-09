@@ -208,6 +208,14 @@ class TestUtils(unittest.TestCase):
         cp3 = CP(1, 3, True)
         self.assertEqual(cseg.cpoint_replace(cp2, cp3), Contour([cp1, cp3]))
 
+    def test_cpoint_flag(self):
+        self.assertEqual(Contour([CP(0, 0)]).cpoint_flag(CP(0, 0), contour.maxima), Contour([CP(0, 0, True)]))
+        self.assertEqual(Contour([CP(0, 0)]).cpoint_flag(CP(0, 0), contour.minima), Contour([CP(0, 0, False, True)]))
+        self.assertEqual(Contour([CP(0, 0)]).cpoint_flag(CP(0, 0), 'Both'), Contour([CP(0, 0, True, True)]))
+        self.assertEqual(Contour([CP(0, 0, True)]).cpoint_flag(CP(0, 0, True), contour.maxima, True), Contour([CP(0, 0)]))
+        self.assertEqual(Contour([CP(0, 0, False, True)]).cpoint_flag(CP(0, 0, False, True), contour.minima, True), Contour([CP(0, 0)]))
+        self.assertEqual(Contour([CP(0, 0, True, True)]).cpoint_flag(CP(0, 0, True, True), 'Both', True), Contour([CP(0, 0)]))
+
     def test_max_min_list(self):
         self.assertEqual(Contour([0, 3, 2, 1]).max_min_list(contour.maxima), [CP(0, 0), CP(1, 3), CP(3, 1)])
 

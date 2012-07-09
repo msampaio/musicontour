@@ -714,6 +714,17 @@ class Contour(MutableSequence):
         except:
             raise IndexError("Given old cpoint doesn't belong to given contour object")
 
+    def cpoint_flag(self, cpoint, flag, unflag=False):
+        """Flag or unflag a given cpoint in a contour object with a
+        given flag. Flag must be maxima, minima or 'Both'."""
+
+        obj_cseg = copy(self)
+        if unflag == True:
+            flagged_cpoint = cpoint.unflag(flag)
+        else:
+            flagged_cpoint = cpoint.flag(flag)
+        return obj_cseg.cpoint_replace(cpoint, flagged_cpoint)
+
     def max_min_list(self, fn):
         """Returns a maxima or minima list of a given cseg. (Morris,
         1993)
