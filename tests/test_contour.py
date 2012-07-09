@@ -220,6 +220,9 @@ class TestUtils(unittest.TestCase):
         result = Contour([CP(0, 0, True, True), CP(1, 2, True), CP(2, 1, False, True), CP(3, 3, True, True)])
         self.assertEqual(Contour([0, 2, 1, 3]).max_min_flag(), result)
 
+    def test_unflagged_remove(self):
+        self.assertEqual(Contour([CP(0, 0, True), CP(1, 4)]).unflagged_remove(), Contour([CP(0, 0, True)]))
+
     def test_max_min_list(self):
         self.assertEqual(Contour([0, 3, 2, 1]).max_min_list(contour.maxima), [CP(0, 0), CP(1, 3), CP(3, 1)])
 

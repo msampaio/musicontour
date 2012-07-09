@@ -752,6 +752,22 @@ class Contour(MutableSequence):
 
         return obj_cseg
 
+    def unflagged_remove(self):
+        """Returns a contour object with all unflagged cpoints
+        removed. (Morris, 1993)
+
+        >>> Contour([ContourPoint(0, 1, True, True), ContourPoint(1, 1), ContourPoint(2, 2, True, True)])
+        < 0 2 >
+        """
+
+        def aux_max_min_test(cpoint):
+            return any(x for x in [cpoint.maxima, cpoint.minima])
+
+        obj_cseg = deepcopy(self)
+        cpoints = obj_cseg.cpoints
+
+        return Contour([cpoint for cpoint in cpoints if aux_max_min_test(cpoint)])
+
     def max_min_list(self, fn):
         """Returns a maxima or minima list of a given cseg. (Morris,
         1993)
