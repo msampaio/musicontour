@@ -403,7 +403,12 @@ class Contour(MutableSequence):
 
         return self.size != len(set([x for x in self.cseg]))
 
-        return self.size == len(set([x for x in self.cseg]))
+    def repetition_adjacent_cpitch_test(self):
+        """Tests if cseg has any adjacent repeated elements."""
+
+        cseg = self.cseg
+        size = self.size
+        return any([True if cseg[i - 1] == cseg[i] else False for i in range(1, size)])
 
     def remove_repeated_adjacent_cps(self, obj_cseg=True, morris_rule=False):
         """Remove adjacent repeated cpoints in a given cseg."""
