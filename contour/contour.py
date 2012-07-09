@@ -769,6 +769,56 @@ class Contour(MutableSequence):
 
         return Contour([cpoint for cpoint in cpoints if aux_max_min_test(cpoint)])
 
+    def repeated_cpoint_flag(self):
+        """Returns a contour object with ajdacent repeated cpoints
+        (un)flagged by Morris algorithm steps 6 and 7 (Morris, 1993).
+        """
+
+        def add(cpoint, new_cpoints, fn=None):
+            if fn != None:
+                cpoint = cpoint.unflag(fn)
+            new_cpoints.append(cpoint)
+
+        def aux_extremes(group, extremes):
+            # tests if first or last cpoints are in group
+            return any([extreme in group for extreme in extremes])
+
+        def aux_remove(repeated_group, extremes, fn):
+            new_cpoints = []
+            for group in repeated_group:
+                if len(group) > 1:
+                    # maximum and/or minimum in string: flag only it
+                    if aux_extremes(group, extremes):
+                        [add(cpoint, new_cpoints) if cpoint in extremes else add(cpoint, new_cpoints, fn) for cpoint in group]
+
+                    # not maximum neither minimum in string: flag only one
+                    # of them (I choose the first one)
+                    else:
+                        add(group[0], new_cpoints)
+                        [add(cpoint, new_cpoints, fn) for cpoint in group[1:]]
+                else:
+                    new_cpoints.append(group[0])
+
+            return new_cpoints
+
+        obj_cseg = deepcopy(self)
+        cpoints = obj_cseg.cpoints
+
+        first = cpoints[0]
+        last = cpoints[-1]
+        extremes = [first, last]
+
+        # Flag all maxima (step 6) and minima (step 7)
+        max_min_list = obj_cseg.max_min_flag()
+
+        # regroup max_min_list by adjcent repeated value cpoints
+        repeated_group = repeated_cps_value_group(max_min_list)
+
+        new_cpoints = aux_remove(repeated_group, extremes, maxima)
+        new_cpoints = aux_remove(repeated_cps_value_group(new_cpoints), extremes, minima)
+
+        return Contour(new_cpoints)
+
     def max_min_list(self, fn):
         """Returns a maxima or minima list of a given cseg. (Morris,
         1993)

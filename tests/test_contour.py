@@ -255,6 +255,21 @@ class TestUtils(unittest.TestCase):
     def test_unflagged_remove(self):
         self.assertEqual(Contour([CP(0, 0, True), CP(1, 4)]).unflagged_remove(), Contour([CP(0, 0, True)]))
 
+    def test_repeated_cpoint_flag(self):
+        cseg1 = Contour([0, 4, 3, 2, 5, 5, 1, 1, 2])
+        cseg2 = Contour([
+            CP(0, 0, True, True),
+            CP(1, 4, True, False),
+            CP(2, 3, False, False),
+            CP(3, 2, False, True),
+            CP(4, 5, True, False),
+            CP(5, 5, False, False),
+            CP(6, 1, False, True),
+            CP(7, 1, False, False),
+            CP(8, 2, True, True)
+            ])
+        self.assertEqual(cseg1.repeated_cpoint_flag(), cseg2)
+
     def test_max_min_list(self):
         self.assertEqual(Contour([0, 3, 2, 1]).max_min_list(contour.maxima), [CP(0, 0), CP(1, 3), CP(3, 1)])
 
