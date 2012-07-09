@@ -76,6 +76,24 @@ class TestUtils(unittest.TestCase):
                  'Prime form < 1 3 0 2 > (1)\n< 3 1 4 2 >'
         self.assertEqual(contour.subsets_grouped(n, "prime"), result)
 
+    def test_maxima(self):
+        self.assertEqual(contour.maxima(0, 0, 0), True)
+        self.assertEqual(contour.maxima(0, 0, 1), False)
+        self.assertEqual(contour.maxima(1, 0, 0), False)
+        self.assertEqual(contour.maxima(1, 0, 1), False)
+        self.assertEqual(contour.maxima(0, 1, 0), True)
+        self.assertEqual(contour.maxima(0, 2, 1), True)
+        self.assertEqual(contour.maxima(1, 2, 0), True)
+
+    def test_minima(self):
+        self.assertEqual(contour.minima(0, 0, 0), True)
+        self.assertEqual(contour.minima(0, 0, 1), True)
+        self.assertEqual(contour.minima(1, 0, 0), True)
+        self.assertEqual(contour.minima(1, 0, 1), True)
+        self.assertEqual(contour.minima(0, 1, 0), False)
+        self.assertEqual(contour.minima(0, 2, 1), False)
+        self.assertEqual(contour.minima(1, 2, 0), False)
+
     def test_rotation(self):
         self.assertEqual(Contour([1, 4, 9, 9, 2, 1]).rotation(), Contour([4, 9, 9, 2, 1, 1]))
         self.assertEqual(Contour([1, 4, 9, 9, 2, 1]).rotation(1), Contour([4, 9, 9, 2, 1, 1]))
