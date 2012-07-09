@@ -1404,6 +1404,7 @@ class Contour(MutableSequence):
     def insert(self, i, value):
         self.cpoints.insert(i, value)
 
+
 def prime_form_algorithm_test(card, prime_form_algorithm="prime_form_sampaio"):
     """Returns contour classes with two prime forms from a given
     cardinality and prime form algorithm.
