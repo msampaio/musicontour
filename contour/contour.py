@@ -4,7 +4,7 @@
 import itertools
 import collections
 from collections import MutableSequence
-from copy import copy
+from copy import deepcopy
 import operator
 import utils
 import auxiliary
@@ -290,7 +290,7 @@ class ContourPoint():
     def flag(self, fn):
         """Returns a flagged cpoint with maxima, minima or both."""
 
-        cpoint = copy(self)
+        cpoint = deepcopy(self)
         if fn == maxima:
             cpoint.maxima = True
         elif fn == minima:
@@ -303,7 +303,7 @@ class ContourPoint():
         """Returns a cpoint with unflagged attribute maxima, minima or
         both."""
 
-        cpoint = copy(self)
+        cpoint = deepcopy(self)
         if fn == maxima:
             cpoint.maxima = False
         elif fn == minima:
@@ -405,7 +405,7 @@ class Contour(MutableSequence):
     def remove_repeated_adjacent_cps(self, obj_cseg=True, morris_rule=False):
         """Remove adjacent repeated cpoints in a given cseg."""
 
-        cpoints = copy(self.cpoints)
+        cpoints = deepcopy(self.cpoints)
 
         new_cpoints = [cpoints[0]]
 
@@ -707,7 +707,7 @@ class Contour(MutableSequence):
     def cpoint_replace(self, old, new):
         """Replace a cpoint in a contour object by a given cpoint."""
 
-        obj_cseg = copy(self)
+        obj_cseg = deepcopy(self)
         try:
             obj_cseg[obj_cseg.index(old)] = new
             return obj_cseg
@@ -718,7 +718,7 @@ class Contour(MutableSequence):
         """Flag or unflag a given cpoint in a contour object with a
         given flag. Flag must be maxima, minima or 'Both'."""
 
-        obj_cseg = copy(self)
+        obj_cseg = deepcopy(self)
         if unflag == True:
             flagged_cpoint = cpoint.unflag(flag)
         else:
@@ -736,7 +736,7 @@ class Contour(MutableSequence):
         def fn_test(cpoints, i, fn):
             return fn(*[cp.value for cp in cpoints[i - 1:i + 2]])
 
-        obj_cseg = copy(self)
+        obj_cseg = deepcopy(self)
         cpoints = obj_cseg.cpoints
 
         # first and last are flagged by default (Morris, 1993)
@@ -865,7 +865,7 @@ class Contour(MutableSequence):
 
             return Contour(new_seq).remove_repeated_adjacent_cps(False, True)
 
-        obj = copy(self)
+        obj = deepcopy(self)
 
         # step 0. Set N to 0.
         n = 0
@@ -912,7 +912,7 @@ class Contour(MutableSequence):
         if window_size % 2 == 0:
             print "Window size must be an even number."
         else:
-            cpoints = copy(self.cpoints)
+            cpoints = deepcopy(self.cpoints)
             n = window_size / 2
 
             for i in range(n):
@@ -957,7 +957,7 @@ class Contour(MutableSequence):
         """
 
         win_vals = [int(x) for x in str(windows)]
-        obj_cseg = copy(self)
+        obj_cseg = deepcopy(self)
         depth = 0
         for window in win_vals:
             new_obj = obj_cseg.reduction_window(window, translation)
@@ -974,7 +974,7 @@ class Contour(MutableSequence):
         # calculate initial reduced by Bor algorithm
         reduced, depth = self.reduction_bor(windows, translation)
 
-        seq = copy(reduced).cseg
+        seq = deepcopy(reduced).cseg
         i = 2
 
         while i < len(seq) - 1:
