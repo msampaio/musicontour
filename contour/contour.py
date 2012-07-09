@@ -823,11 +823,14 @@ class Contour(MutableSequence):
         # Flag all maxima (step 6) and minima (step 7)
         max_min_list = obj_cseg.max_min_flag()
 
+        # if max_min_list has cpoint value adjacent repetitions, then:
         # regroup max_min_list by adjcent repeated value cpoints
-        repeated_group = repeated_cps_value_group(max_min_list)
-
-        new_cpoints = aux_remove(repeated_group, extremes, maxima)
-        new_cpoints = aux_remove(repeated_cps_value_group(new_cpoints), extremes, minima)
+        if max_min_list.repetition_adjacent_cpitch_test():
+            repeated_group = repeated_cps_value_group(max_min_list)
+            new_cpoints = aux_remove(repeated_group, extremes, maxima)
+            new_cpoints = aux_remove(repeated_cps_value_group(new_cpoints), extremes, minima)
+        else:
+            new_cpoints = max_min_list
 
         return Contour(new_cpoints)
 
