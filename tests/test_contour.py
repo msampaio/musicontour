@@ -127,9 +127,9 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(Contour([1, 4, 9, 9, 2, 1]).cpoint(2), CP(2, 9))
 
     def test_repetition_cpitch_test(self):
-        self.assertEqual(Contour([0, 1, 0]).repetition_cpitch_test(), False)
-        self.assertEqual(Contour([0, 1, 1, 0]).repetition_cpitch_test(), False)
-        self.assertEqual(Contour([0, 1, 2]).repetition_cpitch_test(), True)
+        self.assertEqual(Contour([0, 1, 0]).repetition_cpitch_test(), True)
+        self.assertEqual(Contour([0, 1, 1, 0]).repetition_cpitch_test(), True)
+        self.assertEqual(Contour([0, 1, 2]).repetition_cpitch_test(), False)
 
     def test_remove_repeated_adjacent_cps(self):
         self.assertEqual(Contour([0, 1, 1, 0]).remove_repeated_adjacent_cps(), Contour([CP(0, 0), CP(1, 1), CP(3, 0)]))

@@ -399,7 +399,9 @@ class Contour(MutableSequence):
             print "This contour object doesn't have position", position
 
     def repetition_cpitch_test(self):
-        """Tests if cseg has repeated elements."""
+        """Returns True if cseg has repeated elements."""
+
+        return self.size != len(set([x for x in self.cseg]))
 
         return self.size == len(set([x for x in self.cseg]))
 
@@ -533,7 +535,7 @@ class Contour(MutableSequence):
         """
 
         cseg = self.cseg
-        if self.repetition_cpitch_test():
+        if not self.repetition_cpitch_test():
             return self.__non_repeated_prime_form_marvin_laprade()
         else:
             # Returns prime forms of a repeated cpitch cseg.
@@ -552,7 +554,7 @@ class Contour(MutableSequence):
         cseg = self.cseg
 
         # tests if cseg has repeated elements
-        if self.repetition_cpitch_test():
+        if not self.repetition_cpitch_test():
             # Returns Sampaio prime form algorithm for non repeated
             # c-pitches csegs.
 
