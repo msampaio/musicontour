@@ -13,7 +13,10 @@ import matrix
 import fuzzy
 
 
-class ContourError(Exception):
+class ContourPointException(Exception):
+    pass
+
+class ContourException(Exception):
     pass
 
 
@@ -1362,7 +1365,7 @@ class Contour(MutableSequence):
             try:
                 self.cpoints = [ContourPoint(pos, val) for pos, val in enumerate(cpoints)]
             except:
-                raise ContourExeption("Don't know how to handle the input: " + cpoints)
+                raise ContourException("Don't know how to handle the input: " + cpoints)
 
         self.cseg = [cpoint.value for cpoint in self.cpoints]
         self.positions = [cpoint.position for cpoint in self.cpoints]
