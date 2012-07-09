@@ -277,6 +277,12 @@ def contour_rotation_classes(cardinality):
 
 
 class ContourPoint():
+    """Returns an object contourpoint.
+    Input is a pair of position and value:
+
+    >>> ContourPoint(0, 2)
+    < Position: 0, Value: 2 >
+    """
 
     def flag(self, fn):
         """Returns a flagged cpoint with maxima, minima or both."""
@@ -327,7 +333,7 @@ class ContourPoint():
 
 class Contour(MutableSequence):
     """Returns an object contour.
-    Input is a list of cpitches:
+    Input is a list of cpoints, or a list of objects ContourPoints:
 
     >>> Contour([0, 1, 3, 2])
     < 0 1 3 2 >
