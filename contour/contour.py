@@ -883,6 +883,7 @@ class Contour(MutableSequence):
 
         return Contour(new_cpoints)
 
+    # FIXME: the depth value is wrong in some tests
     def morris(self):
         """Returns Morris (1993) contour reduction from a cseg, and
         its depth.
@@ -904,18 +905,22 @@ class Contour(MutableSequence):
         only_flagged = max_min_list.unflagged_remove()
 
         # step 3: if all pitches in C are flagged, go to step 9
-        if only_flagged != obj_cseg:
+        if only_flagged != max_min_list:
             # step 5: n is incremented by 1
             n += 1
-            # steps 6 and 7:
 
+            # steps 6 and 7:
             only_flagged = only_flagged.repeated_cpoint_flag()
 
-            # FIXME: something wrong between theory and code
+            # loop between steps 3 to 8
             while only_flagged != only_flagged.repeated_cpoint_flag().unflagged_remove():
+                # step 5
+                n += 1
+                # steps 6 and 7:
                 only_flagged = only_flagged.repeated_cpoint_flag().unflagged_remove()
 
-        return [only_flagged, n]
+        # step 9
+        return [only_flagged.reset().translation(), n]
 
     def max_min_list(self, fn):
         """Returns a maxima or minima list of a given cseg. (Morris,

@@ -415,6 +415,13 @@ class TestUtils(unittest.TestCase):
                           [CP(0, 0), CP(3, 2), CP(6, 1)]))
         self.assertEqual(cseg.all_flagged(max_list, min_list), result)
 
+    def test_morris(self):
+        cseg1, cseg2 = Contour([0, 4, 3, 2, 5, 5, 1]), Contour([0, 2, 1])
+        cseg3, cseg4 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5]), Contour([2, 3, 0, 1])
+        self.assertEqual(cseg1.morris(), [cseg2, 2])
+        self.assertEqual(cseg2.morris(), [cseg2, 0])
+        self.assertEqual(cseg3.morris(), [cseg4, 3])
+
     def test_reduction_morris(self):
         cseg1, cseg2 = Contour([0, 4, 3, 2, 5, 5, 1]), Contour([0, 2, 1])
         cseg3, cseg4 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5]), Contour([2, 3, 0, 1])
