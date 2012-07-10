@@ -293,9 +293,81 @@ class TestUtils(unittest.TestCase):
             CP(2, 1, False, True),
             CP(3, 3, True, True)
             ])
+        cseg5 = Contour([
+            CP(0, 7, True, True),
+            CP(1, 10, True, False),
+            CP(3, 0, False, True),
+            CP(11, 5, True, True),
+            ])
+        cseg6 = Contour([
+            CP(0, 7, True, True),
+            CP(1, 10, True, False),
+            CP(3, 0, False, True),
+            CP(7, 8, True, False),
+            CP(11, 5, True, True),
+            ])
+        cseg7 = Contour([
+            CP(0, 7, True, True),
+            CP(1, 10, True, False),
+            CP(3, 0, False, True),
+            CP(7, 8, False, False),
+            CP(11, 5, True, True),
+            ])
+        cseg8 = Contour([
+            CP(0, 7, True, True),
+            CP(1, 10, True, False),
+            CP(3, 0, False, True),
+            CP(5, 3, True, False),
+            CP(6, 1, False, True),
+            CP(7, 8, True, False),
+            CP(9, 2, False, True),
+            CP(11, 5, True, True),
+            ])
+        cseg9 = Contour([
+            CP(0, 7, True, True),
+            CP(1, 10, True, False),
+            CP(3, 0, False, True),
+            CP(5, 3, False, False),
+            CP(6, 1, False, False),
+            CP(7, 8, True, False),
+            CP(9, 2, False, False),
+            CP(11, 5, True, True),
+            ])
+        cseg10 = Contour([
+            CP(0, 7, False, False),
+            CP(1, 10, False, False),
+            CP(2, 9, False, False),
+            CP(3, 0, False, False),
+            CP(4, 2, False, False),
+            CP(5, 3, False, False),
+            CP(6, 1, False, False),
+            CP(7, 8, False, False),
+            CP(8, 6, False, False),
+            CP(9, 2, False, False),
+            CP(10, 4, False, False),
+            CP(11, 5, False, False),
+            ])
+        cseg11 = Contour([
+            CP(0, 7, True, True),
+            CP(1, 10, True, False),
+            CP(2, 9, False, False),
+            CP(3, 0, False, True),
+            CP(4, 2, False, False),
+            CP(5, 3, True, False),
+            CP(6, 1, False, True),
+            CP(7, 8, True, False),
+            CP(8, 6, False, False),
+            CP(9, 2, False, True),
+            CP(10, 4, False, False),
+            CP(11, 5, True, True),
+            ])
         self.assertEqual(cseg1.max_min_flag(), cseg1)
         self.assertEqual(cseg2.max_min_flag(), cseg3)
         self.assertEqual(Contour([0, 2, 1, 3]).max_min_flag(), cseg4)
+        self.assertEqual(cseg5.max_min_flag(), cseg5)
+        self.assertEqual(cseg6.max_min_flag(), cseg7)
+        self.assertEqual(cseg8.max_min_flag(), cseg9)
+        self.assertEqual(cseg10.max_min_flag(), cseg11)
 
     def test_unflagged_remove(self):
         self.assertEqual(Contour([CP(0, 0, True), CP(1, 4)]).unflagged_remove(), Contour([CP(0, 0, True)]))
