@@ -788,8 +788,8 @@ class Contour(MutableSequence):
                 if fn_test(max_min_list, i, fn):
                     obj_cseg = obj_cseg.cpoint_flag(cpoint, fn)
                 else:
-                    # FIXME: remove only right flags
                     obj_cseg = obj_cseg.cpoint_flag(cpoint, fn, True)
+
             return obj_cseg
 
         obj_cseg = deepcopy(self)
