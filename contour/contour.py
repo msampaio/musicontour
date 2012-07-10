@@ -191,10 +191,6 @@ def repeated_cps_value_group(cpoints):
     [< Position: 1, Value: 2 >, < Position: 2, Value: 2 >, < Position: 3, Value: 2 >]
     """
 
-    # FIXME: move to Contour as method
-    def aux(obj_cseg, position):
-        return [cpoint for cpoint in cpoints if cpoint.position == position]
-
     obj_cseg = Contour(cpoints)
 
     # make list only if there are repeated adjacent cpoints values
@@ -202,7 +198,7 @@ def repeated_cps_value_group(cpoints):
         pairs = [(cpoint.position, cpoint.value) for cpoint in cpoints]
         grouped = itertools.groupby(pairs, key=operator.itemgetter(1))
         group = [list(items[1]) for items in grouped]
-        return [[aux(obj_cseg, subseq[0])[0] for subseq in seq] for seq in group]
+        return [[obj_cseg.cpoint_by_position(subseq[0]) for subseq in seq] for seq in group]
     else:
         return cpoints
 
@@ -403,10 +399,19 @@ class Contour(MutableSequence):
         return Contour([sorted(set(cseg)).index(x) for x in cseg])
 
     def cpoint(self, position):
-        """Returns ContourPoint in a given position."""
+        """Returns ContourPoint in a given index position."""
 
         try:
             return self.cpoints[position]
+        except:
+            print "The cseg size in this contour object is smaller than", position
+
+    def cpoint_by_position(self, position):
+        """Returns ContourPoint with a given position."""
+
+        cpoints = self.cpoints
+        try:
+            return [cpoint for cpoint in cpoints if cpoint.position == position][0]
         except:
             print "This contour object doesn't have position", position
 
