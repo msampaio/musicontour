@@ -293,9 +293,22 @@ class TestUtils(unittest.TestCase):
             ])
         cseg5 = Contour([CP(0, 0, True, True), CP(1, 1, True, False), CP(2, 1, True, True)])
         cseg6 = Contour([CP(0, 0, True, True), CP(1, 1, False, False), CP(2, 1, True, True)])
+        cseg7 = Contour([CP(*t) for t in [(0, 0, True, True),
+                                          (1, 4, True, False),
+                                          (3, 2, False, True),
+                                          (4, 5, True, False),
+                                          (5, 5, True, False),
+                                          (6, 1, True, True)]])
+        cseg8 = Contour([CP(*t) for t in [(0, 0, True, True),
+                                          (1, 4, True, False),
+                                          (3, 2, False, True),
+                                          (4, 5, True, False),
+                                          (5, 5, False, False),
+                                          (6, 1, True, True)]])
         self.assertEqual(cseg1.repeated_cpoint_flag(), cseg2)
         self.assertEqual(cseg3.repeated_cpoint_flag(), cseg3)
         self.assertEqual(cseg5.repeated_cpoint_flag(), cseg6)
+        self.assertEqual(cseg7.repeated_cpoint_flag(), cseg8)
 
     def test_max_min_list(self):
         self.assertEqual(Contour([0, 3, 2, 1]).max_min_list(contour.maxima), [CP(0, 0), CP(1, 3), CP(3, 1)])
