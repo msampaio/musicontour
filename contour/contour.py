@@ -415,6 +415,23 @@ class Contour(MutableSequence):
         except:
             print "This contour object doesn't have position", position
 
+    def reset(self):
+        """Reset original flags and reenumerate positions from 0 to n
+        - 1, where n is contour object cardinality.
+        """
+
+        def remake(position, cpoint):
+            """Returns a ContourPoint with a given position number and without
+            flags."""
+
+            return ContourPoint(position, cpoint.value)
+
+        cpoints = self.cpoints
+        e_cpoints = enumerate(cpoints)
+        cpoints = [remake(position, cpoint) for position, cpoint in e_cpoints]
+
+        return Contour(cpoints)
+
     def repetition_cpitch_test(self):
         """Returns True if cseg has repeated elements."""
 

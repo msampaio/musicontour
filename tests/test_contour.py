@@ -130,6 +130,14 @@ class TestUtils(unittest.TestCase):
     def test_cpoint_by_position(self):
         self.assertEqual(Contour([CP(0, 0), CP(2, 4), CP(4, 1)]).cpoint_by_position(2), CP(2, 4))
 
+    def test_reset(self):
+        cseg1 = Contour([
+            CP(0, 0, True, True),
+            CP(4, 2, True, False),
+            CP(6, 1, True, True)
+            ])
+        self.assertEqual(cseg1.reset(), Contour([0, 2, 1]))
+
     def test_repetition_cpitch_test(self):
         self.assertEqual(Contour([0, 1, 0]).repetition_cpitch_test(), True)
         self.assertEqual(Contour([0, 1, 1, 0]).repetition_cpitch_test(), True)
