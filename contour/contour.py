@@ -757,21 +757,40 @@ class Contour(MutableSequence):
         """
 
         def fn_test(cpoints, i, fn):
+            """Test if given cpoint of 'i' index in cpoints is maxima
+            or minima (fn)."""
+
             return fn(*[cp.value for cp in cpoints[i - 1:i + 2]])
+
+        def aux_flag(obj_cseg, max_min_list, fn):
+            """Returns contour object with flagged/unflagged maxima,
+            minima cpoints."""
+
+            for i in range(1, len(max_min_list) - 1):
+                cpoint = max_min_list[i]
+                if fn_test(max_min_list, i, fn):
+                    obj_cseg = obj_cseg.cpoint_flag(cpoint, fn)
+                else:
+                    # FIXME: remove only right flags
+                    obj_cseg = obj_cseg.cpoint_flag(cpoint, fn, True)
+            return obj_cseg
 
         obj_cseg = deepcopy(self)
         cpoints = obj_cseg.cpoints
 
-        # first and last are flagged by default (Morris, 1993)
-        obj_cseg = obj_cseg.cpoint_flag(cpoints[0], 'Both')
-        obj_cseg = obj_cseg.cpoint_flag(cpoints[-1], 'Both')
-
-        # flag maxima/minima
-        for fn in maxima, minima:
-            for i in range(1, len(cpoints) - 1):
-                if fn_test(cpoints, i, fn):
-                    cpoint = cpoints[i]
-                    obj_cseg = obj_cseg.cpoint_flag(cpoint, fn)
+        # tests if obj_cseg has maxima or minima previously defined
+        first = cpoints[0]
+        if all([first.maxima, first.minima]):
+            max_list = [cpoint for cpoint in cpoints if cpoint.maxima]
+            min_list = [cpoint for cpoint in cpoints if cpoint.minima]
+            obj_cseg = aux_flag(obj_cseg, max_list, maxima)
+            obj_cseg = aux_flag(obj_cseg, min_list, minima)
+        else:
+            # first and last are flagged by default (Morris, 1993)
+            obj_cseg = obj_cseg.cpoint_flag(cpoints[0], 'Both')
+            obj_cseg = obj_cseg.cpoint_flag(cpoints[-1], 'Both')
+            obj_cseg = aux_flag(obj_cseg, cpoints, maxima)
+            obj_cseg = aux_flag(obj_cseg, obj_cseg.cpoints, minima)
 
         return obj_cseg
 

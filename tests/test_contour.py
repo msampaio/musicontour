@@ -258,8 +258,36 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(Contour([CP(0, 0, True, True)]).cpoint_flag(CP(0, 0, True, True), 'Both', True), Contour([CP(0, 0)]))
 
     def test_max_min_flag(self):
-        result = Contour([CP(0, 0, True, True), CP(1, 2, True), CP(2, 1, False, True), CP(3, 3, True, True)])
-        self.assertEqual(Contour([0, 2, 1, 3]).max_min_flag(), result)
+        cseg1 = Contour([
+            CP(0, 0, True, True),
+            CP(4, 5, True, False),
+            CP(6, 1, True, True)
+            ])
+        cseg2 = Contour([
+            CP(0, 0, True, True),
+            CP(1, 4, True, False),
+            CP(3, 2, False, True),
+            CP(4, 5, True, False),
+            CP(5, 5, True, False),
+            CP(6, 1, True, True)
+            ])
+        cseg3 = Contour([
+            CP(0, 0, True, True),
+            CP(1, 4, False, False),
+            CP(3, 2, False, False),
+            CP(4, 5, True, False),
+            CP(5, 5, True, False),
+            CP(6, 1, True, True)
+            ])
+        cseg4 = Contour([
+            CP(0, 0, True, True),
+            CP(1, 2, True),
+            CP(2, 1, False, True),
+            CP(3, 3, True, True)
+            ])
+        self.assertEqual(cseg1.max_min_flag(), cseg1)
+        self.assertEqual(cseg2.max_min_flag(), cseg3)
+        self.assertEqual(Contour([0, 2, 1, 3]).max_min_flag(), cseg4)
 
     def test_unflagged_remove(self):
         self.assertEqual(Contour([CP(0, 0, True), CP(1, 4)]).unflagged_remove(), Contour([CP(0, 0, True)]))
