@@ -17,6 +17,9 @@ class ComparisonMatrix(list):
     - + 0
     """
 
+    def __repr__(self):
+        return "\n".join([str(utils.replace_list_to_plus_minus(line)) for line in self])
+
     def size(self):
         """Returns cseg size."""
 
@@ -68,10 +71,6 @@ class ComparisonMatrix(list):
         second_line = "---" + ("-" * self.size() * 2) + "\n"
         other_lines = "\n".join([__lines(el, line, cseg) for el, line in enumerate(self)])
         return first_line + second_line + other_lines
-
-    def __repr__(self):
-
-        return "\n".join([str(utils.replace_list_to_plus_minus(line)) for line in self])
 
 
 def matrix_from_triangle(triangle):

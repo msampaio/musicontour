@@ -39,6 +39,10 @@ class InternalDiagonal(list):
     < - + + >
     """
 
+    def __repr__(self):
+        data = [utils.double_replace(str(x)) for x in self[:]]
+        return "< {0} >".format(" ".join(data))
+
     def size(self):
         return len(self)
 
@@ -173,10 +177,6 @@ class InternalDiagonal(list):
             diagonal = self.inversion()
 
         return sorted([diagonal, diagonal.retrogression()], reverse=True)[0]
-
-    def __repr__(self):
-        data = [utils.double_replace(str(x)) for x in self[:]]
-        return "< {0} >".format(" ".join(data))
 
 
 def csegs_from_diagonals(diagonals_list):

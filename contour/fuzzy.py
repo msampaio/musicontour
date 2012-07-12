@@ -43,6 +43,9 @@ class FuzzyMatrix(list):
     >>> FuzzyMatrix([[0, 1, 1], [-1, 0, -1], [-1, 1, 0]])
     """
 
+    def __repr__(self):
+        return "\n".join([" ".join([str(row) for row in line]) for line in self])
+
     def diagonal(self, n=1):
         """Returns the matrix n diagonal.
 
@@ -104,10 +107,6 @@ class FuzzyMatrix(list):
 
         fm = [[__comparison(matrix, x, y)  for x, y in __product(rsize, n)] for n in rsize]
         return FuzzyMatrix(fm)
-
-    def __repr__(self):
-
-        return "\n".join([" ".join([str(row) for row in line]) for line in self])
 
 
 def membership_similarity(cseg1, cseg2):

@@ -296,6 +296,28 @@ class ContourPoint():
     < Position: 0, Value: 2 >
     """
 
+    def __init__(self, position, value, maxima=False, minima=False):
+        if not all([isinstance(x, int) for x in value, position]):
+            raise ContourPointException("Cpoint position and value must be integers.", position, value)
+        self.position = position
+        self.value = value
+        self.cpoint = (position, value)
+        self.maxima = maxima
+        self.minima = minima
+
+    def __eq__(self, other):
+        if not isinstance(other, ContourPoint):
+            return False
+        try:
+            return all([self.cpoint == other.cpoint, self.maxima == other.maxima, self.minima == other.minima])
+        except AttributeError:
+            return False
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __repr__(self):
+        return "< Position: {0}, Value: {1} >".format(self.position, self.value)
     def flag(self, fn):
         """Returns a flagged cpoint with maxima, minima or both."""
 
@@ -321,29 +343,6 @@ class ContourPoint():
             cpoint.maxima = cpoint.minima = False
         return cpoint
 
-    def __init__(self, position, value, maxima=False, minima=False):
-        if not all([isinstance(x, int) for x in value, position]):
-            raise ContourPointException("Cpoint position and value must be integers.", position, value)
-        self.position = position
-        self.value = value
-        self.cpoint = (position, value)
-        self.maxima = maxima
-        self.minima = minima
-
-    def __eq__(self, other):
-        if not isinstance(other, ContourPoint):
-            return False
-        try:
-            return all([self.cpoint == other.cpoint, self.maxima == other.maxima, self.minima == other.minima])
-        except AttributeError:
-            return False
-
-    def __ne__(self, other):
-        return not self.__eq__(other)
-
-    def __repr__(self):
-        return "< Position: {0}, Value: {1} >".format(self.position, self.value)
-
 
 class Contour(MutableSequence):
     """Returns an object contour.
@@ -352,6 +351,54 @@ class Contour(MutableSequence):
     >>> Contour([0, 1, 3, 2])
     < 0 1 3 2 >
     """
+
+    def __init__(self, cpoints):
+        if all([isinstance(item, ContourPoint) for item in cpoints]):
+            self.cpoints = cpoints
+        else:
+            if any([isinstance(cpoint, float) for cpoint in cpoints]):
+                cpoints = [sorted(set(cpoints)).index(x) for x in cpoints]
+            try:
+                self.cpoints = [ContourPoint(pos, val) for pos, val in enumerate(cpoints)]
+            except:
+                raise ContourException("Don't know how to handle the input: " + cpoints)
+
+        self.cseg = [cpoint.value for cpoint in self.cpoints]
+        self.positions = [cpoint.position for cpoint in self.cpoints]
+        self.size = len(self.cseg)
+
+    def __repr__(self):
+        return "< {0} >".format(" ".join([str(x) for x in self.cseg]))
+
+    def __eq__(self, other):
+        if not isinstance(other, Contour):
+            return False
+        try:
+            if len(self.cpoints) == len(other.cpoints):
+                return all(x == y for x, y in zip(self.cpoints, other.cpoints))
+        except AttributeError:
+            return False
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __delitem__(self, i):
+        del self.cpoints[i]
+
+    def __getitem__(self, i):
+        return self.cpoints[i]
+
+    def __len__(self):
+        return len(self.cpoints)
+
+    def __setitem__(self, i, value):
+        self.cpoints[i] = value
+
+    def __add__(self, other):
+        return Contour(self.cpoints + other.cpoints)
+
+    def insert(self, i, value):
+        self.cpoints.insert(i, value)
 
     def rotation(self, factor=1):
         """Rotates a cseg around a factor.
@@ -1573,55 +1620,6 @@ class Contour(MutableSequence):
         """
 
         return self.oscillation() / float(self.size - 1)
-
-    def __init__(self, cpoints):
-
-        if all([isinstance(item, ContourPoint) for item in cpoints]):
-            self.cpoints = cpoints
-        else:
-            if any([isinstance(cpoint, float) for cpoint in cpoints]):
-                cpoints = [sorted(set(cpoints)).index(x) for x in cpoints]
-            try:
-                self.cpoints = [ContourPoint(pos, val) for pos, val in enumerate(cpoints)]
-            except:
-                raise ContourException("Don't know how to handle the input: " + cpoints)
-
-        self.cseg = [cpoint.value for cpoint in self.cpoints]
-        self.positions = [cpoint.position for cpoint in self.cpoints]
-        self.size = len(self.cseg)
-
-    def __repr__(self):
-        return "< {0} >".format(" ".join([str(x) for x in self.cseg]))
-
-    def __eq__(self, other):
-        if not isinstance(other, Contour):
-            return False
-        try:
-            if len(self.cpoints) == len(other.cpoints):
-                return all(x == y for x, y in zip(self.cpoints, other.cpoints))
-        except AttributeError:
-            return False
-
-    def __ne__(self, other):
-        return not self.__eq__(other)
-
-    def __delitem__(self, i):
-        del self.cpoints[i]
-
-    def __getitem__(self, i):
-        return self.cpoints[i]
-
-    def __len__(self):
-        return len(self.cpoints)
-
-    def __setitem__(self, i, value):
-        self.cpoints[i] = value
-
-    def __add__(self, other):
-        return Contour(self.cpoints + other.cpoints)
-
-    def insert(self, i, value):
-        self.cpoints.insert(i, value)
 
 
 def prime_form_algorithm_test(card, prime_form_algorithm="prime_form_sampaio"):
