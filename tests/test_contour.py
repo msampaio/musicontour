@@ -38,6 +38,7 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(Contour([0, 1, 2]), Contour([0, 1, 2]))
         self.assertNotEqual(Contour([0, 1, 2]), Contour([0, 2, 1]))
         self.assertNotEqual(Contour([0, 1, 2]), None)
+        self.assertEqual(Contour([0, 0.33, 1.98]), Contour([0, 1, 2]))
 
     def test_contour(self):
         self.assertEqual(Contour([CP(0, 0), CP(1, 1)]), Contour([0, 1]))

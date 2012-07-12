@@ -322,6 +322,8 @@ class ContourPoint():
         return cpoint
 
     def __init__(self, position, value, maxima=False, minima=False):
+        if not all([isinstance(x, int) for x in value, position]):
+            raise ContourPointException("Cpoint position and value must be integers.", position, value)
         self.position = position
         self.value = value
         self.cpoint = (position, value)
@@ -1577,6 +1579,8 @@ class Contour(MutableSequence):
         if all([isinstance(item, ContourPoint) for item in cpoints]):
             self.cpoints = cpoints
         else:
+            if any([isinstance(cpoint, float) for cpoint in cpoints]):
+                cpoints = [sorted(set(cpoints)).index(x) for x in cpoints]
             try:
                 self.cpoints = [ContourPoint(pos, val) for pos, val in enumerate(cpoints)]
             except:
