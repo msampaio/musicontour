@@ -958,8 +958,9 @@ class Contour(MutableSequence):
 
         # step 3. test if C has unflagged pitches.
         # if all pitches in C are flagged, go to step 9
-        if max_min_list.unflagged_test():
+        unflagged = max_min_list.unflagged_test()
 
+        while unflagged:
             # step 4: delete all non-flagged pitches in c
             max_min_list = max_min_list.unflagged_remove()
 
@@ -969,21 +970,8 @@ class Contour(MutableSequence):
             # steps 6 and 7:
             max_min_list = max_min_list.repeated_cpoint_flag()
 
-            # step 3 (after first iteration)
+            # step 8
             unflagged = max_min_list.unflagged_test()
-
-            while unflagged:
-                # step 4: delete all non-flagged pitches in c
-                max_min_list = max_min_list.unflagged_remove()
-
-                # step 5: n is incremented by 1
-                n += 1
-
-                # steps 6 and 7:
-                max_min_list = max_min_list.repeated_cpoint_flag()
-
-                # step 3 (after second iteration)
-                unflagged = max_min_list.unflagged_test()
 
         # step 9
         return [max_min_list.reset().translation(), n]
