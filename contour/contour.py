@@ -355,6 +355,8 @@ class Contour(MutableSequence):
     def __init__(self, cpoints):
         if all([isinstance(item, ContourPoint) for item in cpoints]):
             self.cpoints = cpoints
+            self.maximas = [cpoint.value for cpoint in cpoints if cpoint.maxima]
+            self.minimas = [cpoint.value for cpoint in cpoints if cpoint.minima]
         else:
             if any([isinstance(cpoint, float) for cpoint in cpoints]):
                 cpoints = [sorted(set(cpoints)).index(x) for x in cpoints]
