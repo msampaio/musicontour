@@ -238,14 +238,14 @@ def reduction_retention(cpoints):
         left_seq = cpoints[:medial_pos]
         right_seq = cpoints[medial_pos + 1:]
 
-        ## retain if medial is the first or last el
+        # retain if medial is the first or last el
         if aux_cond(left_seq) or aux_cond(right_seq):
             return medial
-        ## repeations. Do not retain if medial is the second consecutive
-        ## repeated cps
+        # repeations. Do not retain if medial is the second
+        # consecutive repeated cps
         elif medial.value == cpoints[medial_pos - 1].value:
             return None
-        ## retain if medial is max or min
+        # retain if medial is max or min
         elif medial.value == cpoints_max or medial.value == cpoints_min:
             return medial
         else:

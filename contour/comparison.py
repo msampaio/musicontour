@@ -38,7 +38,7 @@ def csegclass_similarity(cseg1, cseg2, prime_algorithm="prime_form_marvin_laprad
     return sorted(csims, reverse=True)[0]
 
 
-## FIXME: review function to use: cseg_similarity or csegclass_similarity
+# FIXME: review function to use: cseg_similarity or csegclass_similarity
 def cseg_similarity_matrix(csegs):
     """Returns a matrix with CSIM between multiple csegs.
 

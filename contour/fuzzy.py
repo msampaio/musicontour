@@ -212,11 +212,11 @@ def matrix_similarity_crisp(matrix1, matrix2):
 
     n = entry_numbers(len(matrix1[0]))
 
-    ## fuzzy comparison matrix without zero main diagonal
+    # fuzzy comparison matrix without zero main diagonal
     m1 = matrix1.except_zero_diagonal()
     m2 = matrix2.except_zero_diagonal()
 
-    ## matrix entries pairs for each position
+    # matrix entries pairs for each position
     pairs = utils.flatten([zip(x, y) for x, y in zip(m1, m2)])
 
     return sum([(1 / float(n)) for pair in pairs if pair[0] == pair[1]])
@@ -236,7 +236,7 @@ def matrix_similarity_fuzzy(matrix1, matrix2):
     # number of compared entries
     j = entry_numbers(size)
 
-    ## fuzzy comparison matrix without zero main diagonal
+    # fuzzy comparison matrix without zero main diagonal
     m1 = numpy.matrix(matrix1)
     m2 = numpy.matrix(matrix2)
 
