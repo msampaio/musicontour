@@ -370,6 +370,9 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(cseg8.max_min_flag(), cseg9)
         self.assertEqual(cseg10.max_min_flag(), cseg11)
 
+    def test_unflagged_test(self):
+        self.assertEqual(Contour([CP(0, 0, True), CP(1, 4)]).unflagged_test(), True)
+
     def test_unflagged_remove(self):
         self.assertEqual(Contour([CP(0, 0, True), CP(1, 4)]).unflagged_remove(), Contour([CP(0, 0, True)]))
         self.assertEqual(Contour([CP(0, 0, True), CP(1, 4, True)]).unflagged_remove(), Contour([CP(0, 0, True), CP(1, 4, True)]))

@@ -862,6 +862,11 @@ class Contour(MutableSequence):
 
         return obj_cseg
 
+    def unflagged_test(self):
+        """Tests if a given contour object has unflagged cpoints."""
+
+        return not all([any([cpoint.maxima, cpoint.minima]) for cpoint in self.cpoints])
+
     def unflagged_remove(self):
         """Returns a contour object with all unflagged cpoints
         removed. (Morris, 1993)
