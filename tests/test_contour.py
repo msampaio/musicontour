@@ -397,8 +397,51 @@ class TestUtils(unittest.TestCase):
             CP(5, 5, False, False),
             CP(6, 1, True, True)
             ])
+        cseg4 = Contour([
+            CP(0, 7, True, True),
+            CP(1, 10, True, False),
+            CP(3, 0, False, True),
+            CP(7, 8, True, False),
+            CP(11, 5, True, True)
+            ])
+        cseg5 = Contour([
+            CP(0, 7, True, True),
+            CP(1, 10, True, False),
+            CP(3, 0, False, True),
+            CP(7, 8, False, False),
+            CP(11, 5, True, True)
+            ])
+        cseg6 = Contour([
+            CP(0, 7, True, True),
+            CP(1, 10, True, False),
+            CP(3, 0, False, True),
+            CP(11, 5, True, True)
+            ])
+        cseg7 = Contour([
+            CP(0, 7, True, True),
+            CP(1, 10, True, False),
+            CP(3, 0, False, True),
+            CP(5, 3, True, False),
+            CP(6, 1, False, True),
+            CP(7, 8, True, False),
+            CP(9, 2, False, True),
+            CP(11, 5, True, True)
+            ])
+        cseg8 = Contour([
+            CP(0, 7, True, True),
+            CP(1, 10, True, False),
+            CP(3, 0, False, True),
+            CP(5, 3, False, False),
+            CP(6, 1, False, False),
+            CP(7, 8, True, False),
+            CP(9, 2, False, False),
+            CP(11, 5, True, True)
+            ])
         self.assertEqual(cseg1.repeated_cpoint_flag(), cseg1)
         self.assertEqual(cseg2.repeated_cpoint_flag(), cseg3)
+        self.assertEqual(cseg4.repeated_cpoint_flag(), cseg5)
+        self.assertEqual(cseg6.repeated_cpoint_flag(), cseg6)
+        self.assertEqual(cseg7.repeated_cpoint_flag(), cseg8)
 
     def test_max_min_list(self):
         self.assertEqual(Contour([0, 3, 2, 1]).max_min_list(contour.maxima), [CP(0, 0), CP(1, 3), CP(3, 1)])
