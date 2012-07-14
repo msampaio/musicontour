@@ -934,7 +934,6 @@ class Contour(MutableSequence):
 
         return Contour(new_cpoints)
 
-    # FIXME: the depth value is wrong in some tests
     def morris(self):
         """Returns Morris (1993) contour reduction from a cseg, and
         its depth.
@@ -961,14 +960,19 @@ class Contour(MutableSequence):
             n += 1
 
             # steps 6 and 7:
-            only_flagged = only_flagged.repeated_cpoint_flag()
+            flagged = only_flagged.repeated_cpoint_flag()
 
             # loop between steps 3 to 8
-            while only_flagged != only_flagged.repeated_cpoint_flag().unflagged_remove():
+            # FIXME: only_flagged definition is wrong.
+            only_flagged = flagged.repeated_cpoint_flag().unflagged_remove()
+
+            while flagged != only_flagged:
                 # step 5
                 n += 1
                 # steps 6 and 7:
-                only_flagged = only_flagged.repeated_cpoint_flag().unflagged_remove()
+                flagged = only_flagged
+
+            only_unflagged = flagged
 
         # step 9
         return [only_flagged.reset().translation(), n]
