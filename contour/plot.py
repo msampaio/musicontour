@@ -23,7 +23,7 @@ def random_color():
     return colors[random.randint(0, len(colors) - 1)]
 
 
-def __contour_lines(cseg, plot_color, custom_legend=""):
+def __contour_lines(obj_cseg, plot_color, custom_legend=""):
     """Returns cseg plot data to plot.
 
     The code is based on
@@ -56,9 +56,9 @@ def __contour_lines(cseg, plot_color, custom_legend=""):
     pylab.title(title_name, family='georgia', size='small')
 
     if custom_legend == None:
-        p = ax.plot(cseg, color=plot_color)
+        p = ax.plot(obj_cseg.positions, obj_cseg.cseg, color=plot_color)
     else:
-        p = ax.plot(cseg, color=plot_color, label='{0} {1}'.format(cseg, custom_legend))
+        p = ax.plot(obj_cseg.positions, obj_cseg.cseg, color=plot_color, label='{0} {1}'.format(obj_cseg, custom_legend))
         ax.legend(loc='best')
 
     return p
@@ -70,7 +70,7 @@ def clear():
     pylab.clf()
 
 
-def contour_lines(*csegs):
+def contour_lines(*obj_csegs):
     """Generates cseg plot.
 
     The code is based on
@@ -85,12 +85,12 @@ def contour_lines(*csegs):
     >>> contour([c1, 'g', 'main contour'], [c2, 'b', 'secondary contour'])
     """
 
-    for [cseg, plot_color, legend] in csegs:
-        __contour_lines(cseg, plot_color, legend)
+    for [obj_cseg, plot_color, legend] in obj_csegs:
+        __contour_lines(obj_cseg, plot_color, legend)
     pylab.show()
 
 
-def contour_lines_save_multiple(*csegs):
+def contour_lines_save_multiple(*obj_csegs):
     """Saves csegs graphs in a svg format file for each cseg.
 
     >>> c1 = Contour([1, 3, 0, 2])
@@ -98,14 +98,14 @@ def contour_lines_save_multiple(*csegs):
     >>> contour([c1, 'g', 'main contour'], [c2, 'b', 'secondary contour'])
     """
 
-    for [cseg, plot_color, legend] in csegs:
+    for [obj_cseg, plot_color, legend] in obj_csegs:
         clear()
-        __contour_lines(cseg, plot_color, legend)
-        filename = ''.join([str(x) for x in cseg])
+        __contour_lines(obj_cseg, plot_color, legend)
+        filename = ''.join([str(x) for x in obj_cseg.cseg])
         pyplot.savefig(filename + '.svg')
 
 
-def contour_lines_save_unique(*csegs):
+def contour_lines_save_unique(*obj_csegs):
     """Saves csegs graphs in a unique svg format file for all csegs.
 
     >>> c1 = Contour([1, 3, 0, 2])
@@ -114,13 +114,13 @@ def contour_lines_save_unique(*csegs):
     """
 
     clear()
-    for [cseg, plot_color, legend] in csegs:
-        __contour_lines(cseg, plot_color, legend)
+    for [obj_cseg, plot_color, legend] in obj_csegs:
+        __contour_lines(obj_cseg, plot_color, legend)
 
     pyplot.savefig('cseg_output.svg')
 
 
-def contour_lines_save_django(filename, *csegs):
+def contour_lines_save_django(filename, *obj_csegs):
     """Saves csegs graphs in a unique svg format file for all csegs.
 
     >>> c1 = Contour([1, 3, 0, 2])
@@ -129,8 +129,8 @@ def contour_lines_save_django(filename, *csegs):
     """
 
     clear()
-    for [cseg, plot_color, legend] in csegs:
-        __contour_lines(cseg, plot_color, legend)
+    for [obj_cseg, plot_color, legend] in obj_csegs:
+        __contour_lines(obj_cseg, plot_color, legend)
 
     pyplot.savefig(filename, dpi=80)
 
@@ -262,11 +262,11 @@ def __pdf(file):
     return im
 
 
-def contour_line_score(cseg, file, plot_color="k"):
+def contour_line_score(obj_cseg, file, plot_color="k"):
     pylab.subplot(212)
     __pdf(file)
 
     pylab.subplot(211)
-    __contour_lines(cseg, plot_color)
+    __contour_lines(obj_cseg, plot_color)
 
     pylab.show()
