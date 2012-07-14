@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import contour
-import utils
-import auxiliary
+import __utils as utils
+import __auxiliary as auxiliary
 import numpy
 import itertools
 

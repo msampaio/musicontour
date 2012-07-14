@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import contour
-import utils
+import __utils as utils
 import diagonal
 
 

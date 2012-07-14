@@ -4,8 +4,8 @@
 import math
 import contour
 from contour import Contour
-import utils
-import auxiliary
+import __utils as utils
+import __auxiliary as auxiliary
 from collections import Counter
 
 def cseg_similarity(cseg1, cseg2):

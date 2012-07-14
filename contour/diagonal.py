@@ -3,8 +3,8 @@
 
 import itertools
 import contour
-import utils
-import auxiliary
+import __utils as utils
+import __auxiliary as auxiliary
 
 
 def internal_diagonal_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):

@@ -6,8 +6,8 @@ import collections
 from collections import MutableSequence
 from copy import deepcopy
 import operator
-import utils
-import auxiliary
+import __utils as utils
+import __auxiliary as auxiliary
 import diagonal
 import matrix
 import fuzzy
