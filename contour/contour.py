@@ -918,7 +918,7 @@ class Contour(MutableSequence):
 
         return Contour(new_cpoints)
 
-    def reduction_morris(self):
+    def reduction_morris(self, reset=True, translation=True):
         """Returns Morris (1993) contour reduction from a cseg, and
         its depth.
 
@@ -953,7 +953,15 @@ class Contour(MutableSequence):
             unflagged = max_min_list.unflagged_test()
 
         # step 9
-        return [max_min_list.reset().translation(), n]
+        reduced = max_min_list
+
+        # outside algorithm: returns reset and/or translated
+        if reset:
+            reduced = reduced.reset()
+        if translation:
+            reduced = reduced.translation()
+
+        return [reduced, n]
 
     def reduction_window(self, window_size=3, translation=True, reposition=True):
         """Returns a reduction in a single turn of n-window reduction
