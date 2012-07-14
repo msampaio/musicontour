@@ -956,31 +956,37 @@ class Contour(MutableSequence):
         # steps 1 and 2. flag all maxima/minima in C
         max_min_list = obj_cseg.max_min_flag()
 
-        # step 4: delete all non-flagged pitches in c
-        only_flagged = max_min_list.unflagged_remove()
+        # step 3. test if C has unflagged pitches.
+        # if all pitches in C are flagged, go to step 9
+        if max_min_list.unflagged_test():
 
-        # step 3: if all pitches in C are flagged, go to step 9
-        if only_flagged != max_min_list:
+            # step 4: delete all non-flagged pitches in c
+            max_min_list = max_min_list.unflagged_remove()
+
             # step 5: n is incremented by 1
             n += 1
 
             # steps 6 and 7:
-            flagged = only_flagged.repeated_cpoint_flag()
+            max_min_list = max_min_list.repeated_cpoint_flag()
 
-            # loop between steps 3 to 8
-            # FIXME: only_flagged definition is wrong.
-            only_flagged = flagged.repeated_cpoint_flag().unflagged_remove()
+            # step 3 (after first iteration)
+            unflagged = max_min_list.unflagged_test()
 
-            while flagged != only_flagged:
-                # step 5
+            while unflagged:
+                # step 4: delete all non-flagged pitches in c
+                max_min_list = max_min_list.unflagged_remove()
+
+                # step 5: n is incremented by 1
                 n += 1
-                # steps 6 and 7:
-                flagged = only_flagged
 
-            only_unflagged = flagged
+                # steps 6 and 7:
+                max_min_list = max_min_list.repeated_cpoint_flag()
+
+                # step 3 (after second iteration)
+                unflagged = max_min_list.unflagged_test()
 
         # step 9
-        return [only_flagged.reset().translation(), n]
+        return [max_min_list.reset().translation(), n]
 
     def max_min_list(self, fn):
         """Returns a maxima or minima list of a given cseg. (Morris,
