@@ -151,8 +151,6 @@ class TestUtils(unittest.TestCase):
 
     def test_remove_repeated_adjacent_cps(self):
         self.assertEqual(Contour([0, 1, 1, 0]).remove_repeated_adjacent_cps(), Contour([CP(0, 0), CP(1, 1), CP(3, 0)]))
-        self.assertEqual(Contour([0, 1, 1, 0]).remove_repeated_adjacent_cps(False), [CP(0, 0), CP(1, 1), CP(3, 0)])
-        self.assertEqual(Contour([0, 2, 1, 1]).remove_repeated_adjacent_cps(False, True), [CP(0, 0), CP(1, 2), CP(3, 1)])
 
     def test_prime_form_marvin_laprade(self):
         cseg01, cseg02 = Contour([1, 4, 9, 2]), Contour([0, 2, 3, 1])
@@ -445,31 +443,6 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(cseg4.repeated_cpoint_flag(), cseg5)
         self.assertEqual(cseg6.repeated_cpoint_flag(), cseg6)
         self.assertEqual(cseg7.repeated_cpoint_flag(), cseg8)
-
-    def test_max_min_list(self):
-        self.assertEqual(Contour([0, 3, 2, 1]).max_min_list(contour.maxima), [CP(0, 0), CP(1, 3), CP(3, 1)])
-
-    def test_flag(self):
-        cseg = Contour([0, 4, 3, 2, 5, 5, 1])
-        result = ([CP(0, 0), CP(1, 4), CP(4, 5), CP(5, 5), CP(6, 1)],
-                   [CP(0, 0), CP(3, 2), CP(6, 1)])
-        self.assertEqual(cseg.flag(), result)
-
-    def test_all_flagged(self):
-        cseg = Contour([0, 4, 3, 2, 5, 5, 1])
-        max_list = ([CP(0, 0), CP(1, 4), CP(4, 5), CP(5, 5),
-                     CP(6, 1)])
-        min_list = ([CP(0, 0), CP(3, 2), CP(6, 1)])
-        result = (False, ([CP(0, 0), CP(1, 4), CP(4, 5), CP(5, 5), CP(6, 1)],
-                          [CP(0, 0), CP(3, 2), CP(6, 1)]))
-        self.assertEqual(cseg.all_flagged(max_list, min_list), result)
-
-    def test_morris(self):
-        cseg1, cseg2 = Contour([0, 4, 3, 2, 5, 5, 1]), Contour([0, 2, 1])
-        cseg3, cseg4 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5]), Contour([2, 3, 0, 1])
-        self.assertEqual(cseg1.morris(), [cseg2, 2])
-        self.assertEqual(cseg2.morris(), [cseg2, 0])
-        self.assertEqual(cseg3.morris(), [cseg4, 3])
 
     def test_reduction_morris(self):
         cseg1, cseg2 = Contour([0, 4, 3, 2, 5, 5, 1]), Contour([0, 2, 1])

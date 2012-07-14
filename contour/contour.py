@@ -495,7 +495,7 @@ class Contour(MutableSequence):
         size = self.size
         return any([True if cseg[i - 1] == cseg[i] else False for i in range(1, size)])
 
-    def remove_repeated_adjacent_cps(self, obj_cseg=True, morris_rule=False):
+    def remove_repeated_adjacent_cps(self):
         """Remove adjacent repeated cpoints in a given cseg."""
 
         cpoints = deepcopy(self.cpoints)
@@ -508,28 +508,7 @@ class Contour(MutableSequence):
             if cpoint.value != new_cpoints[-1].value:
                 new_cpoints.append(cpoint)
 
-        # Rule for Morris reduction algorithm
-        if morris_rule:
-            first = cpoints[-1]
-            last = cpoints[-1]
-
-            # step 6.3, 7.3. if both the first and last cpitch in the
-            # string, flag (only) both the first and lat pitch of C
-            if self.size == 3:
-                new_cpoints == [first, last]
-            else:
-
-                # step 6.2, 7.2. if one pitch in the string is the
-                # first or last pitch of C, flag only it
-                new_last = new_cpoints[-1]
-                if new_last.value == last.value:
-                    new_cpoints.remove(new_last)
-                    new_cpoints.append(last)
-
-        if obj_cseg:
-            return Contour(new_cpoints)
-        else:
-            return new_cpoints
+        return Contour(new_cpoints)
 
     def __unequal_edges(self):
         """Returns the first cps position with different value from
@@ -939,7 +918,7 @@ class Contour(MutableSequence):
 
         return Contour(new_cpoints)
 
-    def morris(self):
+    def reduction_morris(self):
         """Returns Morris (1993) contour reduction from a cseg, and
         its depth.
 
@@ -975,151 +954,6 @@ class Contour(MutableSequence):
 
         # step 9
         return [max_min_list.reset().translation(), n]
-
-    def max_min_list(self, fn):
-        """Returns a maxima or minima list of a given cseg. (Morris,
-        1993)
-
-        >>> Contour([0, 3, 1, 4, 2]).max_min_list(maxima)
-        [< Position: 0, Value: 0 >,
-        < Position: 2, Value: 1 >,
-        < Position: 4, Value: 2 >]
-        """
-
-        def aux(obj_cseg, i, fn):
-            cpoints = obj_cseg.cpoints[i:i + 3]
-            return fn(cpoints[0].value, cpoints[1].value, cpoints[2].value)
-
-        seq = []
-        seq.append(self.cpoints[0])
-        seq.extend([self.cpoints[i + 1] for i in range(0, self.size - 2) if aux(self, i, fn)])
-        seq.append(self.cpoints[-1])
-        return seq
-
-    def flag(self):
-        """Returns steps 1 and 2 of Morris contour reduction algorithm
-        (1993). Returns maxima and minima lists of a given contour
-        object.
-        """
-
-        # morris algorithm steps 1 and 2
-        max_list = self.max_min_list(maxima)
-        min_list = self.max_min_list(minima)
-
-        return max_list, min_list
-
-    def all_flagged(self, max_list, min_list):
-        """Returns steps 3 and 4 of Morris contour reduction algorithm
-        (1993). Returns original contour if all cpoints are flagged,
-        and maxima and minima lists if there are unflagged cpoints.
-        """
-
-        cpoints = self.cpoints
-
-        # morris algorithm step 3 and 4
-        flagged = []
-        flagged.extend(max_list)
-        flagged.extend(min_list)
-
-        unflagged = [cpoint for cpoint in cpoints if cpoint not in flagged]
-
-        if len(unflagged) == 0:
-            # step 3 True, go to step 9
-            return True, [cpoint for cpoint in cpoints if cpoint not in unflagged]
-        else:
-            # step 3 False, go to step 3.
-            # step 4
-            return False, (max_list, min_list)
-
-        def __reduction_step6_7(self, m_list, algorithm):
-
-            m_list = Contour(m_list).max_min_list(fn)
-
-            first = self.cpoints[0]
-            last = self.cpoints[-1]
-
-            group = repeated_cps_value_group(m_list)
-
-            r = []
-            for seq in group:
-                if len(seq) == 1:
-                    r.append(seq[0])
-                else:
-                    if first in seq and last in seq:
-                        r.append(first)
-                        r.append(last)
-                    elif first in seq and last not in seq:
-                        r.append(first)
-                    elif last in seq and first not in seq:
-                        r.append(last)
-                    else:
-                        # difference between morris and schultz.
-                        if algorithm == 'Morris':
-                            # Morris algorithm retains only one of the maximas
-                            r.append(seq[0])
-                        else:
-                            # Schultz algorithm retains all maximas
-                            [r.append(cpoint) for cpoint in seq]
-
-            return r
-
-    def reduction_morris(self):
-        """Returns Morris (1993) contour reduction from a cseg, and
-        its depth.
-
-        >>> Contour([0, 4, 3, 2, 5, 5, 1]).reduction_morris()
-        [< 0 2 1 >, 2]
-        """
-
-        def aux_remove(seq, fn):
-
-            # steps 6 (max) and 7 (min): Flag all maxima in
-            # max-list. For any string of equal and adjacent maxima in
-            # max-list, either:
-
-            # (1) flag only one of them; or
-
-            # (2) if one pitch in the string is the first or last
-            # pitch of C. flag only it; or
-
-            # (3) if both the first and last pitch of C are in the
-            # string.  flag (only) both the first and last pitch of C.
-
-            # flag all maxima in max-list
-
-            new_seq = Contour(seq).max_min_list(fn)
-
-            return Contour(new_seq).remove_repeated_adjacent_cps(False, True)
-
-        obj = deepcopy(self)
-
-        # step 0. Set N to 0.
-        n = 0
-
-        # steps 1 (max) and 2 (min). Flag all maxima in C; call the
-        # resulting set the max-list
-        max_list, min_list = obj.flag()
-
-        # step 3. If all pichtes in C are flagged, go to step 9. [else
-        # go to step 4]
-        # step 4. Delete all non-flagged pitches in C
-        r, data = obj.all_flagged(max_list, min_list)
-
-        if not r:
-            # step 5. N is incremented by 1.
-            n += 1
-            max_list, min_list = data
-
-            # steps 6, 7 and 8
-            while max_list != aux_remove(max_list, maxima) or min_list != aux_remove(min_list, minima):
-                max_list = aux_remove(max_list, maxima)
-                min_list = aux_remove(min_list, minima)
-                n += 1
-
-            data = [cpoint for cpoint in obj if cpoint in max_list or cpoint in min_list]
-
-        # step 9. End. N is the "depth" of the original contour C.
-        return [Contour(data).translation(), n]
 
     def reduction_window(self, window_size=3, translation=True, reposition=True):
         """Returns a reduction in a single turn of n-window reduction
