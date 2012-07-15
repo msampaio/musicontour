@@ -1070,7 +1070,6 @@ class Contour(MutableSequence):
         else:
 
             # remove repeated sequences with 2 elements
-            obj_cseg = deepcopy(self)
             i = 2
             cpoints = self.cpoints
             new_cpoints = deepcopy(cpoints)
