@@ -519,6 +519,20 @@ class TestUtils(unittest.TestCase):
             ])
         self.assertEqual(cseg1.remove_no_intervene_flags(), cseg2)
 
+    def test_unflagged_repeated_cpoint_test(self):
+        cseg1 = Contour([
+            CP(0, 1, True, True),
+            CP(1, 2, True, False),
+            CP(2, 0, False, True),
+            CP(3, 2, True, False),
+            CP(4, 0, False, True),
+            CP(5, 2, True, False),
+            CP(6, 0, False, True),
+            CP(7, 1, True, True)
+            ])
+        self.assertEqual(cseg1.unflagged_repeated_cpoint_test(), True)
+        self.assertEqual(Contour([0, 1, 2, 3, 4]).unflagged_repeated_cpoint_test(), False)
+
     def test_unflag_repeated_cpoint(self):
         cseg1 = Contour([
             CP(0, 1, True, True),

@@ -1044,6 +1044,22 @@ class Contour(MutableSequence):
 
         return obj_cseg
 
+    def unflagged_repeated_cpoint_test(self):
+        """Tests if there are cpoint repetitions in combined max/min
+        list. Schultz Reduction algorithms's step 10 (Schultz 2009)."""
+
+        cpoints = self.cpoints
+
+        for i in range(2, self.size - 1):
+            first = cpoints[i - 2]
+            second = cpoints[i - 1]
+            third = cpoints[i]
+            fourth = cpoints[i + 1]
+
+            if repeated_combined_test(first, second, third, fourth):
+                return True
+        return False
+
     def unflag_repeated_cpoint(self):
         """Returns contour object with cpoint repetitions in combined
         max/min lists unflagged. Schultz Reduction algorithm's step 11
