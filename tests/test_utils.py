@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-import contour.utils as utils
+import contour.__utils as utils
 
 
 class TestUtils(unittest.TestCase):

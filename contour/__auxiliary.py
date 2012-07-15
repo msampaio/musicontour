@@ -3,7 +3,7 @@
 
 import itertools
 import contour
-import utils
+import __utils as utils
 
 notes = "c c# d d# e f f# g g# a a# b".split()
 

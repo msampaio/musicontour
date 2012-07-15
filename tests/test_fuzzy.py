@@ -4,7 +4,7 @@ import unittest
 import contour.fuzzy as fuzzy
 from contour.fuzzy import FuzzyMatrix
 from contour.contour import Contour
-import contour.utils as utils
+import contour.__utils as utils
 
 class TestUtils(unittest.TestCase):
     def test__membership(self):
