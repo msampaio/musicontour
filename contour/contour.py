@@ -970,6 +970,51 @@ class Contour(MutableSequence):
 
         return [reduced, n]
 
+    def remove_no_intervene_flags(self):
+        """Removes flags in no intervene maxima/minima (Schultz 2009). """
+
+        def aux(obj_cseg, cpoints, positions, repeated_cpoint):
+            position = repeated_cpoint.position
+            i = positions.index(position)
+            original_cpoint = obj_cseg.cpoint_by_position(position)
+            left = cpoints[i - 1]
+            right = cpoints[i + 1]
+
+            return left, right, original_cpoint
+
+        obj_cseg = deepcopy(self)
+        cpoints = obj_cseg.cpoints
+        max_list = obj_cseg.maximas()
+        min_list = obj_cseg.minimas()
+
+        positions = self.positions
+
+        # maximas. step 8
+        group = repeated_cps_value_group(max_list)
+
+        for seq in group:
+            if len(seq) > 1:
+                for repeated_cpoint in seq:
+                    left, right, original_cps = aux(obj_cseg, cpoints, positions, repeated_cpoint)
+                    # if both neighbors are minimas with same value
+                    if all([left.minima, right.minima, left.value == right.value]):
+                        cpoint = repeated_cpoint.unflag(maxima)
+                        obj_cseg = obj_cseg.cpoint_replace(original_cps, cpoint)
+
+        # minimas. step 9
+        group = repeated_cps_value_group(min_list)
+
+        for seq in group:
+            if len(seq) > 1:
+                for repeated_cpoint in seq:
+                    left, right, original_cps = aux(obj_cseg, cpoints, positions, repeated_cpoint)
+                    # if both neighbors are maximas with same value
+                    if all([left.maxima, right.maxima, left.value == right.value]):
+                        cpoint = repeated_cpoint.unflag(minima)
+                        obj_cseg = obj_cseg.cpoint_replace(original_cps, cpoint)
+
+        return obj_cseg
+
     def reduction_window(self, window_size=3, translation=True, reposition=True):
         """Returns a reduction in a single turn of n-window reduction
         algorithm. (Bor, 2009). If translation is true, the method
