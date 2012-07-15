@@ -1027,6 +1027,35 @@ class Contour(MutableSequence):
 
         return obj_cseg
 
+    def unflag_repeated_cpoint(self):
+        """Returns contour object with cpoint repetitions in combined
+        max/min lists unflagged. Schultz Reduction algorithm's step 10
+        (Schultz 2009)."""
+
+        obj_cseg = deepcopy(self)
+
+        i = 2
+
+        # remove repeated sequences with 2 elements
+        if self.size < 4:
+            raise ContourException("Contour object must have at least 4 cpoints.")
+        else:
+            for i in range(2, self.size - 1):
+                cpoints = obj_cseg.cpoints
+                first = cpoints[i - 2]
+                second = cpoints[i - 1]
+                third = cpoints[i]
+                fourth = cpoints[i + 1]
+                if all(a.value == b.value for a, b in zip([first, second], [third, fourth])):
+                    new_third = third.unflag(maxima)
+                    new_third = new_third.unflag(minima)
+                    new_fourth = fourth.unflag(maxima)
+                    new_fourth = fourth.unflag(minima)
+                    obj_cseg = obj_cseg.cpoint_replace(third, new_third)
+                    obj_cseg = obj_cseg.cpoint_replace(fourth, new_fourth)
+
+            return obj_cseg
+
     def reduction_window(self, window_size=3, translation=True, reposition=True):
         """Returns a reduction in a single turn of n-window reduction
         algorithm. (Bor, 2009). If translation is true, the method
