@@ -110,6 +110,11 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(contour.repeated_cps_value_group(cpoints), [[cp1], [cp2], [cp3, cp4], [cp5]])
         self.assertEqual(contour.repeated_cps_value_group([cp1, cp2]), [cp1, cp2])
 
+    def test_depth_increment_schultz(self):
+        self.assertEqual(contour.depth_increment_schultz(0), 2)
+        self.assertEqual(contour.depth_increment_schultz(1), 2)
+        self.assertEqual(contour.depth_increment_schultz(2), 3)
+
     def test_rotation(self):
         self.assertEqual(Contour([1, 4, 9, 9, 2, 1]).rotation(), Contour([4, 9, 9, 2, 1, 1]))
         self.assertEqual(Contour([1, 4, 9, 9, 2, 1]).rotation(1), Contour([4, 9, 9, 2, 1, 1]))

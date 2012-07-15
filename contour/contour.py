@@ -202,6 +202,18 @@ def repeated_cps_value_group(cpoints):
         return cpoints
 
 
+def depth_increment_schultz(depth):
+    """Return increased depth value as Schultz reduction algorithm
+    steps 14 and 15"""
+
+    if depth != 0:
+        depth += 1
+    else:
+        depth = 2
+
+    return depth
+
+
 def reduction_retention(cpoints):
     """Returns medial cps value if it is maxima or minima of a given
     list with an even number of consecutive cps. (Bor, 2009)
