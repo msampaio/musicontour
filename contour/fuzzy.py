@@ -3,7 +3,6 @@
 
 import contour
 import __utils as utils
-import __auxiliary as auxiliary
 import numpy
 import itertools
 
@@ -121,7 +120,7 @@ def membership_similarity(cseg1, cseg2):
         f_comparison_matrix = f_matrix.comparison()
         return utils.flatten(f_comparison_matrix.except_zero_diagonal())
 
-    return auxiliary.position_comparison(*[aux(cseg) for cseg in [cseg1, cseg2]])
+    return utils.position_comparison(*[aux(cseg) for cseg in [cseg1, cseg2]])
 
 
 def average_matrix(*csegs):

@@ -5,7 +5,6 @@ import math
 import contour
 from contour import Contour
 import __utils as utils
-import __auxiliary as auxiliary
 from collections import Counter
 
 def cseg_similarity(cseg1, cseg2):
@@ -21,7 +20,7 @@ def cseg_similarity(cseg1, cseg2):
     cseg1_triangle = utils.flatten(cseg1.comparison_matrix().superior_triangle())
     cseg2_triangle = utils.flatten(cseg2.comparison_matrix().superior_triangle())
 
-    return auxiliary.position_comparison(cseg1_triangle, cseg2_triangle)
+    return utils.position_comparison(cseg1_triangle, cseg2_triangle)
 
 
 def csegclass_similarity(cseg1, cseg2, prime_algorithm="prime_form_marvin_laprade"):
@@ -32,7 +31,7 @@ def csegclass_similarity(cseg1, cseg2, prime_algorithm="prime_form_marvin_laprad
     1
     """
 
-    cseg1_p = auxiliary.apply_fn(cseg1, prime_algorithm)
+    cseg1_p = utils.apply_fn(cseg1, prime_algorithm)
     representatives = cseg2.class_representatives()
     csims = [cseg_similarity(cseg1_p, c) for c in representatives]
     return sorted(csims, reverse=True)[0]
@@ -259,7 +258,7 @@ def cseg_similarity_continuum(obj_cseg, prime_algorithm="prime_form_marvin_lapra
      [1.0, [< 1 0 3 2 >]]]
     """
 
-    all_csegs = [Contour(el) for el in auxiliary.permut_csegs(obj_cseg.size)]
+    all_csegs = [Contour(el) for el in utils.permut_csegs(obj_cseg.size)]
 
     dic = Counter()
     for cseg_ob in all_csegs:

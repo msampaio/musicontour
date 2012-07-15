@@ -7,7 +7,6 @@ from collections import MutableSequence
 from copy import deepcopy
 import operator
 import __utils as utils
-import __auxiliary as auxiliary
 import diagonal
 import matrix
 import fuzzy
@@ -38,7 +37,7 @@ def build_classes_card(card, prime_algorithm="prime_form_marvin_laprade"):
         (0, 1, 2)
         """
 
-        return tuple(auxiliary.apply_fn(Contour(lst), prime_algorithm).cseg)
+        return tuple(utils.apply_fn(Contour(lst), prime_algorithm).cseg)
 
     def __single_class_build(card, class_n, cseg):
         """Returns a single contour class from cardinality, class
@@ -50,7 +49,7 @@ def build_classes_card(card, prime_algorithm="prime_form_marvin_laprade"):
 
         return card, class_n + 1, cseg, Contour(list(cseg)).ri_identity_test()
 
-    permut = auxiliary.permut_csegs(card)
+    permut = utils.permut_csegs(card)
     primes_repeats = [__tuple_prime(el, prime_algorithm) for el in permut]
     primes = enumerate(sorted(list(set(primes_repeats))))
 
@@ -261,7 +260,7 @@ def contour_rotation_classes(cardinality):
     """
 
     # sets universe set with all csegs with a given cardinality
-    universe = set([tuple(x) for x in auxiliary.permut_csegs(cardinality)])
+    universe = set([tuple(x) for x in utils.permut_csegs(cardinality)])
     s = set()
 
     for el in universe:
@@ -590,7 +589,7 @@ class Contour(MutableSequence):
         triangle = self.comparison_matrix().superior_triangle()
         csegs = matrix.triangle_zero_replace_to_cseg(triangle)
 
-        return [auxiliary.apply_fn(c, prime_algorithm) for c in csegs]
+        return [utils.apply_fn(c, prime_algorithm) for c in csegs]
 
     def prime_form_marvin_laprade(self):
         """Returns the prime form of a given contour (Marvin and
@@ -644,10 +643,10 @@ class Contour(MutableSequence):
 
         p, i, r, ri = self.class_representatives()
 
-        prime_p = auxiliary.apply_fn(p, prime_algorithm)
-        prime_i = auxiliary.apply_fn(i, prime_algorithm)
-        prime_r = auxiliary.apply_fn(r, prime_algorithm)
-        prime_ri = auxiliary.apply_fn(ri, prime_algorithm)
+        prime_p = utils.apply_fn(p, prime_algorithm)
+        prime_i = utils.apply_fn(i, prime_algorithm)
+        prime_r = utils.apply_fn(r, prime_algorithm)
+        prime_ri = utils.apply_fn(ri, prime_algorithm)
 
         return prime_p == prime_i == prime_r == prime_ri
 
@@ -711,7 +710,7 @@ class Contour(MutableSequence):
         dic = {}
 
         for obj_cseg in subsets:
-            process = tuple(auxiliary.apply_fn(obj_cseg, prime_algorithm).cseg)
+            process = tuple(utils.apply_fn(obj_cseg, prime_algorithm).cseg)
             if process in dic:
                 z = dic[process]
                 z.append(obj_cseg)
@@ -1278,7 +1277,7 @@ class Contour(MutableSequence):
         0.69999999999999996
         """
 
-        ups, downs = auxiliary.apply_fn(self, vector_method)
+        ups, downs = utils.apply_fn(self, vector_method)
         total = ups + downs
         if ups == downs:
             return 0
@@ -1321,7 +1320,7 @@ class Contour(MutableSequence):
         (4, 2, < 0 1 3 2 >, False)
         """
 
-        prime_form = auxiliary.apply_fn(self, prime_algorithm)
+        prime_form = utils.apply_fn(self, prime_algorithm)
         cseg_classes = utils.flatten(build_classes(self.size, prime_algorithm))
         for cardinality, number, cseg_class, ri_identity in cseg_classes:
             if tuple(prime_form.cseg) == cseg_class:
@@ -1375,7 +1374,7 @@ class Contour(MutableSequence):
         [< 0 1 3 2 >, < 3 2 0 1 >, < 2 3 1 0 >, < 1 0 2 3 >]
         """
 
-        p = auxiliary.apply_fn(self, prime_algorithm)
+        p = utils.apply_fn(self, prime_algorithm)
         i = p.inversion()
         r = p.retrogression()
         ri = r.inversion()
@@ -1447,7 +1446,7 @@ class Contour(MutableSequence):
                 n += i
             return result
 
-        ternary = [auxiliary.base_3_comparison(a, b) for a, b in combinations]
+        ternary = [utils.base_3_comparison(a, b) for a, b in combinations]
 
         return aux_list(ternary, self)
 
@@ -1479,7 +1478,7 @@ def prime_form_algorithm_test(card, prime_form_algorithm="prime_form_sampaio"):
     """
 
     # creates a list of all possible lists
-    lists = [auxiliary.permut_csegs(c) for c in range(2, card + 1)]
+    lists = [utils.permut_csegs(c) for c in range(2, card + 1)]
     lists = utils.flatten(lists)
 
     coll = set()
@@ -1495,7 +1494,7 @@ def prime_form_algorithm_test(card, prime_form_algorithm="prime_form_sampaio"):
 
     if classes != []:
         for cls in classes:
-            cseg = auxiliary.cseg_from_class_number(*cls)
+            cseg = utils.cseg_from_class_number(*cls)
             ri = Contour(cseg).retrogression().inversion()
             result.append([cls, cseg, ri])
 
