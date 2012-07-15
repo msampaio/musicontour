@@ -51,18 +51,10 @@ contour.matrix
    :undoc-members:
    :show-inheritance:
 
-contour.auxiliary
------------------
-
-.. automodule:: contour.auxiliary
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-contour.utils
+contour.__utils
 -------------
 
-.. automodule:: contour.utils
+.. automodule:: contour.__utils
    :members:
    :undoc-members:
    :show-inheritance:
