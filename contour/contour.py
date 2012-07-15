@@ -864,8 +864,8 @@ class Contour(MutableSequence):
         # tests if obj_cseg has maxima or minima previously defined
         first = cpoints[0]
         if all([first.maxima, first.minima]):
-            max_list = [cpoint for cpoint in cpoints if cpoint.maxima]
-            min_list = [cpoint for cpoint in cpoints if cpoint.minima]
+            max_list = obj_cseg.maximas()
+            min_list = obj_cseg.minimas()
             obj_cseg = aux_flag(obj_cseg, max_list, maxima)
             obj_cseg = aux_flag(obj_cseg, min_list, minima)
         else:
