@@ -1049,15 +1049,6 @@ class Contour(MutableSequence):
         max/min lists unflagged. Schultz Reduction algorithm's step 11
         (Schultz 2009)."""
 
-        def aux_test(first, second, third, fourth):
-            it = zip([first, second], [third, fourth])
-            c1 = all(a.maxima == b.maxima for a, b in it)
-            c2 = all(a.minima == b.minima for a, b in it)
-            c3 = all([first.maxima == second.minima and third.maxima == fourth.minima])
-            c4 = all([first.minima == second.maxima and third.minima == fourth.maxima])
-            c5 = all(a.value == b.value for a, b in it)
-            return all([c1, c2, c3, c4, c5])
-
         if self.size < 4:
             raise ContourException("Contour object must have at least 4 cpoints.")
         else:
@@ -1074,7 +1065,7 @@ class Contour(MutableSequence):
                 third = cpoints[i]
                 fourth = cpoints[i + 1]
 
-                if aux_test(first, second, third, fourth):
+                if repeated_combined_test(first, second, third, fourth):
                     new_cpoints[i] = third.unflag(maxima).unflag(minima)
                     new_cpoints[i + 1] = fourth.unflag(maxima).unflag(minima)
 
