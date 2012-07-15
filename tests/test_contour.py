@@ -139,6 +139,40 @@ class TestUtils(unittest.TestCase):
             ])
         self.assertEqual(cseg1.reset(), Contour([0, 2, 1]))
 
+    def test_maximas(self):
+        cseg1 = Contour([
+            CP(0, 1, True, True),
+            CP(1, 0, False, True),
+            CP(2, 2, True, False),
+            CP(3, 0, False, True),
+            CP(4, 2, True, False),
+            CP(5, 1, True, True)
+            ])
+        cseg2 = Contour([
+            CP(0, 1, True, True),
+            CP(2, 2, True, False),
+            CP(4, 2, True, False),
+            CP(5, 1, True, True)
+            ])
+        self.assertEqual(cseg1.maximas(), cseg2)
+
+    def test_minimas(self):
+        cseg1 = Contour([
+            CP(0, 1, True, True),
+            CP(1, 0, False, True),
+            CP(2, 2, True, False),
+            CP(3, 0, False, True),
+            CP(4, 2, True, False),
+            CP(5, 1, True, True)
+            ])
+        cseg2 = Contour([
+            CP(0, 1, True, True),
+            CP(1, 0, False, True),
+            CP(3, 0, False, True),
+            CP(5, 1, True, True)
+            ])
+        self.assertEqual(cseg1.minimas(), cseg2)
+
     def test_repetition_cpitch_test(self):
         self.assertEqual(Contour([0, 1, 0]).repetition_cpitch_test(), True)
         self.assertEqual(Contour([0, 1, 1, 0]).repetition_cpitch_test(), True)

@@ -480,6 +480,16 @@ class Contour(MutableSequence):
 
         return Contour(cpoints)
 
+    def maximas(self):
+        """Returns maximas list from a flagged contour object."""
+
+        return Contour([cpoint for cpoint in self.cpoints if cpoint.maxima])
+
+    def minimas(self):
+        """Returns minimas list from a flagged contour object."""
+
+        return Contour([cpoint for cpoint in self.cpoints if cpoint.minima])
+
     def repetition_cpitch_test(self):
         """Returns True if cseg has repeated elements."""
 
