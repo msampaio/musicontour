@@ -1029,32 +1029,39 @@ class Contour(MutableSequence):
 
     def unflag_repeated_cpoint(self):
         """Returns contour object with cpoint repetitions in combined
-        max/min lists unflagged. Schultz Reduction algorithm's step 10
+        max/min lists unflagged. Schultz Reduction algorithm's step 11
         (Schultz 2009)."""
 
-        obj_cseg = deepcopy(self)
+        def aux_test(first, second, third, fourth):
+            it = zip([first, second], [third, fourth])
+            c1 = all(a.maxima == b.maxima for a, b in it)
+            c2 = all(a.minima == b.minima for a, b in it)
+            c3 = all([first.maxima == second.minima and third.maxima == fourth.minima])
+            c4 = all([first.minima == second.maxima and third.minima == fourth.maxima])
+            c5 = all(a.value == b.value for a, b in it)
+            return all([c1, c2, c3, c4, c5])
 
-        i = 2
-
-        # remove repeated sequences with 2 elements
         if self.size < 4:
             raise ContourException("Contour object must have at least 4 cpoints.")
         else:
+
+            # remove repeated sequences with 2 elements
+            obj_cseg = deepcopy(self)
+            i = 2
+            cpoints = self.cpoints
+            new_cpoints = deepcopy(cpoints)
+
             for i in range(2, self.size - 1):
-                cpoints = obj_cseg.cpoints
                 first = cpoints[i - 2]
                 second = cpoints[i - 1]
                 third = cpoints[i]
                 fourth = cpoints[i + 1]
-                if all(a.value == b.value for a, b in zip([first, second], [third, fourth])):
-                    new_third = third.unflag(maxima)
-                    new_third = new_third.unflag(minima)
-                    new_fourth = fourth.unflag(maxima)
-                    new_fourth = fourth.unflag(minima)
-                    obj_cseg = obj_cseg.cpoint_replace(third, new_third)
-                    obj_cseg = obj_cseg.cpoint_replace(fourth, new_fourth)
 
-            return obj_cseg
+                if aux_test(first, second, third, fourth):
+                    new_cpoints[i] = third.unflag(maxima).unflag(minima)
+                    new_cpoints[i + 1] = fourth.unflag(maxima).unflag(minima)
+
+            return Contour(new_cpoints)
 
     def reduction_window(self, window_size=3, translation=True, reposition=True):
         """Returns a reduction in a single turn of n-window reduction
