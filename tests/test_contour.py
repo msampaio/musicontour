@@ -115,6 +115,14 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(contour.depth_increment_schultz(1), 2)
         self.assertEqual(contour.depth_increment_schultz(2), 3)
 
+    def test_repeated_combined_test(self):
+        seq1 = [CP(0, 0, False, True), CP(1, 2, True, False), CP(2, 0, False, True), CP(3, 2, True, False)]
+        seq2 = [CP(0, 0, False, True), CP(1, 3, True, False), CP(2, 0, False, True), CP(3, 2, True, False)]
+        seq3 = [CP(0, 0, False, True), CP(1, 2, False, False), CP(2, 0, False, True), CP(3, 2, False, False)]
+        self.assertEqual(contour.repeated_combined_test(*seq1), True)
+        self.assertEqual(contour.repeated_combined_test(*seq2), False)
+        self.assertEqual(contour.repeated_combined_test(*seq3), False)
+
     def test_rotation(self):
         self.assertEqual(Contour([1, 4, 9, 9, 2, 1]).rotation(), Contour([4, 9, 9, 2, 1, 1]))
         self.assertEqual(Contour([1, 4, 9, 9, 2, 1]).rotation(1), Contour([4, 9, 9, 2, 1, 1]))

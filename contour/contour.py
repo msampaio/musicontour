@@ -214,6 +214,23 @@ def depth_increment_schultz(depth):
     return depth
 
 
+def repeated_combined_test(first, second, third, fourth):
+    """Test if four consecutive contour points are repeated and
+    max/min list combined. Auxiliar function for steps 10 and 11
+    (Schultz 2009)."""
+
+    it = zip([first, second], [third, fourth])
+
+    # conditions
+    c1 = all(a.maxima == b.maxima for a, b in it)
+    c2 = all(a.minima == b.minima for a, b in it)
+    c3 = all([first.maxima == second.minima and third.maxima == fourth.minima])
+    c4 = all([first.minima == second.maxima and third.minima == fourth.maxima])
+    c5 = all(a.value == b.value for a, b in it)
+
+    return all([c1, c2, c3, c4, c5])
+
+
 def reduction_retention(cpoints):
     """Returns medial cps value if it is maxima or minima of a given
     list with an even number of consecutive cps. (Bor, 2009)
