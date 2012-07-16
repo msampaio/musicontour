@@ -1096,8 +1096,8 @@ class Contour(MutableSequence):
                 fourth = cpoints[i + 1]
 
                 if repeated_combined_test(first, second, third, fourth):
+                    new_cpoints[i - 1] = second.unflag(maxima).unflag(minima)
                     new_cpoints[i] = third.unflag(maxima).unflag(minima)
-                    new_cpoints[i + 1] = fourth.unflag(maxima).unflag(minima)
 
             return Contour(new_cpoints)
 
