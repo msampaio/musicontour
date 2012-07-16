@@ -579,7 +579,21 @@ class TestUtils(unittest.TestCase):
     def test_unflag_repeated_cpoint(self):
         cseg1 = Contour([
             CP(0, 1, True, True),
-            CP(1, 2, True, False),
+            CP(1, 0, False, True),
+            CP(2, 2, True, False),
+            CP(3, 0, False, True),
+            CP(4, 2, True, False),
+            CP(5, 1, True, True)
+            ])
+        cseg2 = Contour([
+            CP(0, 1, True, True),
+            CP(1, 0, False, True),
+            CP(2, 2, False, False),
+            CP(3, 0, False, False),
+            CP(4, 2, True, False),
+            CP(5, 1, True, True)
+            ])
+        self.assertEqual(cseg1.unflag_repeated_cpoint(), cseg2)
             CP(2, 0, False, True),
             CP(3, 2, True, False),
             CP(4, 0, False, True),
