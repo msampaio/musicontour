@@ -634,8 +634,8 @@ class TestUtils(unittest.TestCase):
             CP(7, 3, True, False),
             CP(8, 2, True, True)
             ])
-        self.assertEqual(cseg1.reflag_repeated_cpoint(), cseg2)
-        self.assertEqual(cseg3.reflag_repeated_cpoint(), cseg4)
+        self.assertEqual(cseg1.reflag_repeated_cpoint('maxima'), cseg2)
+        self.assertEqual(cseg3.reflag_repeated_cpoint('maxima'), cseg4)
 
     def test_reduction_window(self):
         cseg1 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])

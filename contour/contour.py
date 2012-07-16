@@ -1101,29 +1101,32 @@ class Contour(MutableSequence):
 
             return Contour(new_cpoints)
 
-    def reflag_repeated_cpoint(self):
+    def reflag_repeated_cpoint(self, fn):
         """Returns contour object with cpoint repetition
         reflagged. Schultz Reduction Algorithm's step 12 (Schultz
         2009)."""
 
-
         obj_cseg = deepcopy(self)
         obj_unfl = obj_cseg.unflag_repeated_cpoint()
 
-        # works only with maximas
-        original_min_list = obj_cseg.minimas().cpoints
-        remaining_min_list = obj_unfl.minimas().cpoints
+        if fn == 'maxima':
+            opp_Cmethod = 'minimas'
+            opp_Cfn = minima
+        elif fn == 'minima':
+            opp_Cmethod = 'maximas'
+            opp_Cfn = maxima
 
-        fn = 'maxima'
+        original_m_list = getattr(obj_cseg, opp_Cmethod)().cpoints
+        remaining_m_list = getattr(obj_unfl, opp_Cmethod)().cpoints
+
         if all_max_min_flagged_test(obj_unfl.cpoints, fn):
-            for cpoint in original_min_list[1:-1]:
-                if cpoint not in remaining_min_list:
+            for cpoint in original_m_list[1:-1]:
+                if cpoint not in remaining_m_list:
                     cpoints = obj_unfl.cpoints
                     position = cpoint.position
                     old_cpoint = obj_unfl.cpoint_by_position(position)
-                    new_cpoint = cpoint.flag(minima)
+                    new_cpoint = cpoint.flag(opp_Cfn)
                     obj_unfl = obj_unfl.cpoint_replace(old_cpoint, new_cpoint)
-
                     break
 
         return obj_unfl
