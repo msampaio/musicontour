@@ -219,13 +219,14 @@ def all_max_min_flagged_test(cpoints, fn):
     minima. Useful for Schultz Reduction Algorithm, step 12 (Schultz
     2009)."""
 
-    def aux_test(cpoint, fn):
-        if fn == 'maxima':
-            return cpoint.maxima and not cpoint.minima
-        elif fn == 'minima':
-            return cpoint.minima and not cpoint.maxima
+    subseq = cpoints[1:-1]
+    maximas = [cpoint.maxima for cpoint in subseq]
+    minimas = [cpoint.minima for cpoint in subseq]
 
-    return all([aux_test(cpoint, fn) for cpoint in cpoints[1:-1]])
+    if fn == 'maxima':
+        return any(maximas) and not any(minimas)
+    elif fn == 'minima':
+        return any(minimas) and not any(maximas)
 
 
 def repeated_combined_test(first, second, third, fourth):

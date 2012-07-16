@@ -134,12 +134,29 @@ class TestUtils(unittest.TestCase):
             CP(2, 2, False, False),
             CP(3, 3, True, True)
             ]
+        cpoints4 = [
+            CP(0, 1, True, True),
+            CP(1, 2, True, False),
+            CP(2, 0, False, True),
+            CP(3, 1, True, True)
+            ]
+        cpoints5 = [
+            CP(0, 0, True, True),
+            CP(1, 2, True, False),
+            CP(2, 1, False, False),
+            CP(3, 2, True, False),
+            CP(4, 1, True, True)
+            ]
         self.assertEqual(contour.all_max_min_flagged_test(cpoints1, "maxima"), True)
         self.assertEqual(contour.all_max_min_flagged_test(cpoints1, "minima"), False)
         self.assertEqual(contour.all_max_min_flagged_test(cpoints2, "maxima"), False)
         self.assertEqual(contour.all_max_min_flagged_test(cpoints2, "minima"), True)
         self.assertEqual(contour.all_max_min_flagged_test(cpoints3, "maxima"), False)
         self.assertEqual(contour.all_max_min_flagged_test(cpoints3, "minima"), False)
+        self.assertEqual(contour.all_max_min_flagged_test(cpoints4, "maxima"), False)
+        self.assertEqual(contour.all_max_min_flagged_test(cpoints4, "minima"), False)
+        self.assertEqual(contour.all_max_min_flagged_test(cpoints5, "maxima"), True)
+        self.assertEqual(contour.all_max_min_flagged_test(cpoints5, "minima"), False)
 
     def test_repeated_combined_test(self):
         seq1 = [CP(0, 0, False, True), CP(1, 2, True, False), CP(2, 0, False, True), CP(3, 2, True, False)]
