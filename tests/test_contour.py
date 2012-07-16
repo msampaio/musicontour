@@ -594,24 +594,48 @@ class TestUtils(unittest.TestCase):
             CP(5, 1, True, True)
             ])
         self.assertEqual(cseg1.unflag_repeated_cpoint(), cseg2)
-            CP(2, 0, False, True),
-            CP(3, 2, True, False),
-            CP(4, 0, False, True),
-            CP(5, 2, True, False),
-            CP(6, 0, False, True),
-            CP(7, 1, True, True)
+
+    def test_reflag_repeated_cpoint(self):
+        cseg1 = Contour([
+            CP(0, 1, True, True),
+            CP(1, 0, False, True),
+            CP(2, 2, True, False),
+            CP(3, 0, False, True),
+            CP(4, 2, True, False),
+            CP(5, 1, True, True)
             ])
         cseg2 = Contour([
             CP(0, 1, True, True),
-            CP(1, 2, True, False),
-            CP(2, 0, False, True),
-            CP(3, 2, False, False),
-            CP(4, 0, False, False),
-            CP(5, 2, False, False),
-            CP(6, 0, False, False),
-            CP(7, 1, True, True)
+            CP(1, 0, False, True),
+            CP(2, 2, False, False),
+            CP(3, 0, False, False),
+            CP(4, 2, True, False),
+            CP(5, 1, True, True)
             ])
-        self.assertEqual(cseg1.unflag_repeated_cpoint(), cseg2)
+        cseg3 = Contour([
+            CP(0, 1, True, True),
+            CP(1, 3, True, False),
+            CP(2, 0, False, True),
+            CP(3, 3, True, False),
+            CP(4, 0, False, True),
+            CP(5, 3, True, False),
+            CP(6, 0, False, True),
+            CP(7, 3, True, False),
+            CP(8, 2, True, True)
+            ])
+        cseg4 = Contour([
+            CP(0, 1, True, True),
+            CP(1, 3, True, False),
+            CP(2, 0, False, True),
+            CP(3, 3, False, False),
+            CP(4, 0, False, False),
+            CP(5, 3, False, False),
+            CP(6, 0, False, False),
+            CP(7, 3, True, False),
+            CP(8, 2, True, True)
+            ])
+        self.assertEqual(cseg1.reflag_repeated_cpoint(), cseg2)
+        self.assertEqual(cseg3.reflag_repeated_cpoint(), cseg4)
 
     def test_reduction_window(self):
         cseg1 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
