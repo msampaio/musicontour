@@ -214,6 +214,20 @@ def depth_increment_schultz(depth):
     return depth
 
 
+def all_max_min_flagged_test(cpoints, fn):
+    """Test if all flagged cps except fist and last are maxima or
+    minima. Useful for Schultz Reduction Algorithm, step 12 (Schultz
+    2009)."""
+
+    def aux_test(cpoint, fn):
+        if fn == 'maxima':
+            return cpoint.maxima and not cpoint.minima
+        elif fn == 'minima':
+            return cpoint.minima and not cpoint.maxima
+
+    return all([aux_test(cpoint, fn) for cpoint in cpoints[1:-1]])
+
+
 def repeated_combined_test(first, second, third, fourth):
     """Test if four consecutive contour points are repeated and
     max/min list combined. Auxiliar function for steps 10 and 11
