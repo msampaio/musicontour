@@ -557,8 +557,17 @@ class TestUtils(unittest.TestCase):
         cseg2 = Contour([1, 0, 2, 1])
         cseg3 = Contour([1, 3, 0, 3, 0, 3, 0, 3, 2])
         cseg4 = Contour([1, 3, 0, 3, 2])
+        cseg5 = Contour([1, 0, 2])
+        cseg6 = Contour([1, 3, 0, 2, 0, 4])
+        cseg7 = Contour([1, 4, 0, 2, 0, 3, 0, 2, 0, 5])
+        cseg8 = Contour([1, 5, 0, 2, 0, 3, 0, 2, 0, 4, 0, 2, 0, 6])
+        cseg9 = Contour([1, 6, 0, 2, 0, 3, 0, 2, 0, 5, 0, 2, 0, 4, 0, 2, 0, 7])
         self.assertEqual(cseg1.reduction_schultz(), [cseg2, 2])
         self.assertEqual(cseg3.reduction_schultz(), [cseg4, 2])
+        self.assertEqual(cseg6.reduction_schultz(), [cseg5, 3])
+        self.assertEqual(cseg7.reduction_schultz(), [cseg5, 4])
+        self.assertEqual(cseg8.reduction_schultz(), [cseg5, 4])
+        self.assertEqual(cseg9.reduction_schultz(), [cseg5, 5])
 
     def test_remove_no_intervene_flags(self):
         cseg1 = Contour([
