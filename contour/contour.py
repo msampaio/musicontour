@@ -1135,6 +1135,79 @@ class Contour(MutableSequence):
 
         return obj_unfl
 
+    def reduction_schultz(self, reset=True, translation=True):
+        """Returns Morris (1993) contour reduction from a cseg, and
+        its depth.
+
+        >>> Contour([0, 4, 3, 2, 5, 5, 1]).reduction_morris()
+        [< 0 2 1 >, 2]
+        """
+
+        obj_cseg = deepcopy(self)
+
+        # Given a contour C and variable n
+        # step 0. n = 0 (depth)
+        n = 0
+
+        # steps 1 and 2. flag all maxima/minima in C
+        max_min_list = obj_cseg.max_min_flag()
+
+        # step 3. test if C has unflagged pitches.
+        # if all pitches in C are flagged, go to step 6
+        unflagged = max_min_list.unflagged_test()
+
+        if unflagged:
+            # step 4: delete all non-flagged pitches in c
+            max_min_list = max_min_list.unflagged_remove()
+
+            # step 5: n is incremented by 1
+            n += 1
+
+        # steps 6 to 16
+        while True:
+            # steps 6 and 7:
+            max_min_list = max_min_list.repeated_cpoint_flag('Schultz').cpoints
+
+            # steps 8 and 9:
+            max_min_list = max_min_list.remove_no_intervene_flags()
+
+            print max_min_list.cpoints
+
+            # step 10:
+            unflagged = max_min_list.unflagged_test()
+            combined_repetition = max_min_list.unflagged_repeated_cpoint_test()
+            if not unflagged and not combined_repetition:
+                break
+
+            # step 11
+            if len(max_min_list) > 4:
+                max_min_list = max_min_list.unflag_repeated_cpoint()
+
+                # step 12
+                max_min_list = max_min_list.reflag_repeated_cpoint('maxima')
+                max_min_list = max_min_list.reflag_repeated_cpoint('minima')
+
+            # step 13: delete all non-flagged pitches in c
+            max_min_list = max_min_list.unflagged_remove()
+
+            # steps 14 and 15
+            n = depth_increment_schultz(n)
+
+            # step 16
+            # FIXME: remove
+            # break
+
+        # step 17
+        reduced = max_min_list
+
+        # outside algorithm: returns reset and/or translated
+        if reset:
+            reduced = reduced.reset()
+        if translation:
+            reduced = reduced.translation()
+
+        return [reduced, n]
+
     def reduction_window(self, window_size=3, translation=True, reposition=True):
         """Returns a reduction in a single turn of n-window reduction
         algorithm. (Bor, 2009). If translation is true, the method
