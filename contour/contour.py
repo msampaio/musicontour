@@ -973,7 +973,7 @@ class Contour(MutableSequence):
             new_repeated = repeated_cps_value_group(new_cpoints)
             new_cpoints = aux_remove(cpoints, new_repeated, extremes, minima)
         else:
-            new_cpoints = max_min_list
+            new_cpoints = max_min_list.cpoints
 
         return Contour(new_cpoints)
 
