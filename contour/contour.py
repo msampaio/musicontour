@@ -1023,47 +1023,43 @@ class Contour(MutableSequence):
         return [reduced, n]
 
     def remove_no_intervene_flags(self):
-        """Removes flags in no intervene maxima/minima (Schultz 2009). """
-
-        def aux(obj_cseg, cpoints, positions, repeated_cpoint):
-            position = repeated_cpoint.position
-            i = positions.index(position)
-            original_cpoint = obj_cseg.cpoint_by_position(position)
-            left = cpoints[i - 1]
-            right = cpoints[i + 1]
-
-            return left, right, original_cpoint
+        """Removes flags in no intervene maxima/minima. Schultz
+        Reduction Algorithm, steps 8 and 9 (Schultz 2009)."""
 
         obj_cseg = deepcopy(self)
-        cpoints = obj_cseg.cpoints
         max_list = obj_cseg.maximas()
         min_list = obj_cseg.minimas()
-
-        positions = self.positions
 
         # maximas. step 8
         group = repeated_cps_value_group(max_list)
 
         for seq in group:
             if len(seq) > 1:
-                for repeated_cpoint in seq:
-                    left, right, original_cps = aux(obj_cseg, cpoints, positions, repeated_cpoint)
-                    # if both neighbors are minimas with same value
-                    if all([left.minima, right.minima, left.value == right.value]):
-                        cpoint = repeated_cpoint.unflag(maxima)
-                        obj_cseg = obj_cseg.cpoint_replace(original_cps, cpoint)
+                first_pos = seq[0].position
+                last_pos = seq[-1].position
+                min_cpoints = min_list.cpoints
+                if not any([True for cpoint in min_cpoints if first_pos < cpoint.position < last_pos]):
+                    for j in range(len(seq)):
+                        max_cpoint = seq[j]
+                        if j > 0:
+                            new_max_cpoint = max_cpoint.unflag(maxima)
+                            obj_cseg = obj_cseg.cpoint_replace(max_cpoint, new_max_cpoint)
 
-        # minimas. step 9
+
+        # maximas. step 9
         group = repeated_cps_value_group(min_list)
 
         for seq in group:
             if len(seq) > 1:
-                for repeated_cpoint in seq:
-                    left, right, original_cps = aux(obj_cseg, cpoints, positions, repeated_cpoint)
-                    # if both neighbors are maximas with same value
-                    if all([left.maxima, right.maxima, left.value == right.value]):
-                        cpoint = repeated_cpoint.unflag(minima)
-                        obj_cseg = obj_cseg.cpoint_replace(original_cps, cpoint)
+                first_pos = seq[0].position
+                last_pos = seq[-1].position
+                min_cpoints = min_list.cpoints
+                if not any([True for cpoint in min_cpoints if first_pos < cpoint.position < last_pos]):
+                    for j in range(len(seq)):
+                        max_cpoint = seq[j]
+                        if j > 0:
+                            new_max_cpoint = max_cpoint.unflag(maxima)
+                            obj_cseg = obj_cseg.cpoint_replace(max_cpoint, new_max_cpoint)
 
         return obj_cseg
 
