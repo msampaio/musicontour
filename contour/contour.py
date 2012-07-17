@@ -1285,8 +1285,11 @@ class Contour(MutableSequence):
         seq = deepcopy(reduced).cseg
         i = 2
 
+        # remove repeated sequences with 2 elements
         while i < len(seq) - 1:
-            if seq[i] == seq[i - 2] and seq[i + 1] == seq[i - 1]:
+            first_seq = [seq[i - 2], seq[i - 1]]
+            second_seq = [seq[i], seq[i + 1]]
+            if all(x == y for x, y in zip(first_seq, second_seq)):
                 seq.pop(i)
                 seq.pop(i)
             else:
