@@ -108,7 +108,7 @@ class TestUtils(unittest.TestCase):
         cp5 = CP(4, 2, True, True)
         cpoints = [cp1, cp2, cp3, cp4, cp5]
         self.assertEqual(contour.repeated_cps_value_group(cpoints), [[cp1], [cp2], [cp3, cp4], [cp5]])
-        self.assertEqual(contour.repeated_cps_value_group([cp1, cp2]), [cp1, cp2])
+        self.assertEqual(contour.repeated_cps_value_group([cp1, cp2]), [[cp1], [cp2]])
 
     def test_depth_increment_schultz(self):
         self.assertEqual(contour.depth_increment_schultz(0), 2)

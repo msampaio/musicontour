@@ -199,7 +199,7 @@ def repeated_cps_value_group(cpoints):
         group = [list(items[1]) for items in grouped]
         return [[obj_cseg.cpoint_by_position(subseq[0]) for subseq in seq] for seq in group]
     else:
-        return cpoints
+        return [[cpoint] for cpoint in cpoints]
 
 
 def depth_increment_schultz(depth):
