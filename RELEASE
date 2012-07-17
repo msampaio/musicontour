@@ -2,8 +2,73 @@
 
 Release Notes
 
-* MusiContour, development version, status in Mar 18th, 2012
+* MusiContour, development version, status in Jul 17th, 2012
+This is a snapshot of development version of MusiContour. These are
+the features
 
+** Musical Contour Relations Theories operations implemented:
+*** Rotation
+*** Retrogression
+*** Inversion
+*** Translation (Normal form)
+*** Find Cpoint by position
+*** All Maximas
+*** All Minimas
+*** Remove repeated adjacent Cpoint
+*** Prime Form (Marvin and Laprade)
+*** Prime Form (Sampaio)
+*** Unique Prime form test
+*** Subsets
+*** Subsets grouped by normal form
+*** Subsets grouped by prime form
+*** Cpoint replace
+*** Morris reduction algorithm
+*** Schultz reduction algorithm refinments
+*** Window reduction algorithm
+*** Bor reduction algorithm
+*** Sampaio reduction algorithm
+*** Contour segments for an internal diagonal
+*** Contour segment / Friedmann Contour class (CC)
+*** Contour Adjacency Series Vector (CASV)
+*** Contour Interval Succession (CIS)
+*** Contour Interval Array (CIA)
+*** Contour Class Vector I (CCVI)
+*** Contour Class Vector II (CCVII)
+*** Comparison Matrix
+*** Internal Diagonal / Contour adjacency series (CAS)
+*** Fuzzy membership matrix
+*** Fuzzy comparison matrix
+*** Contour class index I (Sampaio)
+*** Contour class index II (Sampaio)
+*** RI Identity test (Sampaio)
+*** Symmetry Index (Sampaio)
+*** Base three representation
+*** Oscillation index
+*** Csegclasses table
+*** Maxima
+*** Minima
+*** Cseg Rotation class (Sampaio)
+*** Prime form algorithm test
+*** Possible Contour
+*** Fuzzy average matrix
+*** Fuzzy crisp similarity
+*** Fuzzy fuzzy similarity
+*** Cseg similarity (CSIM)
+*** Csegclass similarity (CSIM)
+*** Contour embedded (CEMB)
+*** Csubseg mutually embedded (CMEMB)
+*** All contour mutually embedded (ACMEMB)
+*** Diagonal rotation
+*** Diagonal retrograde
+*** Diagonal inversion
+*** Diagonal subsets
+*** Diagonal prime form (Sampaio)
+*** Cseg from diagonals (Sampaio)
+*** Contour csegclass number from cseg (Sampaio)
+*** Similarity continuum (Sampaio)
+*** Cseg plot (Sampaio)
+
+* MusiContour, development version, status in Mar 18th, 2012
 This is a snapshot of development version of MusiContour. These are
 the features
 
