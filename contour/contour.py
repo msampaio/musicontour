@@ -915,9 +915,10 @@ class Contour(MutableSequence):
 
         return Contour([cpoint for cpoint in cpoints if aux_max_min_test(cpoint)])
 
-    def repeated_cpoint_flag(self):
+    def repeated_cpoint_flag(self, algorithm):
         """Returns a contour object with ajdacent repeated cpoints
-        (un)flagged by Morris algorithm steps 6 and 7 (Morris, 1993).
+        (un)flagged by Morris/Schultz algorithm steps 6 and 7 (Morris,
+        1993), (Schultz, 2009).
         """
 
         def add(cpoint, new_cpoints, fn=None):
@@ -940,8 +941,15 @@ class Contour(MutableSequence):
                     # not maximum neither minimum in string: flag only one
                     # of them (I choose the first one)
                     else:
-                        add(group[0], new_cpoints)
-                        [add(cpoint, new_cpoints, fn) for cpoint in group[1:]]
+                        if algorithm == 'Morris':
+                            # flag first repeated cpoint
+                            add(group[0], new_cpoints)
+                            # don't flag remaining repeated cpoints
+                            [add(cpoint, new_cpoints, fn) for cpoint in group[1:]]
+                        elif algorithm == 'Schultz':
+                            # flag all repeated cpoints
+                            for g in group:
+                                add(g, new_cpoints)
                 else:
                     new_cpoints.append(group[0])
 
@@ -998,7 +1006,7 @@ class Contour(MutableSequence):
             n += 1
 
             # steps 6 and 7:
-            max_min_list = max_min_list.repeated_cpoint_flag()
+            max_min_list = max_min_list.repeated_cpoint_flag('Morris')
 
             # step 8
             unflagged = max_min_list.unflagged_test()
