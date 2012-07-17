@@ -528,11 +528,20 @@ class TestUtils(unittest.TestCase):
             CP(9, 2, False, False),
             CP(11, 5, True, True)
             ])
+        cseg9 = Contour([
+            CP(0, 0, True, True),
+            CP(1, 4, False, False),
+            CP(3, 2, False, False),
+            CP(4, 5, True, False),
+            CP(5, 5, True, False),
+            CP(6, 1, True, True)
+            ])
         self.assertEqual(cseg1.repeated_cpoint_flag('Morris'), cseg1)
         self.assertEqual(cseg2.repeated_cpoint_flag('Morris'), cseg3)
         self.assertEqual(cseg4.repeated_cpoint_flag('Morris'), cseg5)
         self.assertEqual(cseg6.repeated_cpoint_flag('Morris'), cseg6)
         self.assertEqual(cseg7.repeated_cpoint_flag('Morris'), cseg8)
+        self.assertEqual(cseg2.repeated_cpoint_flag('Schultz'), cseg9)
 
     def test_reduction_morris(self):
         cseg1, cseg2 = Contour([0, 4, 3, 2, 5, 5, 1]), Contour([0, 2, 1])
