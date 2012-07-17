@@ -1166,12 +1166,10 @@ class Contour(MutableSequence):
         # steps 6 to 16
         while True:
             # steps 6 and 7:
-            max_min_list = max_min_list.repeated_cpoint_flag('Schultz').cpoints
+            max_min_list = max_min_list.repeated_cpoint_flag('Schultz')
 
             # steps 8 and 9:
             max_min_list = max_min_list.remove_no_intervene_flags()
-
-            print max_min_list.cpoints
 
             # step 10:
             unflagged = max_min_list.unflagged_test()
@@ -1179,11 +1177,8 @@ class Contour(MutableSequence):
             if not unflagged and not combined_repetition:
                 break
 
-            # step 11
+            # steps 11 and 12
             if len(max_min_list) > 4:
-                max_min_list = max_min_list.unflag_repeated_cpoint()
-
-                # step 12
                 max_min_list = max_min_list.reflag_repeated_cpoint('maxima')
                 max_min_list = max_min_list.reflag_repeated_cpoint('minima')
 

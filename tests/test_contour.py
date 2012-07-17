@@ -555,7 +555,11 @@ class TestUtils(unittest.TestCase):
     def test_reduction_schultz(self):
         cseg1 = Contour([1, 0, 2, 0, 2, 1])
         cseg2 = Contour([1, 0, 2, 1])
+        cseg3 = Contour([1, 3, 0, 3, 0, 3, 0, 3, 2])
+        cseg4 = Contour([1, 3, 0, 3, 2])
         self.assertEqual(cseg1.reduction_schultz(), [cseg2, 2])
+        self.assertEqual(cseg3.reduction_schultz(), [cseg4, 2])
+
     def test_remove_no_intervene_flags(self):
         cseg1 = Contour([
             CP(0, 1, True, True),
