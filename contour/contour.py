@@ -930,7 +930,7 @@ class Contour(MutableSequence):
             # tests if first or last cpoints are in group
             return any([extreme in group for extreme in extremes])
 
-        def aux_remove(repeated_group, extremes, fn):
+        def aux_remove(obj_cseg_cpoints, repeated_group, extremes, fn):
             new_cpoints = []
             for group in repeated_group:
                 if len(group) > 1:
@@ -969,9 +969,9 @@ class Contour(MutableSequence):
         # regroup max_min_list by adjcent repeated value cpoints
         if max_min_list.repetition_adjacent_cpitch_test():
             repeated_group = repeated_cps_value_group(max_min_list)
-            new_cpoints = aux_remove(repeated_group, extremes, maxima)
+            new_cpoints = aux_remove(cpoints, repeated_group, extremes, maxima)
             new_repeated = repeated_cps_value_group(new_cpoints)
-            new_cpoints = aux_remove(new_repeated, extremes, minima)
+            new_cpoints = aux_remove(cpoints, new_repeated, extremes, minima)
         else:
             new_cpoints = max_min_list
 
