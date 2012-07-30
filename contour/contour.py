@@ -1256,7 +1256,7 @@ class Contour(MutableSequence):
             depth += 1
         return [old, depth]
 
-    def reduction_bor(self, windows=3, translation=True):
+    def reduction_bor(self, windows=3, translation=True, reposition=True):
         """Returns reduction contour and its depth with given windows
         sequence (Bor, 2009).
 
@@ -1268,7 +1268,7 @@ class Contour(MutableSequence):
         obj_cseg = deepcopy(self)
         depth = 0
         for window in win_vals:
-            new_obj = obj_cseg.reduction_window(window, translation)
+            new_obj = obj_cseg.reduction_window(window, translation, reposition)
             if obj_cseg != new_obj:
                 depth += 1
             obj_cseg = new_obj
