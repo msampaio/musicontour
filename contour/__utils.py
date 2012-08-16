@@ -426,3 +426,25 @@ def count_sets(seq1, seq2):
         return count_sets(seq1[1:], seq2[1:]) + count_sets(seq1, seq2[1:])
     else:
         return count_sets(seq1, seq2[1:])
+
+
+def binomial_coefficient(a, b):
+    """Returns binomial coefficient of a and b."""
+
+    lower, higher = sorted([a, b])
+    fac = lambda n: 1 if n < 2 else n * fac(n - 1)
+    combos = lambda n, k: fac(n) / fac(k) / fac(n - k)
+    return combos(higher, lower)
+
+
+def number_of_possible_mutually_subsets(card1, card2):
+    """Return the number of possible subsets from cardinalities 2 to
+    the greater given cardinality.
+
+    >>> number_of_possible_mutually_subsets(5, 4)
+    22
+    """
+
+    s1 = sum([binomial_coefficient(card1, n) for n in range(2, card1 + 1)])
+    s2 = sum([binomial_coefficient(card2, n) for n in range(2, card2 + 1)])
+    return s1 + s2

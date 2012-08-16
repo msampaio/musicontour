@@ -114,5 +114,21 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(utils.count_sets([1], [2]), 0)
         self.assertEqual(utils.count_sets([1, 2], [1, 2, 3, 1, 4, 2]), 3)
 
+    def test_binomial_coefficient(self):
+        self.assertEqual(utils.binomial_coefficient(3, 2), 3)
+        self.assertEqual(utils.binomial_coefficient(4, 2), 6)
+        self.assertEqual(utils.binomial_coefficient(4, 3), 4)
+        self.assertEqual(utils.binomial_coefficient(5, 2), 10)
+        self.assertEqual(utils.binomial_coefficient(5, 3), 10)
+        self.assertEqual(utils.binomial_coefficient(5, 4), 5)
+
+    def test_number_of_possible_mutually_subsets(self):
+        self.assertEqual(utils.number_of_possible_mutually_subsets(2, 2), 2)
+        self.assertEqual(utils.number_of_possible_mutually_subsets(3, 2), 5)
+        self.assertEqual(utils.number_of_possible_mutually_subsets(3, 3), 8)
+        self.assertEqual(utils.number_of_possible_mutually_subsets(4, 3), 15)
+        self.assertEqual(utils.number_of_possible_mutually_subsets(4, 4), 22)
+        self.assertEqual(utils.number_of_possible_mutually_subsets(5, 4), 37)
+
 if __name__ == '__main__':
     unittest.main()
