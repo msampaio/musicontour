@@ -108,5 +108,11 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(utils.ascent_membership(0), 0)
         self.assertEqual(utils.ascent_membership(1), 1)
 
+    def test_count_sets(self):
+        self.assertEqual(utils.count_sets([], [1, 2]), 1)
+        self.assertEqual(utils.count_sets([1], []), 0)
+        self.assertEqual(utils.count_sets([1], [2]), 0)
+        self.assertEqual(utils.count_sets([1, 2], [1, 2, 3, 1, 4, 2]), 3)
+
 if __name__ == '__main__':
     unittest.main()

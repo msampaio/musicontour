@@ -410,3 +410,19 @@ def ascent_membership(el):
         return 1
     else:
         print el, "is not a crisp relation."
+
+
+def count_sets(seq1, seq2):
+    """Return the number of times ordered seq1 is in ordered seq2.
+
+    >>> count_sets([1, 2], [1, 2, 3, 4, 1, 5, 2])
+    3
+    """
+    if seq1 == []:
+        return 1
+    elif seq2 == []:
+        return 0
+    elif seq1[0] == seq2[0]:
+        return count_sets(seq1[1:], seq2[1:]) + count_sets(seq1, seq2[1:])
+    else:
+        return count_sets(seq1, seq2[1:])
