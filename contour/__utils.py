@@ -445,6 +445,4 @@ def number_of_possible_mutually_subsets(card1, card2):
     22
     """
 
-    s1 = sum([binomial_coefficient(card1, n) for n in range(2, card1 + 1)])
-    s2 = sum([binomial_coefficient(card2, n) for n in range(2, card2 + 1)])
-    return s1 + s2
+    return 2 ** card1 + 2 ** card2 - (card1 + card2 + 2)
