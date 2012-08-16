@@ -4,15 +4,14 @@ DIR = contour-module-$(VERSION)
 SERVER = genosmus.com:www/villa-lobos/download/
 SRC_DIR = contour
 TEST_DIR = tests
-GUI_DIR = gui
 WEB_DIR = web
 MAIN_FILE = MusiContour.py
-DIST_FILES = $(MAIN_FILE) $(GUI_DIR) $(SRC_DIR) COPYING README RELEASE
+DIST_FILES = $(MAIN_FILE) $(SRC_DIR) COPYING README RELEASE
 
 .PHONY: doc tests
 
 check:
-	pep8 *.py $(SRC_DIR)/*.py $(TEST_DIR)/*.py $(GUI_DIR)/*.py
+	pep8 *.py $(SRC_DIR)/*.py $(TEST_DIR)/*.py
 
 clean: clean-dist
 	rm -f *.pyc *~
@@ -20,8 +19,6 @@ clean: clean-dist
 	rm -f $(SRC_DIR)/*.pyc
 	rm -f $(TEST_DIR)/*~
 	rm -f $(TEST_DIR)/*.pyc
-	rm -f $(GUI_DIR)/*~
-	rm -f $(GUI_DIR)/*.pyc
 	rm -f $(WEB_DIR)/*~
 	rm -f $(WEB_DIR)/*.pyc
 
