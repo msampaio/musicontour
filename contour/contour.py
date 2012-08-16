@@ -9,7 +9,6 @@ import operator
 import __utils as utils
 import diagonal
 import matrix
-import fuzzy
 
 
 class ContourPointException(Exception):
