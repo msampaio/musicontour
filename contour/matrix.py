@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import numpy
+import itertools
 import contour
 import __utils as utils
 import diagonal
 
 
+# crisp
 class ComparisonMatrix(list):
     """Returns an objcect comparison matrix.
     Input is a list of lists, each of them representing a line in
@@ -55,6 +58,13 @@ class ComparisonMatrix(list):
 
         if n < self.size():
             return [line[i + n:] for i, line in enumerate(self) if line][:-n]
+
+    def fuzzy_matrix(self):
+        """Returns a fuzzy ascent membership matrix from a crisp
+        matrix."""
+
+        return FuzzyMatrix([[utils.ascent_membership(column) for column in row] for row in self])
+
 
     def show(self):
         """Returns matrix with a matrix with cseg in a visual way.
@@ -120,3 +130,71 @@ def triangle_zero_replace_to_cseg(triangle):
         new_matrix = matrix_from_triangle(new_triangle)
         pair.append(new_matrix.cseg())
     return [contour.Contour(x) for x in pair]
+
+
+# fuzzy
+class FuzzyMatrix(list):
+    """Returns an object fuzzy matrix.
+    Input is a list of lists, each of them representing a line in
+    matrix:
+
+    >>> FuzzyMatrix([[0, 1, 1], [-1, 0, -1], [-1, 1, 0]])
+    """
+
+    def __repr__(self):
+        return "\n".join([" ".join([str(row) for row in line]) for line in self])
+
+    def except_zero_diagonal(self):
+        """Returns the matrix without main zero diagonal.
+
+        >>> FuzzyMatrix([[0, 1, 1, 1],
+                         [0, 0, 1, 1],
+                         [0, 0, 0, 0],
+                         [0, 0, 1, 0]]).except_zero_diagonal()
+        [[1, 1, 1], [0, 1, 1], [0, 0, 0], [0, 0, 1]]
+        """
+
+        return [[el for r, el in enumerate(line) if l != r] for l, line in enumerate(self)]
+
+    def comparison(self):
+        """Returns a comparison matrix from an average matrix.
+
+        >>> FuzzyMatrix([[0.0, 0.0, 0.0, 0.0, 0.0],
+                         [1.0, 0.0, 1.0, 1.0, 0.66666666666666663],
+                         [1.0, 0.0, 0.0, 1.0, 0.33333333333333331],
+                         [1.0, 0.0, 0.0, 0.0, 0.0],
+                         [1.0, 0.33333333333333331, 0.33333333333333331, 1.0, 0.0]]).comparison()
+        [[0.0, -1.0, -1.0, -1.0, -1.0],
+        [1.0, 0.0, 1.0, 1.0, 0.3333333333333333],
+        [1.0, -1.0, 0.0, 1.0, 0.0],
+        [1.0, -1.0, -1.0, 0.0, -1.0],
+        [1.0, -0.3333333333333333, 0.0, 1.0, 0.0]]
+        """
+
+        def __comparison(matrix, a, b):
+            return matrix.item((x, y)) - matrix.item((y, x))
+
+        def __product(rsize, n):
+            return itertools.product(range(n, n + 1), rsize)
+
+        size = len(self)
+        rsize = range(size)
+        matrix = numpy.matrix(self)
+
+        fm = [[__comparison(matrix, x, y)  for x, y in __product(rsize, n)] for n in rsize]
+        return FuzzyMatrix(fm)
+
+def average_matrix(*csegs):
+    """Returns the matrix of an average contour from a list of
+    contours. Quinn 1997.
+
+    >>> average_matrix(Contour([3, 0, 1, 2, 1]), Contour([4, 0, 1, 3, 2]), Contour([4, 1, 2, 3, 0]))
+    [[0.0, 0.0, 0.0, 0.0, 0.0],
+    [1.0, 0.0, 1.0, 1.0, 0.66666666666666663],
+    [1.0, 0.0, 0.0, 1.0, 0.33333333333333331],
+    [1.0, 0.0, 0.0, 0.0, 0.0],
+    [1.0, 0.33333333333333331, 0.33333333333333331, 1.0, 0.0]]
+    """
+
+    matrices = [numpy.array(cseg.fuzzy_membership_matrix()) for cseg in csegs]
+    return [list(sum(a) / float(len(matrices))) for a in zip(*matrices)]

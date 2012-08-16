@@ -103,5 +103,10 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(utils.base_3_comparison(1, 1), 1)
         self.assertEqual(utils.base_3_comparison(0, 1), 2)
 
+    def test_ascent_membership(self):
+        self.assertEqual(utils.ascent_membership(-1), 0)
+        self.assertEqual(utils.ascent_membership(0), 0)
+        self.assertEqual(utils.ascent_membership(1), 1)
+
 if __name__ == '__main__':
     unittest.main()

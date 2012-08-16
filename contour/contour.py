@@ -1402,7 +1402,7 @@ class Contour(MutableSequence):
         0 0 1 0
         """
 
-        return fuzzy.FuzzyMatrix(utils.make_matrix(fuzzy.membership, self))
+        return self.comparison_matrix().fuzzy_matrix()
 
     def fuzzy_comparison_matrix(self):
         """Returns a Fuzzy comparison matrix. Quinn (1997).
@@ -1414,7 +1414,8 @@ class Contour(MutableSequence):
         -1 -1 1 0
         """
 
-        return fuzzy.FuzzyMatrix(utils.make_matrix(fuzzy.comparison, self))
+        fuzzy_matrix = self.fuzzy_membership_matrix()
+        return fuzzy_matrix.comparison()
 
     def adjacency_series_vector(self):
         """Returns Friedmann (1985) CASV, a two digit summation of ups

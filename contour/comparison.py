@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import math
+import itertools
+import numpy
 import contour
 from contour import Contour
 import __utils as utils
@@ -289,3 +291,79 @@ def cseg_similarity_subsets_continuum(cseg, prime_algorithm="prime_form_sampaio"
         result.append([prime, acmemb])
 
     return sorted(result, key=lambda x: x[1])
+
+# fuzzy operations
+def entry_numbers(size):
+    """Returns the entries to be compared in a fuzzy comparison
+    matrix. Quinn 1997, equation 6.2.
+
+    >>> entry_numbers(5)
+    20
+    """
+
+    return (size ** 2) - size
+
+
+def entry_numbers_cseg(cseg):
+    """Returns the entries to be compared in a fuzzy comparison
+    matrix. Quinn 1997, equation 6.2.
+
+    >>> entry_numbers_cseg(Contour([2, 0, 3, 1, 4]))
+    20
+    """
+
+    return entry_numbers(len(cseg))
+
+
+def similarity_increment(el_1, el_2, entries_number):
+    """Returns increment for fuzzy retrofitting similarity comparison
+    function. Quinn 1997, equation 6.4.
+
+    el_1 = fuzzy comparison matrix entry for cseg 1
+    el_2 = fuzzy comparison matrix entry for cseg 2
+
+    >>> similarity_increment(0.8, 0.9, 2)
+    0.45
+    """
+
+    return (1 - abs(el_2 - el_1)) / float(entries_number)
+
+
+def fuzzy_similarity_matrix(matrix1, matrix2):
+    """Returns fuzzy ascent membership similarity between two ascend
+    matrices. Quinn 1997, based on figure 11.
+
+    >>> matrix_similarity_fuzzy([[0, 0.8], [0, 0]], [[0, 0.9], [0, 0]])
+    0.95
+    """
+
+    size = len(matrix1[0])
+    rsize = range(size)
+
+    # number of compared entries
+    j = entry_numbers(size)
+
+    # fuzzy comparison matrix without zero main diagonal
+    m1 = numpy.matrix(matrix1)
+    m2 = numpy.matrix(matrix2)
+
+    def __increment(m1, m2, j, x, y):
+        return (1 - abs(m1.item(x, y) - m2.item(x, y))) / float(j)
+
+    matrix_model = [(x, y) for x, y in itertools.product(rsize, rsize) if x != y]
+
+    return sum([__increment(m1, m2, j, x, y) for x, y in matrix_model])
+
+
+def fuzzy_similarity(cseg1, cseg2):
+    """Returns fuzzy ascent membership similarity between two csegs.
+    Quinn 1997, figure 11.
+
+    >>> similarity_fuzzy(Contour([4, 1, 2, 3, 0]), Contour([4, 0, 1, 3, 2]))
+    0.8
+    """
+
+    m1 = cseg1.fuzzy_membership_matrix()
+    m2 = cseg2.fuzzy_membership_matrix()
+    return fuzzy_similarity_matrix(m1, m2)
+

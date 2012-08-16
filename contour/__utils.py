@@ -395,3 +395,18 @@ def base_3_comparison(a, b):
     """
 
     return cmp(b, a) + 1
+
+
+def ascent_membership(el):
+    """Returns fuzzy ascent membership from a crisp relation.
+
+    >>> ascent_membership(-1)
+    0
+    """
+
+    if el in (-1, 0):
+        return 0
+    elif el == 1:
+        return 1
+    else:
+        print el, "is not a crisp relation."

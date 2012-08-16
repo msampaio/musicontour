@@ -113,5 +113,22 @@ class TestUtils(unittest.TestCase):
                   [Contour([0, 1, 2, 3]), 1.0]]
         self.assertEqual(comparison.cseg_similarity_subsets_continuum(Contour([0, 1, 2, 3])), result)
 
+    def test_entry_numbers(self):
+        self.assertEqual(comparison.entry_numbers(5), 20)
+
+    def test_entry_numbers_cseg(self):
+        self.assertEqual(comparison.entry_numbers_cseg(Contour([2, 0, 3, 1, 4])), 20)
+
+    def test_similarity_increment(self):
+        self.assertEqual(comparison.similarity_increment(0.8, 0.9, 2), 0.45)
+
+    def test_fuzzy_similarity_matrix(self):
+        self.assertEqual(comparison.fuzzy_similarity_matrix([[0, 0.8], [0, 0]], [[0, 0.9], [0, 0]]), 0.95)
+
+    def test_fuzzy_similarity(self):
+        cseg1 = Contour([4, 1, 2, 3, 0])
+        cseg2 = Contour([4, 0, 1, 3, 2])
+        self.assertEqual(comparison.fuzzy_similarity(cseg1, cseg2), 0.8000000000000002)
+
 if __name__ == '__main__':
     unittest.main()
