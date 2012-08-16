@@ -3,7 +3,7 @@
 import unittest
 import contour.comparison as comparison
 from contour.contour import Contour
-from contour.diagonal import InternalDiagonal
+from contour.matrix import InternalDiagonal
 
 
 class TestUtils(unittest.TestCase):

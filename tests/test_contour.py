@@ -6,7 +6,7 @@ from contour.contour import ContourPoint as CP
 from contour.contour import Contour
 from contour.matrix import ComparisonMatrix
 from contour.matrix import FuzzyMatrix
-from contour.diagonal import InternalDiagonal
+from contour.matrix import InternalDiagonal
 
 
 class TestUtils(unittest.TestCase):

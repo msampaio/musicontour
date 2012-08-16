@@ -4,11 +4,82 @@ import unittest
 import contour.matrix as matrix
 from contour.matrix import ComparisonMatrix
 from contour.matrix import FuzzyMatrix
+from contour.matrix import InternalDiagonal
 from contour.contour import Contour
-from contour.diagonal import InternalDiagonal
 import contour.__utils as utils
 
 class TestUtils(unittest.TestCase):
+    # diagonal
+    def test_csegs(self):
+        i1 = InternalDiagonal([-1, 1])
+        i2 = InternalDiagonal([-1, 1, 1])
+        self.assertEqual(i1.csegs(), [Contour([1, 0, 2]), Contour([2, 0, 1])])
+        self.assertEqual(i2.csegs(), [Contour([1, 0, 2, 3]), Contour([2, 0, 1, 3]),
+                                      Contour([3, 0, 1, 2])])
+
+    def test_inversion_Int(self):
+        i1 = InternalDiagonal([-1, 1])
+        i2 = InternalDiagonal([-1, 1, 1])
+        self.assertEqual(i1.inversion(), InternalDiagonal([1, -1]))
+        self.assertEqual(i2.inversion(), InternalDiagonal([1, -1, -1]))
+
+    def test_rotation_Int(self):
+        i1 = InternalDiagonal([1, 1, 0, -1, -1, 1])
+        i2 = InternalDiagonal([1, 1, 0, -1, -1, 1])
+        i3 = InternalDiagonal([1, 1, 0, -1, -1, 1])
+        i4 = InternalDiagonal([1, 1, 0, -1, -1, 1])
+        self.assertEqual(i1.rotation(), InternalDiagonal([1, 0, -1, -1, 1, 1]))
+        self.assertEqual(i2.rotation(1), InternalDiagonal([1, 0, -1, -1, 1, 1]))
+        self.assertEqual(i3.rotation(2), InternalDiagonal([0, -1, -1, 1, 1, 1]))
+        self.assertEqual(i4.rotation(20), InternalDiagonal([0, -1, -1, 1, 1, 1]))
+
+    def test_Int_subsets(self):
+        i = InternalDiagonal([1, 1, 0, -1, -1, 1])
+        result1 = [[-1, -1], [-1, 1], [-1, 1], [0, -1], [0, -1],
+                   [0, 1], [1, -1], [1, -1], [1, -1], [1, -1],
+                   [1, 0], [1, 0], [1, 1], [1, 1], [1, 1]]
+        result2 = [[-1, -1, 1], [0, -1, -1], [0, -1, 1], [0, -1, 1],
+                   [1, -1, -1], [1, -1, -1], [1, -1, 1], [1, -1, 1],
+                   [1, -1, 1], [1, -1, 1], [1, 0, -1], [1, 0, -1],
+                   [1, 0, -1], [1, 0, -1], [1, 0, 1], [1, 0, 1],
+                   [1, 1, -1], [1, 1, -1], [1, 1, 0], [1, 1, 1]]
+        self.assertEqual(i.subsets(2), result1)
+        self.assertEqual(i.subsets(3), result2)
+
+    def test_Int_all_subsets(self):
+        i = InternalDiagonal([1, 1, 0, -1, -1, 1])
+        result = [[-1, -1], [-1, 1], [-1, 1], [0, -1], [0, -1],
+                  [0, 1], [1, -1], [1, -1], [1, -1], [1, -1],
+                  [1, 0], [1, 0], [1, 1], [1, 1], [1, 1],
+                  [-1, -1, 1], [0, -1, -1], [0, -1, 1],
+                  [0, -1, 1], [1, -1, -1], [1, -1, -1],
+                  [1, -1, 1], [1, -1, 1], [1, -1, 1], [1, -1, 1],
+                  [1, 0, -1], [1, 0, -1], [1, 0, -1], [1, 0, -1],
+                  [1, 0, 1], [1, 0, 1], [1, 1, -1], [1, 1, -1],
+                  [1, 1, 0], [1, 1, 1], [0, -1, -1, 1],
+                  [1, -1, -1, 1], [1, -1, -1, 1], [1, 0, -1, -1],
+                  [1, 0, -1, -1], [1, 0, -1, 1], [1, 0, -1, 1],
+                  [1, 0, -1, 1], [1, 0, -1, 1], [1, 1, -1, -1],
+                  [1, 1, -1, 1], [1, 1, -1, 1], [1, 1, 0, -1],
+                  [1, 1, 0, -1], [1, 1, 0, 1], [1, 0, -1, -1, 1],
+                  [1, 0, -1, -1, 1], [1, 1, -1, -1, 1],
+                  [1, 1, 0, -1, -1], [1, 1, 0, -1, 1],
+                  [1, 1, 0, -1, 1], [1, 1, 0, -1, -1, 1]]
+        self.assertEqual(i.all_subsets(), result)
+
+    def test_Int_subsets_adj_1(self):
+        i = InternalDiagonal([1, 1, 0, -1, -1, 1])
+        result1 = [[1, 1], [1, 0], [0, -1], [-1, -1], [-1, 1]]
+        result2 = [[1, 1, 0], [1, 0, -1], [0, -1, -1], [-1, -1, 1]]
+        self.assertEqual(i.subsets_adj(2), result1)
+        self.assertEqual(i.subsets_adj(3), result2)
+
+    def test_csegs_from_diagonals(self):
+        d = [InternalDiagonal([1, -1, 1, -1]), InternalDiagonal([1, 1, 1]),
+             InternalDiagonal([1, 1]), InternalDiagonal([1])]
+        self.assertEqual(matrix.csegs_from_diagonals(d), Contour([0, 2, 1, 4, 3]))
+
+    # crisp
     def test_Com_matrix_cseg(self):
         cm = ComparisonMatrix([[0, 1, 1, 1], [-1, 0, -1, 1], [-1, 1, 0, 1], [-1, -1, -1, 0]])
         self.assertEqual(cm.cseg(), Contour([0, 2, 1, 3]))

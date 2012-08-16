@@ -7,7 +7,6 @@ from collections import MutableSequence
 from copy import deepcopy
 import operator
 import __utils as utils
-import diagonal
 import matrix
 
 
@@ -108,7 +107,7 @@ def pretty_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
             ri = " "
         csegclass = Contour(c)
         int_diagonals = Contour(c).internal_diagonals(1)
-        str_int_diag = diagonal.InternalDiagonal(int_diagonals)
+        str_int_diag = matrix.InternalDiagonal(int_diagonals)
         sections.append(" ".ljust(4) +
                         "c {0}-{1}{2}".format(a, b, ri).ljust(16) +
                         str(csegclass).ljust(20) +
@@ -1372,10 +1371,10 @@ class Contour(MutableSequence):
         < + + - >
         """
 
-        matrix = self.comparison_matrix()
-        int_m = itertools.imap(cmp, matrix, itertools.islice(matrix, n, None))
+        mtx = self.comparison_matrix()
+        int_m = itertools.imap(cmp, mtx, itertools.islice(mtx, n, None))
         int_d = [x for x in int_m if x != 0]
-        return diagonal.InternalDiagonal(int_d)
+        return matrix.InternalDiagonal(int_d)
 
     def comparison_matrix(self):
         """Returns Morris (1987) a cseg COM-Matrix.
