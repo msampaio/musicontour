@@ -210,7 +210,7 @@ def quotient(a, b):
     try:
         return b / float(a)
     except:
-        print "Number error"
+        print "Number error. Denominator equal to 0."
 
 def seq_operation(fn, seq):
     return [fn(a, b) for a, b in zip(seq, seq[1:])]
