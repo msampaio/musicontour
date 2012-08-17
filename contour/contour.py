@@ -20,9 +20,7 @@ class ContourException(Exception):
 
 def build_classes_card(card, prime_algorithm="prime_form_marvin_laprade"):
     """Generates contour classes like Marvin and Laprade (1987) table
-    for one cardinality. Accepts more than one algorithm of prime
-    form. Marvin and Laprade algorithm is default.
-    Returns (card, number, contour class).
+    for one cardinality. Returns (card, number, contour class).
 
     >>> build_classes_card(3, 'prime_form_sampaio')
     [(3, 1, (0, 1, 2), True), (3, 2, (0, 2, 1), False)]
@@ -56,19 +54,13 @@ def build_classes_card(card, prime_algorithm="prime_form_marvin_laprade"):
 
 def build_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
     """Generates contour classes like Marvin and Laprade (1987)
-    table. Accepts more than one algorithm of prime form. Marvin and
-    Laprade algorithm is default.
+    table. Accepts more than one algorithm of prime form.
 
     >>> build_classes_card(3, 'prime_form_sampaio')
     [[(2, 1, (0, 1), True)],
     [(3, 1, (0, 1, 2), True), (3, 2, (0, 2, 1), False)],
     [(4, 1, (0, 1, 2, 3), True),
-    (4, 2, (0, 1, 3, 2), False),
-    (4, 3, (0, 2, 1, 3), True),
-    (4, 4, (0, 2, 3, 1), False),
-    (4, 5, (0, 3, 1, 2), False),
-    (4, 6, (0, 3, 2, 1), False),
-    (4, 7, (1, 0, 3, 2), True),
+    ...
     (4, 8, (1, 3, 0, 2), True)]]
     """
 
@@ -78,11 +70,7 @@ def build_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
 
 def pretty_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
     """Returns contour classes like Marvin and Laprade (1987)
-    table. Accepts more than one algorithm of prime form. Marvin and
-    Laprade algorithm is default.
-
-    'cc' stores flatten contour classes of all cardinalities until the
-    one given.
+    table.
     """
 
     header = "C-space segment-classes [based on Marvin and Laprade (1987)]" + \
@@ -129,10 +117,6 @@ def contour_class(cardinality, number):
 
 def subsets_grouped(dictionary, group_type):
     """Returns a string with subsets grouped by their group type.
-
-    If the group type is normal form, input list must be the
-    Contour.subsets_normal output. If the group type is prime form,
-    input list must be the Contour.subsets_prime output.
 
     >>> subsets_grouped([[[1, 3, 0, 2], [3, 1, 4, 2]],
                         [[0, 2, 3, 1], [0, 3, 4, 2]]], 'prime')
@@ -444,11 +428,6 @@ class Contour(MutableSequence):
     def rotation(self, factor=1):
         """Rotates a cseg around a factor.
 
-        factor is optional. Default factor=1.
-
-        'n' is the module of input factor. It's allowed to use factor
-        numbers greater than cseg size.
-
         >>> Contour([0, 1, 2, 3]).rotation(2)
         < 2 3 0 1 >
         """
@@ -600,15 +579,13 @@ class Contour(MutableSequence):
 
     def __prime_form_marvin_laprade_step_3(self, position):
         """Runs Marvin and Laprade (1987) third step of prime form
-        algorithm.
-
-        If last cpitch < first cpitch, retrograde.
-
-        position: the first cps position that its value is different
-        for its symmetric (cf. unequal_edges).
+        algorithm. If last cpitch < first cpitch, retrograde.
         """
 
         reduced = self
+
+        # position: the first cps position that its value is different
+        # for its symmetric (cf. unequal_edges).
 
         false_first = self.cpoint(position).value
         false_last = self.cpoint(utils.negative(position) - 1).value
@@ -716,16 +693,13 @@ class Contour(MutableSequence):
 
     def subsets_normal(self, n):
         """Returns adjacent and non-adjacent subsets of a given
-        contour grouped by their normal forms.
-
-        Output is a dictionary where the key is the normal form, and
-        the attribute is csubsets list.
+        contour grouped by their normal forms. Output is a dictionary
+        where the key is the normal form, and the attribute is
+        csubsets list.
 
         >>> Contour([0, 3, 1, 4, 2]).subsets_normal()
         {(0, 1, 3, 2): [[0, 1, 4, 2]],
-        (0, 2, 1, 3): [[0, 3, 1, 4]],
-        (0, 2, 3, 1): [[0, 3, 4, 2]],
-        (0, 3, 1, 2): [[0, 3, 1, 2]],
+        ...
         (2, 0, 3, 1): [[3, 1, 4, 2]]}
         """
 
@@ -745,16 +719,13 @@ class Contour(MutableSequence):
 
     def subsets_prime(self, n, prime_algorithm="prime_form_sampaio"):
         """Returns adjacent and non-adjacent subsets of a given
-        contour grouped by their prime forms.
-
-        Output is a dictionary where the key is the prime form, and
-        the attribute is csubsets list.
+        contour grouped by their prime forms. Output is a dictionary
+        where the key is the prime form, and the attribute is csubsets
+        list.
 
         >>> Contour([0, 3, 1, 4, 2]).subsets_prime()
         {(0, 1, 3, 2): [[0, 1, 4, 2]],
-        (0, 2, 1, 3): [[0, 3, 1, 4]],
-        (0, 2, 3, 1): [[0, 3, 4, 2]],
-        (0, 3, 1, 2): [[0, 3, 1, 2]],
+        ...
         (1, 3, 0, 2): [[3, 1, 4, 2]]}
         """
 
@@ -802,9 +773,7 @@ class Contour(MutableSequence):
 
         >>> Contour([0, 1, 3, 2]).all_subsets_normal()
         {(0, 1): [< 0 1 >, < 0 2 >, < 0 3 >, < 1 2 >, < 1 3 >],
-        (0, 1, 2): [< 0 1 2 >, < 0 1 3 >],
-        (0, 1, 3, 2): [< 0 1 3 2 >],
-        (0, 2, 1): [< 0 3 2 >, < 1 3 2 >],
+        ...
         (1, 0): [< 3 2 >]}
         """
 
@@ -1420,18 +1389,17 @@ class Contour(MutableSequence):
         and downs of a CAS (internal diagonal n=1 here). For example,
         [2, 1] means 2 ups and 1 down.
 
-        'internal_diagonal' stores cseg internal diagonal, n = 1.
-
-        'ups' stores the total number of ups
-
-        'downs' stores the total number of downs
-
         >>> Contour([0, 1, 3, 2]).adjacency_series_vector()
         [2, 1]
         """
 
+        # 'internal_diagonal' stores cseg internal diagonal, n = 1.
         internal_diagonal = self.internal_diagonals(1)
+
+        # 'ups' stores the total number of ups
         ups = sum([(x if x > 0 else 0) for x in internal_diagonal])
+
+        # 'downs' stores the total number of downs
         downs = sum([(x if x < 0 else 0) for x in internal_diagonal])
         return [ups, abs(downs)]
 
@@ -1442,21 +1410,15 @@ class Contour(MutableSequence):
         there are 2 instances of type +1 CI, 2 type +2 CI, 1. CIA =
         ([2, 2, 1], [1, 0, 0])
 
-        'up_intervals' and 'down_intervals' store the contour intervals
-        that the method counts.
-
-        The loop appends positive elements in ups_list and negative in
-        downs_list.
-
-        'ups' and 'downs' stores contour intervals counting for all
-        types of positive and negative intervals in the cseg.
-
         >>> Contour([0, 1, 3, 2]).interval_array()
         ([2, 2, 1], [1, 0, 0])
         """
 
+        # 'up_intervals' and 'down_intervals' store the contour intervals
+        # that the method counts.
         up_intervals = range(1, self.size)
         down_intervals = map(utils.negative, up_intervals)
+
         ups_list = []
         downs_list = []
 
@@ -1467,6 +1429,8 @@ class Contour(MutableSequence):
             elif interval < 0:
                 downs_list.append(interval)
 
+        # 'ups' and 'downs' stores contour intervals counting for all
+        # types of positive and negative intervals in the cseg.
         ups = [ups_list.count(up_i) for up_i in up_intervals]
         downs = [downs_list.count(down_i) for down_i in down_intervals]
 
@@ -1481,20 +1445,19 @@ class Contour(MutableSequence):
         1], [1, 0, 0], CCVI = [(2 * 1) + (2 * 2) + (1 * 3)], [(1 * 1),
         (2 * 0), (3 * 0)]. So, CCVI = [5, 1].
 
-        'items' stores the contour intervals to be sum.
-
-        'up_list' and 'down_list' stores the up and down contour
-        interval frequency lists.
-
-        'up_sum' and 'down_sum' stores the sum of the product of each
-        contour interval frequency and contour interval value.
-
         >>> Contour([0, 1, 3, 2]).class_vector_i()
         [9, 1]
         """
 
+        # 'items' stores the contour intervals to be sum.
         items = range(1, self.size)
+
+        # 'up_list' and 'down_list' stores the up and down contour
+        # interval frequency lists.
         up_list, down_list = self.interval_array()
+
+        # 'up_sum' and 'down_sum' stores the sum of the product of each
+        # contour interval frequency and contour interval value.
         up_sum = sum([a * b for a, b in itertools.izip(up_list, items)])
         down_sum = sum([a * b for a, b in itertools.izip(down_list, items)])
         return [up_sum, down_sum]
@@ -1556,10 +1519,9 @@ class Contour(MutableSequence):
         return self.__class_index("class_vector_ii")
 
     def segment_class(self, prime_algorithm="prime_form_sampaio"):
-        """Returns contour segment class of a given cseg.
-
-        Output format is: (cardinality, number, cseg_class, identity
-        under retrograded inversion), like (3, 1, (0, 1, 2), True).
+        """Returns contour segment class of a given cseg. Output
+        format is: (cardinality, number, cseg_class, identity under
+        retrograded inversion), like (3, 1, (0, 1, 2), True).
 
         >>> Contour([0, 1, 3, 2]).segment_class()
         (4, 2, < 0 1 3 2 >, False)
@@ -1717,8 +1679,7 @@ def prime_form_algorithm_test(card, prime_form_algorithm="prime_form_sampaio"):
 
     >>> prime_form_algorithm_test(5, 'prime_form_marvin_laprade')
     [< 0 1 3 2 4 >, < 0 2 1 3 4 >, < 0 2 3 1 4 >, < 0 3 1 2 4 >,
-    < 1 0 4 2 3 >, < 1 2 0 4 3 >, < 1 2 4 0 3 >, < 1 4 0 2 3 >,
-    < 3 0 4 2 1 >, < 3 2 0 4 1 >, < 3 2 4 0 1 >, < 3 4 0 2 1 >,
+    ...
     < 4 1 3 2 0 >, < 4 2 1 3 0 >, < 4 2 3 1 0 >, < 4 3 1 2 0 >]
     """
 

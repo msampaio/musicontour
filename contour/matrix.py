@@ -73,11 +73,6 @@ class InternalDiagonal(list):
     def rotation(self, factor=1):
         """Rotates an internal diagonal around a factor.
 
-        factor is optional. Default factor=1.
-
-        'n' is the module of input factor. It's allowed to use factor
-        numbers greater than internal diagonal size.
-
         >>> InternalDiagonal([-1, 1, 1, -1]).rotation(2)
         < + - - + >
         """
@@ -358,14 +353,10 @@ class FuzzyMatrix(list):
         """Returns a comparison matrix from an average matrix.
 
         >>> FuzzyMatrix([[0.0, 0.0, 0.0, 0.0, 0.0],
-                         [1.0, 0.0, 1.0, 1.0, 0.66666666666666663],
-                         [1.0, 0.0, 0.0, 1.0, 0.33333333333333331],
-                         [1.0, 0.0, 0.0, 0.0, 0.0],
+        ...
                          [1.0, 0.33333333333333331, 0.33333333333333331, 1.0, 0.0]]).comparison()
         [[0.0, -1.0, -1.0, -1.0, -1.0],
-        [1.0, 0.0, 1.0, 1.0, 0.3333333333333333],
-        [1.0, -1.0, 0.0, 1.0, 0.0],
-        [1.0, -1.0, -1.0, 0.0, -1.0],
+        ...
         [1.0, -0.3333333333333333, 0.0, 1.0, 0.0]]
         """
 
@@ -388,9 +379,7 @@ def average_matrix(*csegs):
 
     >>> average_matrix(Contour([3, 0, 1, 2, 1]), Contour([4, 0, 1, 3, 2]), Contour([4, 1, 2, 3, 0]))
     [[0.0, 0.0, 0.0, 0.0, 0.0],
-    [1.0, 0.0, 1.0, 1.0, 0.66666666666666663],
-    [1.0, 0.0, 0.0, 1.0, 0.33333333333333331],
-    [1.0, 0.0, 0.0, 0.0, 0.0],
+    ...
     [1.0, 0.33333333333333331, 0.33333333333333331, 1.0, 0.0]]
     """
 
