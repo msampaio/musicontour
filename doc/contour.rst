@@ -42,11 +42,3 @@ contour.matrix
    :members:
    :undoc-members:
    :show-inheritance:
-
-contour.__utils
--------------
-
-.. automodule:: contour.__utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
