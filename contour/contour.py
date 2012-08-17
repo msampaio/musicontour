@@ -343,6 +343,7 @@ class ContourPoint():
 
     def __repr__(self):
         return "< Position: {0}, Value: {1} >".format(self.position, self.value)
+
     def flag(self, fn):
         """Returns a flagged cpoint with maxima, minima or both."""
 
@@ -1001,32 +1002,38 @@ class Contour(MutableSequence):
         group = repeated_cps_value_group(max_list)
 
         for seq in group:
-            if len(seq) > 1:
-                first_pos = seq[0].position
-                last_pos = seq[-1].position
-                min_cpoints = min_list.cpoints
-                if not any([True for cpoint in min_cpoints if first_pos < cpoint.position < last_pos]):
-                    for j in range(len(seq)):
-                        if j > 0:
-                            max_cpoint = seq[j]
-                            new_max_cpoint = max_cpoint.unflag(maxima)
-                            obj_cseg = obj_cseg.cpoint_replace(max_cpoint, new_max_cpoint)
+            seq_size = len(seq)
+            if seq_size > 1:
+                for i in range(seq_size - 1):
+                    new_seq = seq[i:i+2]
+                    first_pos = new_seq[0].position
+                    last_pos = new_seq[-1].position
+                    min_cpoints = min_list.cpoints
+                    if not any([True for cpoint in min_cpoints if first_pos < cpoint.position < last_pos]):
+                        for j in range(len(new_seq)):
+                            if j > 0:
+                                max_cpoint = new_seq[j]
+                                new_max_cpoint = max_cpoint.unflag(maxima)
+                                obj_cseg = obj_cseg.cpoint_replace(max_cpoint, new_max_cpoint)
 
 
         # minimas. step 9
         group = repeated_cps_value_group(min_list)
 
         for seq in group:
+            seq_size = len(seq)
             if len(seq) > 1:
-                first_pos = seq[0].position
-                last_pos = seq[-1].position
-                max_cpoints = max_list.cpoints
-                if not any([True for cpoint in max_cpoints if first_pos < cpoint.position < last_pos]):
-                    for j in range(len(seq)):
-                        if j > 0:
-                            min_cpoint = seq[j]
-                            new_min_cpoint = min_cpoint.unflag(minima)
-                            obj_cseg = obj_cseg.cpoint_replace(min_cpoint, new_min_cpoint)
+                for i in range(seq_size - 1):
+                    new_seq = seq[i:i+2]
+                    first_pos = new_seq[0].position
+                    last_pos = new_seq[-1].position
+                    max_cpoints = max_list.cpoints
+                    if not any([True for cpoint in max_cpoints if first_pos < cpoint.position < last_pos]):
+                        for j in range(len(new_seq)):
+                            if j > 0:
+                                min_cpoint = new_seq[j]
+                                new_min_cpoint = min_cpoint.unflag(minima)
+                                obj_cseg = obj_cseg.cpoint_replace(min_cpoint, new_min_cpoint)
 
         return obj_cseg
 

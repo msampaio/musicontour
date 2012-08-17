@@ -618,9 +618,47 @@ class TestUtils(unittest.TestCase):
             CP(3, 0, False, False),
             CP(4, 4, True, True)
             ])
+        cseg6 = Contour([
+            CP(0, 0, True, True),
+            CP(1, 1, True, False),
+            CP(2, 1, True, False),
+            CP(3, 0, False, True),
+            CP(4, 1, True, False),
+            CP(5, 1, True, False),
+            CP(6, 0, True, True)
+            ])
+        cseg7 = Contour([
+            CP(0, 0, True, True),
+            CP(1, 1, True, False),
+            CP(2, 1, False, False),
+            CP(3, 0, False, True),
+            CP(4, 1, True, False),
+            CP(5, 1, False, False),
+            CP(6, 0, True, True)
+            ])
+        cseg8 = Contour([
+            CP(0, 1, True, True),
+            CP(1, 0, False, True),
+            CP(2, 0, False, True),
+            CP(3, 1, True, False),
+            CP(4, 0, False, True),
+            CP(5, 0, False, True),
+            CP(6, 1, True, True)
+            ])
+        cseg9 = Contour([
+            CP(0, 1, True, True),
+            CP(1, 0, False, True),
+            CP(2, 0, False, False),
+            CP(3, 1, True, False),
+            CP(4, 0, False, True),
+            CP(5, 0, False, False),
+            CP(6, 1, True, True)
+            ])
         self.assertEqual(cseg1.remove_no_intervene_flags(), cseg1)
         self.assertEqual(cseg2.remove_no_intervene_flags(), cseg3)
         self.assertEqual(cseg4.remove_no_intervene_flags(), cseg5)
+        self.assertEqual(cseg6.remove_no_intervene_flags(), cseg7)
+        self.assertEqual(cseg8.remove_no_intervene_flags(), cseg9)
 
     def test_unflagged_repeated_cpoint_test(self):
         cseg1 = Contour([
