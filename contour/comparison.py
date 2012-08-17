@@ -4,10 +4,10 @@
 import math
 import itertools
 import numpy
+from collections import Counter
+import _utils
 import contour
 from contour import Contour
-import __utils as utils
-from collections import Counter
 
 
 def cseg_similarity(cseg1, cseg2):
@@ -20,10 +20,10 @@ def cseg_similarity(cseg1, cseg2):
     0
     """
 
-    cseg1_tri = utils.flatten(cseg1.comparison_matrix().superior_triangle())
-    cseg2_tri = utils.flatten(cseg2.comparison_matrix().superior_triangle())
+    cseg1_tri = _utils.flatten(cseg1.comparison_matrix().superior_triangle())
+    cseg2_tri = _utils.flatten(cseg2.comparison_matrix().superior_triangle())
 
-    return utils.position_comparison(cseg1_tri, cseg2_tri)
+    return _utils.position_comparison(cseg1_tri, cseg2_tri)
 
 
 def csegclass_similarity(cseg1, cseg2, algorithm="prime_form_marvin_laprade"):
@@ -34,7 +34,7 @@ def csegclass_similarity(cseg1, cseg2, algorithm="prime_form_marvin_laprade"):
     1
     """
 
-    cseg1_p = utils.apply_fn(cseg1, algorithm)
+    cseg1_p = _utils.apply_fn(cseg1, algorithm)
     representatives = cseg2.class_representatives()
     csims = [cseg_similarity(cseg1_p, c) for c in representatives]
     return sorted(csims, reverse=True)[0]
@@ -90,9 +90,9 @@ def cseg_mutually_embedded(n, obj_cseg1, obj_cseg2):
     n = 0
     for key in common_csegs:
         for obj_cseg in subsets1[key]:
-            n += utils.count_sets(obj_cseg.cseg, obj_cseg1.cseg)
+            n += _utils.count_sets(obj_cseg.cseg, obj_cseg1.cseg)
         for obj_cseg in subsets2[key]:
-            n += utils.count_sets(obj_cseg.cseg, obj_cseg2.cseg)
+            n += _utils.count_sets(obj_cseg.cseg, obj_cseg2.cseg)
     return n
 
 
@@ -109,7 +109,7 @@ def all_cseg_mutually_embedded(obj_cseg1, obj_cseg2):
 
     cards = range(2, max([card1, card2]) + 1)
     n = sum([cseg_mutually_embedded(n, obj_cseg1, obj_cseg2) for n in cards])
-    return n / float(utils.number_of_possible_mutually_subsets(card1, card2))
+    return n / float(_utils.number_of_possible_mutually_subsets(card1, card2))
 
 
 def cseg_similarity_continuum(obj_cseg, algorithm="prime_form_marvin_laprade"):
@@ -123,7 +123,7 @@ def cseg_similarity_continuum(obj_cseg, algorithm="prime_form_marvin_laprade"):
      [1.0, [< 1 0 3 2 >]]]
     """
 
-    all_csegs = [Contour(el) for el in utils.permut_csegs(obj_cseg.size)]
+    all_csegs = [Contour(el) for el in _utils.permut_csegs(obj_cseg.size)]
 
     dic = Counter()
     for cseg_ob in all_csegs:

@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import __utils as utils
+import _utils
 import music21
-import utils
 
 
 def notes_to_music21(notes_list, notes_measure=0):
@@ -57,9 +56,9 @@ def pitches_to_notes(pitches, offset=0):
     result = []
 
     for pitch in pitches:
-        p_class, octave = utils.octave_calculator(pitch)
+        p_class, octave = _utils.octave_calculator(pitch)
         octave = octave + offset
-        result.append(utils.notes[p_class] + str(octave))
+        result.append(_utils.notes[p_class] + str(octave))
 
     return result
 
@@ -72,8 +71,8 @@ def cseg_pitch_sets_to_music21(cseg, pitch_set, octave=4):
     >>> cseg_pitch_sets_to_music21(Contour([0, 1, 2]), [3, 4, 5], 4)
     """
 
-    pitch_numbers = utils.absolute_pitches_permutation(cseg, pitch_set)
-    pitch_numbers = utils.flatten(pitch_numbers)
+    pitch_numbers = _utils.absolute_pitches_permutation(cseg, pitch_set)
+    pitch_numbers = _utils.flatten(pitch_numbers)
     notes = pitches_to_notes(pitch_numbers, octave)
 
     return notes_to_music21(notes)

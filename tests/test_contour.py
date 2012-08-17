@@ -22,15 +22,15 @@ class TestUtils(unittest.TestCase):
         self.assertNotEqual(CP(0, 0, False, True), CP(0, 0))
 
     def test_cpoint_flag(self):
-        self.assertEqual(CP(0, 0).flag(contour.maxima), CP(0, 0, True))
-        self.assertEqual(CP(0, 0).flag(contour.minima), CP(0, 0, False, True))
+        self.assertEqual(CP(0, 0).flag(contour._maxima), CP(0, 0, True))
+        self.assertEqual(CP(0, 0).flag(contour._minima), CP(0, 0, False, True))
         self.assertEqual(CP(0, 0).flag('Both'), CP(0, 0, True, True))
 
     def test_cpoint_unflag(self):
-        self.assertEqual(CP(0, 0, True).unflag(contour.maxima), CP(0, 0))
-        self.assertEqual(CP(0, 0, True, True).unflag(contour.maxima), CP(0, 0, False, True))
-        self.assertEqual(CP(0, 0, True, True).unflag(contour.minima), CP(0, 0, True, False))
-        self.assertEqual(CP(0, 0, False, True).unflag(contour.minima), CP(0, 0, False, False))
+        self.assertEqual(CP(0, 0, True).unflag(contour._maxima), CP(0, 0))
+        self.assertEqual(CP(0, 0, True, True).unflag(contour._maxima), CP(0, 0, False, True))
+        self.assertEqual(CP(0, 0, True, True).unflag(contour._minima), CP(0, 0, True, False))
+        self.assertEqual(CP(0, 0, False, True).unflag(contour._minima), CP(0, 0, False, False))
         self.assertEqual(CP(0, 0, True, True).unflag('Both'), CP(0, 0, False, False))
 
     def test_logical_contour(self):
@@ -65,22 +65,22 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(contour.contour_class(6, 117), Contour([0, 5, 4, 2, 1, 3]))
 
     def test_maxima(self):
-        self.assertEqual(contour.maxima(0, 0, 0), True)
-        self.assertEqual(contour.maxima(0, 0, 1), False)
-        self.assertEqual(contour.maxima(1, 0, 0), False)
-        self.assertEqual(contour.maxima(1, 0, 1), False)
-        self.assertEqual(contour.maxima(0, 1, 0), True)
-        self.assertEqual(contour.maxima(0, 2, 1), True)
-        self.assertEqual(contour.maxima(1, 2, 0), True)
+        self.assertEqual(contour._maxima(0, 0, 0), True)
+        self.assertEqual(contour._maxima(0, 0, 1), False)
+        self.assertEqual(contour._maxima(1, 0, 0), False)
+        self.assertEqual(contour._maxima(1, 0, 1), False)
+        self.assertEqual(contour._maxima(0, 1, 0), True)
+        self.assertEqual(contour._maxima(0, 2, 1), True)
+        self.assertEqual(contour._maxima(1, 2, 0), True)
 
     def test_minima(self):
-        self.assertEqual(contour.minima(0, 0, 0), True)
-        self.assertEqual(contour.minima(0, 0, 1), True)
-        self.assertEqual(contour.minima(1, 0, 0), True)
-        self.assertEqual(contour.minima(1, 0, 1), True)
-        self.assertEqual(contour.minima(0, 1, 0), False)
-        self.assertEqual(contour.minima(0, 2, 1), False)
-        self.assertEqual(contour.minima(1, 2, 0), False)
+        self.assertEqual(contour._minima(0, 0, 0), True)
+        self.assertEqual(contour._minima(0, 0, 1), True)
+        self.assertEqual(contour._minima(1, 0, 0), True)
+        self.assertEqual(contour._minima(1, 0, 1), True)
+        self.assertEqual(contour._minima(0, 1, 0), False)
+        self.assertEqual(contour._minima(0, 2, 1), False)
+        self.assertEqual(contour._minima(1, 2, 0), False)
 
     def test_sort_cseg_seq(self):
         cseg1 = Contour([1, 0])
@@ -134,16 +134,16 @@ class TestUtils(unittest.TestCase):
             CP(3, 2, True, False),
             CP(4, 1, True, True)
             ]
-        self.assertEqual(contour._all_max_min_flagged_test(cpoints1, "maxima"), True)
-        self.assertEqual(contour._all_max_min_flagged_test(cpoints1, "minima"), False)
-        self.assertEqual(contour._all_max_min_flagged_test(cpoints2, "maxima"), False)
-        self.assertEqual(contour._all_max_min_flagged_test(cpoints2, "minima"), True)
-        self.assertEqual(contour._all_max_min_flagged_test(cpoints3, "maxima"), False)
-        self.assertEqual(contour._all_max_min_flagged_test(cpoints3, "minima"), False)
-        self.assertEqual(contour._all_max_min_flagged_test(cpoints4, "maxima"), False)
-        self.assertEqual(contour._all_max_min_flagged_test(cpoints4, "minima"), False)
-        self.assertEqual(contour._all_max_min_flagged_test(cpoints5, "maxima"), True)
-        self.assertEqual(contour._all_max_min_flagged_test(cpoints5, "minima"), False)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints1, "_maxima"), True)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints1, "_minima"), False)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints2, "_maxima"), False)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints2, "_minima"), True)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints3, "_maxima"), False)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints3, "_minima"), False)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints4, "_maxima"), False)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints4, "_minima"), False)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints5, "_maxima"), True)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints5, "_minima"), False)
 
     def test_repeated_combined_test(self):
         seq1 = [CP(0, 0, False, True), CP(1, 2, True, False), CP(2, 0, False, True), CP(3, 2, True, False)]
@@ -334,11 +334,11 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(cseg._cpoint_replace(cp2, cp3), Contour([cp1, cp3]))
 
     def test_cpoint_flag(self):
-        self.assertEqual(Contour([CP(0, 0)])._cpoint_flag(CP(0, 0), contour.maxima), Contour([CP(0, 0, True)]))
-        self.assertEqual(Contour([CP(0, 0)])._cpoint_flag(CP(0, 0), contour.minima), Contour([CP(0, 0, False, True)]))
+        self.assertEqual(Contour([CP(0, 0)])._cpoint_flag(CP(0, 0), contour._maxima), Contour([CP(0, 0, True)]))
+        self.assertEqual(Contour([CP(0, 0)])._cpoint_flag(CP(0, 0), contour._minima), Contour([CP(0, 0, False, True)]))
         self.assertEqual(Contour([CP(0, 0)])._cpoint_flag(CP(0, 0), 'Both'), Contour([CP(0, 0, True, True)]))
-        self.assertEqual(Contour([CP(0, 0, True)])._cpoint_flag(CP(0, 0, True), contour.maxima, True), Contour([CP(0, 0)]))
-        self.assertEqual(Contour([CP(0, 0, False, True)])._cpoint_flag(CP(0, 0, False, True), contour.minima, True), Contour([CP(0, 0)]))
+        self.assertEqual(Contour([CP(0, 0, True)])._cpoint_flag(CP(0, 0, True), contour._maxima, True), Contour([CP(0, 0)]))
+        self.assertEqual(Contour([CP(0, 0, False, True)])._cpoint_flag(CP(0, 0, False, True), contour._minima, True), Contour([CP(0, 0)]))
         self.assertEqual(Contour([CP(0, 0, True, True)])._cpoint_flag(CP(0, 0, True, True), 'Both', True), Contour([CP(0, 0)]))
 
     def test_max_min_flag(self):
@@ -719,8 +719,8 @@ class TestUtils(unittest.TestCase):
             CP(7, 3, True, False),
             CP(8, 2, True, True)
             ])
-        self.assertEqual(cseg1._reflag_repeated_cpoint('maxima'), cseg2)
-        self.assertEqual(cseg3._reflag_repeated_cpoint('maxima'), cseg4)
+        self.assertEqual(cseg1._reflag_repeated_cpoint('_maxima'), cseg2)
+        self.assertEqual(cseg3._reflag_repeated_cpoint('_maxima'), cseg4)
 
     def test_reduction_window(self):
         cseg1 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])

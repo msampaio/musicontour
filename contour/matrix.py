@@ -4,7 +4,7 @@
 import numpy
 import itertools
 import contour
-import __utils as utils
+import _utils
 
 
 # diagonal
@@ -17,14 +17,14 @@ def internal_diagonal_classes(cardinality, algorithm="prime_form_marvin_laprade"
 
     permut = []
     [permut.append([-1, 1]) for n in range(cardinality)]
-    permut = sorted(utils.flatten(permut))
+    permut = sorted(_utils.flatten(permut))
     permut = itertools.permutations(permut, cardinality)
 
     # collection
     coll = set()
 
     for el in permut:
-        int_d = utils.apply_fn(InternalDiagonal(el), algorithm)
+        int_d = _utils.apply_fn(InternalDiagonal(el), algorithm)
         coll.add(tuple(int_d))
 
     return sorted([InternalDiagonal(x) for x in list(coll)], reverse=True)
@@ -40,7 +40,7 @@ class InternalDiagonal(list):
     """
 
     def __repr__(self):
-        data = [utils.double_replace(str(x)) for x in self[:]]
+        data = [_utils.double_replace(str(x)) for x in self[:]]
         return "< {0} >".format(" ".join(data))
 
     def size(self):
@@ -65,7 +65,7 @@ class InternalDiagonal(list):
                 return cseg
 
         size = len(self) + d
-        permut = utils.permut_csegs(size)
+        permut = _utils.permut_csegs(size)
 
         return [__cseg(self, x, d) for x in permut if __cseg(self, x, d)]
 
@@ -76,7 +76,7 @@ class InternalDiagonal(list):
         < + - - + >
         """
 
-        return InternalDiagonal(utils.rotation(self, factor))
+        return InternalDiagonal(_utils.rotation(self, factor))
 
     def retrogression(self):
         """Returns internal diagonal retrograde.
@@ -95,7 +95,7 @@ class InternalDiagonal(list):
         < + - - >
         """
 
-        return InternalDiagonal(map(utils.negative, self))
+        return InternalDiagonal(map(_utils.negative, self))
 
     def subsets(self, n):
         """Returns adjacent and non-adjacent subsets of a given
@@ -118,7 +118,7 @@ class InternalDiagonal(list):
         """
 
         sizes = range(2, len(self) + 1)
-        return utils.flatten([self.subsets(x) for x in sizes])
+        return _utils.flatten([self.subsets(x) for x in sizes])
 
     def subsets_adj(self, n):
         """Returns adjacent n-elements subsets of a given contour.
@@ -213,7 +213,7 @@ class ComparisonMatrix(list):
     """
 
     def __repr__(self):
-        return "\n".join([str(utils.replace_list_to_plus_minus(line)) for line in self])
+        return "\n".join([str(_utils.replace_list_to_plus_minus(line)) for line in self])
 
     def size(self):
         """Returns cseg size."""
@@ -257,7 +257,7 @@ class ComparisonMatrix(list):
         """Returns a fuzzy ascent membership matrix from a crisp
         matrix."""
 
-        return FuzzyMatrix([[utils.ascent_membership(column) for column in row] for row in self])
+        return FuzzyMatrix([[_utils.ascent_membership(column) for column in row] for row in self])
 
     def show(self):
         """Returns matrix with a matrix with cseg in a visual way.
@@ -270,7 +270,7 @@ class ComparisonMatrix(list):
         """
 
         def __lines(el, line, cseg):
-            return str(cseg[el]) + " | " + str(utils.replace_list_to_plus_minus(line))
+            return str(cseg[el]) + " | " + str(_utils.replace_list_to_plus_minus(line))
 
         cseg = self.cseg()
         first_line = "  | {0}\n".format(" ".join([str(x) for x in cseg]))
@@ -295,7 +295,7 @@ def matrix_from_triangle(triangle):
     for n in range(0, len(triangle) + 1):
         line = []
         for x in range(n):
-            line.append(utils.negative(triangle[x][n - x - 1]))
+            line.append(_utils.negative(triangle[x][n - x - 1]))
         line.append(0)
         if n < len(triangle):
             line.extend(triangle[n])
@@ -310,7 +310,7 @@ def triangle_zero_replace(triangle, replacement):
     [[1, -1, 1, 1], [1, -1, 1], [1, -1], [1]]
     """
 
-    return [contour.utils.replace_all(row, replacement) for row in triangle]
+    return [_utils.replace_all(row, replacement) for row in triangle]
 
 
 def triangle_zero_replace_to_cseg(triangle):

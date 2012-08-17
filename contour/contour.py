@@ -6,7 +6,7 @@ import collections
 from collections import MutableSequence
 from copy import deepcopy
 import operator
-import __utils as utils
+import _utils
 import matrix
 
 
@@ -33,7 +33,7 @@ def build_classes_card(card, algorithm="prime_form_marvin_laprade"):
         (0, 1, 2)
         """
 
-        return tuple(utils.apply_fn(Contour(lst), algorithm).cseg)
+        return tuple(_utils.apply_fn(Contour(lst), algorithm).cseg)
 
     def __single_class_build(card, class_n, cseg):
         """Returns a single contour class from cardinality, class
@@ -45,7 +45,7 @@ def build_classes_card(card, algorithm="prime_form_marvin_laprade"):
 
         return card, class_n + 1, cseg, Contour(list(cseg)).ri_identity_test()
 
-    permut = utils.permut_csegs(card)
+    permut = _utils.permut_csegs(card)
     primes_repeats = [__tuple_prime(el, algorithm) for el in permut]
     primes = enumerate(sorted(list(set(primes_repeats))))
 
@@ -81,7 +81,7 @@ def pretty_classes(cardinality, algorithm="prime_form_marvin_laprade"):
     sec_txt = "\nC-space segment classes for cseg cardinality "
     sections = []
 
-    cc = utils.flatten(build_classes(cardinality, algorithm))
+    cc = _utils.flatten(build_classes(cardinality, algorithm))
     card = 0
     for a, b, c, d in [[a, b, c, d] for (a, b, c, d) in cc]:
         if a != card:
@@ -115,20 +115,20 @@ def contour_class(cardinality, number):
             return Contour(cseg)
 
 
-def maxima(el1, el2, el3):
+def _maxima(el1, el2, el3):
     """Tests if a given 3 element has maxima (Morris, 1993).
 
-    >>> maxima(1, 3, 2)
+    >>> _maxima(1, 3, 2)
     True
     """
 
     return el1 <= el2 >= el3
 
 
-def minima(el1, el2, el3):
+def _minima(el1, el2, el3):
     """Tests if a given 3 element has minima (Morris, 1993).
 
-    >>> minima(1, 3, 2)
+    >>> _minima(1, 3, 2)
     False
     """
 
@@ -183,9 +183,9 @@ def _all_max_min_flagged_test(cpoints, fn):
     maximas = [cpoint.maxima for cpoint in subseq]
     minimas = [cpoint.minima for cpoint in subseq]
 
-    if fn == 'maxima':
+    if fn == '_maxima':
         return any(maximas) and not any(minimas)
-    elif fn == 'minima':
+    elif fn == '_minima':
         return any(minimas) and not any(maximas)
 
 
@@ -264,7 +264,7 @@ def contour_rotation_classes(cardinality):
     """
 
     # sets universe set with all csegs with a given cardinality
-    universe = set([tuple(x) for x in utils.permut_csegs(cardinality)])
+    universe = set([tuple(x) for x in _utils.permut_csegs(cardinality)])
     s = set()
 
     for el in universe:
@@ -326,9 +326,9 @@ class ContourPoint():
         """Returns a flagged cpoint with maxima, minima or both."""
 
         cpoint = deepcopy(self)
-        if fn == maxima:
+        if fn == _maxima:
             cpoint.maxima = True
-        elif fn == minima:
+        elif fn == _minima:
             cpoint.minima = True
         elif fn == 'Both':
             cpoint.maxima = cpoint.minima = True
@@ -339,9 +339,9 @@ class ContourPoint():
         both."""
 
         cpoint = deepcopy(self)
-        if fn == maxima:
+        if fn == _maxima:
             cpoint.maxima = False
-        elif fn == minima:
+        elif fn == _minima:
             cpoint.minima = False
         elif fn == 'Both':
             cpoint.maxima = cpoint.minima = False
@@ -530,7 +530,7 @@ class Contour(MutableSequence):
 
         cseg = self.cseg
         for position in range(self.size / 2):
-            if cseg[position] != cseg[utils.negative(position) - 1]:
+            if cseg[position] != cseg[_utils.negative(position) - 1]:
                 return position
 
     def _prime_form_marvin_laprade_step_2(self, position):
@@ -549,7 +549,7 @@ class Contour(MutableSequence):
         # to penultimate cps and so on to break the "tie".
 
         false_first = self.cpoint(position).value
-        false_last = self.cpoint(utils.negative(position) - 1).value
+        false_last = self.cpoint(_utils.negative(position) - 1).value
 
         if ((self.size - 1) - false_last) < false_first:
             reduced = self.inversion()
@@ -567,7 +567,7 @@ class Contour(MutableSequence):
         # for its symmetric (cf. unequal_edges).
 
         false_first = self.cpoint(position).value
-        false_last = self.cpoint(utils.negative(position) - 1).value
+        false_last = self.cpoint(_utils.negative(position) - 1).value
 
         if false_last < false_first:
             reduced = self.retrogression()
@@ -597,7 +597,7 @@ class Contour(MutableSequence):
         triangle = self.comparison_matrix().superior_triangle()
         csegs = matrix.triangle_zero_replace_to_cseg(triangle)
 
-        return [utils.apply_fn(c, algorithm) for c in csegs]
+        return [_utils.apply_fn(c, algorithm) for c in csegs]
 
     def prime_form_marvin_laprade(self):
         """Returns the prime form of a given contour (Marvin and
@@ -651,10 +651,10 @@ class Contour(MutableSequence):
 
         p, i, r, ri = self.class_representatives()
 
-        prime_p = utils.apply_fn(p, algorithm)
-        prime_i = utils.apply_fn(i, algorithm)
-        prime_r = utils.apply_fn(r, algorithm)
-        prime_ri = utils.apply_fn(ri, algorithm)
+        prime_p = _utils.apply_fn(p, algorithm)
+        prime_i = _utils.apply_fn(i, algorithm)
+        prime_r = _utils.apply_fn(r, algorithm)
+        prime_ri = _utils.apply_fn(ri, algorithm)
 
         return prime_p == prime_i == prime_r == prime_ri
 
@@ -712,7 +712,7 @@ class Contour(MutableSequence):
         dic = {}
 
         for obj_cseg in subsets:
-            process = tuple(utils.apply_fn(obj_cseg, algorithm).cseg)
+            process = tuple(_utils.apply_fn(obj_cseg, algorithm).cseg)
             if process in dic:
                 z = dic[process]
                 z.append(obj_cseg)
@@ -731,7 +731,7 @@ class Contour(MutableSequence):
         """
 
         sizes = range(2, self.size + 1)
-        return utils.flatten([self.subsets(x) for x in sizes])
+        return _utils.flatten([self.subsets(x) for x in sizes])
 
     def all_subsets_prime(self, algorithm="prime_form_sampaio"):
         """Returns all adjacent and non-adjacent subsets of a given
@@ -827,14 +827,14 @@ class Contour(MutableSequence):
         if all([first.maxima, first.minima]):
             max_list = obj_cseg._maximas()
             min_list = obj_cseg._minimas()
-            obj_cseg = aux_flag(obj_cseg, max_list, maxima)
-            obj_cseg = aux_flag(obj_cseg, min_list, minima)
+            obj_cseg = aux_flag(obj_cseg, max_list, _maxima)
+            obj_cseg = aux_flag(obj_cseg, min_list, _minima)
         else:
             # first and last are flagged by default (Morris, 1993)
             obj_cseg = obj_cseg._cpoint_flag(cpoints[0], 'Both')
             obj_cseg = obj_cseg._cpoint_flag(cpoints[-1], 'Both')
-            obj_cseg = aux_flag(obj_cseg, cpoints, maxima)
-            obj_cseg = aux_flag(obj_cseg, obj_cseg.cpoints, minima)
+            obj_cseg = aux_flag(obj_cseg, cpoints, _maxima)
+            obj_cseg = aux_flag(obj_cseg, obj_cseg.cpoints, _minima)
 
         return obj_cseg
 
@@ -920,9 +920,9 @@ class Contour(MutableSequence):
         # regroup max_min_list by adjcent repeated value cpoints
         if max_min_list._repetition_adjacent_cpitch_test():
             repeated_group = _repeated_cps_value_group(max_min_list)
-            new_cpoints = aux_remove(cpoints, repeated_group, extremes, maxima)
+            new_cpoints = aux_remove(cpoints, repeated_group, extremes, _maxima)
             new_repeated = _repeated_cps_value_group(new_cpoints)
-            new_cpoints = aux_remove(cpoints, new_repeated, extremes, minima)
+            new_cpoints = aux_remove(cpoints, new_repeated, extremes, _minima)
         else:
             new_cpoints = max_min_list.cpoints
 
@@ -996,7 +996,7 @@ class Contour(MutableSequence):
                         for j in range(len(new_seq)):
                             if j > 0:
                                 max_cpoint = new_seq[j]
-                                new_max_cpoint = max_cpoint.unflag(maxima)
+                                new_max_cpoint = max_cpoint.unflag(_maxima)
                                 obj_cseg = obj_cseg._cpoint_replace(max_cpoint, new_max_cpoint)
 
         # minimas. step 9
@@ -1014,7 +1014,7 @@ class Contour(MutableSequence):
                         for j in range(len(new_seq)):
                             if j > 0:
                                 min_cpoint = new_seq[j]
-                                new_min_cpoint = min_cpoint.unflag(minima)
+                                new_min_cpoint = min_cpoint.unflag(_minima)
                                 obj_cseg = obj_cseg._cpoint_replace(min_cpoint, new_min_cpoint)
 
         return obj_cseg
@@ -1056,8 +1056,8 @@ class Contour(MutableSequence):
                 fourth = cpoints[i + 1]
 
                 if _repeated_combined_test(first, second, third, fourth):
-                    new_cpoints[i - 1] = second.unflag(maxima).unflag(minima)
-                    new_cpoints[i] = third.unflag(maxima).unflag(minima)
+                    new_cpoints[i - 1] = second.unflag(_maxima).unflag(_minima)
+                    new_cpoints[i] = third.unflag(_maxima).unflag(_minima)
 
             return Contour(new_cpoints)
 
@@ -1069,12 +1069,12 @@ class Contour(MutableSequence):
         obj_cseg = deepcopy(self)
         obj_unfl = obj_cseg._unflag_repeated_cpoint()
 
-        if fn == 'maxima':
+        if fn == '_maxima':
             opp_Cmethod = '_minimas'
-            opp_Cfn = minima
-        elif fn == 'minima':
+            opp_Cfn = _minima
+        elif fn == '_minima':
             opp_Cmethod = '_maximas'
-            opp_Cfn = maxima
+            opp_Cfn = _maxima
 
         original_m_list = getattr(obj_cseg, opp_Cmethod)().cpoints
         remaining_m_list = getattr(obj_unfl, opp_Cmethod)().cpoints
@@ -1135,8 +1135,8 @@ class Contour(MutableSequence):
 
             # steps 11 and 12
             if len(max_min_list) > 4:
-                max_min_list = max_min_list._reflag_repeated_cpoint('maxima')
-                max_min_list = max_min_list._reflag_repeated_cpoint('minima')
+                max_min_list = max_min_list._reflag_repeated_cpoint('_maxima')
+                max_min_list = max_min_list._reflag_repeated_cpoint('_minima')
 
             # step 13: delete all non-flagged pitches in c
             max_min_list = max_min_list._unflagged_remove()
@@ -1144,9 +1144,7 @@ class Contour(MutableSequence):
             # steps 14 and 15
             n = _depth_increment_schultz(n)
 
-            # step 16
-            # FIXME: remove
-            # break
+            # step 16: back to 6
 
         # step 17
         reduced = max_min_list
@@ -1240,7 +1238,7 @@ class Contour(MutableSequence):
         """
 
         cseg = self.cseg
-        return utils.seq_operation(utils.difference, cseg)
+        return _utils.seq_operation(_utils.difference, cseg)
 
     def _absolute_intervals_sum(self):
         """Return the sum of absolute intervals in a cseg.
@@ -1372,13 +1370,13 @@ class Contour(MutableSequence):
         # 'up_intervals' and 'down_intervals' store the contour intervals
         # that the method counts.
         up_intervals = range(1, self.size)
-        down_intervals = map(utils.negative, up_intervals)
+        down_intervals = map(_utils.negative, up_intervals)
 
         ups_list = []
         downs_list = []
 
         for cpoints in itertools.combinations(self.cseg, 2):
-            interval = utils.difference(*cpoints)
+            interval = _utils.difference(*cpoints)
             if interval > 0:
                 ups_list.append(interval)
             elif interval < 0:
@@ -1440,14 +1438,14 @@ class Contour(MutableSequence):
         0.69999999999999996
         """
 
-        ups, downs = utils.apply_fn(self, vector_method)
+        ups, downs = _utils.apply_fn(self, vector_method)
         total = ups + downs
         if ups == downs:
             return 0
         elif ups > downs:
             return ups / float(total)
         else:
-            return utils.negative(downs) / float(total)
+            return _utils.negative(downs) / float(total)
 
     def class_index_i(self):
         """Returns a general upward/downward decimal index, that -1.0
@@ -1482,8 +1480,8 @@ class Contour(MutableSequence):
         (4, 2, < 0 1 3 2 >, False)
         """
 
-        prime_form = utils.apply_fn(self, algorithm)
-        cseg_classes = utils.flatten(build_classes(self.size, algorithm))
+        prime_form = _utils.apply_fn(self, algorithm)
+        cseg_classes = _utils.flatten(build_classes(self.size, algorithm))
         for cardinality, number, cseg_class, ri_identity in cseg_classes:
             if tuple(prime_form.cseg) == cseg_class:
                 r = cardinality, number, Contour(list(cseg_class)), ri_identity
@@ -1536,7 +1534,7 @@ class Contour(MutableSequence):
         [< 0 1 3 2 >, < 3 2 0 1 >, < 2 3 1 0 >, < 1 0 2 3 >]
         """
 
-        p = utils.apply_fn(self, algorithm)
+        p = _utils.apply_fn(self, algorithm)
         i = p.inversion()
         r = p.retrogression()
         ri = r.inversion()
@@ -1579,7 +1577,7 @@ class Contour(MutableSequence):
 
         rot = self.all_rotations()
         result = [contour.class_representatives() for contour in rot]
-        result = utils.flatten(result)
+        result = _utils.flatten(result)
         result = set([tuple(x.cseg) for x in result])
 
         return _sort_cseg_seq([Contour(x) for x in result])
@@ -1608,7 +1606,7 @@ class Contour(MutableSequence):
                 n += i
             return result
 
-        ternary = [utils.base_3_comparison(a, b) for a, b in combinations]
+        ternary = [_utils.base_3_comparison(a, b) for a, b in combinations]
 
         return aux_list(ternary, self)
 
@@ -1639,8 +1637,8 @@ def prime_form_algorithm_test(card, prime_form_algorithm="prime_form_sampaio"):
     """
 
     # creates a list of all possible lists
-    lists = [utils.permut_csegs(c) for c in range(2, card + 1)]
-    lists = utils.flatten(lists)
+    lists = [_utils.permut_csegs(c) for c in range(2, card + 1)]
+    lists = _utils.flatten(lists)
 
     coll = set()
 
@@ -1655,7 +1653,7 @@ def prime_form_algorithm_test(card, prime_form_algorithm="prime_form_sampaio"):
 
     if classes != []:
         for cls in classes:
-            cseg = utils.cseg_from_class_number(*cls)
+            cseg = _utils.cseg_from_class_number(*cls)
             ri = Contour(cseg).retrogression().inversion()
             result.append([cls, cseg, ri])
 
@@ -1670,10 +1668,10 @@ def possible_cseg(base_3):
     < 0 1 2 >
     """
 
-    seq = utils.flatten(base_3)
+    seq = _utils.flatten(base_3)
     size = len(seq)
     for x in itertools.product(range(size), repeat=3):
         cseg = Contour(x)
-        if utils.flatten(cseg.base_three_representation()) == seq:
+        if _utils.flatten(cseg.base_three_representation()) == seq:
             return Contour(x)
     return "Impossible cseg"

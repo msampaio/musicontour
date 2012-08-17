@@ -6,7 +6,6 @@ import matplotlib
 import PIL
 from PIL import Image
 from PIL import ImageChops
-import __utils as utils
 import random
 import matplotlib.pyplot as pyplot
 from matplotlib.ticker import MultipleLocator
