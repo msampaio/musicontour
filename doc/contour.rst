@@ -35,14 +35,6 @@ contour.plot
    :undoc-members:
    :show-inheritance:
 
-contour.diagonal
-----------------
-
-.. automodule:: contour.diagonal
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 contour.matrix
 --------------
 
