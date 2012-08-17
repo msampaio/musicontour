@@ -18,7 +18,7 @@ class ContourException(Exception):
     pass
 
 
-def build_classes_card(card, prime_algorithm="prime_form_marvin_laprade"):
+def build_classes_card(card, algorithm="prime_form_marvin_laprade"):
     """Generates contour classes like Marvin and Laprade (1987) table
     for one cardinality. Returns (card, number, contour class).
 
@@ -26,14 +26,14 @@ def build_classes_card(card, prime_algorithm="prime_form_marvin_laprade"):
     [(3, 1, (0, 1, 2), True), (3, 2, (0, 2, 1), False)]
     """
 
-    def __tuple_prime(lst, prime_algorithm):
+    def __tuple_prime(lst, algorithm):
         """Returns a tuple with a cseg from a list of c-pitches.
 
         >>> __tuple_prime([2, 1, 0])
         (0, 1, 2)
         """
 
-        return tuple(utils.apply_fn(Contour(lst), prime_algorithm).cseg)
+        return tuple(utils.apply_fn(Contour(lst), algorithm).cseg)
 
     def __single_class_build(card, class_n, cseg):
         """Returns a single contour class from cardinality, class
@@ -46,13 +46,13 @@ def build_classes_card(card, prime_algorithm="prime_form_marvin_laprade"):
         return card, class_n + 1, cseg, Contour(list(cseg)).ri_identity_test()
 
     permut = utils.permut_csegs(card)
-    primes_repeats = [__tuple_prime(el, prime_algorithm) for el in permut]
+    primes_repeats = [__tuple_prime(el, algorithm) for el in permut]
     primes = enumerate(sorted(list(set(primes_repeats))))
 
     return [__single_class_build(card, n, x) for n, x in primes]
 
 
-def build_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
+def build_classes(cardinality, algorithm="prime_form_marvin_laprade"):
     """Generates contour classes like Marvin and Laprade (1987)
     table. Accepts more than one algorithm of prime form.
 
@@ -65,10 +65,10 @@ def build_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
     """
 
     card_list = range(2, (cardinality + 1))
-    return [build_classes_card(c, prime_algorithm) for c in card_list]
+    return [build_classes_card(c, algorithm) for c in card_list]
 
 
-def pretty_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
+def pretty_classes(cardinality, algorithm="prime_form_marvin_laprade"):
     """Returns contour classes like Marvin and Laprade (1987)
     table.
     """
@@ -81,7 +81,7 @@ def pretty_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
     sec_txt = "\nC-space segment classes for cseg cardinality "
     sections = []
 
-    cc = utils.flatten(build_classes(cardinality, prime_algorithm))
+    cc = utils.flatten(build_classes(cardinality, algorithm))
     card = 0
     for a, b, c, d in [[a, b, c, d] for (a, b, c, d) in cc]:
         if a != card:
@@ -611,15 +611,15 @@ class Contour(MutableSequence):
 
         return step3
 
-    def __repeated_prime_generic(self, prime_algorithm):
+    def __repeated_prime_generic(self, algorithm):
         """Returns prime forms of a repeated cpitch cseg calculated
-        with a given prime_algorithm.
+        with a given algorithm.
         """
 
         triangle = self.comparison_matrix().superior_triangle()
         csegs = matrix.triangle_zero_replace_to_cseg(triangle)
 
-        return [utils.apply_fn(c, prime_algorithm) for c in csegs]
+        return [utils.apply_fn(c, algorithm) for c in csegs]
 
     def prime_form_marvin_laprade(self):
         """Returns the prime form of a given contour (Marvin and
@@ -662,7 +662,7 @@ class Contour(MutableSequence):
             # elements
             return self.__repeated_prime_generic("prime_form_sampaio")
 
-    def unique_prime_form_test(self, prime_algorithm="prime_form_sampaio"):
+    def unique_prime_form_test(self, algorithm="prime_form_sampaio"):
         """Returns True if the prime form algorithm returns only one
         prime form for each contour class. Sampaio prime form
         algorithm is default.
@@ -673,10 +673,10 @@ class Contour(MutableSequence):
 
         p, i, r, ri = self.class_representatives()
 
-        prime_p = utils.apply_fn(p, prime_algorithm)
-        prime_i = utils.apply_fn(i, prime_algorithm)
-        prime_r = utils.apply_fn(r, prime_algorithm)
-        prime_ri = utils.apply_fn(ri, prime_algorithm)
+        prime_p = utils.apply_fn(p, algorithm)
+        prime_i = utils.apply_fn(i, algorithm)
+        prime_r = utils.apply_fn(r, algorithm)
+        prime_ri = utils.apply_fn(ri, algorithm)
 
         return prime_p == prime_i == prime_r == prime_ri
 
@@ -718,7 +718,7 @@ class Contour(MutableSequence):
 
         return dic
 
-    def subsets_prime(self, n, prime_algorithm="prime_form_sampaio"):
+    def subsets_prime(self, n, algorithm="prime_form_sampaio"):
         """Returns adjacent and non-adjacent subsets of a given
         contour grouped by their prime forms. Output is a dictionary
         where the key is the prime form, and the attribute is csubsets
@@ -734,7 +734,7 @@ class Contour(MutableSequence):
         dic = {}
 
         for obj_cseg in subsets:
-            process = tuple(utils.apply_fn(obj_cseg, prime_algorithm).cseg)
+            process = tuple(utils.apply_fn(obj_cseg, algorithm).cseg)
             if process in dic:
                 z = dic[process]
                 z.append(obj_cseg)
@@ -755,7 +755,7 @@ class Contour(MutableSequence):
         sizes = range(2, self.size + 1)
         return utils.flatten([self.subsets(x) for x in sizes])
 
-    def all_subsets_prime(self, prime_algorithm="prime_form_sampaio"):
+    def all_subsets_prime(self, algorithm="prime_form_sampaio"):
         """Returns all adjacent and non-adjacent subsets of a given
         contour grouped by their prime forms.
 
@@ -764,7 +764,7 @@ class Contour(MutableSequence):
         """
 
         sizes = range(2, self.size + 1)
-        subsets_list = [self.subsets_prime(x, prime_algorithm) for x in sizes]
+        subsets_list = [self.subsets_prime(x, algorithm) for x in sizes]
         [subsets_list[0].update(dic) for dic in subsets_list]
         return subsets_list[0]
 
@@ -1525,7 +1525,7 @@ class Contour(MutableSequence):
 
         return self.__class_index("class_vector_ii")
 
-    def segment_class(self, prime_algorithm="prime_form_sampaio"):
+    def segment_class(self, algorithm="prime_form_sampaio"):
         """Returns contour segment class of a given cseg. Output
         format is: (cardinality, number, cseg_class, identity under
         retrograded inversion), like (3, 1, (0, 1, 2), True).
@@ -1534,8 +1534,8 @@ class Contour(MutableSequence):
         (4, 2, < 0 1 3 2 >, False)
         """
 
-        prime_form = utils.apply_fn(self, prime_algorithm)
-        cseg_classes = utils.flatten(build_classes(self.size, prime_algorithm))
+        prime_form = utils.apply_fn(self, algorithm)
+        cseg_classes = utils.flatten(build_classes(self.size, algorithm))
         for cardinality, number, cseg_class, ri_identity in cseg_classes:
             if tuple(prime_form.cseg) == cseg_class:
                 r = cardinality, number, Contour(list(cseg_class)), ri_identity
@@ -1579,7 +1579,7 @@ class Contour(MutableSequence):
 
         return result / size_half
 
-    def class_representatives(self, prime_algorithm="prime_form_sampaio"):
+    def class_representatives(self, algorithm="prime_form_sampaio"):
         """Returns the four csegclass representatives (Marvin and
         Laprade 1987, p. 237): prime, inversion, and retrograded
         inversion.
@@ -1588,7 +1588,7 @@ class Contour(MutableSequence):
         [< 0 1 3 2 >, < 3 2 0 1 >, < 2 3 1 0 >, < 1 0 2 3 >]
         """
 
-        p = utils.apply_fn(self, prime_algorithm)
+        p = utils.apply_fn(self, algorithm)
         i = p.inversion()
         r = p.retrogression()
         ri = r.inversion()

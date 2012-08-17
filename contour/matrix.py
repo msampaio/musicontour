@@ -8,7 +8,7 @@ import __utils as utils
 
 
 # diagonal
-def internal_diagonal_classes(cardinality, prime_algorithm="prime_form_marvin_laprade"):
+def internal_diagonal_classes(cardinality, algorithm="prime_form_marvin_laprade"):
     """Returns internal diagonal classes of a given cardinality.
 
     >>> internal_diagonal_classes(4)
@@ -24,7 +24,7 @@ def internal_diagonal_classes(cardinality, prime_algorithm="prime_form_marvin_la
     coll = set()
 
     for el in permut:
-        int_d = utils.apply_fn(InternalDiagonal(el), prime_algorithm)
+        int_d = utils.apply_fn(InternalDiagonal(el), algorithm)
         coll.add(tuple(int_d))
 
 

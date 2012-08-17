@@ -356,7 +356,7 @@ def notes_to_Contour(notes_string):
     return cseg.translation()
 
 
-def cseg_from_class_number(card, class_number, prime_algorithm="prime_form_sampaio"):
+def cseg_from_class_number(card, class_number, algorithm="prime_form_sampaio"):
     """Returns a cseg from a given cardinality and class
     number. Sampaio Prime algorithm is default.
 
@@ -364,7 +364,7 @@ def cseg_from_class_number(card, class_number, prime_algorithm="prime_form_sampa
     < 1 0 3 2 >
     """
 
-    card_classes = contour.build_classes_card(card, prime_algorithm)
+    card_classes = contour.build_classes_card(card, algorithm)
     for classes in card_classes:
         cc, cn, cs, ri = classes
         if card == cc and class_number == cn:

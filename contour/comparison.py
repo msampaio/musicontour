@@ -25,7 +25,7 @@ def cseg_similarity(cseg1, cseg2):
     return utils.position_comparison(cseg1_triangle, cseg2_triangle)
 
 
-def csegclass_similarity(cseg1, cseg2, prime_algorithm="prime_form_marvin_laprade"):
+def csegclass_similarity(cseg1, cseg2, algorithm="prime_form_marvin_laprade"):
     """Returns Marvin and Laprade (1987) CSIM(_A, _B) with csegclasses
     representatives comparison.
 
@@ -33,7 +33,7 @@ def csegclass_similarity(cseg1, cseg2, prime_algorithm="prime_form_marvin_laprad
     1
     """
 
-    cseg1_p = utils.apply_fn(cseg1, prime_algorithm)
+    cseg1_p = utils.apply_fn(cseg1, algorithm)
     representatives = cseg2.class_representatives()
     csims = [cseg_similarity(cseg1_p, c) for c in representatives]
     return sorted(csims, reverse=True)[0]
@@ -59,7 +59,7 @@ def cseg_similarity_matrix(csegs):
     return m
 
 
-def cseg_similarity_matrix_classes(card, prime_algorithm="prime_form_sampaio"):
+def cseg_similarity_matrix_classes(card, algorithm="prime_form_sampaio"):
     """Returns a matrix with CSIM between multiple csegs.
 
     >>> cseg_similarity_matrix_classes(3)
@@ -68,7 +68,7 @@ def cseg_similarity_matrix_classes(card, prime_algorithm="prime_form_sampaio"):
     [0.66666666666666663, 1.0]]
     """
 
-    classes_lst = contour.build_classes_card(card, prime_algorithm)
+    classes_lst = contour.build_classes_card(card, algorithm)
     classes = [Contour(cseg) for (a, b, cseg, c) in classes_lst]
 
     return cseg_similarity_matrix(classes)
@@ -110,7 +110,7 @@ def all_cseg_mutually_embedded(obj_cseg1, obj_cseg2):
     return n / float(utils.number_of_possible_mutually_subsets(card1, card2))
 
 
-def cseg_similarity_continuum(obj_cseg, prime_algorithm="prime_form_marvin_laprade"):
+def cseg_similarity_continuum(obj_cseg, algorithm="prime_form_marvin_laprade"):
     """Returns all csegs with the same cardinality of the given one
     sorted by cseg similarity.
 
@@ -132,7 +132,7 @@ def cseg_similarity_continuum(obj_cseg, prime_algorithm="prime_form_marvin_lapra
     return [[k, dic[k]] for k in sorted(dic)]
 
 
-def cseg_similarity_subsets_continuum(cseg, prime_algorithm="prime_form_sampaio"):
+def cseg_similarity_subsets_continuum(cseg, algorithm="prime_form_sampaio"):
     """Returns all csegs with smaller cardinality of the given one
     sorted by cseg similarity.
 
