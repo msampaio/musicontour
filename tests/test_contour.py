@@ -64,19 +64,6 @@ class TestUtils(unittest.TestCase):
     def test_contour_class(self):
         self.assertEqual(contour.contour_class(6, 117), Contour([0, 5, 4, 2, 1, 3]))
 
-    def test_subsets_grouped(self):
-        n = {(0, 1, 3, 2): [[0, 1, 4, 2]],
-             (0, 2, 1, 3): [[0, 3, 1, 4]],
-             (0, 2, 3, 1): [[0, 3, 4, 2]],
-             (0, 3, 1, 2): [[0, 3, 1, 2]],
-             (1, 3, 0, 2): [[3, 1, 4, 2]]}
-        result = 'Prime form < 0 1 3 2 > (1)\n< 0 1 4 2 >\n' + \
-                 'Prime form < 0 2 1 3 > (1)\n< 0 3 1 4 >\n' + \
-                 'Prime form < 0 2 3 1 > (1)\n< 0 3 4 2 >\n' + \
-                 'Prime form < 0 3 1 2 > (1)\n< 0 3 1 2 >\n' + \
-                 'Prime form < 1 3 0 2 > (1)\n< 3 1 4 2 >'
-        self.assertEqual(contour.subsets_grouped(n, "prime"), result)
-
     def test_maxima(self):
         self.assertEqual(contour.maxima(0, 0, 0), True)
         self.assertEqual(contour.maxima(0, 0, 1), False)
@@ -98,7 +85,7 @@ class TestUtils(unittest.TestCase):
     def test_sort_cseg_seq(self):
         cseg1 = Contour([1, 0])
         cseg2 = Contour([0, 1])
-        self.assertEqual(contour.sort_cseg_seq([cseg1, cseg2]), [cseg2, cseg1])
+        self.assertEqual(contour._sort_cseg_seq([cseg1, cseg2]), [cseg2, cseg1])
 
     def test_repeated_cps_value_group(self):
         cp1 = CP(0, 0, True, True)
@@ -107,13 +94,13 @@ class TestUtils(unittest.TestCase):
         cp4 = CP(3, 3, True)
         cp5 = CP(4, 2, True, True)
         cpoints = [cp1, cp2, cp3, cp4, cp5]
-        self.assertEqual(contour.repeated_cps_value_group(cpoints), [[cp1], [cp2], [cp3, cp4], [cp5]])
-        self.assertEqual(contour.repeated_cps_value_group([cp1, cp2]), [[cp1], [cp2]])
+        self.assertEqual(contour._repeated_cps_value_group(cpoints), [[cp1], [cp2], [cp3, cp4], [cp5]])
+        self.assertEqual(contour._repeated_cps_value_group([cp1, cp2]), [[cp1], [cp2]])
 
     def test_depth_increment_schultz(self):
-        self.assertEqual(contour.depth_increment_schultz(0), 2)
-        self.assertEqual(contour.depth_increment_schultz(1), 2)
-        self.assertEqual(contour.depth_increment_schultz(2), 3)
+        self.assertEqual(contour._depth_increment_schultz(0), 2)
+        self.assertEqual(contour._depth_increment_schultz(1), 2)
+        self.assertEqual(contour._depth_increment_schultz(2), 3)
 
     def test_all_max_min_flagged_test(self):
         cpoints1 = [
@@ -147,24 +134,24 @@ class TestUtils(unittest.TestCase):
             CP(3, 2, True, False),
             CP(4, 1, True, True)
             ]
-        self.assertEqual(contour.all_max_min_flagged_test(cpoints1, "maxima"), True)
-        self.assertEqual(contour.all_max_min_flagged_test(cpoints1, "minima"), False)
-        self.assertEqual(contour.all_max_min_flagged_test(cpoints2, "maxima"), False)
-        self.assertEqual(contour.all_max_min_flagged_test(cpoints2, "minima"), True)
-        self.assertEqual(contour.all_max_min_flagged_test(cpoints3, "maxima"), False)
-        self.assertEqual(contour.all_max_min_flagged_test(cpoints3, "minima"), False)
-        self.assertEqual(contour.all_max_min_flagged_test(cpoints4, "maxima"), False)
-        self.assertEqual(contour.all_max_min_flagged_test(cpoints4, "minima"), False)
-        self.assertEqual(contour.all_max_min_flagged_test(cpoints5, "maxima"), True)
-        self.assertEqual(contour.all_max_min_flagged_test(cpoints5, "minima"), False)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints1, "maxima"), True)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints1, "minima"), False)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints2, "maxima"), False)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints2, "minima"), True)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints3, "maxima"), False)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints3, "minima"), False)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints4, "maxima"), False)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints4, "minima"), False)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints5, "maxima"), True)
+        self.assertEqual(contour._all_max_min_flagged_test(cpoints5, "minima"), False)
 
     def test_repeated_combined_test(self):
         seq1 = [CP(0, 0, False, True), CP(1, 2, True, False), CP(2, 0, False, True), CP(3, 2, True, False)]
         seq2 = [CP(0, 0, False, True), CP(1, 3, True, False), CP(2, 0, False, True), CP(3, 2, True, False)]
         seq3 = [CP(0, 0, False, True), CP(1, 2, False, False), CP(2, 0, False, True), CP(3, 2, False, False)]
-        self.assertEqual(contour.repeated_combined_test(*seq1), True)
-        self.assertEqual(contour.repeated_combined_test(*seq2), False)
-        self.assertEqual(contour.repeated_combined_test(*seq3), False)
+        self.assertEqual(contour._repeated_combined_test(*seq1), True)
+        self.assertEqual(contour._repeated_combined_test(*seq2), False)
+        self.assertEqual(contour._repeated_combined_test(*seq3), False)
 
     def test_rotation(self):
         self.assertEqual(Contour([1, 4, 9, 9, 2, 1]).rotation(), Contour([4, 9, 9, 2, 1, 1]))
@@ -210,7 +197,7 @@ class TestUtils(unittest.TestCase):
             CP(4, 2, True, False),
             CP(5, 1, True, True)
             ])
-        self.assertEqual(cseg1.maximas(), cseg2)
+        self.assertEqual(cseg1._maximas(), cseg2)
 
     def test_minimas(self):
         cseg1 = Contour([
@@ -227,20 +214,20 @@ class TestUtils(unittest.TestCase):
             CP(3, 0, False, True),
             CP(5, 1, True, True)
             ])
-        self.assertEqual(cseg1.minimas(), cseg2)
+        self.assertEqual(cseg1._minimas(), cseg2)
 
     def test_repetition_cpitch_test(self):
-        self.assertEqual(Contour([0, 1, 0]).repetition_cpitch_test(), True)
-        self.assertEqual(Contour([0, 1, 1, 0]).repetition_cpitch_test(), True)
-        self.assertEqual(Contour([0, 1, 2]).repetition_cpitch_test(), False)
+        self.assertEqual(Contour([0, 1, 0])._repetition_cpitch_test(), True)
+        self.assertEqual(Contour([0, 1, 1, 0])._repetition_cpitch_test(), True)
+        self.assertEqual(Contour([0, 1, 2])._repetition_cpitch_test(), False)
 
     def test_repetition_adjacent_cpitch_test(self):
-        self.assertEqual(Contour([0, 1, 0]).repetition_adjacent_cpitch_test(), False)
-        self.assertEqual(Contour([0, 1, 1, 0]).repetition_adjacent_cpitch_test(), True)
-        self.assertEqual(Contour([0, 1, 2]).repetition_adjacent_cpitch_test(), False)
+        self.assertEqual(Contour([0, 1, 0])._repetition_adjacent_cpitch_test(), False)
+        self.assertEqual(Contour([0, 1, 1, 0])._repetition_adjacent_cpitch_test(), True)
+        self.assertEqual(Contour([0, 1, 2])._repetition_adjacent_cpitch_test(), False)
 
     def test_remove_repeated_adjacent_cps(self):
-        self.assertEqual(Contour([0, 1, 1, 0]).remove_repeated_adjacent_cps(), Contour([CP(0, 0), CP(1, 1), CP(3, 0)]))
+        self.assertEqual(Contour([0, 1, 1, 0])._remove_repeated_adjacent_cps(), Contour([CP(0, 0), CP(1, 1), CP(3, 0)]))
 
     def test_prime_form_marvin_laprade(self):
         cseg01, cseg02 = Contour([1, 4, 9, 2]), Contour([0, 2, 3, 1])
@@ -344,15 +331,15 @@ class TestUtils(unittest.TestCase):
         cp2 = CP(1, 3)
         cseg = Contour([cp1, cp2])
         cp3 = CP(1, 3, True)
-        self.assertEqual(cseg.cpoint_replace(cp2, cp3), Contour([cp1, cp3]))
+        self.assertEqual(cseg._cpoint_replace(cp2, cp3), Contour([cp1, cp3]))
 
     def test_cpoint_flag(self):
-        self.assertEqual(Contour([CP(0, 0)]).cpoint_flag(CP(0, 0), contour.maxima), Contour([CP(0, 0, True)]))
-        self.assertEqual(Contour([CP(0, 0)]).cpoint_flag(CP(0, 0), contour.minima), Contour([CP(0, 0, False, True)]))
-        self.assertEqual(Contour([CP(0, 0)]).cpoint_flag(CP(0, 0), 'Both'), Contour([CP(0, 0, True, True)]))
-        self.assertEqual(Contour([CP(0, 0, True)]).cpoint_flag(CP(0, 0, True), contour.maxima, True), Contour([CP(0, 0)]))
-        self.assertEqual(Contour([CP(0, 0, False, True)]).cpoint_flag(CP(0, 0, False, True), contour.minima, True), Contour([CP(0, 0)]))
-        self.assertEqual(Contour([CP(0, 0, True, True)]).cpoint_flag(CP(0, 0, True, True), 'Both', True), Contour([CP(0, 0)]))
+        self.assertEqual(Contour([CP(0, 0)])._cpoint_flag(CP(0, 0), contour.maxima), Contour([CP(0, 0, True)]))
+        self.assertEqual(Contour([CP(0, 0)])._cpoint_flag(CP(0, 0), contour.minima), Contour([CP(0, 0, False, True)]))
+        self.assertEqual(Contour([CP(0, 0)])._cpoint_flag(CP(0, 0), 'Both'), Contour([CP(0, 0, True, True)]))
+        self.assertEqual(Contour([CP(0, 0, True)])._cpoint_flag(CP(0, 0, True), contour.maxima, True), Contour([CP(0, 0)]))
+        self.assertEqual(Contour([CP(0, 0, False, True)])._cpoint_flag(CP(0, 0, False, True), contour.minima, True), Contour([CP(0, 0)]))
+        self.assertEqual(Contour([CP(0, 0, True, True)])._cpoint_flag(CP(0, 0, True, True), 'Both', True), Contour([CP(0, 0)]))
 
     def test_max_min_flag(self):
         cseg1 = Contour([
@@ -450,21 +437,21 @@ class TestUtils(unittest.TestCase):
             CP(10, 4, False, False),
             CP(11, 5, True, True),
             ])
-        self.assertEqual(cseg1.max_min_flag(), cseg1)
-        self.assertEqual(cseg2.max_min_flag(), cseg3)
-        self.assertEqual(Contour([0, 2, 1, 3]).max_min_flag(), cseg4)
-        self.assertEqual(cseg5.max_min_flag(), cseg5)
-        self.assertEqual(cseg6.max_min_flag(), cseg7)
-        self.assertEqual(cseg8.max_min_flag(), cseg9)
-        self.assertEqual(cseg10.max_min_flag(), cseg11)
+        self.assertEqual(cseg1._max_min_flag(), cseg1)
+        self.assertEqual(cseg2._max_min_flag(), cseg3)
+        self.assertEqual(Contour([0, 2, 1, 3])._max_min_flag(), cseg4)
+        self.assertEqual(cseg5._max_min_flag(), cseg5)
+        self.assertEqual(cseg6._max_min_flag(), cseg7)
+        self.assertEqual(cseg8._max_min_flag(), cseg9)
+        self.assertEqual(cseg10._max_min_flag(), cseg11)
 
     def test_unflagged_test(self):
-        self.assertEqual(Contour([CP(0, 0, True), CP(1, 4)]).unflagged_test(), True)
+        self.assertEqual(Contour([CP(0, 0, True), CP(1, 4)])._unflagged_test(), True)
 
     def test_unflagged_remove(self):
-        self.assertEqual(Contour([CP(0, 0, True), CP(1, 4)]).unflagged_remove(), Contour([CP(0, 0, True)]))
-        self.assertEqual(Contour([CP(0, 0, True), CP(1, 4, True)]).unflagged_remove(), Contour([CP(0, 0, True), CP(1, 4, True)]))
-        self.assertEqual(Contour([CP(0, 0), CP(1, 4)]).unflagged_remove(), Contour([]))
+        self.assertEqual(Contour([CP(0, 0, True), CP(1, 4)])._unflagged_remove(), Contour([CP(0, 0, True)]))
+        self.assertEqual(Contour([CP(0, 0, True), CP(1, 4, True)])._unflagged_remove(), Contour([CP(0, 0, True), CP(1, 4, True)]))
+        self.assertEqual(Contour([CP(0, 0), CP(1, 4)])._unflagged_remove(), Contour([]))
 
     def test_repeated_cpoint_flag(self):
         cseg1 = Contour([
@@ -545,13 +532,13 @@ class TestUtils(unittest.TestCase):
             CP(6, 2, True, False),
             CP(7, 1, True, True)
             ])
-        self.assertEqual(cseg1.repeated_cpoint_flag('Morris'), cseg1)
-        self.assertEqual(cseg2.repeated_cpoint_flag('Morris'), cseg3)
-        self.assertEqual(cseg4.repeated_cpoint_flag('Morris'), cseg5)
-        self.assertEqual(cseg6.repeated_cpoint_flag('Morris'), cseg6)
-        self.assertEqual(cseg7.repeated_cpoint_flag('Morris'), cseg8)
-        self.assertEqual(cseg2.repeated_cpoint_flag('Schultz'), cseg9)
-        self.assertEqual(cseg10.repeated_cpoint_flag('Schultz'), cseg10)
+        self.assertEqual(cseg1._repeated_cpoint_flag('Morris'), cseg1)
+        self.assertEqual(cseg2._repeated_cpoint_flag('Morris'), cseg3)
+        self.assertEqual(cseg4._repeated_cpoint_flag('Morris'), cseg5)
+        self.assertEqual(cseg6._repeated_cpoint_flag('Morris'), cseg6)
+        self.assertEqual(cseg7._repeated_cpoint_flag('Morris'), cseg8)
+        self.assertEqual(cseg2._repeated_cpoint_flag('Schultz'), cseg9)
+        self.assertEqual(cseg10._repeated_cpoint_flag('Schultz'), cseg10)
 
     def test_reduction_morris(self):
         cseg1, cseg2 = Contour([0, 4, 3, 2, 5, 5, 1]), Contour([0, 2, 1])
@@ -654,11 +641,11 @@ class TestUtils(unittest.TestCase):
             CP(5, 0, False, False),
             CP(6, 1, True, True)
             ])
-        self.assertEqual(cseg1.remove_no_intervene_flags(), cseg1)
-        self.assertEqual(cseg2.remove_no_intervene_flags(), cseg3)
-        self.assertEqual(cseg4.remove_no_intervene_flags(), cseg5)
-        self.assertEqual(cseg6.remove_no_intervene_flags(), cseg7)
-        self.assertEqual(cseg8.remove_no_intervene_flags(), cseg9)
+        self.assertEqual(cseg1._remove_no_intervene_flags(), cseg1)
+        self.assertEqual(cseg2._remove_no_intervene_flags(), cseg3)
+        self.assertEqual(cseg4._remove_no_intervene_flags(), cseg5)
+        self.assertEqual(cseg6._remove_no_intervene_flags(), cseg7)
+        self.assertEqual(cseg8._remove_no_intervene_flags(), cseg9)
 
     def test_unflagged_repeated_cpoint_test(self):
         cseg1 = Contour([
@@ -671,8 +658,8 @@ class TestUtils(unittest.TestCase):
             CP(6, 0, False, True),
             CP(7, 1, True, True)
             ])
-        self.assertEqual(cseg1.unflagged_repeated_cpoint_test(), True)
-        self.assertEqual(Contour([0, 1, 2, 3, 4]).unflagged_repeated_cpoint_test(), False)
+        self.assertEqual(cseg1._unflagged_repeated_cpoint_test(), True)
+        self.assertEqual(Contour([0, 1, 2, 3, 4])._unflagged_repeated_cpoint_test(), False)
 
     def test_unflag_repeated_cpoint(self):
         cseg1 = Contour([
@@ -691,7 +678,7 @@ class TestUtils(unittest.TestCase):
             CP(4, 2, True, False),
             CP(5, 1, True, True)
             ])
-        self.assertEqual(cseg1.unflag_repeated_cpoint(), cseg2)
+        self.assertEqual(cseg1._unflag_repeated_cpoint(), cseg2)
 
     def test_reflag_repeated_cpoint(self):
         cseg1 = Contour([
@@ -732,8 +719,8 @@ class TestUtils(unittest.TestCase):
             CP(7, 3, True, False),
             CP(8, 2, True, True)
             ])
-        self.assertEqual(cseg1.reflag_repeated_cpoint('maxima'), cseg2)
-        self.assertEqual(cseg3.reflag_repeated_cpoint('maxima'), cseg4)
+        self.assertEqual(cseg1._reflag_repeated_cpoint('maxima'), cseg2)
+        self.assertEqual(cseg3._reflag_repeated_cpoint('maxima'), cseg4)
 
     def test_reduction_window(self):
         cseg1 = Contour([7, 10, 9, 0, 2, 3, 1, 8, 6, 2, 4, 5])
@@ -781,40 +768,34 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(cseg3.reduction_bor(355, False), [Contour([7, 10, 0, 5]), 3])
         self.assertEqual(cseg3.reduction_bor(555, True), [Contour([2, 3, 0, 1]), 3])
 
-    def test_reduction_sampaio(self):
-        cseg1 = Contour([0, 1, 0, 1, 0])
-        cseg2 = Contour([1, 3, 0, 2, 1, 2, 1, 3, 0])
-        self.assertEqual(cseg1.reduction_sampaio(), [Contour([0, 1, 0]), 1])
-        self.assertEqual(cseg2.reduction_sampaio(), [Contour([1, 3, 0, 2, 1, 3, 0]), 1])
-
     def test_reduction_retention(self):
-        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 0), CP(2, 0)]), None)
-        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 0), CP(2, 1)]), None)
-        self.assertEqual(contour.reduction_retention([CP(0, 1), CP(1, 1), CP(2, 0)]), None)
-        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 1), CP(2, 0)]), CP(1, 1))
-        self.assertEqual(contour.reduction_retention([CP(0, 1), CP(1, 0), CP(2, 1)]), CP(1, 0))
-        self.assertEqual(contour.reduction_retention([CP(0, 1), CP(1, 0), CP(2, 0)]), CP(1, 0))
-        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 1), CP(2, 1)]), CP(1, 1))
-        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 2), CP(2, 1)]), CP(1, 2))
-        self.assertEqual(contour.reduction_retention([None, CP(1, 0), CP(2, 0)]), CP(1, 0))
-        self.assertEqual(contour.reduction_retention([None, CP(1, 0), CP(2, 1)]), CP(1, 0))
-        self.assertEqual(contour.reduction_retention([None, CP(1, 1), CP(2, 0)]), CP(1, 1))
-        self.assertEqual(contour.reduction_retention([None, CP(1, 1), CP(2, 2)]), CP(1, 1))
-        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 0), None]), CP(1, 0))
-        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 1), None]), CP(1, 1))
-        self.assertEqual(contour.reduction_retention([CP(0, 1), CP(1, 0), None]), CP(1, 0))
-        self.assertEqual(contour.reduction_retention([None, None, CP(2, 0), CP(3, 1), CP(4, 2)]), CP(2, 0))
-        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 2), CP(2, 1), None, None]), CP(2, 1))
-        self.assertEqual(contour.reduction_retention([None, CP(1, 7), CP(2, 10), CP(3, 9), CP(4, 0)]), CP(2, 10))
-        self.assertEqual(contour.reduction_retention([CP(0, 7), CP(1, 10), CP(2, 9), CP(3, 0), CP(4, 2)]), None)
-        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 2), CP(2, 1), CP(3, 4), CP(4, 1)]), None)
-        self.assertEqual(contour.reduction_retention([CP(0, 1), CP(1, 4), CP(2, 1), CP(3, 5), CP(4, 3)]), CP(2, 1))
-        self.assertEqual(contour.reduction_retention([CP(0, 3), CP(1, 0), CP(2, 4), CP(3, 1), CP(4, 4)]), CP(2, 4))
-        self.assertEqual(contour.reduction_retention([CP(0, 4), CP(1, 1), CP(2, 4), CP(3, 3), CP(4, 5)]), None)
-        self.assertEqual(contour.reduction_retention([CP(0, 1), CP(1, 0), CP(2, 5), CP(3, 2), CP(4, 5)]), CP(2, 5))
-        self.assertEqual(contour.reduction_retention([CP(0, 5), CP(1, 2), CP(2, 5), CP(3, 3), CP(4, 4)]), CP(2, 5))
-        self.assertEqual(contour.reduction_retention([CP(0, 0), CP(1, 3), CP(2, 2), CP(3, 4), CP(4, 2)]), None)
-        self.assertEqual(contour.reduction_retention([CP(0, 2), CP(1, 4), CP(2, 2), CP(3, 5), CP(4, 1)]), None)
+        self.assertEqual(contour._reduction_retention([CP(0, 0), CP(1, 0), CP(2, 0)]), None)
+        self.assertEqual(contour._reduction_retention([CP(0, 0), CP(1, 0), CP(2, 1)]), None)
+        self.assertEqual(contour._reduction_retention([CP(0, 1), CP(1, 1), CP(2, 0)]), None)
+        self.assertEqual(contour._reduction_retention([CP(0, 0), CP(1, 1), CP(2, 0)]), CP(1, 1))
+        self.assertEqual(contour._reduction_retention([CP(0, 1), CP(1, 0), CP(2, 1)]), CP(1, 0))
+        self.assertEqual(contour._reduction_retention([CP(0, 1), CP(1, 0), CP(2, 0)]), CP(1, 0))
+        self.assertEqual(contour._reduction_retention([CP(0, 0), CP(1, 1), CP(2, 1)]), CP(1, 1))
+        self.assertEqual(contour._reduction_retention([CP(0, 0), CP(1, 2), CP(2, 1)]), CP(1, 2))
+        self.assertEqual(contour._reduction_retention([None, CP(1, 0), CP(2, 0)]), CP(1, 0))
+        self.assertEqual(contour._reduction_retention([None, CP(1, 0), CP(2, 1)]), CP(1, 0))
+        self.assertEqual(contour._reduction_retention([None, CP(1, 1), CP(2, 0)]), CP(1, 1))
+        self.assertEqual(contour._reduction_retention([None, CP(1, 1), CP(2, 2)]), CP(1, 1))
+        self.assertEqual(contour._reduction_retention([CP(0, 0), CP(1, 0), None]), CP(1, 0))
+        self.assertEqual(contour._reduction_retention([CP(0, 0), CP(1, 1), None]), CP(1, 1))
+        self.assertEqual(contour._reduction_retention([CP(0, 1), CP(1, 0), None]), CP(1, 0))
+        self.assertEqual(contour._reduction_retention([None, None, CP(2, 0), CP(3, 1), CP(4, 2)]), CP(2, 0))
+        self.assertEqual(contour._reduction_retention([CP(0, 0), CP(1, 2), CP(2, 1), None, None]), CP(2, 1))
+        self.assertEqual(contour._reduction_retention([None, CP(1, 7), CP(2, 10), CP(3, 9), CP(4, 0)]), CP(2, 10))
+        self.assertEqual(contour._reduction_retention([CP(0, 7), CP(1, 10), CP(2, 9), CP(3, 0), CP(4, 2)]), None)
+        self.assertEqual(contour._reduction_retention([CP(0, 0), CP(1, 2), CP(2, 1), CP(3, 4), CP(4, 1)]), None)
+        self.assertEqual(contour._reduction_retention([CP(0, 1), CP(1, 4), CP(2, 1), CP(3, 5), CP(4, 3)]), CP(2, 1))
+        self.assertEqual(contour._reduction_retention([CP(0, 3), CP(1, 0), CP(2, 4), CP(3, 1), CP(4, 4)]), CP(2, 4))
+        self.assertEqual(contour._reduction_retention([CP(0, 4), CP(1, 1), CP(2, 4), CP(3, 3), CP(4, 5)]), None)
+        self.assertEqual(contour._reduction_retention([CP(0, 1), CP(1, 0), CP(2, 5), CP(3, 2), CP(4, 5)]), CP(2, 5))
+        self.assertEqual(contour._reduction_retention([CP(0, 5), CP(1, 2), CP(2, 5), CP(3, 3), CP(4, 4)]), CP(2, 5))
+        self.assertEqual(contour._reduction_retention([CP(0, 0), CP(1, 3), CP(2, 2), CP(3, 4), CP(4, 2)]), None)
+        self.assertEqual(contour._reduction_retention([CP(0, 2), CP(1, 4), CP(2, 2), CP(3, 5), CP(4, 1)]), None)
 
     def test_contour_rotation_classes(self):
         result = [Contour([0, 1, 2, 3]), Contour([0, 1, 3, 2]), Contour([0, 2, 1, 3])]
@@ -824,7 +805,7 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(Contour([0, 1, 3, 2]).interval_succession(), [1, 2, -1])
 
     def test_absolute_intervals_sum(self):
-        self.assertEqual(Contour([0, 1, 3, 2]).absolute_intervals_sum(), 4)
+        self.assertEqual(Contour([0, 1, 3, 2])._absolute_intervals_sum(), 4)
 
     def test_absolute_intervals_average(self):
         self.assertEqual(Contour([0, 1, 2, 3]).absolute_intervals_average(), 0.75)
