@@ -2,9 +2,6 @@
 
 * main
 ** improve visimus interface
-** removes plot module and gui package
-** review comparison functions
-   - all_contour_mutually_embedded x prime/normal forms
 ** improve music21 connection
 * documentation
 ** improve operations documentation
