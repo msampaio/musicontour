@@ -16,12 +16,7 @@ version = "0.3"
 program_name = "{0} v.{1}".format(name, version)
 
 
-def random_color():
-    colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
-    return colors[random.randint(0, len(colors) - 1)]
-
-
-def __contour_lines(obj_cseg, plot_color, custom_legend=""):
+def _contour_lines(obj_cseg, plot_color, custom_legend=""):
     """Returns cseg plot data to plot.
 
     The code is based on
@@ -84,7 +79,7 @@ def contour_lines(*obj_csegs):
     """
 
     for [obj_cseg, plot_color, legend] in obj_csegs:
-        __contour_lines(obj_cseg, plot_color, legend)
+        _contour_lines(obj_cseg, plot_color, legend)
     pylab.show()
 
 
@@ -98,7 +93,7 @@ def contour_lines_save_multiple(*obj_csegs):
 
     for [obj_cseg, plot_color, legend] in obj_csegs:
         clear()
-        __contour_lines(obj_cseg, plot_color, legend)
+        _contour_lines(obj_cseg, plot_color, legend)
         filename = ''.join([str(x) for x in obj_cseg.cseg])
         pyplot.savefig(filename + '.svg')
 
@@ -113,7 +108,7 @@ def contour_lines_save_unique(*obj_csegs):
 
     clear()
     for [obj_cseg, plot_color, legend] in obj_csegs:
-        __contour_lines(obj_cseg, plot_color, legend)
+        _contour_lines(obj_cseg, plot_color, legend)
 
     pyplot.savefig('cseg_output.svg')
 
@@ -128,7 +123,7 @@ def contour_lines_save_django(filename, *obj_csegs):
 
     clear()
     for [obj_cseg, plot_color, legend] in obj_csegs:
-        __contour_lines(obj_cseg, plot_color, legend)
+        _contour_lines(obj_cseg, plot_color, legend)
 
     pyplot.savefig(filename, dpi=80)
 
@@ -158,7 +153,7 @@ def pie_comparison(data, plot_title=""):
     pylab.show()
 
 
-def autoCrop(image, backgroundColor=None):
+def _autoCrop(image, backgroundColor=None):
     '''Intelligent automatic image cropping.
        This functions removes the usless "white" space around an image.
 
@@ -253,18 +248,18 @@ def autoCrop(image, backgroundColor=None):
     return image
 
 
-def __pdf(file):
+def _pdf(file):
     img = Image.open(file)
-    pdf = autoCrop(img)
+    pdf = _autoCrop(img)
     im = pylab.imshow(pdf, origin='lower')
     return im
 
 
 def contour_line_score(obj_cseg, file, plot_color="k"):
     pylab.subplot(212)
-    __pdf(file)
+    _pdf(file)
 
     pylab.subplot(211)
-    __contour_lines(obj_cseg, plot_color)
+    _contour_lines(obj_cseg, plot_color)
 
     pylab.show()
