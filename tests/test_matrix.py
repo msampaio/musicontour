@@ -8,6 +8,7 @@ from contour.matrix import InternalDiagonal
 from contour.contour import Contour
 import contour.__utils as utils
 
+
 class TestUtils(unittest.TestCase):
     # diagonal
     def test_csegs(self):
@@ -190,4 +191,3 @@ class TestUtils(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

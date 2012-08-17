@@ -93,7 +93,7 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(utils.seq_operation(utils.addition, [2, 3, 7]), [5, 10])
         self.assertEqual(utils.seq_operation(utils.difference, [2, 3, 7]), [1, 4])
         self.assertEqual(utils.seq_operation(utils.multiplication, [2, 3, 7]), [6, 21])
-        self.assertEqual(utils.seq_operation(utils.quotient, [2, 3, 7]), [1.5, 7/float(3)])
+        self.assertEqual(utils.seq_operation(utils.quotient, [2, 3, 7]), [1.5, 7 / float(3)])
 
     def test_position_comparison(self):
         self.assertEqual(utils.position_comparison([0, 1, 2, 3], [0, 1, 3, 2]), 0.5)

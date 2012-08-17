@@ -245,8 +245,8 @@ def autoCrop(image, backgroundColor=None):
         diff = ImageChops.difference(image, bg)  # Substract background color from image
         bbox = diff.getbbox()  # Try to find the real bounding box of the image.
     else:
-        raise NotImplementedError, "Sorry, this function is not " + \
-              "implemented yet for images in mode '{0}'.".format(image.mode)
+        raise NotImplementedError("Sorry, this function is not " + \
+              "implemented yet for images in mode '{0}'.".format(image.mode))
 
     if bbox:
         image = image.crop(bbox)

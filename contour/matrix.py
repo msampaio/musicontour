@@ -27,7 +27,6 @@ def internal_diagonal_classes(cardinality, algorithm="prime_form_marvin_laprade"
         int_d = utils.apply_fn(InternalDiagonal(el), algorithm)
         coll.add(tuple(int_d))
 
-
     return sorted([InternalDiagonal(x) for x in list(coll)], reverse=True)
 
 
@@ -78,7 +77,6 @@ class InternalDiagonal(list):
         """
 
         return InternalDiagonal(utils.rotation(self, factor))
-
 
     def retrogression(self):
         """Returns internal diagonal retrograde.
@@ -201,6 +199,7 @@ def csegs_from_diagonals(diagonals_list):
     except:
         pass
 
+
 # crisp
 class ComparisonMatrix(list):
     """Returns an objcect comparison matrix.
@@ -245,7 +244,9 @@ class ComparisonMatrix(list):
         """Returns the right superior triangle from a matrix. The main
         diagonal is excluded.
 
-        >>> ComparisonMatrix([[0, 1, 1], [-1, 0, -1], [-1, 1, 0]]).superior_triangle()
+        >>> ComparisonMatrix([[0, 1, 1],
+                              [-1, 0, -1],
+                              [-1, 1, 0]]).superior_triangle()
         [[1, 1], [-1]]
         """
 
@@ -258,11 +259,13 @@ class ComparisonMatrix(list):
 
         return FuzzyMatrix([[utils.ascent_membership(column) for column in row] for row in self])
 
-
     def show(self):
         """Returns matrix with a matrix with cseg in a visual way.
 
-        >>> ComparisonMatrix([[0, 1, 1, 1], [-1, 0, -1, 1], [-1, 1, 0, 1], [-1, -1, -1, 0]]).display()
+        >>> ComparisonMatrix([[0, 1, 1, 1],
+                              [-1, 0, -1, 1],
+                              [-1, 1, 0, 1],
+                              [-1, -1, -1, 0]]).display()
         '  | 0 2 1 3\n-----------\n0 | 0 + + +\n2 | - 0 - +\n1 | - + 0 +\n3 | - - - 0'
         """
 
@@ -373,11 +376,14 @@ class FuzzyMatrix(list):
         fm = [[__comparison(matrix, x, y)  for x, y in __product(rsize, n)] for n in rsize]
         return FuzzyMatrix(fm)
 
+
 def average_matrix(*csegs):
     """Returns the matrix of an average contour from a list of
     contours. Quinn 1997.
 
-    >>> average_matrix(Contour([3, 0, 1, 2, 1]), Contour([4, 0, 1, 3, 2]), Contour([4, 1, 2, 3, 0]))
+    >>> average_matrix(Contour([3, 0, 1, 2, 1]),
+                       Contour([4, 0, 1, 3, 2]),
+                       Contour([4, 1, 2, 3, 0]))
     [[0.0, 0.0, 0.0, 0.0, 0.0],
     ...
     [1.0, 0.33333333333333331, 0.33333333333333331, 1.0, 0.0]]

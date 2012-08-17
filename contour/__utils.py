@@ -5,6 +5,9 @@ import itertools
 import contour
 
 
+notes = "c c# d d# e f f# g g# a a# b".split()
+
+
 def flatten(seq):
     """Flatten Sequences.
 
@@ -197,20 +200,25 @@ def replace_all(seq, replacement):
 def negative(num):
     return num * - 1
 
+
 def addition(a, b):
     return a + b
+
 
 def difference(a, b):
     return b - a
 
+
 def multiplication(a, b):
     return a * b
+
 
 def quotient(a, b):
     try:
         return b / float(a)
     except:
         print "Number error. Denominator equal to 0."
+
 
 def seq_operation(fn, seq):
     return [fn(a, b) for a, b in zip(seq, seq[1:])]
@@ -223,9 +231,6 @@ def rotation(obj, factor):
 
 def make_matrix(fn, obj):
     return [[fn([a.value, b.value]) for b in obj] for a in obj]
-
-
-notes = "c c# d d# e f f# g g# a a# b".split()
 
 
 def permut_csegs(cardinality):

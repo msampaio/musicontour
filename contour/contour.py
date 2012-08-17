@@ -904,7 +904,11 @@ class Contour(MutableSequence):
                 if len(group) > 1:
                     # maximum and/or minimum in string: flag only it
                     if aux_extremes(group, extremes):
-                        [add(cpoint, new_cpoints) if cpoint in extremes else add(cpoint, new_cpoints, fn) for cpoint in group]
+                        for cpoint in group:
+                            if cpoint in extremes:
+                                add(cpoint, new_cpoints)
+                            else:
+                                add(cpoint, new_cpoints, fn)
 
                     # not maximum neither minimum in string: flag only one
                     # of them (I choose the first one)
@@ -913,7 +917,8 @@ class Contour(MutableSequence):
                             # flag first repeated cpoint
                             add(group[0], new_cpoints)
                             # don't flag remaining repeated cpoints
-                            [add(cpoint, new_cpoints, fn) for cpoint in group[1:]]
+                            for cpoint in group[1:]:
+                                add(cpoint, new_cpoints, fn)
                         elif algorithm == 'Schultz':
                             # flag all repeated cpoints
                             for g in group:
@@ -1005,7 +1010,7 @@ class Contour(MutableSequence):
             seq_size = len(seq)
             if seq_size > 1:
                 for i in range(seq_size - 1):
-                    new_seq = seq[i:i+2]
+                    new_seq = seq[i:i + 2]
                     first_pos = new_seq[0].position
                     last_pos = new_seq[-1].position
                     min_cpoints = min_list.cpoints
@@ -1016,7 +1021,6 @@ class Contour(MutableSequence):
                                 new_max_cpoint = max_cpoint.unflag(maxima)
                                 obj_cseg = obj_cseg.cpoint_replace(max_cpoint, new_max_cpoint)
 
-
         # minimas. step 9
         group = repeated_cps_value_group(min_list)
 
@@ -1024,7 +1028,7 @@ class Contour(MutableSequence):
             seq_size = len(seq)
             if len(seq) > 1:
                 for i in range(seq_size - 1):
-                    new_seq = seq[i:i+2]
+                    new_seq = seq[i:i + 2]
                     first_pos = new_seq[0].position
                     last_pos = new_seq[-1].position
                     max_cpoints = max_list.cpoints

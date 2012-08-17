@@ -9,6 +9,7 @@ from contour import Contour
 import __utils as utils
 from collections import Counter
 
+
 def cseg_similarity(cseg1, cseg2):
     """Returns Marvin and Laprade (1987) CSIM(A, B) for a single
     cseg. It's a contour similarity function that measures similarity
@@ -19,10 +20,10 @@ def cseg_similarity(cseg1, cseg2):
     0
     """
 
-    cseg1_triangle = utils.flatten(cseg1.comparison_matrix().superior_triangle())
-    cseg2_triangle = utils.flatten(cseg2.comparison_matrix().superior_triangle())
+    cseg1_tri = utils.flatten(cseg1.comparison_matrix().superior_triangle())
+    cseg2_tri = utils.flatten(cseg2.comparison_matrix().superior_triangle())
 
-    return utils.position_comparison(cseg1_triangle, cseg2_triangle)
+    return utils.position_comparison(cseg1_tri, cseg2_tri)
 
 
 def csegclass_similarity(cseg1, cseg2, algorithm="prime_form_marvin_laprade"):
@@ -98,7 +99,8 @@ def cseg_mutually_embedded(n, obj_cseg1, obj_cseg2):
 def all_cseg_mutually_embedded(obj_cseg1, obj_cseg2):
     """Returns ACMEMB(A, B) (Marvin and Laprade, 1987) values.
 
-    >>> all_cseg_mutually_embedded(Contour([0, 1, 2, 3]), Contour([0, 2, 1, 3, 4]))
+    >>> all_cseg_mutually_embedded(Contour([0, 1, 2, 3]),
+    Contour([0, 2, 1, 3, 4]))
     0.7837837837837838
     """
 
@@ -152,6 +154,7 @@ def cseg_similarity_subsets_continuum(cseg, algorithm="prime_form_sampaio"):
         result.append([prime, acmemb])
 
     return sorted(result, key=lambda x: x[1])
+
 
 # fuzzy operations
 def entry_numbers(size):
@@ -211,9 +214,9 @@ def fuzzy_similarity_matrix(matrix1, matrix2):
     def __increment(m1, m2, j, x, y):
         return (1 - abs(m1.item(x, y) - m2.item(x, y))) / float(j)
 
-    matrix_model = [(x, y) for x, y in itertools.product(rsize, rsize) if x != y]
+    _matrix = [(x, y) for x, y in itertools.product(rsize, rsize) if x != y]
 
-    return sum([__increment(m1, m2, j, x, y) for x, y in matrix_model])
+    return sum([__increment(m1, m2, j, x, y) for x, y in _matrix])
 
 
 def fuzzy_similarity(cseg1, cseg2):
@@ -227,4 +230,3 @@ def fuzzy_similarity(cseg1, cseg2):
     m1 = cseg1.fuzzy_membership_matrix()
     m2 = cseg2.fuzzy_membership_matrix()
     return fuzzy_similarity_matrix(m1, m2)
-
