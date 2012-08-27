@@ -18,6 +18,20 @@ musical contour relations. More information about these project is
 available in its [page](http://genosmus.com/pesquisa/contornos), in
 portuguese.
 
+## Installation
+
+The MusiContour's dependencies are listed in requirements.txt
+file. Numpy must be installed before matplotlib.
+
+I recommend to install MusiContour in a virtualenv and use pip:
+
+    pip install numpy
+    pip install -r requirements.txt
+
+Then:
+
+    python setup.py install
+
 ## Basic bibliography about Contour Theories
 
 * Friedmann, Michael L. 1985. A Methodology for the Discussion of
