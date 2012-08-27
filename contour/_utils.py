@@ -447,7 +447,7 @@ def number_of_possible_mutually_subsets(card1, card2):
     the greater given cardinality.
 
     >>> number_of_possible_mutually_subsets(5, 4)
-    22
+    37
     """
 
     return 2 ** card1 + 2 ** card2 - (card1 + card2 + 2)
