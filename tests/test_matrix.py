@@ -6,7 +6,7 @@ from contour.matrix import ComparisonMatrix
 from contour.matrix import FuzzyMatrix
 from contour.matrix import InternalDiagonal
 from contour.contour import Contour
-import contour.__utils as utils
+from contour import _utils
 
 
 class TestUtils(unittest.TestCase):
@@ -106,17 +106,17 @@ class TestUtils(unittest.TestCase):
                                    [-1, -1, 0, -1, -1],
                                    [-1, -1, 1, 0, 1],
                                    [-1, -1, 1, -1, 0]])
-        self.assertEqual(matrix.matrix_from_triangle(tri), result)
+        self.assertEqual(matrix._matrix_from_triangle(tri), result)
 
     def test_triangle_zero_replace(self):
         triangle = [[1, 0, 1, 1], [1, 0, 1], [1, 0], [1]]
         result = ComparisonMatrix([[1, -1, 1, 1], [1, -1, 1], [1, -1], [1]])
-        self.assertEqual(matrix.triangle_zero_replace(triangle, -1), result)
+        self.assertEqual(matrix._triangle_zero_replace(triangle, -1), result)
 
     def test_triangle_zero_replace_to_cseg(self):
         triangle = [[1, 1, 1, 1], [1, 0, 1], [-1, 0], [1]]
         cseg1, cseg2 = Contour([0, 1, 3, 2, 4]), Contour([0, 2, 4, 1, 3])
-        self.assertEqual(matrix.triangle_zero_replace_to_cseg(triangle), [cseg1, cseg2])
+        self.assertEqual(matrix._triangle_zero_replace_to_cseg(triangle), [cseg1, cseg2])
 
     # fuzzy
     def test__FuzzyMatrix_except_zero_diagonal(self):
@@ -172,7 +172,7 @@ class TestUtils(unittest.TestCase):
         csegs = [m1, m2a, m2b, m3a, m3b, m4a, m4b, m5, m6a, m6b, m6c, m7a, m7b, m8a, m8b, m8c]
         ocurrences = [14, 9, 3, 10, 3, 10, 3, 14, 8, 2, 2, 9, 4, 9, 2, 2]
         # weight csegs by ocurrences number
-        weight_csegs = utils.flatten([[cseg for i in range(o)] for cseg, o in zip(csegs, ocurrences)])
+        weight_csegs = _utils.flatten([[cseg for i in range(o)] for cseg, o in zip(csegs, ocurrences)])
         weight_average = matrix.average_matrix(*weight_csegs)
         # round numbers like table 4
         rounded = [[round(x, 2) for x in row] for row in weight_average]

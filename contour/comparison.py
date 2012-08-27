@@ -157,26 +157,26 @@ def cseg_similarity_subsets_continuum(cseg, algorithm="prime_form_sampaio"):
 
 
 # fuzzy operations
-def entry_numbers(size):
+def _entry_numbers(size):
     """Returns the entries to be compared in a fuzzy comparison
     matrix. Quinn 1997, equation 6.2.
 
-    >>> entry_numbers(5)
+    >>> _entry_numbers(5)
     20
     """
 
     return (size ** 2) - size
 
 
-def entry_numbers_cseg(cseg):
+def _entry_numbers_cseg(cseg):
     """Returns the entries to be compared in a fuzzy comparison
     matrix. Quinn 1997, equation 6.2.
 
-    >>> entry_numbers_cseg(Contour([2, 0, 3, 1, 4]))
+    >>> _entry_numbers_cseg(Contour([2, 0, 3, 1, 4]))
     20
     """
 
-    return entry_numbers(len(cseg))
+    return _entry_numbers(len(cseg))
 
 
 def similarity_increment(el_1, el_2, entries_number):
@@ -205,7 +205,7 @@ def fuzzy_similarity_matrix(matrix1, matrix2):
     rsize = range(size)
 
     # number of compared entries
-    j = entry_numbers(size)
+    j = _entry_numbers(size)
 
     # fuzzy comparison matrix without zero main diagonal
     m1 = numpy.matrix(matrix1)

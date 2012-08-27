@@ -1,8 +1,8 @@
+numpy
 pytest
 sphinx
 pytest-pep8
 pytest-cov
-numpy
-matplotlib
 pil
 imageutils
+matplotlib

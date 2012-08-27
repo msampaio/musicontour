@@ -6,3 +6,4 @@ from matrix import ComparisonMatrix
 from matrix import FuzzyMatrix
 from matrix import InternalDiagonal
 from plot import contour_lines
+import comparison

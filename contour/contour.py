@@ -595,7 +595,7 @@ class Contour(MutableSequence):
         """
 
         triangle = self.comparison_matrix().superior_triangle()
-        csegs = matrix.triangle_zero_replace_to_cseg(triangle)
+        csegs = matrix._triangle_zero_replace_to_cseg(triangle)
 
         return [_utils.apply_fn(c, algorithm) for c in csegs]
 

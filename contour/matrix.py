@@ -279,11 +279,11 @@ class ComparisonMatrix(list):
         return first_line + second_line + other_lines
 
 
-def matrix_from_triangle(triangle):
+def _matrix_from_triangle(triangle):
     """Returns a complete comparison matrix from a given superior
     triangle.
 
-    >>> matrix_from_triangle([[1, 1, 1, 1], [1, 1, 1], [-1, -1], [1]])
+    >>> _matrix_from_triangle([[1, 1, 1, 1], [1, 1, 1], [-1, -1], [1]])
     0 + + + +
     - 0 + + +
     - - 0 - -
@@ -303,27 +303,27 @@ def matrix_from_triangle(triangle):
     return ComparisonMatrix(matrix)
 
 
-def triangle_zero_replace(triangle, replacement):
+def _triangle_zero_replace(triangle, replacement):
     """Returns a triangle with zeros replaced by the given replacement factor.
 
-    >>> triangle_zero_replace([[1, 0, 1, 1], [1, 0, 1], [1, 0], [1]], -1)
+    >>> _triangle_zero_replace([[1, 0, 1, 1], [1, 0, 1], [1, 0], [1]], -1)
     [[1, -1, 1, 1], [1, -1, 1], [1, -1], [1]]
     """
 
     return [_utils.replace_all(row, replacement) for row in triangle]
 
 
-def triangle_zero_replace_to_cseg(triangle):
+def _triangle_zero_replace_to_cseg(triangle):
     """Returns two csegs obtained by zero to 1/-1 replacement.
 
-    >>> triangle_zero_replace_to_cseg([[1, 1, 1, 1], [1, 0, 1], [-1, 0], [1])
+    >>> _triangle_zero_replace_to_cseg([[1, 1, 1, 1], [1, 0, 1], [-1, 0], [1])
     [< 0 1 3 2 4 >, < 0 2 4 1 3 >]
     """
 
     pair = []
     for r in [1, -1]:
-        new_triangle = triangle_zero_replace(triangle, r)
-        new_matrix = matrix_from_triangle(new_triangle)
+        new_triangle = _triangle_zero_replace(triangle, r)
+        new_matrix = _matrix_from_triangle(new_triangle)
         pair.append(new_matrix.cseg())
     return [contour.Contour(x) for x in pair]
 

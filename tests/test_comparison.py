@@ -86,10 +86,10 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(comparison.cseg_similarity_subsets_continuum(Contour([0, 1, 2, 3])), result)
 
     def test_entry_numbers(self):
-        self.assertEqual(comparison.entry_numbers(5), 20)
+        self.assertEqual(comparison._entry_numbers(5), 20)
 
     def test_entry_numbers_cseg(self):
-        self.assertEqual(comparison.entry_numbers_cseg(Contour([2, 0, 3, 1, 4])), 20)
+        self.assertEqual(comparison._entry_numbers_cseg(Contour([2, 0, 3, 1, 4])), 20)
 
     def test_similarity_increment(self):
         self.assertEqual(comparison.similarity_increment(0.8, 0.9, 2), 0.45)
