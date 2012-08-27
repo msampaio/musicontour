@@ -12,6 +12,7 @@ MusiContour documentation contents
 
    contour-theories
    contour-operations
+   contour-operations-map
 
    glossary
 
