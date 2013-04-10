@@ -6,3 +6,5 @@ pytest-cov
 pil
 imageutils
 matplotlib
+pylint
+ipython
