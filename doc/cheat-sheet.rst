@@ -3,11 +3,16 @@ MusiContour Cheat sheet
 
 1. Open Python interpreter::
 
-        $ python
-        Python 2.6.6 (r266:84292, Sep 15 2010, 15:52:39)
-        [GCC 4.4.5] on linux2
-        Type "help", "copyright", "credits" or "license" for more information.
-        >>>
+        $ ipython
+
+        Python 2.7.2 (default, Oct 11 2012, 20:14:37)
+        Type "copyright", "credits" or "license" for more information.
+
+        IPython 0.13.1 -- An enhanced Interactive Python.
+        ?         -> Introduction and overview of IPython's features.
+        %quickref -> Quick reference.
+        help      -> Python's own help system.
+        object?   -> Details about 'object', use 'object??' for extra details.
 
 2. Import desired packages::
 

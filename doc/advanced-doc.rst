@@ -8,13 +8,21 @@ environment.
 Install
 -------
 
+We recommend to install directly from repository. The tarballs are
+only to install specific versions of MusiContour.
+
 Directly from repository
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Be sure that `Git <http://git-scm.com/>`_ is installed and clone the
 repo::
 
-   git clone https://msampaio@github.com/msampaio/MusiContour.git
+ git clone https://msampaio@github.com/msampaio/MusiContour.git
+
+To use the development version, inside MusiContour directory, run::
+
+ git branch --track development origin/development
+ git checkout development
 
 From a tarball
 ~~~~~~~~~~~~~~
@@ -23,59 +31,75 @@ Download tarball in
 https://github.com/msampaio/MusiContour/tarball/master and unpack
 it. For example::
 
-    tar xf msampaio-MusiContour-0.2-60-gbaba48c.tar.gz
+ tar xf msampaio-MusiContour-0.2-60-gbaba48c.tar.gz
 
 Rename directory to MusiContour::
 
-       mv msampaio-MusiContour-0.2-60-gbaba48c MusiContour
+ mv msampaio-MusiContour-0.2-60-gbaba48c MusiContour
 
 
 Installing dependencies
 -----------------------
 
-Linux users
-~~~~~~~~~~~
+This tutorial is for Mac and Linux only.
 
-Linux users must install also this dependency::
+Virtualenv
+~~~~~~~~~~
 
- sudo apt-get install python-tk python-matplotlib
+The best way to use MusiContour is with `Virtualenv
+<https://pypi.python.org/pypi/virtualenv>`_. Virtualenv allows
+isolated instances of Python and is useful to test different versions
+of libraries.
 
-`Music21 <http://web.mit.edu/music21/>`_ and `MuseScore
-<http://musescore.org/>`_ are required to use contour.composition
-package.
+To install pip, virtualenv, and virtualenvwrapper run::
 
-MuseScore can be installed with apt-get::
+ easy_install pip
+ pip install virtualenv virtualenvwrapper
 
- sudo apt-get install musescore
+We recommend to make a directory `~/.virtualenvs` and to insert these
+lines in `~/.bashrc`::
 
-Music21 has a `tutorial to install <http://web.mit.edu/music21/doc/html/install.html#install>`_.
+ export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages --distribute'
+ export WORKON_HOME=~/.virtualenvs
+ source /usr/local/bin/virtualenvwrapper.sh
+ export PIP_VIRTUALENV_BASE=$WORKON_HOME
+ export PIP_RESPECT_VIRTUALENV=true
 
-Windows users
-~~~~~~~~~~~~~
+Make a new virtualenv with this command::
 
-Windows users must install manually all dependencies for MusiContour:
-`Python 2.6 <http://www.python.org/download/windows/>`_, `Numpy
-<http://sourceforge.net/projects/numpy/>`_, `Matplotlib
-<http://matplotlib.sourceforge.net/>`_ and `PIL
-<http://www.pythonware.com/products/pil/>`_.
+ mkvirtualenv MusiContour
 
-`Music21 <http://web.mit.edu/music21/>`_ and `MuseScore
-<http://musescore.org/>`_ are required to use contour.composition
-package.
+Use this command to run the MusiContour virtualenv::
 
-Configuring
------------
+ workon MusiContour
 
-Linux users
-~~~~~~~~~~~
+Use this command to quit virtualenv::
 
-Include MusiContour (and Music21) path in your PYTHONPATH environment
-variable. Edit your ~/.bashrc (or ~/.zshrc) and include this line::
+ deactivate
 
-     export PYTHONPATH=$PATH:.:complete-path-to/MusiContour/:complete-path-to/music21/
+Once running the virtualenv, and inside `MusiContour` downloaded
+directory, install these dependencies::
 
-Use absolute paths: /home/marcos/MusiContour instead of ~/MusiContour,
-/home/marcos/music21 instead of ~/music21.
+ pip install numpy
+ pip install -r requirements.txt
+
+Maybe you have to install readline in virtualenv::
+
+ easy_install readline
+
+Install MusiContour in virtualenv::
+
+ python setup.py install
+ 
+Music21 and MuseScore/Finale
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The `contour.composition` packages requires `Music21
+<http://web.mit.edu/music21/>`_ and `MuseScore
+<http://musescore.org/>`_. MuseScore can be substituted by Finale. The
+MuseScore can be installed directly from its website, and the Music21
+has a `tutorial to install
+<http://web.mit.edu/music21/doc/html/install.html#install>`_.
 
 Running
 -------
