@@ -1,5 +1,7 @@
 # MusiContour: musical contour relations calculator
 
+This project was closed and the calculator, migrated to http://contour.sampaio.me.
+
 #### by [Marcos da Silva Sampaio](http://marcosdisilva.net) and [Pedro Kröger](http://pedrokroger.net) [[Genos Research Group](http://genosmus.com)]
 
 This is a software to calculate and plot musical contour relations
